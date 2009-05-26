@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="org.internal.tools" basedir="." default="all">
+
+	<target name="all" depends="dist,clean" />
+	
+	<!-- no build.properties, yet! 
+		<property file="build.properties" />
+	-->
+	<property name="module.java.src.dir"
+		value="src" />
+	<property name="module.java.build.dir"
+		value="build" />
+	<property name="module.java.build.dir.classes"
+		value="${module.java.build.dir}/classes" />
+	<property name="module.java.build.dir.classes"
+		value="${module.java.build.dir}/classes" />
+	<property name="module.dist.dir"
+		value="dist" />
+	<property name="module.jar.file"
+		value="${module.dist.dir}/${ant.project.name}.jar" />
+
+	<path id="localclasspath">
+		<fileset dir="lib">
+			<include name="*.jar" />
+			<exclude name="_unused/**/*.jar" />
+		</fileset>
+	</path>
+			
+	<target name="depends">
+		<mkdir dir="${module.java.build.dir}" />
+		<mkdir dir="${module.java.build.dir.classes}" />
+		<mkdir dir="${module.dist.dir}" />
+	</target>
+				
+	<target name="build" depends="depends"
+		description="--> Compile the module's Java source">
+		<javac srcdir="${module.java.src.dir}"
+			destdir="${module.java.build.dir.classes}" classpathref="localclasspath"
+			debug="on" nowarn="false"> <!-- source="1.5" -->
+			<!-- <sourcepath refid="sourcepath" /> -->
+		</javac>
+	</target>
+	
+	<target name="dist" depends="build"
+		description="--> Creates the distribution">
+		<jar destfile="${module.jar.file}"
+			basedir="${module.java.build.dir.classes}" />
+	</target>
+	
+	<target name="clean" description="Removes all compiled file">
+		<!-- delete Java class files -->
+		<delete dir="bin" verbose="false" failonerror="false"/>
+		<delete dir="build" verbose="false" failonerror="false"/>
+	</target>
+	
+	<target name="clean-dist" depends="clean" description="Removes all generated artifacts">
+		<!-- delete dist files -->
+		<delete dir="dist" verbose="false" failonerror="false"/>
+	</target>
+	
+</project>

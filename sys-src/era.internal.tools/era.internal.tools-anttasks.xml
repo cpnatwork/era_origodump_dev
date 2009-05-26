@@ -11,8 +11,8 @@
 	
 	<macrodef name="genmodelFile" 
 		   description="strips ecore extension and add genmodel extension to filename">
-		<attribute name="file"/>
 		<attribute name="property"/>
+		<attribute name="file"/>
 		
 		<sequential>
 			<basename property="__@{property}" file="@{file}" suffix="ecore"/>
@@ -22,9 +22,9 @@
 	
 
 	<path id="era.internal.tools.classpath">
-		<pathelement path="${cwd}/bin" />
 		<pathelement path="${cwd}" />
 		<fileset dir="${cwd}/lib" includes="*.jar" />
+		<fileset dir="${cwd}/dist" includes="*.jar" />
 	</path>
 
 	<!--
