@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.emf.common_2.4.0.v200808251517.jar" sourcepath="lib/org.eclipse.emf.source_2.4.1.v200808251517/src/org.eclipse.emf.common_2.4.0.v200808251517/src.zip"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.emf.ecore_2.4.1.v200808251517.jar" sourcepath="lib/org.eclipse.emf.source_2.4.1.v200808251517/src/org.eclipse.emf.ecore_2.4.1.v200808251517/src.zip"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.emf.ecore.xmi_2.4.1.v200808251517.jar" sourcepath="lib/org.eclipse.emf.source_2.4.1.v200808251517/src/org.eclipse.emf.ecore.xmi_2.4.1.v200808251517/src.zip"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.emf.codegen_2.4.0.v200808251517.jar" sourcepath="lib/org.eclipse.emf.source_2.4.1.v200808251517/src/org.eclipse.emf.codegen_2.4.0.v200808251517/src.zip"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.emf.codegen.ecore_2.4.1.v200808251517.jar" sourcepath="lib/org.eclipse.emf.source_2.4.1.v200808251517/src/org.eclipse.emf.codegen.ecore_2.4.1.v200808251517/src.zip"/>
+	<classpathentry kind="lib" path="lib/ant.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
