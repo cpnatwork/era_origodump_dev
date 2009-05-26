@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="era.internal.tools" basedir=".">
+	<!--
+	   ant include file for task defined by this tool plug-in.
+	   
+	   To be included with:
+	   <import file="../era.internal.tools/era.internal.tools-anttasks.xml"/>
+	-->
+	
+	<dirname property="cwd" file="${ant.file.era.internal.tools}"/>
+	
+	<macrodef name="genmodelFile" 
+		   description="strips ecore extension and add genmodel extension to filename">
+		<attribute name="file"/>
+		<attribute name="property"/>
+		
+		<sequential>
+			<basename property="__@{property}" file="@{file}" suffix="ecore"/>
+			<property name="@{property}" value="${__@{property}}.genmodel"/>
+		</sequential>
+	</macrodef>
+	
+
+	<path id="era.internal.tools.classpath">
+		<pathelement path="${cwd}/bin" />
+		<pathelement path="${cwd}" />
+		<fileset dir="${cwd}/lib" includes="*.jar" />
+	</path>
+
+	<!--
+	   extendEcore: adapt the initial ecore file of the rif model
+	-->
+	<taskdef 
+		name="extendEcore" 
+		classname="era.internal.tools.ecore.ant.ExtendEcoreTask" 
+		classpathref="era.internal.tools.classpath" />
+
+    <!--
+       extendGenModel: generate an genmodel file from an rif ecore model
+    -->	
+    <taskdef 
+	        name="extendGenModel" 
+	        classname="era.internal.tools.ecore.ant.ExtendGenModelTask" 
+	        classpathref="era.internal.tools.classpath" />
+
+</project>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="org.foss.model.core" basedir="." default="all">
+
+	<property file="ant.properties" />
+	<import file="${path.tools}/era.internal.tools-anttasks.xml" />
+
+	<genmodelFile property="ecore.genmodel" file="${extendEcore.source}" />
+	<genmodelFile property="ecore.extended.genmodel" file="${extendEcore.target}" />
+
+	<target name="all" depends="gen-xsd2ecore,gen-extend,gen-java" />
+
+	<target name="gen-xsd2ecore" description="converts xsd file to ecore file">
+	</target>
+
+	<target name="gen-extend" description="patches the ecore file and creates a gen model">
+		<delete file="${path.model}/${ecore.genmodel}" verbose="true" failonerror="false" />
+		<extendEcore 
+			verbose="${verbose}" 
+			config="${path.config}/${extendEcore.config}" 
+			source="${path.model}/${extendEcore.source}" 
+			target="${path.model}/${extendEcore.target}" />
+
+		<extendGenModel 
+			verbose="${verbose}" 
+			config="${path.config}/${extendGenModel.config}" 
+			source="${path.model}/${extendEcore.target}" />
+	</target>
+
+	<target name="gen-java" description="generates java code from the ecore file">
+		<!-- <emf.Ecore2Java genmodel="${path.model}/${ecore.extended.genmodel}" /> -->
+	</target>
+
+	<target name="gen-clean" description="Removes all generated file">
+		<delete file="${path.model}/${ecore.genmodel}" verbose="true" failonerror="false" />
+		<delete file="${path.model}/${extendEcore.target}" verbose="true" failonerror="false" />
+		<delete file="${path.model}/${ecore.extended.genmodel}" verbose="true" failonerror="false" />
+		<delete dir="bin" verbose="false" failonerror="false"/>
+	</target>
+</project>
