@@ -23,16 +23,16 @@
 
 	<target name="gen-extend" description="patches the ecore file and creates a genmodel">
 		
-		<!-- PATCH/transform the ECORE file (from era.internal.tools-anttasks.xml) -->
+		<!-- PATCH/transform the ECORE file (task from era.internal.tools-anttasks.xml) -->
 		<extendEcore 
 			verbose="${verbose}" 
 			config="${path.config}/${extendEcore.config}" 
 			source="${path.model}/${originalEcore.filename}" 
 			target="${path.model}/${extendEcore.filename}" />
 		
-		<!-- GENERATE the GENMODEL (from era.internal.tools-anttasks.xml) -->
+		<!-- GENERATE the GENMODEL file (task from era.internal.tools-anttasks.xml) -->
 		<!-- remove any original genmodel because it is obsolete -->
-		<delete file="${path.model}/${originalEcore.genmodel}" verbose="true" failonerror="false" />
+		<delete file="${path.model}/${originalEcore.genmodel}" verbose="false" failonerror="false" />
 		<!-- the target is implicit: 
 		     the file must mirror the source, with an ".genmodel" extension --> 
 		<extendGenModel 
@@ -52,14 +52,18 @@
 		<!-- <emf.Ecore2Java genmodel="${path.model}/${extendedEcore.genmodel}" /> -->
 	</target>
 
-	<target name="gen-clean" description="Removes all generated file">
+	<target name="clean" description="Removes all compiled file">
+		<!-- delete Java class files -->
+		<delete dir="bin" verbose="false" failonerror="false"/>
+		<delete dir="build" verbose="false" failonerror="false"/>
+	</target>
 		
+	<target name="gen-clean" depends="clean" description="Removes all generated file">
 		<!-- delete original gemodel file --> 
-		<delete file="${path.model}/${originalEcore.genmodel}" verbose="true" failonerror="false" />
+		<delete file="${path.model}/${originalEcore.genmodel}" verbose="false" failonerror="false" />
 		<!-- delete ERA-patched or -generated ecor and genmodel files --> 
 		<delete file="${path.model}/${extendEcore.filename}" verbose="true" failonerror="false" />
 		<delete file="${path.model}/${extendedEcore.genmodel}" verbose="true" failonerror="false" />
-		
 		<!-- delete generated Java source code files -->
 		<delete includeemptydirs="true">
 			<fileset dir="src">
@@ -67,11 +71,6 @@
 				<!--<exclude name="work/**/*" />-->
 			</fileset>
 		</delete>
-		
-		<!-- delete Java class files -->
-		<delete dir="bin" verbose="false" failonerror="false"/>
-		<delete dir="build" verbose="false" failonerror="false"/>
-		
 	</target>
 	
 </project>
