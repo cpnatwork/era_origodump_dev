@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="org.foss.model.core" basedir="." default="all">
 
-	<property file="ant.properties" />
-	<import file="${path.tools}/era.internal.tools-anttasks.xml" />
+	<target name="all" depends="depends,gen-xsd2ecore,gen-extend,gen-java" />
 
+	<property file="ant.properties" />
+	
+	<target name="depends">
+		<!--
+			the dependency that anttasks are built
+			in era.internal.tools cannot be resolved here!
+		-->
+	</target>
+	
+	<import file="${path.tools}/era.internal.tools-anttasks.xml" />
 	<genmodelFile property="originalEcore.genmodel" file="${originalEcore.filename}" />
 	<genmodelFile property="extendedEcore.genmodel" file="${extendEcore.filename}" />
-
-	<target name="all" depends="gen-xsd2ecore,gen-extend,gen-java" />
-
+	
 	<target name="gen-xsd2ecore" description="converts xsd file to ecore file">
 		<!--
 			This is not automated!
@@ -24,6 +31,7 @@
 	<target name="gen-extend" description="patches the ecore file and creates a genmodel">
 		
 		<!-- PATCH/transform the ECORE file (task from era.internal.tools-anttasks.xml) -->
+		<echo message="${path.config}/${extendEcore.config}" />
 		<extendEcore 
 			verbose="${verbose}" 
 			config="${path.config}/${extendEcore.config}" 

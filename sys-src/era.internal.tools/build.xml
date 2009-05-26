@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="org.internal.tools" basedir="." default="all">
 
-	<target name="all" depends="dist,clean" />
+	<target name="all" depends="dist" />
 	
 	<!-- no build.properties, yet! 
 		<property file="build.properties" />
@@ -32,8 +32,7 @@
 		<mkdir dir="${module.dist.dir}" />
 	</target>
 				
-	<target name="build" depends="depends"
-		description="--> Compile the module's Java source">
+	<target name="build" depends="depends">
 		<javac srcdir="${module.java.src.dir}"
 			destdir="${module.java.build.dir.classes}" classpathref="localclasspath"
 			debug="on" nowarn="false"> <!-- source="1.5" -->

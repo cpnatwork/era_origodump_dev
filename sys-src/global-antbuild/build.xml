@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<project name="ERA" default="all">
+
+	<target name="all" depends="defaults" />
+	
+	<target name="defaults" description="Builds all modules">
+		<echo message="Call ant for module: era.internal.tools" />
+		<ant dir="../era.internal.tools" inheritAll="false" />
+		
+		<echo message="Call ant for module: era.foss.model.core" />
+		<ant dir="../era.foss.model.core" inheritAll="false" />
+	</target>
+	
+	<target name="cleans" description="Builds all modules">
+		<echo message="Call ant for module: era.internal.tools" />
+		<ant dir="../era.internal.tools" target="clean" inheritAll="false" />
+		
+		<echo message="Call ant for module: era.foss.model.core" />
+		<ant dir="../era.foss.model.core" target="clean" inheritAll="false" />
+	</target>
+
+</project>
