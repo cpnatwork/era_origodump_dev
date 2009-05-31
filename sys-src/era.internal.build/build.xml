@@ -19,14 +19,14 @@
 	</tstamp>
 
 	<target name="prepare">
-		<delete dir="${dist}"/>
-		<mkdir dir="${dist}" />
-		<copy todir="${dist}" includeemptydirs="true" overwrite="true">
+		<delete dir="${era.project.build}/${site}"/>
+		<mkdir dir="${era.project.build}/${site}" />
+		<copy todir="${era.project.build}/${site}" includeemptydirs="true" overwrite="true">
 			<dirset dir="${era.project.templates}/site" includes="**/*"/>  
 		</copy>
 	</target>
 
-	<target name="dist">
+	<target name="dist"  depends="prepare">
 		<foreach param="project" target="dist.project" list="${projects}" delimiter="," trim="true">
 			<param name="target" value="dist" />
 		</foreach>
@@ -36,15 +36,16 @@
 		<foreach param="project" target="dist.project" list="${projects}" delimiter="," trim="true">
 			<param name="target" value="clean" />
 		</foreach>
-		<delete dir="${dist}" />
+		<delete dir="${era.project.build}" />
 	</target>
 
-	<target name="dist.project" depends="prepare">
-		<echo>+++ Building project: ${project}</echo>
+	<target name="dist.project">
+		<echo>+++ Project: ${project}</echo>
 
 		<ant antfile="../${project}/build.xml" dir="../${project}" inheritall="true" target="${target}">
 			<property name="era.buildnr" value="${era.buildnr}" />
-			<property name="era.dist" value="${_cwd}/${dist}/plugins" />
+			<property name="era.lib" value="${_cwd}/${era.project.build}" />
+			<property name="era.dist" value="${_cwd}/${era.project.build}/${site}/plugins" />
 		</ant>
 	</target>
 
