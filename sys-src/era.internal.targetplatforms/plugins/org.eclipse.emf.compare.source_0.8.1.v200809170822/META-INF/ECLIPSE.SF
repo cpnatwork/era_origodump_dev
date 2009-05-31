@@ -1,0 +1,161 @@
+Signature-Version: 1.0
+SHA1-Digest-Manifest: UwT97Bq0BRn1b/+fd2TsJy4OlOM=
+Created-By: 1.5.0 (IBM Corporation)
+SHA1-Digest-Manifest-Main-Attributes: Jtcm4czr0Fcah8Pa6ld3HDpwGBQ=
+
+Name: src/org.eclipse.emf.compare.diff.edit_0.8.1.v200809170822/META-I
+ NF/MANIFEST.MF
+SHA1-Digest: aQ/7fHOVeXLk+Eq18o41mJSM1w4=
+
+Name: src/org.eclipse.emf.compare.diff.edit_0.8.1.v200809170822/plugin
+ .xml
+SHA1-Digest: 5Ii7hObfAGrZXVM+ZUe6EE8CfM4=
+
+Name: src/org.eclipse.emf.compare.match_0.8.1.v200809170822/META-INF/M
+ ANIFEST.MF
+SHA1-Digest: W42zYFqcMmxsjElN/7ZiRddMO4M=
+
+Name: src/org.eclipse.emf.compare.match_0.8.1.v200809170822/src.zip
+SHA1-Digest: qF/R/P4CSSiDnJPXdeXk3vF+8UE=
+
+Name: src/org.eclipse.emf.compare.match_0.8.1.v200809170822/schema/org
+ .eclipse.emf.compare.match.engine.exsd
+SHA1-Digest: nSowiOZBD1woLo4a76YDoOfpPAk=
+
+Name: plugin.xml
+SHA1-Digest: BqMjC6S+iKHiyNJruqmTbMQTOLI=
+
+Name: about.properties
+SHA1-Digest: En2Oa9g5MDc5TJ67IxR8RSvP8K4=
+
+Name: modeling32.png
+SHA1-Digest: HNz2oYHVqQEUObJQL6sh+Ik2jak=
+
+Name: src/org.eclipse.emf.compare.diff.edit_0.8.1.v200809170822/plugin
+ .properties
+SHA1-Digest: 4o4oIqYjMk6mkjlvLWNuHNT81Yc=
+
+Name: src/org.eclipse.emf.compare.diff.edit_0.8.1.v200809170822/src.zi
+ p
+SHA1-Digest: 8x+CBQOC50t97g06dg1BHDNsKlo=
+
+Name: src/org.eclipse.emf.compare.diff.edit_0.8.1.v200809170822/about.
+ html
+SHA1-Digest: wko38bnbfW1dUhOQWOUf6Io0ELc=
+
+Name: src/org.eclipse.emf.compare.diff_0.8.1.v200809170822/plugin.prop
+ erties
+SHA1-Digest: OdckG/Ie2y127Ar9wW48PL92n8A=
+
+Name: src/org.eclipse.emf.compare_0.8.1.v200809170822/META-INF/MANIFES
+ T.MF
+SHA1-Digest: WBF0iHz5ibjlXs66OTB01ZGq874=
+
+Name: src/org.eclipse.emf.compare.diff_0.8.1.v200809170822/schema/org.
+ eclipse.emf.compare.diff.mergerprovider.exsd
+SHA1-Digest: cuhg1Lm2lSUJk26NhH7Fsp1brmI=
+
+Name: about.ini
+SHA1-Digest: mVAmrhORKtx6G9nxKmOS4UDCPJI=
+
+Name: src/org.eclipse.emf.compare.diff_0.8.1.v200809170822/model/DiffM
+ odel.xmi
+SHA1-Digest: ONgIGUycLnBo7g6HjDqS2VnImRo=
+
+Name: src/org.eclipse.emf.compare.ui_0.8.1.v200809170822/about.html
+SHA1-Digest: 1dAtkHM96aD84/8diLogkEn5Xn8=
+
+Name: src/org.eclipse.emf.compare.ui_0.8.1.v200809170822/plugin.xml
+SHA1-Digest: VJjnn1UwqUY0xLdD63NV01p10Co=
+
+Name: src/org.eclipse.emf.compare.diff_0.8.1.v200809170822/schema/org.
+ eclipse.emf.compare.diff.engine.exsd
+SHA1-Digest: xzmO8i1tfZJOcY/y0Reqc/CfGYc=
+
+Name: plugin.properties
+SHA1-Digest: PwB5GlbJKDmDTx0pShKItEv6ZSA=
+
+Name: src/org.eclipse.emf.compare.diff_0.8.1.v200809170822/model/diff.
+ genmodel
+SHA1-Digest: zzhT7nslONcpy4HTKcgIPKABU1Q=
+
+Name: src/org.eclipse.emf.compare.ui_0.8.1.v200809170822/plugin.proper
+ ties
+SHA1-Digest: mhxvMHnLbaF3pfsmhQjS3AYh0UM=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: SAqY+5ITAL0mkdYeijlSRhyIaZk=
+
+Name: src/org.eclipse.emf.compare.match_0.8.1.v200809170822/model/matc
+ h.ecore
+SHA1-Digest: 2FEaCIC6dyzio64+Md70fNNOjCU=
+
+Name: src/org.eclipse.emf.compare.diff_0.8.1.v200809170822/plugin.xml
+SHA1-Digest: +wFDh0NZSxmYiZcU4NysoDrcYrE=
+
+Name: src/org.eclipse.emf.compare.ui_0.8.1.v200809170822/src.zip
+SHA1-Digest: nVt88GOmTH6Da5aCQsqbc6w8Mtk=
+
+Name: about.mappings
+SHA1-Digest: qyzRwnVPU05ALL34WOshutIKqtA=
+
+Name: src/org.eclipse.emf.compare.ui_0.8.1.v200809170822/META-INF/MANI
+ FEST.MF
+SHA1-Digest: 3a9qFwasaEZWY36IxpJkCPPlRD0=
+
+Name: src/org.eclipse.emf.compare.match_0.8.1.v200809170822/plugin.xml
+SHA1-Digest: khnjqUDQa7tkG862oY44lV8ZPv8=
+
+Name: src/org.eclipse.emf.compare_0.8.1.v200809170822/plugin.xml
+SHA1-Digest: Moj1I7BmHbO5gZshrfz4gsRtrXM=
+
+Name: src/org.eclipse.emf.compare.diff_0.8.1.v200809170822/model/diff.
+ ecore
+SHA1-Digest: Dv1aEEiKWr2Sn/ZQIkQk2066Xvs=
+
+Name: src/org.eclipse.emf.compare.ui_0.8.1.v200809170822/schema/org.ec
+ lipse.emf.compare.ui.export.exsd
+SHA1-Digest: PV7oS9yCb9WwoJhUUnsyjdm3eJo=
+
+Name: about.html
+SHA1-Digest: OhtoHgvtkYDnaDbhsV4+uTEdAfE=
+
+Name: src/org.eclipse.emf.compare.match_0.8.1.v200809170822/model/matc
+ h.genmodel
+SHA1-Digest: GwKfku//RrxbNddebkI9dcQNQNM=
+
+Name: src/org.eclipse.emf.compare_0.8.1.v200809170822/plugin.propertie
+ s
+SHA1-Digest: 6BrT2uyo2Xl9QewbVMa2p6/ZaTU=
+
+Name: src/org.eclipse.emf.compare.diff_0.8.1.v200809170822/META-INF/MA
+ NIFEST.MF
+SHA1-Digest: ZjyLWcCdJvrpTbvaqjCwySPIXVw=
+
+Name: src/org.eclipse.emf.compare.match_0.8.1.v200809170822/plugin.pro
+ perties
+SHA1-Digest: NE7rxdvGnu3tNwozMfUkegX2Wb0=
+
+Name: src/org.eclipse.emf.compare_0.8.1.v200809170822/about.html
+SHA1-Digest: EXnUyfr4ngaLH1n808a0XgERAWE=
+
+Name: src/org.eclipse.emf.compare_0.8.1.v200809170822/src.zip
+SHA1-Digest: FLD9b4QR0vGda2X/BM7kr1kORDI=
+
+Name: src/org.eclipse.emf.compare.match_0.8.1.v200809170822/about.html
+SHA1-Digest: u/Ea3f/+BE6E8A9Qo1HrVHwszPs=
+
+Name: src/org.eclipse.emf.compare.diff_0.8.1.v200809170822/schema/diff
+ _extension.exsd
+SHA1-Digest: EeqQU0l7OOD1KxsutKlIMaIwOXk=
+
+Name: src/org.eclipse.emf.compare.diff_0.8.1.v200809170822/src.zip
+SHA1-Digest: hU0M5MIClTc4u+vKHSVZ+0UcZ6w=
+
+Name: src/org.eclipse.emf.compare.ui_0.8.1.v200809170822/schema/org.ec
+ lipse.emf.compare.internal.team.handler.exsd
+SHA1-Digest: /ZCgBhgJhyuXYni8XLDVhEBJ66g=
+
+Name: src/org.eclipse.emf.compare.diff_0.8.1.v200809170822/about.html
+SHA1-Digest: Jxggp0vr1gz5yonUH2pOOkoQ3IQ=
+

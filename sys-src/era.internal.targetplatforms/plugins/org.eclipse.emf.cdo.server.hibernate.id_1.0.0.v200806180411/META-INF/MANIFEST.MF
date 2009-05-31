@@ -1,0 +1,81 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.emf.cdo.server.hibernate.id
+Bundle-Activator: org.eclipse.emf.cdo.server.hibernate.internal.id.bun
+ dle.OM$Activator
+Bundle-ManifestVersion: 2
+Bundle-Version: 1.0.0.v200806180411
+Bundle-Vendor: %providerName
+Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.4.0,4.0.0)
+ ",org.eclipse.emf.cdo.server;bundle-version="[1.0.0,2.0.0)";visibilit
+ y:=reexport,org.eclipse.emf.cdo.server.hibernate.libraries;bundle-ver
+ sion="[1.0.0,2.0.0)";visibility:=reexport
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Name: %pluginName
+Bundle-Localization: plugin
+Bundle-ClassPath: .
+Bundle-ActivationPolicy: lazy
+Export-Package: org.eclipse.emf.cdo.server.hibernate.id;version="1.0.0
+ ",org.eclipse.emf.cdo.server.hibernate.internal.id;version="1.0.0",or
+ g.eclipse.emf.cdo.server.hibernate.internal.id.bundle;version="1.0.0"
+
+Name: org/eclipse/emf/cdo/server/hibernate/id/CDOIDHibernate.class
+SHA1-Digest: wyVrtOHcldDhJO9L6/F4YeK9XMU=
+
+Name: org/eclipse/emf/cdo/server/hibernate/internal/id/CDOIDHibernateI
+ mpl.class
+SHA1-Digest: YEcMuWzx+wq6nQDRfBr4y3xGDS4=
+
+Name: hibernate-id-v1.jar
+SHA1-Digest: SvfqU5X2ltKcPf5SI4C+JqfaYGU=
+
+Name: org/eclipse/emf/cdo/server/hibernate/internal/id/CDOIDHibernateI
+ mpl$Legacy.class
+SHA1-Digest: 7s/xza2oMhPwmSOzmBScpLJjXeM=
+
+Name: about.html
+SHA1-Digest: mLkmRLtG3amkcY0I7KSYZX6qKhs=
+
+Name: license.html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: .options
+SHA1-Digest: nZyVsqfJ4qxTETLURxyGTq6FNiI=
+
+Name: copyright.txt
+SHA1-Digest: HAelpb00pNeqamYTAbhcXdINgdE=
+
+Name: org/eclipse/emf/cdo/server/hibernate/internal/id/CDOIDHibernateL
+ ibraryHandler.class
+SHA1-Digest: G5XUfIDhL3NAIErfZa57ytexgnM=
+
+Name: org/eclipse/emf/cdo/server/hibernate/internal/id/CDOIDHibernateL
+ ongImpl.class
+SHA1-Digest: GDlWvYIO/neNpSshaxIoiGqUiJ8=
+
+Name: org/eclipse/emf/cdo/server/hibernate/internal/id/CDOIDHibernateS
+ tringImpl.class
+SHA1-Digest: yBTPMHfynjd3Alid1mOo0DiupVE=
+
+Name: epl-v10.html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: org/eclipse/emf/cdo/server/hibernate/internal/id/bundle/OM$Activ
+ ator.class
+SHA1-Digest: 5Mo1bVydRaP4UGEXuiMUfZ/jnqo=
+
+Name: plugin.properties
+SHA1-Digest: d9RcHXtUWSRxSXHRVaJzessh82U=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: org/eclipse/emf/cdo/server/hibernate/internal/id/CDOIDHibernateF
+ actoryImpl.class
+SHA1-Digest: E/ru6MrYOeMUwSL4CEx28XYNqv0=
+
+Name: org/eclipse/emf/cdo/server/hibernate/id/CDOIDHibernateUtil.class
+SHA1-Digest: 8FwdwrOWrYn0MQ7JuUDWdG9qH9Q=
+
+Name: org/eclipse/emf/cdo/server/hibernate/internal/id/bundle/OM.class
+SHA1-Digest: yEsnx6sS+hNzIj9k9WJV5HwooGg=
+

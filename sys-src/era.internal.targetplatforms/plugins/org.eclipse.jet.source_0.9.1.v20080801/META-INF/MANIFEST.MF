@@ -1,0 +1,159 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.jet.source; singleton=true
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-Version: 0.9.1.v20080801
+Bundle-Vendor: %providerName
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/templates/writeTextEleme
+ nt.jet
+SHA1-Digest: ZyIj/3WKze4+7DyZUE18EdbsBCk=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/schema/tagLibraries.exsd
+SHA1-Digest: ZF0LBJrVMbNPR7TXclxbEThGpvY=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/templates/jet2transform.
+ jet
+SHA1-Digest: AjDFUX5yq3OXcva8jjMMOH6njnc=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/.settings/org.eclipse.jd
+ t.ui.prefs
+SHA1-Digest: 6a6Gsf2BOhS41E5gGTYC+8Iojvo=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/.settings/org.eclipse.co
+ re.resources.prefs
+SHA1-Digest: 1pt0JAydEX4acUlLbHyQoPiRvwo=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/.settings/org.eclipse.jd
+ t.core.prefs
+SHA1-Digest: xlBVpfYOvcUqpBl7WBQSF+QFo88=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/.settings/org.eclipse.je
+ t.prefs
+SHA1-Digest: B3EznsSnKfkaaTJStQZ9Fd+Ey7g=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/templates/tagDataDeclara
+ tions.jet
+SHA1-Digest: wFqKS49d79mNmT3iPkug3G17048=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/.jetproperties
+SHA1-Digest: 57KzHfM0hCQCuz3j8Cl55SoeKxc=
+
+Name: plugin.xml
+SHA1-Digest: I0t+o6kXbySrxIY1bLaTaeai3Vc=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/templates/xmlStart.jet
+SHA1-Digest: HQMqKw7siJI5Sio/BvmvVpIXtWc=
+
+Name: about.properties
+SHA1-Digest: LeyVHD/cX2RfcyDuZZxibw0MXjI=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/about.html
+SHA1-Digest: pDSgFSJT6fRI+zo3RLgV+9RIAuw=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/META-INF/MANIFEST.MF
+SHA1-Digest: 2vVqGdsboN0UFN1JRFZ2HASOaxc=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/.settings/org.eclipse.pd
+ e.core.prefs
+SHA1-Digest: ioPD0k1tiDhWWQC408q46jpWWEg=
+
+Name: about.ini
+SHA1-Digest: 8Aa63vzNTio2orhmAbCPDLKMIWg=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/build.properties
+SHA1-Digest: 1GOV192nXFl9aJFlMIoSTbjANOk=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/.project
+SHA1-Digest: CMuc03bv11m4bz+AMAk8QLI50Zw=
+
+Name: ModelingFeature.png
+SHA1-Digest: ADlLWFV0eQ74YnLvHnPFkYLeLrs=
+
+Name: plugin.properties
+SHA1-Digest: 3EE02E91ONHqpiHcPlphmk0jQLE=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/plugin.xml
+SHA1-Digest: z34/j/KN6AsD5I3MbqOyvHEwnmE=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/templates/jetTemplateMap
+ .properties.jet
+SHA1-Digest: uCLNuSyFRcO9/lsSJSoRqaeSZwI=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/jetantsrc.zip
+SHA1-Digest: H/N2wu973H2jOYVx9PFSh8GPOsQ=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/schema/deployedTransform
+ s.exsd
+SHA1-Digest: 4+8xWDKmWxiZsPRGAAgDXZPC6ho=
+
+Name: about.mappings
+SHA1-Digest: vUj1fs4/PgqoqAE8iDrE9jFKqCg=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/templates/writeJavaExpre
+ ssion.jet
+SHA1-Digest: dms0ww0go9lXg+h/Cfi3eXCA5Ho=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/schema/transform.exsd
+SHA1-Digest: LeRH5w+eYsuJgj1DCeySDmEGehQ=
+
+Name: src/org.eclipse.jet.ui_0.9.0.v20080527/src.zip
+SHA1-Digest: OqcEUXbLtG4GtFkPmHg71uilt3I=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/schema/xpathFunctions.ex
+ sd
+SHA1-Digest: rZDk/Y9B4MVnKCq/1u2sEtTwD6g=
+
+Name: src/org.eclipse.jet.ui_0.9.0.v20080527/about.html
+SHA1-Digest: pDSgFSJT6fRI+zo3RLgV+9RIAuw=
+
+Name: about.html
+SHA1-Digest: pDSgFSJT6fRI+zo3RLgV+9RIAuw=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/antsrc/org/eclipse/jet/a
+ nt/tasks/JETCompileTask.java
+SHA1-Digest: sqAtVq2NuwOuywch/qARKZ8qDKQ=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/templates/v1/jet2java.je
+ t
+SHA1-Digest: My8CufIt6beIHMdhWrjxAb++gZs=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/plugin.properties
+SHA1-Digest: R8qyYcIBk35oD/9JPnokq0oad3s=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/templates/xmlEnd.jet
+SHA1-Digest: hjhXoiOVa99XSpTKZap4DwnT1T4=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/templates/main.jet
+SHA1-Digest: vMCImIUDEiAGe07qMV4JzeY+e4A=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/antsrc/org/eclipse/jet/a
+ nt/tasks/JETTransformTask.java
+SHA1-Digest: 2hEkcq7arTeyoea01tG+lXANZWg=
+
+Name: src/org.eclipse.jet.core_1.1.0.v20080415/src.zip
+SHA1-Digest: 2kTKfIo2z6mVbdLkrULAYGbn4YA=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/src.zip
+SHA1-Digest: G+bNwvtW02xJuVNxwyJc2xa6Bsw=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/templates/v2/jet2java.je
+ t
+SHA1-Digest: yiNhHRpoQqfvUe4UcdrA8Pjrlvo=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/schema/modelLoaders.exsd
+SHA1-Digest: QnvsE/lD46uJztH8JPx9iAFFcpc=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/templates/jet2java.jet
+SHA1-Digest: zYAJP8XrHos2oajf1MfPU2P4l60=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/schema/modelInspectors.e
+ xsd
+SHA1-Digest: Y9fn0LnRxJISjSjdp+/rf79MfRc=
+
+Name: src/org.eclipse.jet_0.9.1.v200809091411/.options
+SHA1-Digest: tEmCCXj+M4rNaTUYl08Nl+/ekVU=
+

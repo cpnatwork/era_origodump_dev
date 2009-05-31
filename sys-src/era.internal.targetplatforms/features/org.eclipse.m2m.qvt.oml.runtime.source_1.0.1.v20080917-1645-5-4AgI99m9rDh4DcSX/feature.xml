@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature id="org.eclipse.m2m.qvt.oml.runtime.source" version="1.0.1.v20080917-1645-5-4AgI99m9rDh4DcSX" label="%featureName" provider-name="%providerName" image="eclipse_update_120.jpg"    >
+	<description url="http://www.eclipse.org/modeling/m2m">
+		%description
+	</description>
+	<copyright url="http://www.eclipse.org/legal/epl-v10.html">
+		%copyright
+	</copyright>
+	<license url="%licenseURL">
+		%license
+	</license>
+	<plugin id="org.eclipse.m2m.qvt.oml.runtime.source" version="1.0.1.v20080917-1645-5-4AgI99m9rDh4DcSX"    />
+</feature>

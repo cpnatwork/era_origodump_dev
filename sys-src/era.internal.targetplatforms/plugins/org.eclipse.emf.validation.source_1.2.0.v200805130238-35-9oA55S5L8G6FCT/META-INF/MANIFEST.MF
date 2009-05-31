@@ -1,0 +1,77 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.emf.validation.source; singleton=true
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-Version: 1.2.0.v200805130238-35-9oA55S5L8G6FCT
+Bundle-Vendor: %providerName
+
+Name: src/org.eclipse.emf.validation_1.2.0.v200807161729/src.zip
+SHA1-Digest: 7EIjmXmakKMxkWKYoxGuNLJXhss=
+
+Name: about.mappings
+SHA1-Digest: 8HSHB98qR9kw5w9tE8z3Ikb4qEo=
+
+Name: src/org.eclipse.emf.validation.ui_1.2.0.v200805130238/about.html
+SHA1-Digest: DS6DkRPvZamWBcKJp/GvrrqSAJw=
+
+Name: src/org.eclipse.emf.validation.ui_1.2.0.v200805130238/plugin.pro
+ perties
+SHA1-Digest: Zqgx8NEGIYSSNvBikKemw21rG5E=
+
+Name: about.html
+SHA1-Digest: DS6DkRPvZamWBcKJp/GvrrqSAJw=
+
+Name: plugin.xml
+SHA1-Digest: I0t+o6kXbySrxIY1bLaTaeai3Vc=
+
+Name: about.properties
+SHA1-Digest: WmGFsTUuA7Lj3PjXV+vKlLBh3uM=
+
+Name: modeling32.png
+SHA1-Digest: ADlLWFV0eQ74YnLvHnPFkYLeLrs=
+
+Name: src/org.eclipse.emf.validation.ui.ide_1.2.0.v200805130238/plugin
+ .properties
+SHA1-Digest: RL0fpoguH3o7umPeVqZZquZWNpo=
+
+Name: src/org.eclipse.emf.validation_1.2.0.v200807161729/plugin.xml
+SHA1-Digest: cEUonUSqeH//rfKO055Ii8NDZe4=
+
+Name: src/org.eclipse.emf.validation_1.2.0.v200807161729/plugin.proper
+ ties
+SHA1-Digest: jUzz2DGSkflMqbAL4hgYT59pDpE=
+
+Name: src/org.eclipse.emf.validation.ui_1.2.0.v200805130238/src.zip
+SHA1-Digest: /Z8U3+vTV+e14X94O7+je+i/rbA=
+
+Name: about.ini
+SHA1-Digest: KQMVTFcyVja5dvVmIh2o+qDsslY=
+
+Name: src/org.eclipse.emf.validation.ui.ide_1.2.0.v200805130238/src.zi
+ p
+SHA1-Digest: fLmkcx4z+gop9GCbK1KmaywSRTw=
+
+Name: src/org.eclipse.emf.validation.ui_1.2.0.v200805130238/plugin.xml
+SHA1-Digest: dS1XQG7Mm3lJuWgLNT0G8Cs/Wgk=
+
+Name: plugin.properties
+SHA1-Digest: XfJWCgUo2UwY1FYdTMm/y1J+F4M=
+
+Name: src/org.eclipse.emf.validation_1.2.0.v200807161729/about.html
+SHA1-Digest: DS6DkRPvZamWBcKJp/GvrrqSAJw=
+
+Name: src/org.eclipse.emf.validation.ui_1.2.0.v200805130238/icons/full
+ /lock.gif
+SHA1-Digest: XqVCAVSZqerc597vw6bPcm9zsLw=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: src/org.eclipse.emf.validation.ui.ide_1.2.0.v200805130238/plugin
+ .xml
+SHA1-Digest: TNIW7AWLfVMZK6SW00PLLjadOGA=
+
+Name: src/org.eclipse.emf.validation.ui.ide_1.2.0.v200805130238/about.
+ html
+SHA1-Digest: DS6DkRPvZamWBcKJp/GvrrqSAJw=
+

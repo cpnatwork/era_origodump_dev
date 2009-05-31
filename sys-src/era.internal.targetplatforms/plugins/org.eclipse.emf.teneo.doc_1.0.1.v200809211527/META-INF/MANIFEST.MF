@@ -1,0 +1,55 @@
+Manifest-Version: 1.0
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-SymbolicName: org.eclipse.emf.teneo.doc; singleton:=true
+Bundle-ManifestVersion: 2
+Bundle-Localization: plugin
+Bundle-Name: %Plugin.name
+Bundle-Version: 1.0.1.v200809211527
+Bundle-Vendor: %Plugin.providerName
+Require-Bundle: org.eclipse.help
+
+Name: about.html
+SHA1-Digest: 4aUNey33prFSTe/fVMqou5L18hM=
+
+Name: index/segments
+SHA1-Digest: cmQ7BHLi1UvFOYW7Nesq05xnjjY=
+
+Name: plugin.xml
+SHA1-Digest: hmelK6Bwrm6Sm3W41duRZmtRf/M=
+
+Name: about.properties
+SHA1-Digest: acvotp5zRAzgbYmOt9ofBzyeD0g=
+
+Name: index/indexed_contributions
+SHA1-Digest: zIfAVIkxs3tv7GuhESsNbGFSzuM=
+
+Name: modeling32.png
+SHA1-Digest: ADlLWFV0eQ74YnLvHnPFkYLeLrs=
+
+Name: doc.zip
+SHA1-Digest: qwWZpPFP8lNrPwfnNHok1ukbrng=
+
+Name: about.ini
+SHA1-Digest: 682NZvZ3H5gebSXDoNVEDHwVFsg=
+
+Name: index/indexed_dependencies
+SHA1-Digest: vKXt2PbL2Vq4mN4BZwocXVHX1W8=
+
+Name: index/indexed_docs
+SHA1-Digest: r/BP3LyCoS5QwgOiUD2gfl6ZSng=
+
+Name: plugin.properties
+SHA1-Digest: 4Ns01P7FxoHxNjQ5fxYfzQrlFzs=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: toc.xml
+SHA1-Digest: F0TlqJHXFnGunhkpo/o3xnzNNH4=
+
+Name: index/deletable
+SHA1-Digest: kGnKeOdFCihRc0MbPlLFwlKZ5HM=
+
+Name: index/_7.cfs
+SHA1-Digest: 7+gYK9bhYlsO/xu+KaaMSsq0AIU=
+

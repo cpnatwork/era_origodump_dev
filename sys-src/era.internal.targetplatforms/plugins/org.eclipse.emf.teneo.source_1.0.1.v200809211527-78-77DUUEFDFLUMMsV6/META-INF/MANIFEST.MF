@@ -1,0 +1,178 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.emf.teneo.source; singleton=true
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-Version: 1.0.1.v200809211527-78-77DUUEFDFLUMMsV6
+Bundle-Vendor: %providerName
+
+Name: src/org.eclipse.emf.teneo.hibernate.eclipse_1.0.1.v200809211527/
+ copyright.txt
+SHA1-Digest: UJ9OSkYPi4fES1RU2tVB2AUKiPs=
+
+Name: src/org.eclipse.emf.teneo_1.0.1.v200809211527/copyright.txt
+SHA1-Digest: UJ9OSkYPi4fES1RU2tVB2AUKiPs=
+
+Name: plugin.xml
+SHA1-Digest: I0t+o6kXbySrxIY1bLaTaeai3Vc=
+
+Name: src/org.eclipse.emf.teneo.annotations_1.0.1.v200809211527/src.zi
+ p
+SHA1-Digest: b5NI60mWlIlH9FdJpyP3GfJS3tQ=
+
+Name: src/org.eclipse.emf.teneo.jpox.eclipse_1.0.1.v200809211527/epl-v
+ 10.html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: about.properties
+SHA1-Digest: O2acooBgjFoFh6tKcX/c7Y3RdXw=
+
+Name: src/org.eclipse.emf.teneo.eclipse_1.0.1.v200809211527/copyright.
+ txt
+SHA1-Digest: UJ9OSkYPi4fES1RU2tVB2AUKiPs=
+
+Name: src/org.eclipse.emf.teneo.eclipse_1.0.1.v200809211527/epl-v10.ht
+ ml
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: src/org.eclipse.emf.teneo.annotations_1.0.1.v200809211527/epl-v1
+ 0.html
+SHA1-Digest: 7lpa4zs94ZnAESWAivWTVrW/4Gk=
+
+Name: modeling32.png
+SHA1-Digest: ADlLWFV0eQ74YnLvHnPFkYLeLrs=
+
+Name: src/org.eclipse.emf.teneo.hibernate.eclipse_1.0.1.v200809211527/
+ about.html
+SHA1-Digest: 4aUNey33prFSTe/fVMqou5L18hM=
+
+Name: src/org.eclipse.emf.teneo.hibernate.mapper_1.0.1.v200809211527/a
+ bout.html
+SHA1-Digest: 4aUNey33prFSTe/fVMqou5L18hM=
+
+Name: src/org.eclipse.emf.teneo.hibernate.mapper_1.0.1.v200809211527/m
+ odel/hbannotation.genmodel
+SHA1-Digest: YpRywj+pwLxIUCDbTMFuNH/m9M0=
+
+Name: about.ini
+SHA1-Digest: KQMVTFcyVja5dvVmIh2o+qDsslY=
+
+Name: src/org.eclipse.emf.teneo.eclipse_1.0.1.v200809211527/about.html
+SHA1-Digest: 4aUNey33prFSTe/fVMqou5L18hM=
+
+Name: src/org.eclipse.emf.teneo_1.0.1.v200809211527/src.zip
+SHA1-Digest: X5KiYcoyeEUotHeDBhkuDyPY7G8=
+
+Name: src/org.eclipse.emf.teneo.hibernate.mapper_1.0.1.v200809211527/s
+ rc.zip
+SHA1-Digest: rDOeK8WaR03s3i2MQ4drSztaJsM=
+
+Name: src/org.eclipse.emf.teneo.annotations_1.0.1.v200809211527/model/
+ pannotation.genmodel
+SHA1-Digest: 3GvCp0gkGrlh6IXAgusv8J5XX0A=
+
+Name: plugin.properties
+SHA1-Digest: 33ECJasFj0TZbh3DDmmAvYd8VCI=
+
+Name: src/org.eclipse.emf.teneo.annotations_1.0.1.v200809211527/copyri
+ ght.txt
+SHA1-Digest: UJ9OSkYPi4fES1RU2tVB2AUKiPs=
+
+Name: src/org.eclipse.emf.teneo.jpox_1.0.1.v200809211527/copyright.txt
+SHA1-Digest: 8fEqc0yiT6oqPd/8aeKGMwGhNpk=
+
+Name: src/org.eclipse.emf.teneo.jpox.eclipse_1.0.1.v200809211527/copyr
+ ight.txt
+SHA1-Digest: UJ9OSkYPi4fES1RU2tVB2AUKiPs=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: src/org.eclipse.emf.teneo.hibernate.mapper_1.0.1.v200809211527/m
+ odel/hbannotation.ecore
+SHA1-Digest: X+8hQvA8VcB51n7+pl78czIti6g=
+
+Name: src/org.eclipse.emf.teneo.hibernate_1.0.1.v200809211527/org.ecli
+ pse.emf.teneo.hibernatesrc.zip
+SHA1-Digest: OZYLXv32MECLHSkog9ACFCwAoLI=
+
+Name: src/org.eclipse.emf.teneo.jpox.eclipse_1.0.1.v200809211527/src.z
+ ip
+SHA1-Digest: PLRe1jakPVNWCI7GXDAh7At5BNE=
+
+Name: src/org.eclipse.emf.teneo.hibernate.eclipse_1.0.1.v200809211527/
+ src.zip
+SHA1-Digest: YuAJfPvzWUWqWJ60QmcDY+49QQE=
+
+Name: src/org.eclipse.emf.teneo.annotations_1.0.1.v200809211527/about.
+ html
+SHA1-Digest: 4aUNey33prFSTe/fVMqou5L18hM=
+
+Name: src/org.eclipse.emf.teneo_1.0.1.v200809211527/about.html
+SHA1-Digest: 4aUNey33prFSTe/fVMqou5L18hM=
+
+Name: src/org.eclipse.emf.teneo.hibernate.mapper_1.0.1.v200809211527/m
+ odel/hbmodel.ecore
+SHA1-Digest: htsun5OussY0mmX7ABrkLHM8TMQ=
+
+Name: about.mappings
+SHA1-Digest: MJFTX+UzdR2Sjm7q7bG4uKK6QVU=
+
+Name: src/org.eclipse.emf.teneo.hibernate.eclipse_1.0.1.v200809211527/
+ epl-v10.html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: src/org.eclipse.emf.teneo_1.0.1.v200809211527/epl-v10.html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: src/org.eclipse.emf.teneo.hibernate_1.0.1.v200809211527/epl-v10.
+ html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: about.html
+SHA1-Digest: 15Q2XVN87wYVTw453EpFyArtPNA=
+
+Name: src/org.eclipse.emf.teneo.eclipse_1.0.1.v200809211527/src.zip
+SHA1-Digest: lMsX0s9aHuSPorQIU1R9XFmypwE=
+
+Name: src/org.eclipse.emf.teneo.hibernate_1.0.1.v200809211527/about.ht
+ ml
+SHA1-Digest: 4aUNey33prFSTe/fVMqou5L18hM=
+
+Name: src/org.eclipse.emf.teneo.annotations_1.0.1.v200809211527/licens
+ e.html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: src/org.eclipse.emf.teneo.annotations_1.0.1.v200809211527/model/
+ pamodel.ecore
+SHA1-Digest: W9H70FUr4SpTvSaI+d6Ct38c0JY=
+
+Name: src/org.eclipse.emf.teneo.jpox_1.0.1.v200809211527/epl-v10.html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: src/org.eclipse.emf.teneo.hibernate.mapper_1.0.1.v200809211527/e
+ pl-v10.html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: src/org.eclipse.emf.teneo.jpox_1.0.1.v200809211527/org.eclipse.e
+ mf.teneo.jpoxsrc.zip
+SHA1-Digest: QvstXD2T9QIN33WL+ddpcig0sDY=
+
+Name: src/org.eclipse.emf.teneo.annotations_1.0.1.v200809211527/model/
+ pannotation.ecore
+SHA1-Digest: KhjLcbpYi7xDhBCpnnZqOKv4SV8=
+
+Name: src/org.eclipse.emf.teneo.hibernate_1.0.1.v200809211527/copyrigh
+ t.txt
+SHA1-Digest: 8fEqc0yiT6oqPd/8aeKGMwGhNpk=
+
+Name: src/org.eclipse.emf.teneo.jpox.eclipse_1.0.1.v200809211527/about
+ .html
+SHA1-Digest: 4aUNey33prFSTe/fVMqou5L18hM=
+
+Name: src/org.eclipse.emf.teneo.hibernate.mapper_1.0.1.v200809211527/c
+ opyright.txt
+SHA1-Digest: qAZcyRfPxx7jmC10/Tiwg0T4Fro=
+
+Name: src/org.eclipse.emf.teneo.jpox_1.0.1.v200809211527/about.html
+SHA1-Digest: 4aUNey33prFSTe/fVMqou5L18hM=
+

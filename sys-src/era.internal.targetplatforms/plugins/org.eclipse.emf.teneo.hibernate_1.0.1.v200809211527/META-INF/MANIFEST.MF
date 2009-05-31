@@ -1,0 +1,55 @@
+Manifest-Version: 1.0
+Import-Package: org.apache.commons.logging
+Bundle-SymbolicName: org.eclipse.emf.teneo.hibernate;singleton:=true
+Bundle-ManifestVersion: 2
+Eclipse-BuddyPolicy: dependent
+Bundle-Version: 1.0.1.v200809211527
+Bundle-Vendor: %Plugin.providerName
+Require-Bundle: org.eclipse.emf.teneo;visibility:=reexport,org.eclipse
+ .emf.ecore.xmi,org.eclipse.emf.teneo.annotations;visibility:=reexport
+ ,org.eclipse.emf.teneo.hibernate.mapper;visibility:=reexport
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Name: %Plugin.name
+Bundle-Localization: plugin
+Bundle-ClassPath: .,org.eclipse.emf.teneo.hibernate.extra.jar,org.ecli
+ pse.emf.teneo.hibernate.jar
+Export-Package: org.eclipse.emf.teneo.hibernate,org.eclipse.emf.teneo.
+ hibernate.mapping,org.eclipse.emf.teneo.hibernate.mapping.econtainer,
+ org.eclipse.emf.teneo.hibernate.mapping.elist,org.eclipse.emf.teneo.h
+ ibernate.mapping.identifier,org.eclipse.emf.teneo.hibernate.mapping.i
+ nternal,org.eclipse.emf.teneo.hibernate.mapping.property,org.eclipse.
+ emf.teneo.hibernate.resource,org.eclipse.emf.teneo.hibernate.tuplizer
+
+Name: about.ini
+SHA1-Digest: 682NZvZ3H5gebSXDoNVEDHwVFsg=
+
+Name: epl-v10.html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: plugin.properties
+SHA1-Digest: tZBTxNU8zgXaJ7rBas4UjyzTkew=
+
+Name: about.html
+SHA1-Digest: 4aUNey33prFSTe/fVMqou5L18hM=
+
+Name: plugin.xml
+SHA1-Digest: R6+P8xFlXhXlU6eI0xPJfdArRa4=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: about.properties
+SHA1-Digest: 6GipLKUQaskLt+z/uTMlH++5j4M=
+
+Name: org.eclipse.emf.teneo.hibernate.jar
+SHA1-Digest: Kz3dwD2zN5DMfmclId5nDSYyLmM=
+
+Name: modeling32.png
+SHA1-Digest: ADlLWFV0eQ74YnLvHnPFkYLeLrs=
+
+Name: org.eclipse.emf.teneo.hibernate.extra.jar
+SHA1-Digest: 1EEfbo8ZeXXLGOn9poX+e3ZYWhE=
+
+Name: copyright.txt
+SHA1-Digest: 8fEqc0yiT6oqPd/8aeKGMwGhNpk=
+

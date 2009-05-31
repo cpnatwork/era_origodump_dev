@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.emf.teneo.sdk"
+      label="%featureName"
+      version="1.0.1.v200809211527-3-287D4JDLjcTMXPZaed2fFEVVFG"
+      provider-name="%providerName"
+      image="eclipse_update_120.jpg">
+
+   <description>
+      %description
+   </description>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <url>
+      <update label="%updateSiteName" url="http://download.eclipse.org/modeling/emf/updates/"/>
+      <discovery label="%updateSiteName" url="http://download.eclipse.org/modeling/emf/updates/"/>
+   </url>
+
+   <includes
+         id="org.eclipse.emf.teneo"
+         version="1.0.1.v200809211527-78-77DUUEFDFLUMMsV6"/>
+
+   <includes
+         id="org.eclipse.emf.teneo.source"
+         version="1.0.1.v200809211527-78-77DUUEFDFLUMMsV6"/>
+
+   <includes
+         id="org.eclipse.emf.teneo.doc"
+         version="1.0.1.v200809211527-1-07w31191_322638"/>
+
+</feature>

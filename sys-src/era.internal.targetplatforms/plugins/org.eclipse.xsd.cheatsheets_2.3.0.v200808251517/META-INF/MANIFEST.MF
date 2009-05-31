@@ -1,0 +1,30 @@
+Manifest-Version: 1.0
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-SymbolicName: org.eclipse.xsd.cheatsheets;singleton:=true
+Bundle-ManifestVersion: 2
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-Version: 2.3.0.v200808251517
+Bundle-Vendor: %providerName
+Require-Bundle: org.eclipse.ui.cheatsheets;bundle-version="[3.3.0,4.0.
+ 0)",org.eclipse.emf.cheatsheets;bundle-version="[2.4.0,3.0.0)",org.ec
+ lipse.xsd.ecore.importer;bundle-version="[2.4.0,3.0.0)"
+
+Name: cheatsheets/GenerateEMFFromXSD.xml
+SHA1-Digest: D0UeL7PmXj33Scykp2g7qjytxBU=
+
+Name: plugin.properties
+SHA1-Digest: Tj0wVY5rs6RRqq4BJ/Etwof48Xo=
+
+Name: about.html
+SHA1-Digest: m//+sZd+LYcO5OY/bjEiZVm0dk0=
+
+Name: plugin.xml
+SHA1-Digest: QpqUgB/gGfuD4IjqeUGUFuF34fc=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: archive/xsd/library.xsd
+SHA1-Digest: yCrShyrqaZiX9b2Ygxk1xh8He0c=
+

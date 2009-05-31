@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.m2m.qvt.oml"
+      label="%featureName"
+      version="1.0.1.v20080917-1645-4-3_kE77c7gAY3AWNQ"
+      provider-name="%providerName"
+      plugin="org.eclipse.m2m.qvt.oml"
+      image="eclipse_update_120.jpg">
+
+   <description url="http://www.eclipse.org/modeling/m2m">
+      %description
+   </description>
+
+   <copyright url="http://www.eclipse.org/legal/epl-v10.html">
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.emf.ecore.change"/>
+      <import plugin="org.eclipse.m2m.qvt.oml.common"/>
+      <import plugin="org.eclipse.m2m.qvt.oml.emf.util"/>
+      <import plugin="org.eclipse.ocl.ecore" version="1.2.0" match="compatible"/>
+      <import plugin="org.eclipse.ocl" version="1.2.0" match="compatible"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.m2m.qvt.oml.ocl"
+         download-size="0"
+         install-size="0"
+         version="1.0.1.v20080917-1645"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.m2m.qvt.oml.ocl.emf.libraries"
+         download-size="0"
+         install-size="0"
+         version="1.0.1.v20080917-1855"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.m2m.qvt.oml"
+         download-size="0"
+         install-size="0"
+         version="1.0.1.v20080917-1645"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.m2m.qvt.oml.cst.parser"
+         download-size="0"
+         install-size="0"
+         version="1.0.1.v20080917-1645"
+         unpack="false"/>
+
+</feature>

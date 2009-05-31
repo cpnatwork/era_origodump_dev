@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2007, 2008 Anyware Technologies. All rights reserved. This program
+  and the accompanying materials are made available under the terms of the
+  Eclipse Public License v1.0 which accompanies this distribution, and is
+  available at http://www.eclipse.org/legal/epl-v10.html
+    
+  Contributors: Lucas Bigeardel (Anyware Technologies) - initial API and
+  implementation
+-->
+<feature
+      id="org.eclipse.emf.search"
+      label="%featureName"
+      version="0.7.0.v200806130939"
+      provider-name="%providerName">
+
+   <description url="http://www.eclipse.org/modeling/emft/?project=search#search">
+      %description
+   </description>
+
+   <copyright url="http://www.anyware-technologies.com/copyright.html">
+      %copyright
+   </copyright>
+
+   <license url="http://www.eclipse.org/legal/epl-v10.html">
+      %license
+   </license>
+
+   <url>
+      <update label="%EMFTUpdateSiteName" url="http://download.eclipse.org/technology/emft/updates/"/>
+      <discovery label="EMFT Search" url="http://www.eclipse.org/modeling/emft/?project=search#search"/>
+   </url>
+
+   <includes
+         id="org.eclipse.emf.search.codegen"
+         version="0.7.0.v200806130939"/>
+
+   <includes
+         id="org.eclipse.emf.search.common"
+         version="0.7.0.v200806130939"/>
+
+   <includes
+         id="org.eclipse.emf.search.ecore"
+         version="0.7.0.v200806130939"/>
+
+   <includes
+         id="org.eclipse.emf.search.runtime"
+         version="0.7.0.v200806130939"/>
+
+   <includes
+         id="org.eclipse.emf.search.ecore.ocl"
+         version="0.7.0.v200806130939"/>
+
+   <includes
+         id="org.eclipse.emf.search.ocl"
+         version="0.7.0.v200806130939"/>
+
+   <includes
+         id="org.eclipse.emf.search.genmodel"
+         version="0.7.0.v200806130939"/>
+
+</feature>

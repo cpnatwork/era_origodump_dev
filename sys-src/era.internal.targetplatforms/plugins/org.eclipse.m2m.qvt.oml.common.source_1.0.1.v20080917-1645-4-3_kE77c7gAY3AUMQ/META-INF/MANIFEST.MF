@@ -1,0 +1,47 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.m2m.qvt.oml.common.source; singleton=
+ true
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-Version: 1.0.1.v20080917-1645-4-3_kE77c7gAY3AUMQ
+Bundle-Vendor: %providerName
+
+Name: src/org.eclipse.m2m.qvt.oml.emf.util_1.0.1.v20080917-1645/src.zi
+ p
+SHA1-Digest: ALhCL6rSIa6ciXpwaqDhc0aCkns=
+
+Name: about.mappings
+SHA1-Digest: UPLw6mLLtDtJjGuKXeQgci1HnPY=
+
+Name: src/org.eclipse.m2m.qvt.oml.common_1.0.1.v20080917-1645/src.zip
+SHA1-Digest: DbS3jfo1nHWHnBUYeuFropEQLKs=
+
+Name: about.ini
+SHA1-Digest: t0FfqhXQ1DOntXUimIG6MWb0U1g=
+
+Name: src/org.eclipse.m2m.qvt.oml.emf.util.ui_1.0.1.v20080917-1645/src
+ .zip
+SHA1-Digest: auM1yDU02nn/oiPx2AQWpTIPzmg=
+
+Name: plugin.properties
+SHA1-Digest: nwdlsWXPe37BGd2B87prFOPndMc=
+
+Name: about.html
+SHA1-Digest: m//+sZd+LYcO5OY/bjEiZVm0dk0=
+
+Name: plugin.xml
+SHA1-Digest: I0t+o6kXbySrxIY1bLaTaeai3Vc=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: src/org.eclipse.m2m.qvt.oml.common.ui_1.0.1.v20080917-1645/src.z
+ ip
+SHA1-Digest: YLqzWqlp25/Ityf1KYYaXRRvBR8=
+
+Name: about.properties
+SHA1-Digest: /TLRcbcwyr0eUCkwjF6OabBomyU=
+
+Name: modeling32.png
+SHA1-Digest: ADlLWFV0eQ74YnLvHnPFkYLeLrs=
+

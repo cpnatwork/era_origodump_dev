@@ -1,0 +1,34 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.ocl.uml.source; singleton=true
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-Version: 1.2.2.v200808291106-1117w31191_232_61
+Bundle-Vendor: %providerName
+
+Name: about.mappings
+SHA1-Digest: fB3ucYwiE1RN+qjY0P39HWkaR3I=
+
+Name: about.ini
+SHA1-Digest: KQMVTFcyVja5dvVmIh2o+qDsslY=
+
+Name: plugin.properties
+SHA1-Digest: pr1X+Cl5sBPsI59CtDhn7kImCCg=
+
+Name: about.html
+SHA1-Digest: XX9QNRrVnHKSlwVc2mDJkamI7cs=
+
+Name: src/org.eclipse.ocl.uml_1.2.2.v200809121950/src.zip
+SHA1-Digest: 6KQajRTrblGT/hW/3MGNq3aJTME=
+
+Name: plugin.xml
+SHA1-Digest: I0t+o6kXbySrxIY1bLaTaeai3Vc=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: about.properties
+SHA1-Digest: 1NKvnkzfnsxD+tHLFxs85/syJI4=
+
+Name: src/org.eclipse.ocl.uml_1.2.2.v200809121950/about.html
+SHA1-Digest: XX9QNRrVnHKSlwVc2mDJkamI7cs=
+

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+     <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            icon="icons/atl_logo.gif"
+            class="org.eclipse.m2m.atl.adt.ui.editor.AtlEditor"
+            default="true"
+            name="ATL Editor"
+            contributorClass="org.eclipse.m2m.atl.adt.ui.editor.AtlEditorActionContributor"
+            id="org.eclipse.m2m.atl.adt.editor.AtlEditor"
+            extensions="atl">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            name="ATL"
+            class="org.eclipse.m2m.atl.adt.ui.preferences.AtlMainPreferencePage"
+            id="org.eclipse.m2m.atl.adt.editor.preferences.AtlMainPreferencePage"/>
+      <page
+            name="Editor"
+            category="org.eclipse.m2m.atl.adt.editor.preferences.AtlMainPreferencePage"
+            class="org.eclipse.m2m.atl.adt.ui.preferences.AtlEditorPreferencePage"
+            id="org.eclipse.m2m.atl.adt.editor.preferences.AtlEditorPreferencePage"/>
+      <page
+            name="Code assist"
+            category="org.eclipse.m2m.atl.adt.editor.preferences.AtlEditorPreferencePage"
+            class="org.eclipse.m2m.atl.adt.ui.preferences.AtlCodeAssistPreferencePage"
+            id="org.eclipse.m2m.atl.adt.editor.preferences.AtlCodeAssistPreferencePage"/>
+      <page
+            name="Syntax"
+            category="org.eclipse.m2m.atl.adt.editor.preferences.AtlEditorPreferencePage"
+            class="org.eclipse.m2m.atl.adt.ui.preferences.AtlSyntaxPreferencePage"
+            id="org.eclipse.m2m.atl.adt.editor.preferences.AtlSyntaxPreferencePage"/>
+      <page
+            name="Typing"
+            category="org.eclipse.m2m.atl.adt.editor.preferences.AtlEditorPreferencePage"
+            class="org.eclipse.m2m.atl.adt.ui.preferences.AtlTypingPreferencePage"
+            id="org.eclipse.m2m.atl.adt.editor.preferences.AtlTypingPreferencePage"/>
+   </extension>
+   <!-- TODO improve decorator -->
+   <extension point="org.eclipse.ui.decorators">
+   	<decorator
+          lightweight="true"
+          label="Atl problems decorator"
+          class="org.eclipse.m2m.atl.adt.ui.viewsupport.ProblemsLabelDecorator"
+          state="true"
+          location="BOTTOM_LEFT"
+          id="problemsLabelDecorator"> 
+          <enablement>
+                <objectClass name="org.eclipse.core.resources.IResource"/> 
+          </enablement>
+  	</decorator> 
+  </extension>
+	<extension point="org.eclipse.ui.editorActions"> 
+      <editorContribution 
+         id="atlEditorContribution" 
+         targetID="org.eclipse.m2m.atl.adt.editor.AtlEditor">
+         <menu
+            id="ATLEditorMenu"
+            label="ATL Editor">
+            <groupMarker
+                  name="ATLGroup">
+            </groupMarker> 
+         </menu> 
+<!--
+            style="toggle"
+            toolbarPath="Normal/additions"
+            state="true" 
+            tooltip="Toggle Comment"
+            helpContextId="com.xyz.run_action_context" 
+-->
+         <action 
+            definitionId="atlCommands.commentBlock"
+            icon="icons/atl_logo.gif"
+            id="org.eclipse.m2m.atl.adt.ui.CommentBlock"
+            label="Comment/Uncomment"
+            menubarPath="ATLEditorMenu/ATLGroup"
+            class="org.eclipse.m2m.atl.adt.ui.actions.ToggleCommentBlock">
+         </action> 
+      </editorContribution> 
+   </extension>
+	<extension point="org.eclipse.ui.bindings">
+		<key
+			commandId="atlCommands.commentBlock"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+			sequence="Ctrl+Shift+C"/>
+	</extension>
+	<extension point="org.eclipse.ui.commands">
+		<command
+			categoryId="atlCategory"
+			id="atlCommands.commentBlock"
+			name="ATL Command Comment Block"/>
+		<category
+			id="atlCategory"
+			name="ATL Category"/>
+	</extension>
+</plugin>

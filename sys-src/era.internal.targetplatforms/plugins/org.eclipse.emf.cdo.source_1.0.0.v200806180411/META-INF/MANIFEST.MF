@@ -1,0 +1,1010 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.emf.cdo.source; singleton=true
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-Version: 1.0.0.v200806180411
+Bundle-Vendor: %providerName
+
+Name: src/org/eclipse/emf/cdo/analyzer/CDOFeatureAnalyzer.java
+SHA1-Digest: oCtJzlbUqyJpdTdjRwWCuwaRrgQ=
+
+Name: src/org/eclipse/emf/cdo/CDOSessionPackageManager.java
+SHA1-Digest: aof4cu6D6eb7XEuvHRPJK48JRPk=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/RegisterWorkspacePac
+ kagesAction.java
+SHA1-Digest: H7aXfuCURuGn5NPJkHSsvvvv4jE=
+
+Name: src/org/eclipse/emf/cdo/internal/common/model/core/CDOCorePackag
+ eImpl.java
+SHA1-Digest: coIuD6/jSDeMO0WUKwkldhVd+is=
+
+Name: src/org/eclipse/emf/ecore/impl/CDOAware.java
+SHA1-Digest: H52jkvftJUVNNh/XYjwmarYSt1c=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/dialogs/RollbackTransactionD
+ ialog.java
+SHA1-Digest: /UpE2qbbV86qlJRzDRUePxIrDio=
+
+Name: src/org/eclipse/emf/cdo/common/id/CDOID.java
+SHA1-Digest: 5wYoLuGgY7mK0vaagxdzgh4hykg=
+
+Name: src/org/eclipse/emf/cdo/eresource/impl/EresourcePackageImpl.java
+SHA1-Digest: mJzB7nX0rKGdPp6d1et2skdzmtI=
+
+Name: src/org/eclipse/emf/internal/cdo/util/IPackageClosure.java
+SHA1-Digest: PJNJZfMf6aQhX9ZehzYdaqyOZKI=
+
+Name: src/org/eclipse/emf/internal/cdo/CDOLegacyImpl.java
+SHA1-Digest: vw46+YO6MUH9KSJk/MghRKesjPY=
+
+Name: src/org/eclipse/emf/cdo/common/id/CDOIDMetaRange.java
+SHA1-Digest: f7zCaxwVKh6gSuYBMYRMokpYvh8=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/dialogs/OpenAuditDialog.java
+SHA1-Digest: S1QpWJ94MOAGORxEIu5a29U/et8=
+
+Name: src/org/eclipse/emf/cdo/common/revision/delta/CDOFeatureDeltaVis
+ itor.java
+SHA1-Digest: r5sO87ouqJGWa2T1CSl63mlz5ig=
+
+Name: src/org/eclipse/emf/cdo/CDOSession.java
+SHA1-Digest: O4nUOToKhWtwIsN9yPAY+WVX7Lg=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/RegisterPackagesActi
+ on.java
+SHA1-Digest: KeyI5i/AO5LwZfEDw/0iy4PaVOo=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: src/org/eclipse/emf/cdo/common/revision/delta/CDOAddFeatureDelta
+ .java
+SHA1-Digest: sK3LI12iTw6qt7ha0JEi+ve9z4U=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/ReloadObjectsAction.
+ java
+SHA1-Digest: 6H9wMbhypX5pX7CkHNHEiLn/SHo=
+
+Name: about.mappings
+SHA1-Digest: 5++W+CVD1CTs/vqncyL3SFV2K+g=
+
+Name: src/org/eclipse/emf/cdo/common/analyzer/CDOFetchRule.java
+SHA1-Digest: G9QVEw8vkKgp00qA34Ay5+QKVHM=
+
+Name: src/org/eclipse/emf/internal/cdo/protocol/LoadLibrariesRequest.j
+ ava
+SHA1-Digest: NQlQCz/nCIv3nII0J6+Hb+7YhHY=
+
+Name: src/org/eclipse/emf/cdo/ui/CDOItemProvider.java
+SHA1-Digest: l7a13QPCyMIvfkLRF7Hvlk62xrc=
+
+Name: src/org/eclipse/emf/cdo/CDOTransaction.java
+SHA1-Digest: UQq0674DwLw4toUuVEzYjoNpLPY=
+
+Name: src/org/eclipse/emf/cdo/spi/common/CDOIDLibraryDescriptorImpl.ja
+ va
+SHA1-Digest: dEPEiXJ7e8HGVBMKx00PvpDokKE=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/CDOReferencePro
+ xyImpl.java
+SHA1-Digest: WJEUgFynO0kjhNQcHJdl1X4BCq8=
+
+Name: copyright.txt
+SHA1-Digest: HAelpb00pNeqamYTAbhcXdINgdE=
+
+Name: src/org/eclipse/emf/internal/cdo/protocol/LoadRevisionByVersionR
+ equest.java
+SHA1-Digest: bZhfwt71A2hlZxtXAzTwliZe/p8=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/ImportResourceAction
+ .java
+SHA1-Digest: 1rekh1YY6+JVuMiDkThVaxcScpM=
+
+Name: src/org/eclipse/emf/cdo/common/model/CDOClassProxy.java
+SHA1-Digest: YbEXCwychiRbCLK9ps6Fvv5FjFI=
+
+Name: src/org/eclipse/emf/cdo/common/model/CDOClass.java
+SHA1-Digest: dDxkZSHcYUnMomjUXl4E5pMEfmc=
+
+Name: src/org/eclipse/emf/cdo/spi/common/CDOIDLongImpl.java
+SHA1-Digest: TBdWS7UdyGawZC4eOpD+wmUY3u0=
+
+Name: src/org/eclipse/emf/internal/cdo/CDOObjectImpl.java
+SHA1-Digest: AH4cVHCnf562B2jVtJGEh8cqbdQ=
+
+Name: src/org/eclipse/emf/internal/cdo/CDOStateMachine.java
+SHA1-Digest: HpBsJo3exMc/1Eh7hykN9UhGYgM=
+
+Name: src/org/eclipse/emf/cdo/common/id/CDOIDLibraryDescriptor.java
+SHA1-Digest: trRHvFxoh62mD662GgURrZBCDrs=
+
+Name: src/org/eclipse/emf/cdo/common/model/CDOPackageInfo.java
+SHA1-Digest: rNpmA/Gp293RF40eki/I1/LqlSs=
+
+Name: src/org/eclipse/emf/internal/cdo/protocol/ViewsChangedRequest.ja
+ va
+SHA1-Digest: pCo3eCPgHMI7ddkzfOYoFs8jfK0=
+
+Name: license.html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/delta/CDOSingle
+ ValueFeatureDeltaImpl.java
+SHA1-Digest: n9UfNUCM1F1Tkjw9sQ36TLdo/SY=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/delta/CDOClearF
+ eatureDeltaImpl.java
+SHA1-Digest: FOGJ6twTMbKcRHZ/Z6ZqyjusFks=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/RegisterSinglePackag
+ eAction.java
+SHA1-Digest: KbTlZkv8eFwQzgDj1tnJO5dAKUM=
+
+Name: src/org/eclipse/emf/cdo/ui/CDOEventHandler.java
+SHA1-Digest: CO8QDDMCvJc8gfAMI4Idv2XMsJw=
+
+Name: src/org/eclipse/emf/internal/cdo/CDOStore.java
+SHA1-Digest: xHQdGqBCEqIBIdb3hcxUN2p7sVg=
+
+Name: about.ini
+SHA1-Digest: KQMVTFcyVja5dvVmIh2o+qDsslY=
+
+Name: src/org/eclipse/emf/internal/cdo/protocol/CommitTransactionReque
+ st.java
+SHA1-Digest: yviRFx24bJvQdETSioXxs0Yho54=
+
+Name: src/org/eclipse/emf/cdo/common/revision/delta/CDOUnsetFeatureDel
+ ta.java
+SHA1-Digest: 4nJ7Yap9ayqKeyCtLEmiwt5HCng=
+
+Name: src/org.eclipse.emf.cdo.common_1.0.0.v200806180411/src.zip
+SHA1-Digest: 3bLzfoKTkPiVNVbVpY1yS0qxalo=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/editor/CDOEditor.java
+SHA1-Digest: qn+jQuiMZ+aKIr9OBSPohZ8mv4s=
+
+Name: src/org/eclipse/emf/cdo/common/CDOProtocolView.java
+SHA1-Digest: HbIJDOw4N0OFp8EFr0oH+GQHStE=
+
+Name: src/org/eclipse/emf/internal/cdo/protocol/VerifyRevisionRequest.
+ java
+SHA1-Digest: YGn+wsWntXg3+by8ssQ3dpC43Jc=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/delta/CDOSetFea
+ tureDeltaImpl.java
+SHA1-Digest: pEjNx2VUsC6z9NEMLcUdvb8ffGc=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/dialogs/OpenSessionDialog.ja
+ va
+SHA1-Digest: mAK26K94LWocVZ4UjI2WfldyjXo=
+
+Name: src/org/eclipse/emf/internal/cdo/CDOInvalidationNotificationImpl
+ .java
+SHA1-Digest: cDsO5rY9hBIeqJWuZks8DiGNKNk=
+
+Name: src/org/eclipse/emf/internal/cdo/analyzer/CDOFetchRuleManagerThr
+ eadLocal.java
+SHA1-Digest: yM7onKtalZI6p8ZcJtrqDaGepgE=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/CDORevisionReso
+ lverImpl.java
+SHA1-Digest: oQNgVbv4rkTvYza6nHQS+4C1JGM=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/delta/IListInde
+ xAffecting.java
+SHA1-Digest: gZv9sTZ3xVokOlABJlN3zE+IW5I=
+
+Name: src/org/eclipse/emf/cdo/common/revision/delta/CDORevisionDeltaUt
+ il.java
+SHA1-Digest: iRKRb4rbFdlLjH+uD8JWsWFU03o=
+
+Name: src/org/eclipse/emf/internal/cdo/CDORevisionManagerImpl.java
+SHA1-Digest: 67vJsB14W48Ge1TqWFl1KYMAPpA=
+
+Name: src/org/eclipse/emf/internal/cdo/bundle/OM.java
+SHA1-Digest: rWmdRQ6ooQa9oVJYEJXq2pAkzuY=
+
+Name: src/org/eclipse/emf/internal/cdo/protocol/InvalidationIndication
+ .java
+SHA1-Digest: UYYgwSJYNPeOYcyOFz0cSZFA3l8=
+
+Name: src/org/eclipse/emf/cdo/eresource/provider/EresourceEditPlugin.j
+ ava
+SHA1-Digest: seLYZFQuIfXgwf8b59Tf8QvUano=
+
+Name: src/org/eclipse/emf/cdo/util/CDOUtil.java
+SHA1-Digest: 0633WQiiYonhiRYky7LRoVMJUr8=
+
+Name: src/org/eclipse/emf/cdo/eresource/EresourceObject.java
+SHA1-Digest: n/NwjYoAqDCiVqmIPA24N29hCxU=
+
+Name: src/org/eclipse/emf/cdo/eresource/CDOResource.java
+SHA1-Digest: btVTNSSDcGueB4Celc+CDcCzLto=
+
+Name: src/org/eclipse/emf/cdo/util/CDOPackageType.java
+SHA1-Digest: ZhlO79WBmLDvUWT3URqtb7aWeWs=
+
+Name: src/org/eclipse/emf/cdo/CDOEvent.java
+SHA1-Digest: 3V6ejLOtq0zuH9r/f15ECvuuIHk=
+
+Name: src/org/eclipse/emf/cdo/eresource/impl/CDOResourceFactoryImpl.ja
+ va
+SHA1-Digest: mvUNhGv8ZDeh3pWGB5Q/XZ38csQ=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/views/CDOSessionsView.java
+SHA1-Digest: aS/Bkvs3wIht6IeZTS8yF9tIhOk=
+
+Name: src/org/eclipse/emf/cdo/common/model/CDOClassRef.java
+SHA1-Digest: FT9RtQhoLajtoSnSIdb1tXD5KRc=
+
+Name: src/org/eclipse/emf/cdo/common/id/CDOIDProvider.java
+SHA1-Digest: 9wi+gjpkEI4oPEAvTP24mfR6X5w=
+
+Name: src/org/eclipse/emf/internal/cdo/util/CompletePackageClosure.jav
+ a
+SHA1-Digest: iPoG+gRbEL90ip1LTtOIWyJhxKo=
+
+Name: src/org/eclipse/emf/cdo/common/revision/CDORevision.java
+SHA1-Digest: Z+GU4ImvapM9mCrhfn0wjurg438=
+
+Name: src/org/eclipse/emf/cdo/util/ReadOnlyException.java
+SHA1-Digest: TavfpHSsdLrvOSdzyTBryFKISto=
+
+Name: src/org/eclipse/emf/internal/cdo/protocol/OpenSessionResult.java
+SHA1-Digest: GMM2SLaKZVoOzqd+5qNtm6r+eR0=
+
+Name: src/org/eclipse/emf/cdo/internal/common/model/CDOTypeImpl.java
+SHA1-Digest: SfK0DpU4+2/fBMga0DAiP2hndVc=
+
+Name: src/org/eclipse/emf/ecore/impl/CDOCallback.java
+SHA1-Digest: ZigHIZ+w7y1M4toqdUtzroEqRgw=
+
+Name: src/org/eclipse/emf/cdo/common/revision/delta/CDOClearFeatureDel
+ ta.java
+SHA1-Digest: 5N/exHGBeO+7X9k1/cZqSdcoMdk=
+
+Name: src/org/eclipse/emf/cdo/common/id/CDOIDUtil.java
+SHA1-Digest: 0sOn5HM2oYSh4Tk4zvNhwPzl6MU=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/preferences/CDOUIPreferenceP
+ age.java
+SHA1-Digest: VhaDMwmFfPCokQbGzCoh2jcY9l8=
+
+Name: plugin.xml
+SHA1-Digest: I0t+o6kXbySrxIY1bLaTaeai3Vc=
+
+Name: src/org/eclipse/emf/cdo/internal/common/CDOProtocolImpl.java
+SHA1-Digest: u3oB0N40Uyw4Cs/CIdQ9fd6JGkY=
+
+Name: about.properties
+SHA1-Digest: k1PWNXvvd53HagEo8RvQc0iyvFE=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/delta/CDOListFe
+ atureDeltaImpl.java
+SHA1-Digest: AlD7ipNyK1XXg6KIb2JDLX/Pzl8=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/OpenAuditAction.java
+SHA1-Digest: cC1tOBHOGE7r6i7WLq55GKeXYFU=
+
+Name: src/org/eclipse/emf/cdo/internal/common/id/CDOIDTempMetaImpl.jav
+ a
+SHA1-Digest: Ki6xUVD8pXIIZw5eCSHHC5F3qz0=
+
+Name: src/org/eclipse/emf/cdo/common/model/CDOFeature.java
+SHA1-Digest: nwCaxHYZy3Y0jzvuVdTnEe2GaPM=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/ViewAction.java
+SHA1-Digest: TGawVQHr5qo3XkaJYZAI7wzF73c=
+
+Name: src/org/eclipse/emf/cdo/spi/common/AbstractCDOIDInteger.java
+SHA1-Digest: qEaNqiI09PftFh0uliaSU8/fTeE=
+
+Name: src/org/eclipse/emf/internal/cdo/analyzer/CDOFetchFeatureInfo.ja
+ va
+SHA1-Digest: BjOgMP8cCnvD3DM7u82aBLECsSE=
+
+Name: src/org/eclipse/emf/internal/cdo/CDOFactoryImpl.java
+SHA1-Digest: e/NuCf+v0ZGzUaWM5MefFI8dXV8=
+
+Name: src/org/eclipse/emf/cdo/spi/common/InternalCDOModelElement.java
+SHA1-Digest: CVfLDF2X/i0IlLhdw7qjw6Eyl/A=
+
+Name: src/org/eclipse/emf/internal/cdo/InternalCDOObject.java
+SHA1-Digest: nDiqVJghoHH4h+lJYAnTM95K3dA=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/RegisterFilesystemPa
+ ckagesAction.java
+SHA1-Digest: b15rUnhGvS9TkkJyXvcnFNt2TUU=
+
+Name: src/org/eclipse/emf/cdo/internal/common/id/CDOIDMetaImpl.java
+SHA1-Digest: gPBT1LBwfPrMqAGHed+/vAg7pvw=
+
+Name: src/org/eclipse/emf/cdo/internal/common/model/resource/CDOPathFe
+ atureImpl.java
+SHA1-Digest: F4yJdI0j75qIcnl8InGrODHv6As=
+
+Name: src/org/eclipse/emf/cdo/CDOSessionInvalidationEvent.java
+SHA1-Digest: 5+xjfE4JUYm2097DvzYIFrUAYkg=
+
+Name: src/org/eclipse/emf/cdo/spi/common/InternalCDOPackage.java
+SHA1-Digest: D193+T6xQMF1fyX9u3qZkaCgJyk=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/editor/CDOActionBarContribut
+ or.java
+SHA1-Digest: JI+Oc4fThhu+uuBS4MqdKDPCk5w=
+
+Name: src/org/eclipse/emf/cdo/common/model/core/CDOCorePackage.java
+SHA1-Digest: txqc9BAns2Qa8u53qucX8iNVZyo=
+
+Name: src/org/eclipse/emf/cdo/common/model/resource/CDOContentsFeature
+ .java
+SHA1-Digest: AgTvWJ1P5OGpPVFFtNNLb/ZurMs=
+
+Name: src/org/eclipse/emf/cdo/eresource/impl/EresourceFactoryImpl.java
+SHA1-Digest: Mo8fihkv/bW6sUPoxiQ8PzV7M9E=
+
+Name: src/org/eclipse/emf/cdo/internal/common/model/resource/CDOConten
+ tsFeatureImpl.java
+SHA1-Digest: UJ1HUBoRkboJvyrHIqxbMuDb7Lo=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/AbstractOpenViewActi
+ on.java
+SHA1-Digest: Bc8XiXVNY6Nn7adQpRfIGqG27dE=
+
+Name: src/org/eclipse/emf/internal/cdo/protocol/LoadPackageRequest.jav
+ a
+SHA1-Digest: Y5okc6RvmQXXjn6+KO1h9ZGJt7o=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/LRURevisionList
+ .java
+SHA1-Digest: 8KQG3dh3VlnHad0jk4d8OR8WVU4=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/delta/CDOAddFea
+ tureDeltaImpl.java
+SHA1-Digest: F2/o7k9ntCz2vkVZX+vmttGtR1Q=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/dialogs/PackageManagerDialog
+ .java
+SHA1-Digest: JJBaz//YzCmuxQG0iELoIcRNYS0=
+
+Name: src/org/eclipse/emf/internal/cdo/util/PackageClosure.java
+SHA1-Digest: 9KbClg+DPqNH3Uc5/A7JrWGk8+Y=
+
+Name: src/org/eclipse/emf/cdo/CDOInvalidationNotification.java
+SHA1-Digest: UwtNmuDCZcoHQoFFWvNzdFtriW4=
+
+Name: src/org/eclipse/emf/internal/cdo/util/CrossReferencesPackageClos
+ ure.java
+SHA1-Digest: HdDhkKRnX1RMQJYo2DJE8Ebb54M=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/delta/CDOContai
+ nerFeatureDeltaImpl.java
+SHA1-Digest: anfF90u591yW4dCY5NGM91i1uZw=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/CloseViewAction.java
+SHA1-Digest: FvYHymHLmeqZ32bj1ZhFAk1joG8=
+
+Name: src/org/eclipse/emf/internal/cdo/util/ProxyResolverResource.java
+SHA1-Digest: 7Of2B1y9ipaZNQTOSGNiBGgpYH8=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/delta/CDORevisi
+ onDeltaImpl.java
+SHA1-Digest: ZxqYzgW1tqg9DStl3MjeLOQMtZw=
+
+Name: src/org/eclipse/emf/internal/cdo/analyzer/NOOPFeatureAnalyzer.ja
+ va
+SHA1-Digest: 5/oXodusrwT8RNavO06+379+uaM=
+
+Name: src/org/eclipse/emf/cdo/common/revision/CDORevisionResolver.java
+SHA1-Digest: 818+s/IJ182Pr4FZEx9m1gOsYhk=
+
+Name: src/org/eclipse/emf/cdo/common/model/resource/CDOPathFeature.jav
+ a
+SHA1-Digest: QCEn+2cVHeDsCLNRn3W7B66YnBI=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/DLRevisionHolde
+ r.java
+SHA1-Digest: aRIx63tAl0MoT0lqzHJQpRhM4jo=
+
+Name: src/org/eclipse/emf/cdo/util/ServerException.java
+SHA1-Digest: iykHF/JX8JfkiqhgUt+SoFChedg=
+
+Name: src/org/eclipse/emf/cdo/CDORevisionManager.java
+SHA1-Digest: RHkoREBB+8hUEbqocTA8wMyKFzQ=
+
+Name: src/org/eclipse/emf/internal/cdo/analyzer/CDOFeatureAnalyzerUI.j
+ ava
+SHA1-Digest: m65ihNQs21LZVIxhltkcQnzfk3A=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/dialogs/BulkAddDialog.java
+SHA1-Digest: rdmEXq/c/4OT6cr0p05OPkHr/bA=
+
+Name: src/org/eclipse/emf/internal/cdo/CDOTransactionImpl.java
+SHA1-Digest: 0GrvIjoBX13gUvRuBVNyjp+ibDY=
+
+Name: src/org/eclipse/emf/internal/cdo/protocol/CDOClientProtocol.java
+SHA1-Digest: 0JcdUOOodP6hw2pys0Ldn3gXe8I=
+
+Name: src/org/eclipse/emf/cdo/spi/common/InternalCDORevision.java
+SHA1-Digest: qOZpjbspZzYTxxsfvXo3SiZJeeg=
+
+Name: src/org/eclipse/emf/cdo/common/model/resource/CDOResourcePackage
+ .java
+SHA1-Digest: t2qkyFPShXJ/kigSnDsLAaq/vRU=
+
+Name: src/org/eclipse/emf/cdo/CDOConstants.java
+SHA1-Digest: +Mxjdq8Wt3Mh5I6ZCUAV/NXeQr8=
+
+Name: src/org/eclipse/emf/internal/cdo/protocol/CDOClientRequest.java
+SHA1-Digest: xuzGEuGGAAXwMic3cS7bVt0Db88=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/LoadResourceAction.j
+ ava
+SHA1-Digest: +VWDkIUWGNY9Xnlst6YpJm7PRu4=
+
+Name: src/org/eclipse/emf/internal/cdo/analyzer/CDOAbstractFeatureRule
+ Analyzer.java
+SHA1-Digest: oJfh70xG1+4uriYorEnb98CF5Mw=
+
+Name: src/org/eclipse/emf/cdo/CDOTransactionConflictEvent.java
+SHA1-Digest: bJU3UWndz5kICgtKabWc7xlX1Vc=
+
+Name: src/org/eclipse/emf/cdo/CDOTransactionStartedEvent.java
+SHA1-Digest: HqPmsk9mppgCZkOu9weRTaBEvYU=
+
+Name: src/org/eclipse/emf/cdo/common/id/CDOIDObjectFactory.java
+SHA1-Digest: gFoVrdS8vtdYYOoB8mm1M+u2gyM=
+
+Name: src/org/eclipse/emf/cdo/CDOSessionConfiguration.java
+SHA1-Digest: B/HwVJVD4x5pYxz7basChvpKN0o=
+
+Name: src/org/eclipse/emf/cdo/common/util/CDOException.java
+SHA1-Digest: G1bPkiEx1wV/U4f+PVeT9i07W/w=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/delta/CDOFeatur
+ eDeltaVisitorImpl.java
+SHA1-Digest: HWtOgR8I8HMEMlBywnjl6drQ/Ik=
+
+Name: src/org/eclipse/emf/cdo/common/util/CDOXORStreamWrapperInjector.
+ java
+SHA1-Digest: XBZV+iKPkdwenGzEOn2vunwbo8A=
+
+Name: src/org/eclipse/emf/cdo/internal/common/model/core/CDOObjectClas
+ sImpl.java
+SHA1-Digest: 42KOrSRxDYAL6vZo/kvlSdtDYDg=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/OpenViewAction.java
+SHA1-Digest: /oLSh8xDJHkNwLE1VW4sLqaA2pA=
+
+Name: src/org/eclipse/emf/internal/cdo/util/GenUtil.java
+SHA1-Digest: juCxRVxu0k44fNoRofW9W4dQLlk=
+
+Name: src/org/eclipse/emf/cdo/common/revision/CDORevisionData.java
+SHA1-Digest: wDfs9HrPbrdldFZkfNiJ9jofYGs=
+
+Name: src/org/eclipse/emf/cdo/spi/common/CDOIDLongFactoryImpl.java
+SHA1-Digest: zfdoA8eJQexNJ0AfDRkmN4/ETtY=
+
+Name: src/org/eclipse/emf/cdo/common/revision/delta/CDOListFeatureDelt
+ a.java
+SHA1-Digest: 25U0TPZkFB1waM3zoxBCes/wivU=
+
+Name: src/org/eclipse/emf/cdo/common/revision/delta/CDOContainerFeatur
+ eDelta.java
+SHA1-Digest: zAQj0otCOKr7RhP6rt+nLQLQ+xc=
+
+Name: src/org/eclipse/emf/cdo/common/CDOProtocolConstants.java
+SHA1-Digest: lmlrXMyU9+NUH0gjRPxf7ywJQeM=
+
+Name: src/org/eclipse/emf/cdo/util/EMFUtil.java
+SHA1-Digest: BqB/0lJJzG/vnNC8U9tevAdwvGw=
+
+Name: src/org/eclipse/emf/cdo/spi/common/InternalCDOClass.java
+SHA1-Digest: 8XFum3GtU4J2gUuVPre23MKYKEo=
+
+Name: src/org/eclipse/emf/cdo/spi/common/InternalCDOFeature.java
+SHA1-Digest: 1uTs3KvSDtJZZg3M0mRzPqyY7G0=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/CDORevisionImpl
+ .java
+SHA1-Digest: LBANJGtCSnm0LAciGMTSUxZWJiE=
+
+Name: src/org/eclipse/emf/internal/cdo/protocol/QueryObjectTypesReques
+ t.java
+SHA1-Digest: Y/RzFSFRiPsXu37Uh8hOJVA6NxA=
+
+Name: src/org/eclipse/emf/cdo/util/LegacySystemNotAvailableException.j
+ ava
+SHA1-Digest: DaE1NUG7QfRtgjT1ZBfjF2x+oW0=
+
+Name: src/org/eclipse/emf/cdo/spi/common/AbstractCDOID.java
+SHA1-Digest: ykDdEi5V3Bwr0aQOWKi3IxdFAxc=
+
+Name: src/org/eclipse/emf/internal/cdo/analyzer/CDOAnalyzerFeatureInfo
+ .java
+SHA1-Digest: tM8Ytgbi0iBoh/fNpI22ddaKUzs=
+
+Name: src/org/eclipse/emf/cdo/internal/common/id/CDOIDAndVersionImpl.j
+ ava
+SHA1-Digest: CNrk3jqXLeXiwyY2a4bpBUSM7i8=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/editor/PluginDelegator.java
+SHA1-Digest: lMX8PbSD3KjctPdHPcyGIscePBw=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/EntryAction.java
+SHA1-Digest: 5hHThhWajHkmbQ2IOYOoPeCVaJI=
+
+Name: src/org/eclipse/emf/cdo/common/CDOProtocol.java
+SHA1-Digest: LmIGaM3NlM6gh+h04QoXfLTGTjk=
+
+Name: src/org/eclipse/emf/cdo/eresource/provider/CDOResourceItemProvid
+ er.java
+SHA1-Digest: P5OyIHx/nMNGnxDhydhB2ZAUlio=
+
+Name: src/org/eclipse/emf/cdo/common/model/CDOModelUtil.java
+SHA1-Digest: hCs2K6gtYea/Z/knbunRJ5itQlo=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/EditingDomainAction.
+ java
+SHA1-Digest: 4qz1gYFoox9Fw3UKkBhWnikg2lg=
+
+Name: src/org/eclipse/emf/cdo/spi/common/AbstractCDOIDLong.java
+SHA1-Digest: PvnqEXSV6e9A4avirifnt9aSg4E=
+
+Name: src/org/eclipse/emf/cdo/util/CDOPackageTypeRegistry.java
+SHA1-Digest: sG+h2EYGkPXPx5aGQTXaj/AZUN0=
+
+Name: src/org/eclipse/emf/cdo/eresource/EresourcePackage.java
+SHA1-Digest: VZiDb1i0h5EusIiIYd44uXlP8Tg=
+
+Name: src/org/eclipse/emf/cdo/internal/common/model/CDOClassRefImpl.ja
+ va
+SHA1-Digest: GRnGFDMYDE3qCKNGlSbDgV+RWOg=
+
+Name: src/org/eclipse/emf/internal/cdo/protocol/LoadRevisionByTimeRequ
+ est.java
+SHA1-Digest: rrgWjUtmcOFOqCs1DOVKSH5TXmA=
+
+Name: src/org/eclipse/emf/internal/cdo/CDOAdapterImpl.java
+SHA1-Digest: 3ZuTlKi2stdh7vAu9FE1RKeVXoY=
+
+Name: src/org/eclipse/emf/internal/cdo/CDOAuditImpl.java
+SHA1-Digest: XZLYqOhu1Fa0YsWYDFN7EojroCM=
+
+Name: src/org/eclipse/emf/internal/cdo/CDOSessionImpl.java
+SHA1-Digest: epQZwPy8TLm9hrp7B8vpoYzCj+g=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/preferences/CDOPreferencePag
+ e.java
+SHA1-Digest: 6FryqMtL+yquxfEmnn6JSVGe3FU=
+
+Name: src/org/eclipse/emf/cdo/common/id/CDOIDObject.java
+SHA1-Digest: 5h3pF+YmPI4/erUO1GPGWYZukcs=
+
+Name: src/org/eclipse/emf/cdo/eresource/util/EresourceAdapterFactory.j
+ ava
+SHA1-Digest: +zrXwC8QtIUVGPGoczH6MQBzYCU=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/RollbackTransactionA
+ ction.java
+SHA1-Digest: bGUhO7KzLJb3D7x+oA0eDMYgMf0=
+
+Name: src/org/eclipse/emf/cdo/CDOView.java
+SHA1-Digest: nSnS4et4vfkMEDM4JZ2db4XY06c=
+
+Name: src/org/eclipse/emf/internal/cdo/util/ProxyResolverURIResourceMa
+ p.java
+SHA1-Digest: YG1uDx+R5bdQSt+W55hH2ziZA7I=
+
+Name: src/org.eclipse.emf.cdo_1.0.0.v200806180411/mixinsrc.zip
+SHA1-Digest: SfC6iI7iDzlOFx40XHg1guyMzSs=
+
+Name: src/org/eclipse/emf/internal/cdo/util/FSMUtil.java
+SHA1-Digest: fjleH87w1eIbXnDj9x5lK3sCjp0=
+
+Name: src/org/eclipse/emf/cdo/internal/common/model/resource/CDOResour
+ cePackageImpl.java
+SHA1-Digest: ISuAGNE7dswXktEhG3ZV3FImi9w=
+
+Name: src/org/eclipse/emf/internal/cdo/analyzer/CDOClusterOfFetchRule.
+ java
+SHA1-Digest: Z9fG/TFNgWuP08pDCsfP/e2t/7c=
+
+Name: src/org/eclipse/emf/internal/cdo/CDOCallbackImpl.java
+SHA1-Digest: TLMxVit9zwPIsvy12FRYzvd71YI=
+
+Name: src/org/eclipse/emf/cdo/spi/common/CDOIDLibraryProviderImpl.java
+SHA1-Digest: /aS6HSdzwwc9GHj445NyDxGmqSo=
+
+Name: src/org/eclipse/emf/internal/cdo/protocol/CDOClientProtocolFacto
+ ry.java
+SHA1-Digest: PqJjpUDlWk4P23cpyxGgh/sz2Cs=
+
+Name: src/org/eclipse/emf/cdo/util/CDOPackageRegistry.java
+SHA1-Digest: RROqoi95xmD2TZWV1QogDM80DIM=
+
+Name: src/org/eclipse/emf/internal/cdo/protocol/CommitTransactionResul
+ t.java
+SHA1-Digest: pk9qS7b3Ojz5UGRl4UT9YpkoCsc=
+
+Name: src/org/eclipse/emf/internal/cdo/LegacySupportEnabler.java
+SHA1-Digest: NOLOW0J68q1FYMuh8aMInvLxdYY=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/ManagePackagesAction
+ .java
+SHA1-Digest: JS/kd8qIeb3h+nJNVpdWPY0QNDg=
+
+Name: src/org/eclipse/emf/cdo/eresource/EresourceFactory.java
+SHA1-Digest: ty70yb1naa07xQY3OD38fXyqw3c=
+
+Name: src/org/eclipse/emf/cdo/CDOTransactionHandler.java
+SHA1-Digest: na+gxS7oPOEfOBj35S5c+n9J7O4=
+
+Name: src/org/eclipse/emf/cdo/eresource/CDOResourceFactory.java
+SHA1-Digest: jcMWAK/K+Z6Re5rq3ijKFeIByr4=
+
+Name: src/org/eclipse/emf/cdo/internal/common/id/CDOIDTempObjectImpl.j
+ ava
+SHA1-Digest: wY4JjMmyO57yGmxlt3rr1UYfK5k=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/OpenResourceEditorAc
+ tion.java
+SHA1-Digest: IMwCFZuNgsGofUyjcmaE8vvFOi0=
+
+Name: src/org/eclipse/emf/cdo/analyzer/CDOFetchRuleManager.java
+SHA1-Digest: dqx3eIsd7OHRJWQYutVdEPJNfN0=
+
+Name: src/org/eclipse/emf/cdo/common/id/CDOIDAndVersion.java
+SHA1-Digest: fk6D45PKRw6ioO+cy7UXBK4MwBU=
+
+Name: src/org/eclipse/emf/internal/cdo/util/RevisionAdjuster.java
+SHA1-Digest: 6ofpe3zELqOFcSxU8HC0hrbgJYM=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/delta/CDORemove
+ FeatureDeltaImpl.java
+SHA1-Digest: O6jW5gr84t6/banPasXrhrtsMJc=
+
+Name: src/org/eclipse/emf/cdo/internal/common/model/CDOPackageManagerI
+ mpl.java
+SHA1-Digest: mRNeujojDHPU45SSN19GjqWVV8Y=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/ImportRootsAction.ja
+ va
+SHA1-Digest: GpGwc+sf21I840ePPwqnOS5StFc=
+
+Name: src/org/eclipse/emf/internal/cdo/analyzer/NOOPFetchRuleManager.j
+ ava
+SHA1-Digest: BrhPYu5QNeu0zsrmCB0yRZnbsNI=
+
+Name: src/org/eclipse/emf/cdo/internal/common/id/CDOIDMetaRangeImpl.ja
+ va
+SHA1-Digest: Ukh7TBRSgnDiDONmSq9sYS9oRrw=
+
+Name: plugin.properties
+SHA1-Digest: 5xEg4kBipfqsTc1o6zus4XvssT8=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/editor/CDOEditorInput.java
+SHA1-Digest: mfcP2ENe5dHQy9iZIywy5JFpe84=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/OpenSessionAction.ja
+ va
+SHA1-Digest: r3whUS+WsSunhzjXeelYLPX/Dcw=
+
+Name: src/org/eclipse/emf/cdo/CDOSessionEvent.java
+SHA1-Digest: j3L2a/5QRA98vR/tdhA4Zis+izU=
+
+Name: src/org/eclipse/emf/cdo/internal/common/bundle/OM.java
+SHA1-Digest: Os11V3vdnaTkrroZgpKd44FOU+8=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/ItemsProcessor.java
+SHA1-Digest: thDyENuyTbYC4knEmxsdSA0NgVI=
+
+Name: src/org/eclipse/emf/cdo/common/model/core/CDOObjectClass.java
+SHA1-Digest: tKfgUQM/vSEXhZwrbOofRjiavEs=
+
+Name: src/org/eclipse/emf/cdo/common/revision/CDOReferenceProxy.java
+SHA1-Digest: PL8wLRsIJumlMVgCFxjgtqjOwIc=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/delta/CDOFeatur
+ eDeltaImpl.java
+SHA1-Digest: k+6RAkGQxq+oiRSXCXh/dpUTCgw=
+
+Name: src/org/eclipse/emf/cdo/common/revision/delta/CDOFeatureDeltaHan
+ dler.java
+SHA1-Digest: tOzG145WdoC1bm40qRsGOHLOAsA=
+
+Name: src/org/eclipse/emf/cdo/common/id/CDOIDTemp.java
+SHA1-Digest: BHmUlrXTyEGU3Z/Sz4BO7L30Rsc=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/ReloadViewAction.jav
+ a
+SHA1-Digest: Gt1DDsfck9V2IWCaHEmuymhijJY=
+
+Name: src/org/eclipse/emf/cdo/ui/CDOLabelProvider.java
+SHA1-Digest: gI2eFBu/GxkEnk/KLxR5vMjg+nQ=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/views/CDOViewHistory.java
+SHA1-Digest: UfTgdMvZtvUiuNM9uUHcZeUqLy4=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/dialogs/SelectPackageDialog.
+ java
+SHA1-Digest: HN5tc4qdPgDR6Ht78V83vHNh/H8=
+
+Name: src/org/eclipse/emf/cdo/util/CDOFactory.java
+SHA1-Digest: nAjOIMiHegz3VY9I9RWBmUm3Ldk=
+
+Name: src/org/eclipse/emf/cdo/CDOTransactionFinishedEvent.java
+SHA1-Digest: +JNSuTgvoeqNFV57KZ8K7eMGLAs=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/delta/CDORevisi
+ onMerger.java
+SHA1-Digest: SZE/A7MKoDu9kud4baC3o2VufFI=
+
+Name: src/org/eclipse/emf/internal/cdo/util/ChannelInjector.java
+SHA1-Digest: Kj4hXsbkL06mZnMDllmhEwhKKH0=
+
+Name: src/org/eclipse/emf/cdo/common/model/resource/CDOResourceClass.j
+ ava
+SHA1-Digest: 5Gpdv/HQxE8TvEMSw8KqeRkbQCU=
+
+Name: src/org/eclipse/emf/internal/cdo/protocol/LoadRevisionRequest.ja
+ va
+SHA1-Digest: uJxduCRsMwxWkVWy2mSjDrB8lFg=
+
+Name: src/org/eclipse/emf/cdo/spi/common/InternalCDORevisionDelta.java
+SHA1-Digest: 9J5/VZPBT9O10zY6/4mo1gV41Cs=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/CommitTransactionAct
+ ion.java
+SHA1-Digest: OpWL2fbeqyBT5zSAtJOIb9cFTw4=
+
+Name: src/org/eclipse/emf/internal/cdo/protocol/OpenSessionRequest.jav
+ a
+SHA1-Digest: Ud0+ZD5Z1yB10EKi97h6G4APrWo=
+
+Name: src/org/eclipse/emf/internal/cdo/CDOSessionConfigurationImpl.jav
+ a
+SHA1-Digest: deUUSRZc/zKlC7LMvhuw2ThnjtU=
+
+Name: src/org/eclipse/emf/cdo/edit/CDOItemProviderAdapter.java
+SHA1-Digest: OvXSniEk3blJFh4azRhAAkSKDsI=
+
+Name: src/org/eclipse/emf/cdo/CDOViewEvent.java
+SHA1-Digest: nhJVWSdGsFuYCMfuprDHd1oCcdQ=
+
+Name: src/org/eclipse/emf/cdo/common/revision/delta/CDOSetFeatureDelta
+ .java
+SHA1-Digest: /PBpZawE3FHX8JYHFiX0lTapq3E=
+
+Name: src/org.eclipse.emf.cdo.edit_1.0.0.v200806180411/src.zip
+SHA1-Digest: gLNNK3Q7Cr+9JzrEYW+DLPmmJdU=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/DLRevisionList.
+ java
+SHA1-Digest: LkHTrv44K/tuQUChhmCKw9/EUps=
+
+Name: src/org/eclipse/emf/internal/cdo/protocol/ResourceIDRequest.java
+SHA1-Digest: wJRy/caNTTDLkBlDdaI+B5odojk=
+
+Name: src/org/eclipse/emf/cdo/internal/common/model/CDOPackageImpl.jav
+ a
+SHA1-Digest: VkbNsA66abs4gk9M4n760ZyFPvg=
+
+Name: src/org/eclipse/emf/cdo/eresource/provider/EresourceItemProvider
+ AdapterFactory.java
+SHA1-Digest: 4apOvhEFhZ4KVTU8wSCeEBTyxe8=
+
+Name: src/org/eclipse/emf/internal/cdo/CDOViewImpl.java
+SHA1-Digest: MJ7uGieb9TxXtMFZ34yBrFOsC50=
+
+Name: src/org/eclipse/emf/cdo/common/CDOProtocolSession.java
+SHA1-Digest: +UBE6JGZNX14NnFer47CQRqxOtk=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/OpenViewEditorAction
+ .java
+SHA1-Digest: E5fS+h2VP3KZzVg7gIMYuNqI/So=
+
+Name: src/org/eclipse/emf/cdo/internal/common/model/resource/CDOResour
+ ceClassImpl.java
+SHA1-Digest: o3PILmjIUR75apertwGcPyaATCM=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/bundle/OM.java
+SHA1-Digest: yv4Cui4Nipybx2Qhp3S5i2qSjzs=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/LRURevisionHold
+ er.java
+SHA1-Digest: xA2resPRx1KovjHzWWLZ1HmMesA=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/delta/IListTarg
+ etAdding.java
+SHA1-Digest: MN18ubBH1uuh1rd+/IHlN5tQLyE=
+
+Name: src/org/eclipse/emf/cdo/common/revision/delta/CDOFeatureDelta.ja
+ va
+SHA1-Digest: zHDZKt+XfQ9kRJZ0e9Z9AN9tOnI=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/SessionAction.java
+SHA1-Digest: 6UMY68ZDHMnYbtwiQnFpOzqNOGs=
+
+Name: src/org/eclipse/emf/cdo/internal/common/model/CDOFeatureImpl.jav
+ a
+SHA1-Digest: NR/JUSlLG21gOZgt+pW0V5BG8Bw=
+
+Name: src/org/eclipse/emf/internal/cdo/CDOObjectMerger.java
+SHA1-Digest: qy3YR3/fm7lO0lfXjm2jWuh72GQ=
+
+Name: src/org/eclipse/emf/internal/cdo/CDOSessionFactory.java
+SHA1-Digest: zdLJGMFGH77BDhyuvPfvYGYxQis=
+
+Name: about.html
+SHA1-Digest: mLkmRLtG3amkcY0I7KSYZX6qKhs=
+
+Name: src/org/eclipse/emf/cdo/common/model/CDOModelElement.java
+SHA1-Digest: x4Eq1EjT4MyQu2gooLogMiTvld4=
+
+Name: epl-v10.html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: src/org/eclipse/emf/internal/cdo/CDOSessionPackageManagerImpl.ja
+ va
+SHA1-Digest: FfM+FeXDGlzWApwPSdM/X6/4xAE=
+
+Name: src/org/eclipse/emf/internal/cdo/util/ModelUtil.java
+SHA1-Digest: J8kyaM/ShbQYCeuFnUazcUHajsw=
+
+Name: src/org/eclipse/emf/internal/cdo/util/InstancePackageClosure.jav
+ a
+SHA1-Digest: jPQspGh7GF7qvVU0KxWPsErIMi0=
+
+Name: src/org/eclipse/emf/cdo/CDOObject.java
+SHA1-Digest: 9EDtB/7ykYhvfBUJhgiBOneuODs=
+
+Name: src/org/eclipse/emf/cdo/CDOViewResourcesEvent.java
+SHA1-Digest: Nkwu06Jgn1lxfVQ5QFZtVTHjHIk=
+
+Name: src/org/eclipse/emf/internal/cdo/bundle/Activator.java
+SHA1-Digest: a2OFUZNe+1axNx7oNXm/Vs9VCxA=
+
+Name: src/org/eclipse/emf/internal/cdo/DynamicCDOObjectImpl.java
+SHA1-Digest: CSTYYDzLkj+OL1vMyj0tiDpeWOg=
+
+Name: src/org.eclipse.emf.cdo.ui_1.0.0.v200806180411/src.zip
+SHA1-Digest: HnbhJLnraKE6DzqIh6FkvDLYULI=
+
+Name: src/org/eclipse/emf/internal/cdo/util/CDOPackageTypeRegistryImpl
+ .java
+SHA1-Digest: +iwS+k5t45yWuhmJ04s8j6f5QkE=
+
+Name: src/org/eclipse/emf/cdo/eresource/util/EresourceSwitch.java
+SHA1-Digest: AB9WnnV9wSo9P8Di4/NZVlB0U9A=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/OpenTransactionActio
+ n.java
+SHA1-Digest: u3O37WcmulCtkGIIjo7KfgV2vdc=
+
+Name: src/org/eclipse/emf/internal/cdo/protocol/LoadChunkRequest.java
+SHA1-Digest: GNrROEefSHYg/3YHY06dJ5sOQ2Q=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/delta/CDOMoveFe
+ atureDeltaImpl.java
+SHA1-Digest: GXVdbFFecSGG93E0xjlYnwu47/k=
+
+Name: src/org/eclipse/emf/cdo/ui/CDOViewHistoryEvent.java
+SHA1-Digest: jl9YTqC8Sx+x7QJkjzzmf8pMabI=
+
+Name: src/org/eclipse/emf/cdo/common/util/CDOGZIPStreamWrapperInjector
+ .java
+SHA1-Digest: vnDNCfyGuM5VbLf3XROwM+AvkwI=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/CloseSessionAction.j
+ ava
+SHA1-Digest: IbZMHsWagX3JIYIy1mSbPf5k2Is=
+
+Name: src/org/eclipse/emf/cdo/CDOAudit.java
+SHA1-Digest: aE0h1/exKC9jZVhB0e5cmp7GJN4=
+
+Name: src/org/eclipse/emf/cdo/common/id/CDOIDLibraryProvider.java
+SHA1-Digest: clzQ+2oD2tAdTuizOMGhdNtuivc=
+
+Name: src/org/eclipse/emf/cdo/common/revision/CDORevisionUtil.java
+SHA1-Digest: EmfKZWtLhwIovzRShlYuLYR5waQ=
+
+Name: modeling32.png
+SHA1-Digest: ADlLWFV0eQ74YnLvHnPFkYLeLrs=
+
+Name: src/org/eclipse/emf/internal/cdo/analyzer/CDOFeatureAnalyzerMode
+ lBased.java
+SHA1-Digest: 47C9Ox0t/qtB06aWb24pqacO8aY=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/dialogs/OpenResourcesDialog.
+ java
+SHA1-Digest: yjxK+Se5mcQ3UR8hjDhORqZH+74=
+
+Name: src/org/eclipse/emf/cdo/common/model/CDOType.java
+SHA1-Digest: F82ZmJ26bQLj7RZ2oEHDIVFk4nk=
+
+Name: src/org/eclipse/emf/cdo/common/revision/delta/CDORevisionDelta.j
+ ava
+SHA1-Digest: +1ZljOxGeSHqAmDfEpv19KmX17Y=
+
+Name: src/org/eclipse/emf/cdo/common/revision/delta/CDORemoveFeatureDe
+ lta.java
+SHA1-Digest: 66Ijg78FwlXk57KANPiWzs6B1TA=
+
+Name: src/org/eclipse/emf/internal/cdo/util/CDOPackageRegistryImpl.jav
+ a
+SHA1-Digest: CDazv3wz8t6TalB936ehRWftdCg=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/RevisionHolder.
+ java
+SHA1-Digest: jHppF/EHTJfnFUveVGFlRtgi+LA=
+
+Name: src/org/eclipse/emf/cdo/internal/common/model/CDOModelElementImp
+ l.java
+SHA1-Digest: WO1042e/pyCPEmRb5AMEqTA8CxY=
+
+Name: src/org/eclipse/emf/cdo/internal/common/id/CDOIDNullImpl.java
+SHA1-Digest: xN4UlZW6Q6zEE1wOcNxJz/Ys5lQ=
+
+Name: src/org/eclipse/emf/cdo/common/id/CDOIDMeta.java
+SHA1-Digest: HUVUpqg5yg1cF9OpZHKVGc3r2Ek=
+
+Name: src/org/eclipse/emf/cdo/common/revision/delta/CDOMoveFeatureDelt
+ a.java
+SHA1-Digest: /utFw1o/AuAoeSsCUPLsx9QjFFs=
+
+Name: src/org/eclipse/emf/cdo/common/util/TransportException.java
+SHA1-Digest: pRKBZ/LQkfYU3OctrNkRUbIW2T4=
+
+Name: src/org/eclipse/emf/cdo/internal/common/revision/delta/CDOUnsetF
+ eatureDeltaImpl.java
+SHA1-Digest: u/awtXLZaAGtU8wSUSs9wTcca3c=
+
+Name: src/org/eclipse/emf/internal/cdo/protocol/ResourcePathRequest.ja
+ va
+SHA1-Digest: GgpnCBFRnqdudEVgxWseL7bASzw=
+
+Name: src/org/eclipse/emf/internal/cdo/CDOMetaImpl.java
+SHA1-Digest: WWAz5kb+4v6/WiXnB8lgwZIVxOk=
+
+Name: src/org/eclipse/emf/cdo/CDOState.java
+SHA1-Digest: iaei6rARC63A2x5gEIOFimn7AZI=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/ExportResourceAction
+ .java
+SHA1-Digest: 0VIUvn3TlTcVzDLPCez6+vSknzQ=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/CreateResourceAction
+ .java
+SHA1-Digest: /TKD7Gwnu9i213HE21DcR/lFhzQ=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/actions/RegisterGeneratedPac
+ kagesAction.java
+SHA1-Digest: fl/EYRh7LnrLMx6AtxbGCTxGLg8=
+
+Name: src/org.eclipse.emf.cdo_1.0.0.v200806180411/src.zip
+SHA1-Digest: V0nkc+pNxKfK3qGzOX9tGcw5Oqk=
+
+Name: src/org/eclipse/emf/cdo/eresource/impl/CDOResourceImpl.java
+SHA1-Digest: yM5V+lwa1fzF8JgxmTBAMvJ404U=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/SharedIcons.java
+SHA1-Digest: 2ohM0y4p56iexX5aW46CBLN6N+4=
+
+Name: src/org/eclipse/emf/cdo/internal/common/model/CDOClassImpl.java
+SHA1-Digest: W3ZFmScfte0ZioGqMeLOWznlFLk=
+
+Name: src/org/eclipse/emf/cdo/common/model/CDOPackageManager.java
+SHA1-Digest: 0l3Gx1k+N5n1TKw79hl7qd92Pug=
+
+Name: src/org/eclipse/emf/internal/cdo/CDOWrapperImpl.java
+SHA1-Digest: 1AWW5QggStRaIzB8J2jCMXyWxJE=
+
+Name: src/org/eclipse/emf/cdo/internal/ui/dialogs/IPackageProvider.jav
+ a
+SHA1-Digest: EAaJ7K+6WfOxwd6BJewZyaUDGC0=
+
+Name: src/org/eclipse/emf/cdo/common/model/CDOPackage.java
+SHA1-Digest: tjeuNQvqyCMI/6L6v+lRyFCNkhE=
+

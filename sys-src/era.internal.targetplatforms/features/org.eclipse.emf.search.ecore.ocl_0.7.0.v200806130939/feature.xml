@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2007, 2008 Anyware Technologies. All rights reserved. This program
+  and the accompanying materials are made available under the terms of the
+  Eclipse Public License v1.0 which accompanies this distribution, and is
+  available at http://www.eclipse.org/legal/epl-v10.html
+    
+  Contributors: Lucas Bigeardel (Anyware Technologies) - initial API and
+  implementation
+-->
+<feature
+      id="org.eclipse.emf.search.ecore.ocl"
+      label="%featureName"
+      version="0.7.0.v200806130939"
+      provider-name="%providerName">
+
+   <description url="http://www.eclipse.org/modeling/emft/?project=search#search">
+      %description
+   </description>
+
+   <copyright url="http://www.anyware-technologies.com/copyright.html">
+      %copyright
+   </copyright>
+
+   <license url="http://www.eclipse.org/legal/epl-v10.html">
+      %license
+   </license>
+
+   <url>
+      <update label="%EMFTUpdateSiteName" url="http://download.eclipse.org/technology/emft/updates/"/>
+      <discovery label="EMFT Search" url="http://www.eclipse.org/modeling/emft/?project=search#search"/>
+   </url>
+
+   <includes
+         id="org.eclipse.emf.search.ocl"
+         version="0.7.0.v200806130939"/>
+
+   <includes
+         id="org.eclipse.emf.search.runtime"
+         version="0.7.0.v200806130939"/>
+
+   <includes
+         id="org.eclipse.emf.search.ecore"
+         version="0.7.0.v200806130939"/>
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.emf.query.ocl"/>
+      <import plugin="org.eclipse.ocl.ecore"/>
+      <import plugin="org.eclipse.emf.search"/>
+      <import plugin="org.eclipse.emf.search.ecore"/>
+      <import plugin="org.eclipse.emf.search.ocl"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.emf.search.ui"/>
+      <import plugin="org.eclipse.emf.search.ecore.ui"/>
+      <import plugin="org.eclipse.emf.search.common"/>
+      <import plugin="org.eclipse.jface"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.emf.ecore.edit"/>
+      <import plugin="org.eclipse.emf.edit.ui"/>
+      <import plugin="org.eclipse.emf.search.ocl.ui"/>
+      <import plugin="org.eclipse.ocl"/>
+      <import plugin="org.eclipse.ocl.uml"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.emf.search.ecore.ocl"
+         download-size="0"
+         install-size="0"
+         version="0.7.0.v200806130939"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.emf.search.ecore.ocl.ui"
+         download-size="0"
+         install-size="0"
+         version="0.7.0.v200806130939"
+         unpack="false"/>
+
+</feature>

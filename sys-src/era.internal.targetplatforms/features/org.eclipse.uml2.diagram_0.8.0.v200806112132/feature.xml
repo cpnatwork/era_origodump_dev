@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.uml2.diagram"
+      label="%featureName"
+      version="0.8.0.v200806112132"
+      provider-name="%providerName"
+      image="eclipse_update_120.jpg">
+
+   <description url="http://www.eclipse.org/modeling/mdt">
+      %description
+   </description>
+
+   <copyright url="%copyrightURL">
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <url>
+      <update label="%updateSiteName" url="http://download.eclipse.org/modeling/mdt/updates/"/>
+   </url>
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.jface"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.ui.views"/>
+      <import plugin="org.eclipse.ui.workbench"/>
+      <import plugin="org.eclipse.ui.workbench.texteditor"/>
+      <import plugin="org.eclipse.ui.navigator"/>
+      <import feature="org.eclipse.emf" version="2.3.0" match="compatible"/>
+      <import feature="org.eclipse.uml2" version="2.1.0" match="compatible"/>
+      <import feature="org.eclipse.emf.ocl" version="1.1.0" match="compatible"/>
+      <import feature="org.eclipse.emf.query" version="1.0.1" match="compatible"/>
+      <import feature="org.eclipse.emf.transaction" version="1.1.0" match="compatible"/>
+      <import feature="org.eclipse.emf.validation" version="1.1.0" match="compatible"/>
+      <import feature="org.eclipse.gef" version="3.3.0" match="compatible"/>
+      <import feature="org.eclipse.gmf" version="1.0.100" match="compatible"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.uml2.diagram"
+         download-size="0"
+         install-size="0"
+         version="0.8.0.v200806112132"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.uml2.diagram.activity"
+         download-size="0"
+         install-size="0"
+         version="0.8.0.v200806112132"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.uml2.diagram.csd"
+         download-size="0"
+         install-size="0"
+         version="0.8.0.v200806112132"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.uml2.diagram.clazz"
+         download-size="0"
+         install-size="0"
+         version="0.8.0.v200806112132"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.uml2.diagram.common"
+         download-size="0"
+         install-size="0"
+         version="0.8.0.v200806112132"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.uml2.diagram.component"
+         download-size="0"
+         install-size="0"
+         version="0.8.0.v200806112132"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.uml2.diagram.parser"
+         download-size="0"
+         install-size="0"
+         version="0.8.0.v200806112132"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.uml2.diagram.statemachine"
+         download-size="0"
+         install-size="0"
+         version="0.8.0.v200806112132"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.uml2.diagram.profile"
+         download-size="0"
+         install-size="0"
+         version="0.8.0.v200806112132"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.uml2.diagram.deploy"
+         download-size="0"
+         install-size="0"
+         version="0.8.0.v200806112132"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.uml2.diagram.usecase"
+         download-size="0"
+         install-size="0"
+         version="0.8.0.v200806112132"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.uml2.diagram.codegen"
+         download-size="0"
+         install-size="0"
+         version="0.8.0.v200806112132"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.uml2.diagram.codegen.edit"
+         download-size="0"
+         install-size="0"
+         version="0.8.0.v200806112132"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.uml2.diagram.def"
+         download-size="0"
+         install-size="0"
+         version="0.8.0.v200806112132"
+         unpack="false"/>
+
+</feature>

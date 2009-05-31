@@ -1,0 +1,186 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.uml2.source; singleton=true
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-Version: 2.2.0.v200805201126
+Bundle-Vendor: %providerName
+
+Name: src/org.eclipse.uml2.uml_2.2.0.v200805141133/model/L0.uml
+SHA1-Digest: aezZMs9UnFLNMZQfmaINOVeQ3h4=
+
+Name: plugin.xml
+SHA1-Digest: I0t+o6kXbySrxIY1bLaTaeai3Vc=
+
+Name: src/org.eclipse.uml2.uml_2.2.0.v200805141133/about.html
+SHA1-Digest: XX9QNRrVnHKSlwVc2mDJkamI7cs=
+
+Name: src/org.eclipse.uml2.uml.ecore.importer_2.2.0.v200805131030/read
+ me.html
+SHA1-Digest: U0ZAr/KDrfjsT7Xi7goPvP0fL3o=
+
+Name: about.properties
+SHA1-Digest: M5Leq77EMbB7APT783X3gXPD9oI=
+
+Name: src/org.eclipse.uml2.uml.ecore.importer_2.2.0.v200805131030/src.
+ zip
+SHA1-Digest: arppJyn89SErVjBrTCOl85OKqmU=
+
+Name: src/org.eclipse.uml2.common.edit_1.4.0.v200805131030/src.zip
+SHA1-Digest: uxZ5Ty8zkXlWJEiE5Wuomsn6+VY=
+
+Name: src/org.eclipse.uml2.uml_2.2.0.v200805141133/model/Ecore.uml
+SHA1-Digest: uwPPuTUVqTmYx8f56ecvYC3+XvA=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: src/org.eclipse.uml2.common_1.4.0.v200805131030/src.zip
+SHA1-Digest: rL+JtoA0P7ybjXS+QlLB/7F+0tk=
+
+Name: src/org.eclipse.uml2.common.edit_1.4.0.v200805131030/about.html
+SHA1-Digest: XX9QNRrVnHKSlwVc2mDJkamI7cs=
+
+Name: src/org.eclipse.uml2.uml.ecore.exporter_2.2.0.v200805131030/abou
+ t.html
+SHA1-Digest: XX9QNRrVnHKSlwVc2mDJkamI7cs=
+
+Name: src/org.eclipse.uml2.uml_2.2.0.v200805141133/model/UML.uml
+SHA1-Digest: XsQAqbK4ijywYofWf5j1egt1ntI=
+
+Name: src/org.eclipse.uml2.codegen.ecore.ui_1.4.0.v200805131030/src.zi
+ p
+SHA1-Digest: bJkwr6WMeVpAefEKXQokfpVeAD0=
+
+Name: about.mappings
+SHA1-Digest: Q+b5MAYxL4elOFNG1adYfqDoiCE=
+
+Name: about.html
+SHA1-Digest: XX9QNRrVnHKSlwVc2mDJkamI7cs=
+
+Name: src/org.eclipse.uml2.uml_2.2.0.v200805141133/model/UML2_2_UML.ec
+ ore2ecore
+SHA1-Digest: jaRCvx/KTxxmZN3erGi1eGfYXl0=
+
+Name: src/org.eclipse.uml2.codegen.ecore_1.4.0.v200805201126/src.zip
+SHA1-Digest: NS9B5aszOcYAryHAQmqZuV8y0Jk=
+
+Name: src/org.eclipse.uml2.uml.edit_2.2.0.v200805131030/src.zip
+SHA1-Digest: GY+pEXo0+UvSDVHtKznQwZnHoiY=
+
+Name: src/org.eclipse.uml2.uml_2.2.0.v200805141133/templates/Header.pr
+ opertiesjetinc
+SHA1-Digest: /BBW4s5qTNGFkQAx/FIb5FdwXFo=
+
+Name: src/org.eclipse.uml2_2.1.0.v200805131030/about.html
+SHA1-Digest: XX9QNRrVnHKSlwVc2mDJkamI7cs=
+
+Name: src/org.eclipse.uml2.uml_2.2.0.v200805141133/model/LM.uml
+SHA1-Digest: fWbLX4g9mIT5J0DiBCC0j6cOWkI=
+
+Name: src/org.eclipse.uml2.codegen.ecore.ui_1.4.0.v200805131030/about.
+ html
+SHA1-Digest: XX9QNRrVnHKSlwVc2mDJkamI7cs=
+
+Name: src/org.eclipse.uml2.uml.resources_2.2.0.v200805131030/about.htm
+ l
+SHA1-Digest: XX9QNRrVnHKSlwVc2mDJkamI7cs=
+
+Name: src/org.eclipse.uml2.uml_2.2.0.v200805141133/templates/Header.xm
+ ljetinc
+SHA1-Digest: 9d/SIWkZ8L0I2edoC9/gq12FgbM=
+
+Name: src/org.eclipse.uml2.uml.ecore.importer_2.2.0.v200805131030/exam
+ ples/library/build/codeGen.bat
+SHA1-Digest: +0gWbGniphTBVOIvnpa9lpCsgdM=
+
+Name: src/org.eclipse.uml2.codegen.ecore_1.4.0.v200805201126/about.htm
+ l
+SHA1-Digest: XX9QNRrVnHKSlwVc2mDJkamI7cs=
+
+Name: src/org.eclipse.uml2.uml_2.2.0.v200805141133/model/L3.uml
+SHA1-Digest: ai0DyW/v3HqNPkRqmcKkE16l+iw=
+
+Name: src/org.eclipse.uml2.uml.ecore.importer_2.2.0.v200805131030/exam
+ ples/library/model/library.uml
+SHA1-Digest: 0eNp/VFx1UK+rIDek1Fp4oPiQDk=
+
+Name: src/org.eclipse.uml2.uml.ecore.importer_2.2.0.v200805131030/exam
+ ples/library/build/build.xml
+SHA1-Digest: 4v1/Ia1WA4OddsrCGpeee/JtdR0=
+
+Name: src/org.eclipse.uml2.uml_2.2.0.v200805141133/model/L2.uml
+SHA1-Digest: 8umphLGB02nfiVTV6CG8olZ3igQ=
+
+Name: src/org.eclipse.uml2.uml.ecore.exporter_2.2.0.v200805131030/src.
+ zip
+SHA1-Digest: ri3/GEPkCASCyN3vNCyqv0M8MjE=
+
+Name: src/org.eclipse.uml2.uml_2.2.0.v200805141133/model/10537.uml
+SHA1-Digest: uF94O/1EQ4Wudfty2TkZzTriKa8=
+
+Name: src/org.eclipse.uml2.uml.editor_2.2.0.v200805131030/src.zip
+SHA1-Digest: eSXqJQHOJZ3k40ds2PkzzmvDhYE=
+
+Name: modeling32.png
+SHA1-Digest: ADlLWFV0eQ74YnLvHnPFkYLeLrs=
+
+Name: src/org.eclipse.uml2.uml_2.2.0.v200805141133/model/Superstructur
+ e.uml
+SHA1-Digest: k3spjLqFLQuiMmElC9TRu9QMBmY=
+
+Name: about.ini
+SHA1-Digest: a3e10RUve3pcmvJs5NT9fWCPieU=
+
+Name: plugin.properties
+SHA1-Digest: uh59I30kqYp4/d23AAnEMeZkUf0=
+
+Name: src/org.eclipse.uml2.uml_2.2.0.v200805141133/model/Infrastructur
+ e.uml
+SHA1-Digest: a6I3lPGZGz0vrkEN3prS5qkmjm4=
+
+Name: src/org.eclipse.uml2.uml.ecore.importer_2.2.0.v200805131030/abou
+ t.html
+SHA1-Digest: XX9QNRrVnHKSlwVc2mDJkamI7cs=
+
+Name: src/org.eclipse.uml2.uml_2.2.0.v200805141133/templates/Header.ja
+ vajetinc
+SHA1-Digest: gnBqrnOc4wyXeNgto4Wk3ULhZP8=
+
+Name: src/org.eclipse.uml2.codegen.ecore_1.4.0.v200805201126/model/org
+ .eclipse.uml2.codegen.ecore.GenModel.cat
+SHA1-Digest: 1BEK+3AC+vuEEvYfphCLPPBFuSQ=
+
+Name: src/org.eclipse.uml2.uml_2.2.0.v200805141133/model/UML.merged.um
+ l
+SHA1-Digest: dwrMCkaTykflTbUQsHWeLatdGik=
+
+Name: src/org.eclipse.uml2.uml_2.2.0.v200805141133/src.zip
+SHA1-Digest: e/rHK8IqyoQiYsC5xAJrBR0Wu6s=
+
+Name: src/org.eclipse.uml2.uml.ecore.importer_2.2.0.v200805131030/ant_
+ tasks/uml2.uml.ecore.importer.taskssrc.zip
+SHA1-Digest: E1SkMzk7yzGc1Ygn/M1dZJ6MQOU=
+
+Name: src/org.eclipse.uml2.codegen.ecore_1.4.0.v200805201126/model/Gen
+ Model.mdl
+SHA1-Digest: AM/pP2A27PcXbypqTxch3U/Xyv4=
+
+Name: src/org.eclipse.uml2.uml_2.2.0.v200805141133/model/L1.uml
+SHA1-Digest: C9sQQ3OV0CajSf/E96K+/Uad/sU=
+
+Name: src/org.eclipse.uml2.uml_2.2.0.v200805141133/model/CMOF_2_UML.ec
+ ore2ecore
+SHA1-Digest: XQrg1KQqGcmqRq5/R2m8hPrhx2U=
+
+Name: src/org.eclipse.uml2.uml_2.2.0.v200805141133/model/10536.uml
+SHA1-Digest: eDVrjCAz1WLkyyET5xGYLvAau5w=
+
+Name: src/org.eclipse.uml2.common_1.4.0.v200805131030/about.html
+SHA1-Digest: XX9QNRrVnHKSlwVc2mDJkamI7cs=
+
+Name: src/org.eclipse.uml2.uml.editor_2.2.0.v200805131030/about.html
+SHA1-Digest: XX9QNRrVnHKSlwVc2mDJkamI7cs=
+
+Name: src/org.eclipse.uml2.uml.edit_2.2.0.v200805131030/about.html
+SHA1-Digest: XX9QNRrVnHKSlwVc2mDJkamI7cs=
+
