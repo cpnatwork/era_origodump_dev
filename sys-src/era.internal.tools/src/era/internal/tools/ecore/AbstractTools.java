@@ -31,6 +31,16 @@ public abstract class AbstractTools {
      */
     public static int ABREV_LENGTH = 50;
 
+    /**
+     * File extension for the ecore file
+     */
+    public static final String FILEEXT_ECORE = "ecore";
+
+    /**
+     * File extension for genmodel file
+     */
+    public static final String FILEEXT_GENMODEL = "genmodel";
+
     //
     // private members
 

@@ -3,6 +3,7 @@
 	<name>era.internal.tools</name>
 	<comment></comment>
 	<projects>
+		<project>era.internal.targetplatforms</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

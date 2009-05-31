@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="era.internal.tools.ant-lib" basedir=".">
+	<!--
+	    *************************************************************************
+	    ANT include file for task defined by this tool plug-in.
+	       
+	    Use:
+	    <import file="../era.internal.tools/ant-lib.xml"/>
+	    *************************************************************************
+	-->
+
+	<dirname property="_antlibcwd" file="${ant.file.era.internal.tools.ant-lib}" />
+	<dirname property="era.dev" file="${_antlibcwd}" />
+	<property name="_era.internal.build" value="${era.dev}/era.internal.build" />
+
+	<basename property="era.project.name" file="." />
+
+	<!--
+	Import ant configuration
+	-->
+	<echo level="debug">importing: ${_era.internal.build}/ant-global.properties</echo>
+	<property file="${_era.internal.build}/ant-global.properties" />
+	<echo level="debug">importing: ${_era.internal.build}/ant-global.properties</echo>
+	<property file="ant.properties" />
+
+	<!--
+	Load ant librarires
+	-->
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+		<classpath>
+			<fileset dir="${_antlibcwd}/ant-lib" includes="*.jar" />
+		</classpath>
+	</taskdef>
+
+	<!--
+	Derived properties
+	-->
+	<if>
+		<not>
+			<isset property="era.buildnr" />
+		</not>
+		<then>
+			<tstamp>
+				<format property="era.buildnr" pattern="yyyyMMddhhmm" />
+			</tstamp>
+		</then>
+	</if>
+
+	<fail message="'era.project.version' must be set in ant.properties" unless="era.project.version" />
+	<property name="era.project.jar" value="${era.project.name}_${era.project.version}.jar" />
+	<property name="era.plugin.jar" value="${era.project.name}_${era.project.version}.v${era.buildnr}.jar" />
+
+
+	<path id="era.classpath.default">
+		<pathelement path="${era.cwd}" />
+		<pathelement path="${era.cwd}/${era.project.classes}" />
+		<fileset dir="${era.dev}/${era.internal.targetplatforms}/plugins" includes="*.jar" />
+	</path>
+
+	<path id="era.classpath.era.internal.tools">
+		<pathelement path="${_antlibcwd}/${era.project.classes}" />
+		<fileset dir="${era.dev}/${era.internal.targetplatforms}/plugins" includes="*.jar" />
+	</path>
+
+
+	<!--
+	tasks provided by era.internal.tools
+	-->
+	<if>
+		<not>
+			<equals arg1="${ant.project.name}" arg2="era.internal.tools" />
+		</not>
+		<then>
+			<macrodef name="era.genmodelFile"
+			          description="strips ecore extension and add genmodel extension to filename">
+				<attribute name="file" />
+				<attribute name="property" />
+
+				<sequential>
+					<basename property="__@{property}" file="@{file}" suffix="ecore" />
+					<property name="@{property}" value="${__@{property}}.genmodel" />
+				</sequential>
+			</macrodef>
+
+
+			<!--
+	       extendEcore: adapt the initial ecore file of the rif model
+	       -->
+			<taskdef name="era.extendEcore"
+			         classname="era.internal.tools.ecore.ant.ExtendEcoreTask"
+			         classpathref="era.classpath.era.internal.tools" />
+
+			<!--
+            extendGenModel: generate an genmodel file from an rif ecore model
+            -->
+			<taskdef name="era.extendGenModel"
+			         classname="era.internal.tools.ecore.ant.ExtendGenModelTask"
+			         classpathref="era.classpath.era.internal.tools" />
+		</then>
+	</if>
+
+	<macrodef name="era.prepare" description="Creates build directories">
+		<sequential>
+			<mkdir dir="${era.project.build}" />
+			<mkdir dir="${era.project.classes}" />
+			<mkdir dir="${era.project.dist}" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="era.compileJava" description="runs java compiler with standard paths">
+		<attribute name="classpathref" default="era.classpath.default" />
+		<!-- description="ref to classpath used for building"-->
+		<attribute name="exclude" default="--" />
+		<!-- descrition="list of exclude patterns" -->
+		<sequential>
+			<javac srcdir="${era.project.src}"
+			       destdir="${era.project.classes}"
+			       classpathref="@{classpathref}"
+			       debug="on"
+			       target="${era.java.version}"
+			       source="${era.java.version}">
+				<include name="**/*.java" />
+				<exclude name="@{exclude}" />
+			</javac>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="era.manifest" description="substitutes the Bundle-Version in the manifest">
+		<sequential>
+			<if>
+				<available file="${era.project.manifest}" />
+				<then>
+					<replaceregexp file="${era.project.manifest}"
+					               match="^Bundle-Version:.*$"
+					               replace="Bundle-Version: ${era.project.version}.v${era.buildnr}"
+					               byline="yes" />
+				</then>
+			</if>
+		</sequential>
+	</macrodef>
+
+
+
+	<macrodef name="era.compileJar" description="build the plug-in jar">
+		<element name="includes" optional="yes" />
+		<!-- description="additional includes"-->
+		<sequential>
+			<era.manifest />
+			<delete file="${era.project.dist}/${era.project.jar}"/>
+			<if>
+				<available file="${era.project.manifest}" />
+				<then>
+					<jar manifest="${era.project.manifest}"
+					     destfile="${era.project.dist}/${era.project.jar}"					    
+					     defaultexcludes="yes">
+						<fileset dir="${era.project.classes}" includes="**/*.class" />
+						<fileset dir="${era.project.classes}" includes="**/*.properties" />
+						<fileset dir="${era.project.src}" includes="**/*.properties" />
+						 <fileset dir="." includes="*.jar" /> 
+						<includes />
+					</jar>
+				</then>
+				<else>
+					<jar destfile="${era.project.dist}/${era.project.jar}"					     
+					     defaultexcludes="yes">
+						<fileset dir="${era.project.classes}" includes="**/*.class" />
+						<fileset dir="${era.project.classes}" includes="**/*.properties" />
+						<fileset dir="${era.project.src}" includes="**/*.properties" />
+						<fileset dir="." includes="*.jar" />
+						<includes />
+					</jar>
+				</else>
+			</if>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="era.distPlugin" description="Makes a distributable version of a plug-in">
+		<sequential>
+			<copy file="${era.project.dist}/${era.project.jar}" tofile="${era.dist}/${era.plugin.jar}" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="era.clean" description="removes default build directories">
+		<sequential>
+			<delete dir="${era.project.dist}" verbose="false" failonerror="false" />
+			<delete dir="${era.project.classes}" verbose="false" failonerror="false" />
+			<delete dir="${era.project.build}" verbose="false" failonerror="false" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="era.eclipse" description="run an instance of eclipse">
+		<attribute name="application" />
+		<attribute name="clearconfiguration" default="false" />
+		<attribute name="configuration" default="${era.dev}/${era.internal.targetplatforms}/configuration" />
+		<attribute name="workspace" default="${era.dev}/${era.internal.targetplatforms}/workspace" />
+		<attribute name="clearworkspace" default="false" />
+		<attribute name="jvmarg" default="-Xms128M -Xmx512M " />
+		<attribute name="verbose" default="true" />
+		<element name="args" optional="true" />
+		<element name="sysproperties" optional="true" />
+
+		<sequential>
+			<if>
+				<equals arg1="@{clearconfiguration}" arg2="true" />
+				<then>
+					<delete dir="@{configuration}" quiet="true" />
+				</then>
+			</if>
+			<mkdir dir="@{configuration}" />
+			<if>
+				<equals arg1="@{clearworkspace}" arg2="true" />
+				<then>
+					<delete dir="@{workspace}" quiet="true" />
+				</then>
+			</if>
+			<mkdir dir="@{workspace}" />
+
+			<if>
+				<equals arg1="${verbose}" arg2="true" />
+				<then>
+					<java classname="org.eclipse.equinox.launcher.Main"
+					      classpath="${era.dev}/${era.internal.targetplatforms}/plugins/org.eclipse.equinox.launcher_1.0.101.R34x_v20080819.jar"
+					      fork="true"
+					      dir="."
+					      failonerror="yes"
+					      timeout="7200000">
+						<jvmarg line="@{jvmarg}" />
+						<arg line="-data @{workspace}" />
+						<arg line="-configuration @{configuration}" />
+						<arg line="-install ${era.dev}/${era.internal.targetplatforms}" />
+						<arg line="-application @{application}" />
+						<args />
+						<sysproperties />
+					</java>
+				</then>
+				<else>
+					<java classname="org.eclipse.equinox.launcher.Main"
+					      classpath="${era.dev}/${era.internal.targetplatforms}/plugins/org.eclipse.equinox.launcher_1.0.101.R34x_v20080819.jar"
+					      fork="true"
+					      dir="."
+					      failonerror="yes"
+					      timeout="7200000"
+					      outputproperty="__era.eclipse.output"
+					      logerror="true">
+						<jvmarg line="@{jvmarg}" />
+						<arg line="-data @{workspace}" />
+						<arg line="-configuration @{configuration}" />
+						<arg line="-install ${era.dev}/${era.internal.targetplatforms}" />
+						<arg line="-application @{application}" />
+						<args />
+						<sysproperties />
+					</java>
+					<var name="__era.eclipse.output" unset="true" />
+				</else>
+			</if>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="era.propertyappend">
+		<attribute name="name" />
+		<attribute name="value" />
+		<sequential>
+			<var name="@{name}" value="${@{name}}@{value}" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="era.genJava" description="takes a genmodel as input and generates corresponding java code">
+		<attribute name="genmodel" />
+		<attribute name="model" default="true" />
+		<attribute name="edit" default="true" />
+		<attribute name="editor" default="true" />
+		<attribute name="tests" default="false" />
+		<attribute name="forceOverwrite" default="false" />
+		<attribute name="nonNLSMarkers" default="true" />
+		<attribute name="verbose" default="false" />
+
+		<sequential>
+			<var name="__genJavaArgs" value="-codeFormatting default" />
+			<if>
+				<equals arg1="@{model}" arg2="true" />
+				<then>
+					<era.propertyappend name="__genJavaArgs" value=" -model" />
+				</then>
+			</if>
+			<if>
+				<equals arg1="@{edit}" arg2="true" />
+				<then>
+					<era.propertyappend name="__genJavaArgs" value=" -edit" />
+				</then>
+			</if>
+			<if>
+				<equals arg1="@{editor}" arg2="true" />
+				<then>
+					<era.propertyappend name="__genJavaArgs" value=" -editor" />
+				</then>
+			</if>
+			<if>
+				<equals arg1="@{tests}" arg2="true" />
+				<then>
+					<era.propertyappend name="__genJavaArgs" value=" -tests" />
+				</then>
+			</if>
+			<if>
+				<equals arg1="@{forceOverwrite}" arg2="true" />
+				<then>
+					<era.propertyappend name="__genJavaArgs" value=" -forceOverwrite" />
+				</then>
+			</if>
+			<if>
+				<equals arg1="@{nonNLSMarkers}" arg2="true" />
+				<then>
+					<era.propertyappend name="__genJavaArgs" value=" -nonNLSMarkers" />
+				</then>
+			</if>
+
+
+			<era.propertyappend name="__genJavaArgs" value=" @{genmodel}" />
+
+			<echo>Ecore2Java @{genmodel}</echo>
+			<echo>           model=@{model}</echo>
+			<echo>           edit=@{edit}</echo>
+			<echo>           editor=@{editor}</echo>
+			<echo>           tests=@{tests}</echo>
+			<era.eclipse application="org.eclipse.emf.codegen.ecore.Generator"
+			             workspace="${era.dev}"
+			             verbose="@{verbose}">
+				<args>
+					<arg line="${__genJavaArgs}" />
+				</args>
+			</era.eclipse>
+
+			<var name="__genJavaArgs" unset="true" />
+		</sequential>
+	</macrodef>
+
+	<var name="era.cwd" unset="true" />
+	<dirname property="era.cwd" file="${ant.file.${era.project.name}}" />
+
+	<macrodef name="era.printproperties">
+		<attribute name="level" default="info" />
+		<sequential>
+			<echo level="@{level}">
+Global properties:
+era.cwd: ${era.cwd}
+era.dev: ${era.dev}     
+era.project.src: ${era.project.src}
+era.project.build: ${era.project.build}
+era.project.classes: ${era.project.classes}
+era.project.dist: ${era.project.dist}
+era.buildnr: ${era.buildnr}
+era.internal.build: ${era.internal.build}       
+era.internal.tools: ${era.internal.tools}
+era.internal.tarplatforms: ${era.internal.targetplatforms}      
+		        
+Local properties:
+-----------------
+era.project.name: ${era.project.name}
+era.project.version: ${era.project.version}
+era.project.manifest: ${era.project.manifest}       
+era.project.jar: ${era.project.jar}
+era.plugin.jar: ${era.plugin.jar}
+		     </echo>
+		</sequential>
+	</macrodef>
+	<era.printproperties level="debug" />
+
+
+</project>

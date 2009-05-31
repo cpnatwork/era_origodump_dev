@@ -10,6 +10,7 @@ package era.internal.tools.ecore;
 import java.io.IOException;
 import java.util.Collections;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenJDKLevel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
@@ -31,14 +32,9 @@ public class ExtendGenModel extends AbstractTools {
     // defines
 
     /**
-     * File extension for the ecore file
+     * config properties: Java Version
      */
-    public static final String FILEEXT_ECORE = "ecore";
-
-    /**
-     * File extension for genmodel file
-     */
-    public static final String FILEEXT_GENMODEL = "genmodel";
+    public static final String CONFIG_COMPLIANCE_LEVEL = "complianceLevel";
 
     /**
      * config properties: custom model directory attribute
@@ -262,6 +258,11 @@ public class ExtendGenModel extends AbstractTools {
     private void extendGenModel( GenModel genModel ) {
         info( "Extending GenModel element..." );
         genModel.setCodeFormatting( true );
+
+        if( configuration.hasValue( CONFIG_COMPLIANCE_LEVEL ) ) {
+            genModel.setComplianceLevel( GenJDKLevel.get( configuration.getValue( CONFIG_COMPLIANCE_LEVEL ) ) );
+            info( "  manual: " + CONFIG_COMPLIANCE_LEVEL + " -> " + configuration.getValue( CONFIG_COMPLIANCE_LEVEL ) );
+        }
 
         set( genModel, GenModelPackage.GEN_MODEL__COPYRIGHT_TEXT, CONFIG_COPYRIGHT );
 

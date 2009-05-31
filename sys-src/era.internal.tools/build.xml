@@ -1,60 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="org.internal.tools" basedir="." default="all">
+<project name="era.internal.tools" basedir="." default="all">
 
-	<target name="all" depends="dist" />
-	
-	<!-- no build.properties, yet! 
-		<property file="build.properties" />
-	-->
-	<property name="module.java.src.dir"
-		value="src" />
-	<property name="module.java.build.dir"
-		value="build" />
-	<property name="module.java.build.dir.classes"
-		value="${module.java.build.dir}/classes" />
-	<property name="module.java.build.dir.classes"
-		value="${module.java.build.dir}/classes" />
-	<property name="module.dist.dir"
-		value="dist" />
-	<property name="module.jar.file"
-		value="${module.dist.dir}/${ant.project.name}.jar" />
+	<import file="../era.internal.tools/ant-lib.xml" />
 
-	<path id="localclasspath">
-		<fileset dir="lib">
-			<include name="*.jar" />
-			<exclude name="_unused/**/*.jar" />
-		</fileset>
-	</path>
-			
-	<target name="depends">
-		<mkdir dir="${module.java.build.dir}" />
-		<mkdir dir="${module.java.build.dir.classes}" />
-		<mkdir dir="${module.dist.dir}" />
+	<target name="all" depends="jar" />
+
+	<target name="compile" description="compiles the java sources">
+		<era.prepare />
+		<era.compileJava />
 	</target>
-				
-	<target name="build" depends="depends">
-		<javac srcdir="${module.java.src.dir}"
-			destdir="${module.java.build.dir.classes}" classpathref="localclasspath"
-			debug="on" nowarn="false"> <!-- source="1.5" -->
-			<!-- <sourcepath refid="sourcepath" /> -->
-		</javac>
+
+	<target name="jar" depends="compile" description="creates build/era.internal.tools...jar">
+		<era.compileJar/>
 	</target>
 	
-	<target name="dist" depends="build"
-		description="--> Creates the distribution">
-		<jar destfile="${module.jar.file}"
-			basedir="${module.java.build.dir.classes}" />
+	<target name="dist" depends="jar" description="distributes plug-in">
 	</target>
-	
+
 	<target name="clean" description="Removes all compiled file">
-		<!-- delete Java class files -->
-		<delete dir="bin" verbose="false" failonerror="false"/>
-		<delete dir="build" verbose="false" failonerror="false"/>
+		<era.clean />
 	</target>
-	
-	<target name="clean-dist" depends="clean" description="Removes all generated artifacts">
-		<!-- delete dist files -->
-		<delete dir="dist" verbose="false" failonerror="false"/>
-	</target>
-	
+
 </project>
