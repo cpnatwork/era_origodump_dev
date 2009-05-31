@@ -54,13 +54,23 @@
 	<path id="era.classpath.default">
 		<pathelement path="${era.cwd}" />
 		<pathelement path="${era.cwd}/${era.project.classes}" />
+		<fileset dir="${era.dev}/${era.internal.build}/${era.project.build}" includes="*.jar" />
 		<fileset dir="${era.dev}/${era.internal.targetplatforms}/plugins" includes="*.jar" />
 	</path>
 
 	<path id="era.classpath.era.internal.tools">
-		<pathelement path="${_antlibcwd}/${era.project.classes}" />
+		<fileset dir="${era.dev}/${era.internal.build}/${era.project.build}/" includes="era.internal.tools*.jar" />
 		<fileset dir="${era.dev}/${era.internal.targetplatforms}/plugins" includes="*.jar" />
 	</path>
+
+	<macrodef name="era.propertyappend">
+		<attribute name="name" />
+		<attribute name="value" />
+		<sequential>
+			<var name="@{name}" value="${@{name}}@{value}" />
+		</sequential>
+	</macrodef>
+
 
 
 	<!--
@@ -103,7 +113,7 @@
 		<sequential>
 			<mkdir dir="${era.project.build}" />
 			<mkdir dir="${era.project.classes}" />
-			<mkdir dir="${era.project.dist}" />
+			<mkdir dir="${era.project.build}" />
 		</sequential>
 	</macrodef>
 
@@ -119,6 +129,9 @@
 			       debug="on"
 			       target="${era.java.version}"
 			       source="${era.java.version}">
+				<classpath>
+					<path refid="@{classpathref}" />
+				</classpath>
 				<include name="**/*.java" />
 				<exclude name="@{exclude}" />
 			</javac>
@@ -146,23 +159,22 @@
 		<!-- description="additional includes"-->
 		<sequential>
 			<era.manifest />
-			<delete file="${era.project.dist}/${era.project.jar}"/>
+			<delete file="${era.project.build}/${era.project.jar}" />
 			<if>
 				<available file="${era.project.manifest}" />
 				<then>
 					<jar manifest="${era.project.manifest}"
-					     destfile="${era.project.dist}/${era.project.jar}"					    
+					     destfile="${era.project.build}/${era.project.jar}"
 					     defaultexcludes="yes">
 						<fileset dir="${era.project.classes}" includes="**/*.class" />
 						<fileset dir="${era.project.classes}" includes="**/*.properties" />
 						<fileset dir="${era.project.src}" includes="**/*.properties" />
-						 <fileset dir="." includes="*.jar" /> 
+						<fileset dir="." includes="*.jar" />
 						<includes />
 					</jar>
 				</then>
 				<else>
-					<jar destfile="${era.project.dist}/${era.project.jar}"					     
-					     defaultexcludes="yes">
+					<jar destfile="${era.project.build}/${era.project.jar}" defaultexcludes="yes">
 						<fileset dir="${era.project.classes}" includes="**/*.class" />
 						<fileset dir="${era.project.classes}" includes="**/*.properties" />
 						<fileset dir="${era.project.src}" includes="**/*.properties" />
@@ -171,18 +183,20 @@
 					</jar>
 				</else>
 			</if>
+			<copy file="${era.project.build}/${era.project.jar}"
+			      tofile="${era.dev}/${era.internal.build}/${era.project.build}/${era.project.jar}" />
 		</sequential>
 	</macrodef>
 
 	<macrodef name="era.distPlugin" description="Makes a distributable version of a plug-in">
 		<sequential>
-			<copy file="${era.project.dist}/${era.project.jar}" tofile="${era.dist}/${era.plugin.jar}" />
+			<copy file="${era.project.build}/${era.project.jar}" tofile="${era.dist}/${era.plugin.jar}" />
 		</sequential>
 	</macrodef>
 
 	<macrodef name="era.clean" description="removes default build directories">
 		<sequential>
-			<delete dir="${era.project.dist}" verbose="false" failonerror="false" />
+			<delete dir="${era.project.build}" verbose="false" failonerror="false" />
 			<delete dir="${era.project.classes}" verbose="false" failonerror="false" />
 			<delete dir="${era.project.build}" verbose="false" failonerror="false" />
 		</sequential>
@@ -253,14 +267,6 @@
 					<var name="__era.eclipse.output" unset="true" />
 				</else>
 			</if>
-		</sequential>
-	</macrodef>
-
-	<macrodef name="era.propertyappend">
-		<attribute name="name" />
-		<attribute name="value" />
-		<sequential>
-			<var name="@{name}" value="${@{name}}@{value}" />
 		</sequential>
 	</macrodef>
 
@@ -342,11 +348,12 @@
 			<echo level="@{level}">
 Global properties:
 era.cwd: ${era.cwd}
-era.dev: ${era.dev}     
+era.dev: ${era.dev}
+era.lib: ${era.lib}
+era.dist: ${era.dist}
 era.project.src: ${era.project.src}
 era.project.build: ${era.project.build}
 era.project.classes: ${era.project.classes}
-era.project.dist: ${era.project.dist}
 era.buildnr: ${era.buildnr}
 era.internal.build: ${era.internal.build}       
 era.internal.tools: ${era.internal.tools}
