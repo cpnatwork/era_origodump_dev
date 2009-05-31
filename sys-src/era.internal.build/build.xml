@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<project name="era.internal.build" basedir="." default="all">
+
+	<target name="all" depends="dist" />
+
+	<dirname property="_cwd" file="${ant.file.era.build}" />
+
+	<property file="ant-global.properties" />
+	<property file="ant.properties" />	
+
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+		<classpath>
+			<fileset dir="../era.internal.tools/ant-lib" includes="*.jar" />
+		</classpath>
+	</taskdef>
+
+	<tstamp>
+		<format property="era.buildnr" pattern="yyyyMMddhhmm" />
+	</tstamp>
+
+	<target name="prepare">
+		<delete dir="${dist}"/>
+		<mkdir dir="${dist}" />
+		<copy todir="${dist}" includeemptydirs="true" overwrite="true">
+			<dirset dir="${era.project.templates}/site" includes="**/*"/>  
+		</copy>
+	</target>
+
+	<target name="dist">
+		<foreach param="project" target="dist.project" list="${projects}" delimiter="," trim="true">
+			<param name="target" value="dist" />
+		</foreach>
+	</target>
+
+	<target name="clean">
+		<foreach param="project" target="dist.project" list="${projects}" delimiter="," trim="true">
+			<param name="target" value="clean" />
+		</foreach>
+		<delete dir="${dist}" />
+	</target>
+
+	<target name="dist.project" depends="prepare">
+		<echo>+++ Building project: ${project}</echo>
+
+		<ant antfile="../${project}/build.xml" dir="../${project}" inheritall="true" target="${target}">
+			<property name="era.buildnr" value="${era.buildnr}" />
+			<property name="era.dist" value="${_cwd}/${dist}/plugins" />
+		</ant>
+	</target>
+
+
+</project>
