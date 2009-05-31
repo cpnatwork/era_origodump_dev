@@ -1,22 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="org.foss.model.core" basedir="." default="all">
 
-	<target name="all" depends="depends,gen-xsd2ecore,gen-extend,gen-java" />
+	<import file="../era.internal.tools/ant-lib.xml" />
+
+	<target name="all" depends="generate,compile,jar" />
 
 	<property file="ant.properties" />
-	
-	<target name="depends">
-		<!--
-			the dependency that anttasks are built
-			in era.internal.tools cannot be resolved here!
-		-->
+
+	<era.genmodelFile property="originalEcore.genmodel" file="${originalEcore.filename}" />
+	<era.genmodelFile property="extendedEcore.genmodel" file="${extendedEcore.filename}" />
+
+	<target name="zz_prepare" description="Creates missing directories">
+		<era.prepare />
 	</target>
-	
-	<import file="${path.tools}/era.internal.tools-anttasks.xml" />
-	<genmodelFile property="originalEcore.genmodel" file="${originalEcore.filename}" />
-	<genmodelFile property="extendedEcore.genmodel" file="${extendEcore.filename}" />
-	
-	<target name="gen-xsd2ecore" description="converts xsd file to ecore file">
+
+	<target name="generate"
+	        depends="zz_prepare,zz_gen-xsd2ecore,zz_gen-extend,zz_gen-java"
+	        description="Runs all generation targets" />
+
+	<target name="compile">
+		<era.compileJava />
+	</target>
+
+	<target name="jar">
+		<era.compileJar>
+			<includes>
+				<fileset dir="${era.cwd}" includes="${path.model}/*.xsd" />
+			</includes>
+		</era.compileJar>
+	</target>
+
+	<target name="dist" depends="all" description="distributes plug-in">
+		<era.distPlugin />
+	</target>
+
+	<target name="zz_gen-xsd2ecore" description="converts xsd file to ecore file">
 		<!--
 			This is not automated!
 			Do this by:
@@ -28,57 +46,46 @@
 		-->
 	</target>
 
-	<target name="gen-extend" description="patches the ecore file and creates a genmodel">
-		
-		<!-- PATCH/transform the ECORE file (task from era.internal.tools-anttasks.xml) -->
-		<echo message="${path.config}/${extendEcore.config}" />
-		<extendEcore 
-			verbose="${verbose}" 
-			config="${path.config}/${extendEcore.config}" 
-			source="${path.model}/${originalEcore.filename}" 
-			target="${path.model}/${extendEcore.filename}" />
-		
-		<!-- GENERATE the GENMODEL file (task from era.internal.tools-anttasks.xml) -->
+	<target name="zz_gen-extend" description="patches the ecore file and creates a genmodel">
+
+		<era.extendEcore verbose="${verbose}"
+		                 config="${era.cwd}/${era.project.config}/${extendEcore.config}"
+		                 source="${era.cwd}/${path.model}/${originalEcore.filename}"
+		                 target="${era.cwd}/${path.model}/${extendedEcore.filename}" />
+
 		<!-- remove any original genmodel because it is obsolete -->
 		<delete file="${path.model}/${originalEcore.genmodel}" verbose="false" failonerror="false" />
-		<!-- the target is implicit: 
-		     the file must mirror the source, with an ".genmodel" extension --> 
-		<extendGenModel 
-			verbose="${verbose}" 
-			config="${path.config}/${extendGenModel.config}" 
-			source="${path.model}/${extendEcore.filename}" />
-		
+
+		<era.extendGenModel verbose="${verbose}"
+		                    config="${era.cwd}/${era.project.config}/${extendGenModel.config}"
+		                    source="${era.cwd}/${path.model}/${extendedEcore.filename}" />
 	</target>
 
-	<target name="gen-java" description="generates java code from the ecore file">
-		<!--
-			This will be automated, soon!
-			Manual procedure:
-			=> doubleclick/open: "model/rif.extended.genmodel"
-			=> context menu on root node: "Generate Model Code"
-		-->
-		<!-- <emf.Ecore2Java genmodel="${path.model}/${extendedEcore.genmodel}" /> -->
+	<target name="zz_gen-java" description="generates java code from the ecore file">
+		<era.genJava verbose="${verbose}"
+		             genmodel="${era.cwd}/${path.model}/${extendedEcore.genmodel}"
+		             model="${generate.model}"
+		             edit="${generate.edit}"
+		             editor="${generate.editor}"
+		             tests="${generate.tests}" />
 	</target>
 
 	<target name="clean" description="Removes all compiled file">
-		<!-- delete Java class files -->
-		<delete dir="bin" verbose="false" failonerror="false"/>
-		<delete dir="build" verbose="false" failonerror="false"/>
+		<era.clean />
 	</target>
-		
+
 	<target name="gen-clean" depends="clean" description="Removes all generated file">
-		<!-- delete original gemodel file --> 
-		<delete file="${path.model}/${originalEcore.genmodel}" verbose="false" failonerror="false" />
-		<!-- delete ERA-patched or -generated ecor and genmodel files --> 
-		<delete file="${path.model}/${extendEcore.filename}" verbose="true" failonerror="false" />
-		<delete file="${path.model}/${extendedEcore.genmodel}" verbose="true" failonerror="false" />
+		<!-- delete original gemodel file -->
+		<delete file="${era.cwd}/${path.model}/${originalEcore.genmodel}" verbose="false" failonerror="false" />
+		<!-- delete ERA-patched or -generated ecor and genmodel files -->
+		<delete file="${era.cwd}/${path.model}/${extendedEcore.filename}" verbose="true" failonerror="false" />
+		<delete file="${era.cwd}/${path.model}/${extendedEcore.genmodel}" verbose="true" failonerror="false" />
 		<!-- delete generated Java source code files -->
 		<delete includeemptydirs="true">
-			<fileset dir="src">
-				<include name="**/*.java" />
-				<!--<exclude name="work/**/*" />-->
+			<fileset dir="${era.cwd}/${era.project.src}">
+				<include name="era.foss.model.core.rif/**/*.java" />
 			</fileset>
 		</delete>
 	</target>
-	
+
 </project>

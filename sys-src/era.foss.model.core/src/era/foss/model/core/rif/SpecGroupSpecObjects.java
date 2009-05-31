@@ -30,38 +30,38 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * @generated
  */
 public interface SpecGroupSpecObjects extends EObject {
-    /**
-     * Returns the value of the '<em><b>Group</b></em>' attribute list.
-     * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Group</em>' attribute list isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Group</em>' attribute list.
-     * @see era.foss.model.core.rif.RifPackage#getSpecGroupSpecObjects_Group()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true"
-     *        extendedMetaData="kind='group' name='group:0'"
-     * @generated
-     */
-    FeatureMap getGroup();
+	/**
+	 * Returns the value of the '<em><b>Group</b></em>' attribute list.
+	 * The list contents are of type {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Group</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Group</em>' attribute list.
+	 * @see era.foss.model.core.rif.RifPackage#getSpecGroupSpecObjects_Group()
+	 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true"
+	 *        extendedMetaData="kind='group' name='group:0'"
+	 * @generated
+	 */
+	FeatureMap getGroup();
 
-    /**
-     * Returns the value of the '<em><b>SPECOBJECTREF</b></em>' attribute list.
-     * The list contents are of type {@link java.lang.String}.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>SPECOBJECTREF</em>' attribute list isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>SPECOBJECTREF</em>' attribute list.
-     * @see era.foss.model.core.rif.RifPackage#getSpecGroupSpecObjects_SPECOBJECTREF()
-     * @model unique="false" dataType="era.foss.model.core.rif.REF" transient="true" volatile="true" derived="true"
-     *        extendedMetaData="kind='element' name='SPEC-OBJECT-REF' namespace='##targetNamespace' group='#group:0'"
-     * @generated
-     */
-    EList getSPECOBJECTREF();
+	/**
+	 * Returns the value of the '<em><b>SPECOBJECTREF</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>SPECOBJECTREF</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>SPECOBJECTREF</em>' attribute list.
+	 * @see era.foss.model.core.rif.RifPackage#getSpecGroupSpecObjects_SPECOBJECTREF()
+	 * @model unique="false" dataType="era.foss.model.core.rif.REF" transient="true" volatile="true" derived="true"
+	 *        extendedMetaData="kind='element' name='SPEC-OBJECT-REF' namespace='##targetNamespace' group='#group:0'"
+	 * @generated
+	 */
+	EList<String> getSPECOBJECTREF();
 
 } // SpecGroupSpecObjects

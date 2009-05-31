@@ -25,31 +25,31 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface DefaultValue3 extends EObject {
-    /**
-     * Returns the value of the '<em><b>ATTRIBUTEVALUEEMBEDDEDDOCUMENT</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>ATTRIBUTEVALUEEMBEDDEDDOCUMENT</em>' containment reference isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>ATTRIBUTEVALUEEMBEDDEDDOCUMENT</em>' containment reference.
-     * @see #setATTRIBUTEVALUEEMBEDDEDDOCUMENT(AttributeValueEmbeddedDocument)
-     * @see era.foss.model.core.rif.RifPackage#getDefaultValue3_ATTRIBUTEVALUEEMBEDDEDDOCUMENT()
-     * @model containment="true"
-     *        extendedMetaData="kind='element' name='ATTRIBUTE-VALUE-EMBEDDED-DOCUMENT' namespace='##targetNamespace'"
-     * @generated
-     */
-    AttributeValueEmbeddedDocument getATTRIBUTEVALUEEMBEDDEDDOCUMENT();
+	/**
+	 * Returns the value of the '<em><b>ATTRIBUTEVALUEEMBEDDEDDOCUMENT</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>ATTRIBUTEVALUEEMBEDDEDDOCUMENT</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>ATTRIBUTEVALUEEMBEDDEDDOCUMENT</em>' containment reference.
+	 * @see #setATTRIBUTEVALUEEMBEDDEDDOCUMENT(AttributeValueEmbeddedDocument)
+	 * @see era.foss.model.core.rif.RifPackage#getDefaultValue3_ATTRIBUTEVALUEEMBEDDEDDOCUMENT()
+	 * @model containment="true"
+	 *        extendedMetaData="kind='element' name='ATTRIBUTE-VALUE-EMBEDDED-DOCUMENT' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	AttributeValueEmbeddedDocument getATTRIBUTEVALUEEMBEDDEDDOCUMENT();
 
-    /**
-     * Sets the value of the '{@link era.foss.model.core.rif.DefaultValue3#getATTRIBUTEVALUEEMBEDDEDDOCUMENT <em>ATTRIBUTEVALUEEMBEDDEDDOCUMENT</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>ATTRIBUTEVALUEEMBEDDEDDOCUMENT</em>' containment reference.
-     * @see #getATTRIBUTEVALUEEMBEDDEDDOCUMENT()
-     * @generated
-     */
-    void setATTRIBUTEVALUEEMBEDDEDDOCUMENT( AttributeValueEmbeddedDocument value );
+	/**
+	 * Sets the value of the '{@link era.foss.model.core.rif.DefaultValue3#getATTRIBUTEVALUEEMBEDDEDDOCUMENT <em>ATTRIBUTEVALUEEMBEDDEDDOCUMENT</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>ATTRIBUTEVALUEEMBEDDEDDOCUMENT</em>' containment reference.
+	 * @see #getATTRIBUTEVALUEEMBEDDEDDOCUMENT()
+	 * @generated
+	 */
+	void setATTRIBUTEVALUEEMBEDDEDDOCUMENT(AttributeValueEmbeddedDocument value);
 
 } // DefaultValue3

@@ -22,32 +22,34 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *
  * @generated
  */
-public class XmlContentXmlContentImpl extends EObjectImpl implements XmlContentXmlContent {
-    /**
-     * A set of bit flags representing the values of boolean attributes and whether unsettable features have been set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    protected int booleans = 0;
+public class XmlContentXmlContentImpl extends EObjectImpl implements
+		XmlContentXmlContent {
+	/**
+	 * A set of bit flags representing the values of boolean attributes and whether unsettable features have been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected int booleans = 0;
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected XmlContentXmlContentImpl() {
-        super();
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected XmlContentXmlContentImpl() {
+		super();
+	}
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected EClass eStaticClass() {
-        return RifPackage.Literals.XML_CONTENT_XML_CONTENT;
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return RifPackage.Literals.XML_CONTENT_XML_CONTENT;
+	}
 
 } //XmlContentXmlContentImpl

@@ -25,31 +25,31 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface DefaultValue2 extends EObject {
-    /**
-     * Returns the value of the '<em><b>ATTRIBUTEVALUEEMBEDDEDFILE</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>ATTRIBUTEVALUEEMBEDDEDFILE</em>' containment reference isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>ATTRIBUTEVALUEEMBEDDEDFILE</em>' containment reference.
-     * @see #setATTRIBUTEVALUEEMBEDDEDFILE(AttributeValueEmbeddedFile)
-     * @see era.foss.model.core.rif.RifPackage#getDefaultValue2_ATTRIBUTEVALUEEMBEDDEDFILE()
-     * @model containment="true"
-     *        extendedMetaData="kind='element' name='ATTRIBUTE-VALUE-EMBEDDED-FILE' namespace='##targetNamespace'"
-     * @generated
-     */
-    AttributeValueEmbeddedFile getATTRIBUTEVALUEEMBEDDEDFILE();
+	/**
+	 * Returns the value of the '<em><b>ATTRIBUTEVALUEEMBEDDEDFILE</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>ATTRIBUTEVALUEEMBEDDEDFILE</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>ATTRIBUTEVALUEEMBEDDEDFILE</em>' containment reference.
+	 * @see #setATTRIBUTEVALUEEMBEDDEDFILE(AttributeValueEmbeddedFile)
+	 * @see era.foss.model.core.rif.RifPackage#getDefaultValue2_ATTRIBUTEVALUEEMBEDDEDFILE()
+	 * @model containment="true"
+	 *        extendedMetaData="kind='element' name='ATTRIBUTE-VALUE-EMBEDDED-FILE' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	AttributeValueEmbeddedFile getATTRIBUTEVALUEEMBEDDEDFILE();
 
-    /**
-     * Sets the value of the '{@link era.foss.model.core.rif.DefaultValue2#getATTRIBUTEVALUEEMBEDDEDFILE <em>ATTRIBUTEVALUEEMBEDDEDFILE</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>ATTRIBUTEVALUEEMBEDDEDFILE</em>' containment reference.
-     * @see #getATTRIBUTEVALUEEMBEDDEDFILE()
-     * @generated
-     */
-    void setATTRIBUTEVALUEEMBEDDEDFILE( AttributeValueEmbeddedFile value );
+	/**
+	 * Sets the value of the '{@link era.foss.model.core.rif.DefaultValue2#getATTRIBUTEVALUEEMBEDDEDFILE <em>ATTRIBUTEVALUEEMBEDDEDFILE</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>ATTRIBUTEVALUEEMBEDDEDFILE</em>' containment reference.
+	 * @see #getATTRIBUTEVALUEEMBEDDEDFILE()
+	 * @generated
+	 */
+	void setATTRIBUTEVALUEEMBEDDEDFILE(AttributeValueEmbeddedFile value);
 
 } // DefaultValue2

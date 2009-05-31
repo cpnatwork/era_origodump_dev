@@ -45,297 +45,334 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class DatatypeDefinitionsImpl extends EObjectImpl implements DatatypeDefinitions {
-    /**
-     * A set of bit flags representing the values of boolean attributes and whether unsettable features have been set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    protected int booleans = 0;
+public class DatatypeDefinitionsImpl extends EObjectImpl implements
+		DatatypeDefinitions {
+	/**
+	 * A set of bit flags representing the values of boolean attributes and whether unsettable features have been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected int booleans = 0;
 
-    /**
-     * The cached value of the '{@link #getGroup() <em>Group</em>}' attribute list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getGroup()
-     * @generated
-     * @ordered
-     */
-    protected FeatureMap group;
+	/**
+	 * The cached value of the '{@link #getGroup() <em>Group</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getGroup()
+	 * @generated
+	 * @ordered
+	 */
+	protected FeatureMap group;
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected DatatypeDefinitionsImpl() {
-        super();
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DatatypeDefinitionsImpl() {
+		super();
+	}
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected EClass eStaticClass() {
-        return RifPackage.Literals.DATATYPE_DEFINITIONS;
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return RifPackage.Literals.DATATYPE_DEFINITIONS;
+	}
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public FeatureMap getGroup() {
-        if( group == null ) {
-            group = new BasicFeatureMap( this, RifPackage.DATATYPE_DEFINITIONS__GROUP );
-        }
-        return group;
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureMap getGroup() {
+		if (group == null) {
+			group = new BasicFeatureMap(this,
+					RifPackage.DATATYPE_DEFINITIONS__GROUP);
+		}
+		return group;
+	}
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EList getDATATYPEDEFINITIONBINARYFILEREF() {
-        return getGroup().list( RifPackage.Literals.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONBINARYFILEREF );
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<String> getDATATYPEDEFINITIONBINARYFILEREF() {
+		return getGroup()
+				.list(
+						RifPackage.Literals.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONBINARYFILEREF);
+	}
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EList getDATATYPEDEFINITIONBOOLEANREF() {
-        return getGroup().list( RifPackage.Literals.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONBOOLEANREF );
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<String> getDATATYPEDEFINITIONBOOLEANREF() {
+		return getGroup()
+				.list(
+						RifPackage.Literals.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONBOOLEANREF);
+	}
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EList getDATATYPEDEFINITIONDOCUMENTREF() {
-        return getGroup().list( RifPackage.Literals.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONDOCUMENTREF );
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<String> getDATATYPEDEFINITIONDOCUMENTREF() {
+		return getGroup()
+				.list(
+						RifPackage.Literals.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONDOCUMENTREF);
+	}
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EList getDATATYPEDEFINITIONENUMERATIONREF() {
-        return getGroup().list( RifPackage.Literals.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONENUMERATIONREF );
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<String> getDATATYPEDEFINITIONENUMERATIONREF() {
+		return getGroup()
+				.list(
+						RifPackage.Literals.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONENUMERATIONREF);
+	}
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EList getDATATYPEDEFINITIONINTEGERREF() {
-        return getGroup().list( RifPackage.Literals.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONINTEGERREF );
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<String> getDATATYPEDEFINITIONINTEGERREF() {
+		return getGroup()
+				.list(
+						RifPackage.Literals.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONINTEGERREF);
+	}
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EList getDATATYPEDEFINITIONREALREF() {
-        return getGroup().list( RifPackage.Literals.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONREALREF );
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<String> getDATATYPEDEFINITIONREALREF() {
+		return getGroup()
+				.list(
+						RifPackage.Literals.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONREALREF);
+	}
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EList getDATATYPEDEFINITIONSTRINGREF() {
-        return getGroup().list( RifPackage.Literals.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONSTRINGREF );
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<String> getDATATYPEDEFINITIONSTRINGREF() {
+		return getGroup()
+				.list(
+						RifPackage.Literals.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONSTRINGREF);
+	}
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EList getDATATYPEDEFINITIONXMLDATAREF() {
-        return getGroup().list( RifPackage.Literals.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONXMLDATAREF );
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<String> getDATATYPEDEFINITIONXMLDATAREF() {
+		return getGroup()
+				.list(
+						RifPackage.Literals.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONXMLDATAREF);
+	}
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public NotificationChain eInverseRemove( InternalEObject otherEnd, int featureID, NotificationChain msgs ) {
-        switch (featureID) {
-        case RifPackage.DATATYPE_DEFINITIONS__GROUP:
-            return ((InternalEList)getGroup()).basicRemove( otherEnd, msgs );
-        }
-        return super.eInverseRemove( otherEnd, featureID, msgs );
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case RifPackage.DATATYPE_DEFINITIONS__GROUP:
+			return ((InternalEList<?>) getGroup()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public Object eGet( int featureID, boolean resolve, boolean coreType ) {
-        switch (featureID) {
-        case RifPackage.DATATYPE_DEFINITIONS__GROUP:
-            if( coreType ) return getGroup();
-            return ((FeatureMap.Internal)getGroup()).getWrapper();
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONBINARYFILEREF:
-            return getDATATYPEDEFINITIONBINARYFILEREF();
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONBOOLEANREF:
-            return getDATATYPEDEFINITIONBOOLEANREF();
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONDOCUMENTREF:
-            return getDATATYPEDEFINITIONDOCUMENTREF();
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONENUMERATIONREF:
-            return getDATATYPEDEFINITIONENUMERATIONREF();
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONINTEGERREF:
-            return getDATATYPEDEFINITIONINTEGERREF();
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONREALREF:
-            return getDATATYPEDEFINITIONREALREF();
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONSTRINGREF:
-            return getDATATYPEDEFINITIONSTRINGREF();
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONXMLDATAREF:
-            return getDATATYPEDEFINITIONXMLDATAREF();
-        }
-        return super.eGet( featureID, resolve, coreType );
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+		case RifPackage.DATATYPE_DEFINITIONS__GROUP:
+			if (coreType)
+				return getGroup();
+			return ((FeatureMap.Internal) getGroup()).getWrapper();
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONBINARYFILEREF:
+			return getDATATYPEDEFINITIONBINARYFILEREF();
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONBOOLEANREF:
+			return getDATATYPEDEFINITIONBOOLEANREF();
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONDOCUMENTREF:
+			return getDATATYPEDEFINITIONDOCUMENTREF();
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONENUMERATIONREF:
+			return getDATATYPEDEFINITIONENUMERATIONREF();
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONINTEGERREF:
+			return getDATATYPEDEFINITIONINTEGERREF();
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONREALREF:
+			return getDATATYPEDEFINITIONREALREF();
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONSTRINGREF:
+			return getDATATYPEDEFINITIONSTRINGREF();
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONXMLDATAREF:
+			return getDATATYPEDEFINITIONXMLDATAREF();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void eSet( int featureID, Object newValue ) {
-        switch (featureID) {
-        case RifPackage.DATATYPE_DEFINITIONS__GROUP:
-            ((FeatureMap.Internal)getGroup()).set( newValue );
-            return;
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONBINARYFILEREF:
-            getDATATYPEDEFINITIONBINARYFILEREF().clear();
-            getDATATYPEDEFINITIONBINARYFILEREF().addAll( (Collection)newValue );
-            return;
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONBOOLEANREF:
-            getDATATYPEDEFINITIONBOOLEANREF().clear();
-            getDATATYPEDEFINITIONBOOLEANREF().addAll( (Collection)newValue );
-            return;
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONDOCUMENTREF:
-            getDATATYPEDEFINITIONDOCUMENTREF().clear();
-            getDATATYPEDEFINITIONDOCUMENTREF().addAll( (Collection)newValue );
-            return;
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONENUMERATIONREF:
-            getDATATYPEDEFINITIONENUMERATIONREF().clear();
-            getDATATYPEDEFINITIONENUMERATIONREF().addAll( (Collection)newValue );
-            return;
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONINTEGERREF:
-            getDATATYPEDEFINITIONINTEGERREF().clear();
-            getDATATYPEDEFINITIONINTEGERREF().addAll( (Collection)newValue );
-            return;
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONREALREF:
-            getDATATYPEDEFINITIONREALREF().clear();
-            getDATATYPEDEFINITIONREALREF().addAll( (Collection)newValue );
-            return;
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONSTRINGREF:
-            getDATATYPEDEFINITIONSTRINGREF().clear();
-            getDATATYPEDEFINITIONSTRINGREF().addAll( (Collection)newValue );
-            return;
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONXMLDATAREF:
-            getDATATYPEDEFINITIONXMLDATAREF().clear();
-            getDATATYPEDEFINITIONXMLDATAREF().addAll( (Collection)newValue );
-            return;
-        }
-        super.eSet( featureID, newValue );
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+		case RifPackage.DATATYPE_DEFINITIONS__GROUP:
+			((FeatureMap.Internal) getGroup()).set(newValue);
+			return;
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONBINARYFILEREF:
+			getDATATYPEDEFINITIONBINARYFILEREF().clear();
+			getDATATYPEDEFINITIONBINARYFILEREF().addAll(
+					(Collection<? extends String>) newValue);
+			return;
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONBOOLEANREF:
+			getDATATYPEDEFINITIONBOOLEANREF().clear();
+			getDATATYPEDEFINITIONBOOLEANREF().addAll(
+					(Collection<? extends String>) newValue);
+			return;
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONDOCUMENTREF:
+			getDATATYPEDEFINITIONDOCUMENTREF().clear();
+			getDATATYPEDEFINITIONDOCUMENTREF().addAll(
+					(Collection<? extends String>) newValue);
+			return;
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONENUMERATIONREF:
+			getDATATYPEDEFINITIONENUMERATIONREF().clear();
+			getDATATYPEDEFINITIONENUMERATIONREF().addAll(
+					(Collection<? extends String>) newValue);
+			return;
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONINTEGERREF:
+			getDATATYPEDEFINITIONINTEGERREF().clear();
+			getDATATYPEDEFINITIONINTEGERREF().addAll(
+					(Collection<? extends String>) newValue);
+			return;
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONREALREF:
+			getDATATYPEDEFINITIONREALREF().clear();
+			getDATATYPEDEFINITIONREALREF().addAll(
+					(Collection<? extends String>) newValue);
+			return;
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONSTRINGREF:
+			getDATATYPEDEFINITIONSTRINGREF().clear();
+			getDATATYPEDEFINITIONSTRINGREF().addAll(
+					(Collection<? extends String>) newValue);
+			return;
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONXMLDATAREF:
+			getDATATYPEDEFINITIONXMLDATAREF().clear();
+			getDATATYPEDEFINITIONXMLDATAREF().addAll(
+					(Collection<? extends String>) newValue);
+			return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void eUnset( int featureID ) {
-        switch (featureID) {
-        case RifPackage.DATATYPE_DEFINITIONS__GROUP:
-            getGroup().clear();
-            return;
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONBINARYFILEREF:
-            getDATATYPEDEFINITIONBINARYFILEREF().clear();
-            return;
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONBOOLEANREF:
-            getDATATYPEDEFINITIONBOOLEANREF().clear();
-            return;
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONDOCUMENTREF:
-            getDATATYPEDEFINITIONDOCUMENTREF().clear();
-            return;
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONENUMERATIONREF:
-            getDATATYPEDEFINITIONENUMERATIONREF().clear();
-            return;
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONINTEGERREF:
-            getDATATYPEDEFINITIONINTEGERREF().clear();
-            return;
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONREALREF:
-            getDATATYPEDEFINITIONREALREF().clear();
-            return;
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONSTRINGREF:
-            getDATATYPEDEFINITIONSTRINGREF().clear();
-            return;
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONXMLDATAREF:
-            getDATATYPEDEFINITIONXMLDATAREF().clear();
-            return;
-        }
-        super.eUnset( featureID );
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+		case RifPackage.DATATYPE_DEFINITIONS__GROUP:
+			getGroup().clear();
+			return;
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONBINARYFILEREF:
+			getDATATYPEDEFINITIONBINARYFILEREF().clear();
+			return;
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONBOOLEANREF:
+			getDATATYPEDEFINITIONBOOLEANREF().clear();
+			return;
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONDOCUMENTREF:
+			getDATATYPEDEFINITIONDOCUMENTREF().clear();
+			return;
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONENUMERATIONREF:
+			getDATATYPEDEFINITIONENUMERATIONREF().clear();
+			return;
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONINTEGERREF:
+			getDATATYPEDEFINITIONINTEGERREF().clear();
+			return;
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONREALREF:
+			getDATATYPEDEFINITIONREALREF().clear();
+			return;
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONSTRINGREF:
+			getDATATYPEDEFINITIONSTRINGREF().clear();
+			return;
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONXMLDATAREF:
+			getDATATYPEDEFINITIONXMLDATAREF().clear();
+			return;
+		}
+		super.eUnset(featureID);
+	}
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public boolean eIsSet( int featureID ) {
-        switch (featureID) {
-        case RifPackage.DATATYPE_DEFINITIONS__GROUP:
-            return group != null && !group.isEmpty();
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONBINARYFILEREF:
-            return !getDATATYPEDEFINITIONBINARYFILEREF().isEmpty();
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONBOOLEANREF:
-            return !getDATATYPEDEFINITIONBOOLEANREF().isEmpty();
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONDOCUMENTREF:
-            return !getDATATYPEDEFINITIONDOCUMENTREF().isEmpty();
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONENUMERATIONREF:
-            return !getDATATYPEDEFINITIONENUMERATIONREF().isEmpty();
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONINTEGERREF:
-            return !getDATATYPEDEFINITIONINTEGERREF().isEmpty();
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONREALREF:
-            return !getDATATYPEDEFINITIONREALREF().isEmpty();
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONSTRINGREF:
-            return !getDATATYPEDEFINITIONSTRINGREF().isEmpty();
-        case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONXMLDATAREF:
-            return !getDATATYPEDEFINITIONXMLDATAREF().isEmpty();
-        }
-        return super.eIsSet( featureID );
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+		case RifPackage.DATATYPE_DEFINITIONS__GROUP:
+			return group != null && !group.isEmpty();
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONBINARYFILEREF:
+			return !getDATATYPEDEFINITIONBINARYFILEREF().isEmpty();
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONBOOLEANREF:
+			return !getDATATYPEDEFINITIONBOOLEANREF().isEmpty();
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONDOCUMENTREF:
+			return !getDATATYPEDEFINITIONDOCUMENTREF().isEmpty();
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONENUMERATIONREF:
+			return !getDATATYPEDEFINITIONENUMERATIONREF().isEmpty();
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONINTEGERREF:
+			return !getDATATYPEDEFINITIONINTEGERREF().isEmpty();
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONREALREF:
+			return !getDATATYPEDEFINITIONREALREF().isEmpty();
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONSTRINGREF:
+			return !getDATATYPEDEFINITIONSTRINGREF().isEmpty();
+		case RifPackage.DATATYPE_DEFINITIONS__DATATYPEDEFINITIONXMLDATAREF:
+			return !getDATATYPEDEFINITIONXMLDATAREF().isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public String toString() {
-        if( eIsProxy() ) return super.toString();
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy())
+			return super.toString();
 
-        StringBuffer result = new StringBuffer( super.toString() );
-        result.append( " (group: " );
-        result.append( group );
-        result.append( ')' );
-        return result.toString();
-    }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (group: "); //$NON-NLS-1$
+		result.append(group);
+		result.append(')');
+		return result.toString();
+	}
 
 } //DatatypeDefinitionsImpl
