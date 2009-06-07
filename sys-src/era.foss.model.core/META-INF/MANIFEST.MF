@@ -7,6 +7,7 @@ Bundle-ClassPath: .
 Bundle-Activator: era.foss.model.core.plugin.Activator$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: era.foss.model.core.rif,
  era.foss.model.core.rif.internal,
  era.foss.model.core.rif.util,

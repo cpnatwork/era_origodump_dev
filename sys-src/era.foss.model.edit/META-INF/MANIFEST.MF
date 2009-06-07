@@ -7,6 +7,7 @@ Bundle-ClassPath: .
 Bundle-Activator: era.foss.model.geneditor.plugin.Activator$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: era.foss.model.core.rif.provider,
  era.foss.model.geneditor.plugin
 Require-Bundle: org.eclipse.core.runtime,
