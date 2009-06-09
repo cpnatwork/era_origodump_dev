@@ -1,0 +1,36 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.m2m.qvt.oml.editor.source; singleton=
+ true
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-Version: 1.0.1.v20080917-1645-1-07w31191_2802756
+Bundle-Vendor: %providerName
+
+Name: about.mappings
+SHA1-Digest: UPLw6mLLtDtJjGuKXeQgci1HnPY=
+
+Name: about.ini
+SHA1-Digest: t0FfqhXQ1DOntXUimIG6MWb0U1g=
+
+Name: src/org.eclipse.m2m.qvt.oml.editor.ui_1.0.1.v20080917-1645/src.z
+ ip
+SHA1-Digest: BH9gNZkVsmCwGahVJJ/ogcBqDqI=
+
+Name: plugin.properties
+SHA1-Digest: cnbDtQd5pzK/dV+QFPDsgCl3Rxs=
+
+Name: about.html
+SHA1-Digest: m//+sZd+LYcO5OY/bjEiZVm0dk0=
+
+Name: plugin.xml
+SHA1-Digest: I0t+o6kXbySrxIY1bLaTaeai3Vc=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: about.properties
+SHA1-Digest: ccii15/HZLKZVTN8cjZkzD9CivQ=
+
+Name: modeling32.png
+SHA1-Digest: ADlLWFV0eQ74YnLvHnPFkYLeLrs=
+

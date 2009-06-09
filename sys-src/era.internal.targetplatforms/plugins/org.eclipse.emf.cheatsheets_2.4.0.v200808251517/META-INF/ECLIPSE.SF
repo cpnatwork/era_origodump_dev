@@ -1,0 +1,91 @@
+Signature-Version: 1.0
+SHA1-Digest-Manifest: IOrSaBscN0n4bws1u5KN2VldvHs=
+Created-By: 1.5.0 (IBM Corporation)
+SHA1-Digest-Manifest-Main-Attributes: yJXjoHltvgHBoJtc/Zbx7N02KTI=
+
+Name: org/eclipse/emf/cheatsheets/CheatSheetsPlugin$Implementation.cla
+ ss
+SHA1-Digest: fLSdmdB+euGX23rL7bpoK5JVoD4=
+
+Name: cheatsheets/GenerateExtendedEMF.xml
+SHA1-Digest: rw/Obzzv3KxyvLcAlD3Ts7oAzIo=
+
+Name: org/eclipse/emf/cheatsheets/actions/OpenEmptyEMFProjectWizardAct
+ ion.class
+SHA1-Digest: UNK1S+Ov5EXdhoapYr3BZZ+F/tQ=
+
+Name: plugin.xml
+SHA1-Digest: /TnwTQERXLldgR9VD/JfCoB4ZPc=
+
+Name: archive/java/Writer.java
+SHA1-Digest: 5Jw/X7nfChUgPxgLadhyai1cBwU=
+
+Name: archive/rose/library.mdl
+SHA1-Digest: lUINNDc00KSElhfRWqwgZte8zeo=
+
+Name: cheatsheets/GenerateEMFFromRose.xml
+SHA1-Digest: nIAu5oIgBM9S3qL2+7/CUp/i0ec=
+
+Name: org/eclipse/emf/cheatsheets/actions/OpenEMFModelWizardAction.cla
+ ss
+SHA1-Digest: Z0Tj/QbvByp3aF9SCD6Tf8IwLf4=
+
+Name: org/eclipse/emf/cheatsheets/actions/AbstractOpenWizardAction.cla
+ ss
+SHA1-Digest: WZ8VP29Hm3WxzwwqsfbSMI6gIfk=
+
+Name: org/eclipse/emf/cheatsheets/actions/NewJavaProjectAction.class
+SHA1-Digest: fHYAuKmgOJikr1MTUh+0jCCr9Fo=
+
+Name: org/eclipse/emf/cheatsheets/actions/NewProjectAction$1.class
+SHA1-Digest: 8bHpzVDPNm6gdpf1ntMjLGpGJTY=
+
+Name: plugin.properties
+SHA1-Digest: SGTaUB9zeyrkFn+/+LHMVzyT4qs=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: SAqY+5ITAL0mkdYeijlSRhyIaZk=
+
+Name: org/eclipse/emf/cheatsheets/actions/BuildAllProjectsAction.class
+SHA1-Digest: ccKACWMTDkFQu6ALo0iN8CmzJa8=
+
+Name: org/eclipse/emf/cheatsheets/actions/BuildAllProjectsAction$1.cla
+ ss
+SHA1-Digest: jxVjB/2FIPgQ9aGbCBVDLocHnVE=
+
+Name: org/eclipse/emf/cheatsheets/actions/NewProjectAction.class
+SHA1-Digest: A5uT3VdB+/et92EEw5ANYGhgw7M=
+
+Name: org/eclipse/emf/cheatsheets/actions/OpenEMFProjectWizardAction.c
+ lass
+SHA1-Digest: xVbmZSa11wegLRQZyyskzlzh2VQ=
+
+Name: about.html
+SHA1-Digest: wwA2Twzb8HniDtWw+ZfLLpKVA9Y=
+
+Name: archive/extended/schoollibrary.mdl
+SHA1-Digest: s+g5S9KvCPj84aTnU2hpbZ2MGw8=
+
+Name: org/eclipse/emf/cheatsheets/actions/CopyFileFromPluginAction$1.c
+ lass
+SHA1-Digest: HzYmdhKfnhW08JWfA1NrkQ0jfxs=
+
+Name: cheatsheets/GenerateEMFFromJava.xml
+SHA1-Digest: Py6InVtyiJt1scVT26BMp3GZLNQ=
+
+Name: archive/java/Book.java
+SHA1-Digest: q5SZt1c0P9uTGxK4g+yPC0GLO9I=
+
+Name: archive/java/BookCategory.java
+SHA1-Digest: GBs1f0V8TvRTkGuJR4Gd8+nAPzw=
+
+Name: org/eclipse/emf/cheatsheets/CheatSheetsPlugin.class
+SHA1-Digest: 9vCfnF9ZJC618SZOIQCsEU8PKv4=
+
+Name: archive/java/Library.java
+SHA1-Digest: wk8L0oaW1dzrtyoBtA1EBxosLPI=
+
+Name: org/eclipse/emf/cheatsheets/actions/CopyFileFromPluginAction.cla
+ ss
+SHA1-Digest: nfSY3sUwdLIuKocf8a1QK8EO/YU=
+

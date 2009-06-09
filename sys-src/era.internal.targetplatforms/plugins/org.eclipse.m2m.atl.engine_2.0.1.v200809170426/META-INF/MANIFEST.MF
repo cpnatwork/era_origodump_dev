@@ -1,0 +1,124 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.m2m.atl.engine; singleton:=true
+Bundle-Activator: org.eclipse.m2m.atl.engine.EnginePlugin
+Bundle-ManifestVersion: 2
+Bundle-Version: 2.0.1.v200809170426
+Eclipse-LazyStart: true
+Bundle-Vendor: Eclipse.org
+Require-Bundle: org.eclipse.core.runtime,org.eclipse.emf.ecore,org.ecl
+ ipse.core.resources,org.eclipse.emf.ecore.xmi,org.eclipse.m2m.atl.eng
+ ine.vm;visibility:=reexport,org.eclipse.m2m.atl.drivers.emf4atl;visib
+ ility:=reexport,org.antlr.runtime;bundle-version="3.0.0";visibility:=
+ reexport
+Bundle-RequiredExecutionEnvironment: J2SE-1.4
+Bundle-Name: ATL Engine
+Bundle-Localization: plugin
+Bundle-ClassPath: .,lib/org.eclipse.gmt.tcs.extractor_1.0.0.jar,lib/or
+ g.eclipse.gmt.tcs.injector_1.0.0.jar,lib/ATL-parser.jar
+Export-Package: org.eclipse.gmt.tcs.extractor,org.eclipse.gmt.tcs.inje
+ ctor,org.eclipse.gmt.tcs.injector.wrappers,org.eclipse.gmt.tcs.inject
+ or.wrappers.antlr3,org.eclipse.m2m.atl.engine
+
+Name: org/eclipse/m2m/atl/engine/AtlNbCharFile$Line.class
+SHA1-Digest: OqAunpzNH6deQvbjVJ68MR08kus=
+
+Name: lib/org.eclipse.gmt.tcs.extractor_1.0.0.jar
+SHA1-Digest: oEXZub2Twn/0+DIBO00B7AR4j48=
+
+Name: org/eclipse/m2m/atl/engine/resources/ATLToASMCompiler.asm
+SHA1-Digest: kgukHYO7OLozdkz5HYfWR3WA3Ck=
+
+Name: org/eclipse/m2m/atl/engine/resources/Problem.ecore
+SHA1-Digest: RTP0qlYoQBgWWknG06C3t0wqhv8=
+
+Name: org/eclipse/m2m/atl/engine/EnginePlugin.class
+SHA1-Digest: W3vJGBMbyTPnHDz61DY0b1EHmOc=
+
+Name: plugin.xml
+SHA1-Digest: lVX27nq/nhb05YuV/hWQnTyAj0A=
+
+Name: org/eclipse/m2m/atl/engine/resources/atltypespropagation.asm
+SHA1-Digest: L3CL518vgETS8qcJpJevWGwpRUs=
+
+Name: org/eclipse/m2m/atl/engine/AtlParser.class
+SHA1-Digest: dKuZWBUtbyB9nPWafADai6ZHJHU=
+
+Name: org/eclipse/m2m/atl/engine/AtlModelHandler.class
+SHA1-Digest: b+95VneE646+1UAiy+bHQuB2aYc=
+
+Name: org/eclipse/m2m/atl/engine/AtlDefaultCompiler.class
+SHA1-Digest: MEHwlyV5cUI424I5v4123APjDWA=
+
+Name: org/eclipse/m2m/atl/engine/Atl2004Compiler.class
+SHA1-Digest: HrcKcv137VBa7E7zbuMvqUE8IP4=
+
+Name: org/eclipse/m2m/atl/engine/AtlNbCharFile.class
+SHA1-Digest: Pxm74IJ+FnKf98jQLMVipP2yzJg=
+
+Name: org/eclipse/m2m/atl/engine/MarkerMaker$1.class
+SHA1-Digest: Li5LgT6iEaYqX3re+Ub9U1fRAqg=
+
+Name: org/eclipse/m2m/atl/engine/AtlEngineMessages.class
+SHA1-Digest: yUBf8S69iOI5BVoVGWN4DkhvWh8=
+
+Name: plugin.properties
+SHA1-Digest: jjk3wrOOssL6j0a340f4UtJkAzg=
+
+Name: org/eclipse/m2m/atl/engine/ProblemConverter.class
+SHA1-Digest: 9PYcLSroioQREBVjWBBgb8lbtKM=
+
+Name: org/eclipse/m2m/atl/engine/resources/typeencoding.asm
+SHA1-Digest: l1R//+l0Q2wLmTCgt+bBipW0+EQ=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: org/eclipse/m2m/atl/engine/messages.properties
+SHA1-Digest: TFphY9y1SkzQMr8/UKcfRNiA/VI=
+
+Name: org/eclipse/m2m/atl/engine/CompilerNotFoundException.class
+SHA1-Digest: YyaFXgmwCZTnElpyCpOMPrmyUNs=
+
+Name: lib/org.eclipse.gmt.tcs.injector_1.0.0.jar
+SHA1-Digest: 45LINwY7r8ypr39kTHatRYdjz44=
+
+Name: org/eclipse/m2m/atl/engine/AtlEMFModelHandler.class
+SHA1-Digest: GtMwh0pmvt/9IQzHNPTmQVj4x60=
+
+Name: org/eclipse/m2m/atl/engine/AtlCompiler.class
+SHA1-Digest: h5nLDEwG6gNXCQ/IRPHCFGydluI=
+
+Name: org/eclipse/m2m/atl/engine/CompileTimeError.class
+SHA1-Digest: TaW3L6KD5xkL/nrexzWaX2jgOEw=
+
+Name: about.html
+SHA1-Digest: IA3miI4arXouKubYPcSZY4ZprEs=
+
+Name: org/eclipse/m2m/atl/engine/resources/ATL-WFR.asm
+SHA1-Digest: zgY4XgBqAbBLhbC82pslm79NNuw=
+
+Name: org/eclipse/m2m/atl/engine/AtlLauncher.class
+SHA1-Digest: Bz4vUzY0+/cfMfuWcMfsSoRUIxc=
+
+Name: org/eclipse/m2m/atl/engine/AtlSuperimposeModule.class
+SHA1-Digest: 3XN1hid20uRwOR/xIpyF9ynRWLw=
+
+Name: org/eclipse/m2m/atl/engine/AtlSuperimposeModule$AtlSuperimposeMo
+ duleException.class
+SHA1-Digest: jo0klfcOSeVb7hUn1vhV3vwUZbY=
+
+Name: org/eclipse/m2m/atl/engine/MarkerMaker.class
+SHA1-Digest: VnUAprD9lytmQZeZb5bjlrlNBY8=
+
+Name: lib/ATL-parser.jar
+SHA1-Digest: 9k9ahhBFmPjIWxw7Plq2AFj+GFo=
+
+Name: org/eclipse/m2m/atl/engine/resources/strings.asm
+SHA1-Digest: +di3Wi/X+5e8EfbenK+g387wEEU=
+
+Name: org/eclipse/m2m/atl/engine/resources/ATL-0.2.ecore
+SHA1-Digest: 23Zu5UUm7I/gWD3V5hvizh8l8FU=
+
+Name: org/eclipse/m2m/atl/engine/AtlStandaloneCompiler.class
+SHA1-Digest: 7T+Dr78eC5ov4msCc4N5khpAKcI=
+

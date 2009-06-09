@@ -1,0 +1,31 @@
+Manifest-Version: 1.0
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-SymbolicName: org.eclipse.emf.compare.doc; singleton:=true
+Bundle-ManifestVersion: 2
+Bundle-Localization: plugin
+Bundle-Name: EMF Compare Documentation (Incubation)
+Bundle-Version: 0.8.1.v200809170822
+Eclipse-LazyStart: true
+Bundle-Vendor: Eclipse.org
+
+Name: topics_Reference.xml
+SHA1-Digest: rUopx6gKb4fjzWC7oaysyae8lbg=
+
+Name: plugin.properties
+SHA1-Digest: GMUllbk/qN1r2DQJmRxay+QH1BQ=
+
+Name: build.xml
+SHA1-Digest: 0k0hUXdVxVTq1NuMvrh1VGtPLm0=
+
+Name: plugin.xml
+SHA1-Digest: ijeYklx3Kx35q9//ldsxOazUOYA=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: toc.xml
+SHA1-Digest: h/+r1hBtgUrAXsLUHlJ68gOgGg4=
+
+Name: doc.zip
+SHA1-Digest: aCR40l7+Y4t/TZD3xAV05P2mFoI=
+

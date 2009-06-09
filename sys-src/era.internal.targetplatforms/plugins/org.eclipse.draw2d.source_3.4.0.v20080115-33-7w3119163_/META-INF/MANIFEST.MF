@@ -1,0 +1,34 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.draw2d.source; singleton=true
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-Version: 3.4.0.v20080115-33-7w3119163_
+Bundle-Vendor: %providerName
+
+Name: about.mappings
+SHA1-Digest: xPuxyxFjk1TSWzxLTNfN3w/3DrY=
+
+Name: about.ini
+SHA1-Digest: W1YJ3sKtwXgmh/s31fSAlyQ8GT4=
+
+Name: plugin.properties
+SHA1-Digest: 2UloJIE8MIHGqz4hoUNLdxPgRyo=
+
+Name: about.html
+SHA1-Digest: EDMbfdZtAOAztTA0u8UO/Mu1bxc=
+
+Name: plugin.xml
+SHA1-Digest: I0t+o6kXbySrxIY1bLaTaeai3Vc=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: about.properties
+SHA1-Digest: j1MQlh6ZsqiusGJw10cyF8i7YQk=
+
+Name: src/org.eclipse.draw2d_3.4.0.v20080529/src.zip
+SHA1-Digest: tXwHsqJeLAkP/62ZxtZti2Fk1HA=
+
+Name: eclipse32.png
+SHA1-Digest: eCk/A3/COXL3S6qAVDOSrlsqmLw=
+

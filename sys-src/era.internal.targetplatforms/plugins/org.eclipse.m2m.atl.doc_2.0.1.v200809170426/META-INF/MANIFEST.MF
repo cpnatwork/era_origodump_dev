@@ -1,0 +1,46 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.m2m.atl.doc; singleton:=true
+Bundle-ManifestVersion: 2
+Bundle-Localization: plugin
+Bundle-Name: ATL Documentation
+Bundle-Version: 2.0.1.v200809170426
+Eclipse-LazyStart: true
+Bundle-Vendor: Eclipse.org
+Require-Bundle: org.eclipse.help
+
+Name: about.mappings
+SHA1-Digest: s42P7uEWONh7V2IXsp79buOdMhg=
+
+Name: about.ini
+SHA1-Digest: KQMVTFcyVja5dvVmIh2o+qDsslY=
+
+Name: topics_Reference.xml
+SHA1-Digest: R1Rg5WJp1NH8Us0dDiUf5iHcekY=
+
+Name: plugin.properties
+SHA1-Digest: ala/buf0HsU+PJhm2ZyndS3vwOI=
+
+Name: build.xml
+SHA1-Digest: iJNa9qQFKdZrsEKqHzYR+woQJgI=
+
+Name: about.html
+SHA1-Digest: mLkmRLtG3amkcY0I7KSYZX6qKhs=
+
+Name: plugin.xml
+SHA1-Digest: nHNd3smWmATL8L/it5prV1PApt0=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: about.properties
+SHA1-Digest: tn9q2jmAmP8EaAcTGN3BQ2PDyY4=
+
+Name: toc.xml
+SHA1-Digest: 1D1rKqSp7JME9ov6StEGFO5fL78=
+
+Name: modeling32.png
+SHA1-Digest: ADlLWFV0eQ74YnLvHnPFkYLeLrs=
+
+Name: doc.zip
+SHA1-Digest: +5D7lojMIDqR7ZMMNW7DtICF4jo=
+

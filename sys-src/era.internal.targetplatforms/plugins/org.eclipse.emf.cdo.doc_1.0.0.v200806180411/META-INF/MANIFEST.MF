@@ -1,0 +1,58 @@
+Manifest-Version: 1.0
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-SymbolicName: org.eclipse.emf.cdo.doc; singleton:=true
+Bundle-ManifestVersion: 2
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-Version: 1.0.0.v200806180411
+Bundle-Vendor: %providerName
+Require-Bundle: org.eclipse.help;bundle-version="[3.3.0,4.0.0)"
+
+Name: about.mappings
+SHA1-Digest: JzB/3bemBorkgw4sBelxJLcZs6I=
+
+Name: index/_1.cfs
+SHA1-Digest: h8IAmdtCjbIF601GfyDWoiI9/Yk=
+
+Name: about.html
+SHA1-Digest: mLkmRLtG3amkcY0I7KSYZX6qKhs=
+
+Name: plugin.xml
+SHA1-Digest: yl7MIux7uRTogRMv45Xf5Rnf4Ss=
+
+Name: index/segments
+SHA1-Digest: vufHronsndrRkzu2bZbaYBXcM/w=
+
+Name: about.properties
+SHA1-Digest: L8V0O4L5m/t9Wc+7ugmw3c1lzOc=
+
+Name: index/indexed_contributions
+SHA1-Digest: XN3coj/b4soHePNdzEJf9TD5mXU=
+
+Name: modeling32.png
+SHA1-Digest: ADlLWFV0eQ74YnLvHnPFkYLeLrs=
+
+Name: doc.zip
+SHA1-Digest: oHJUlPxviBanHIBHDCDhY2Ljdt4=
+
+Name: about.ini
+SHA1-Digest: KQMVTFcyVja5dvVmIh2o+qDsslY=
+
+Name: index/indexed_dependencies
+SHA1-Digest: tvQZjs80JDdR9SPUc1wGwxknSDY=
+
+Name: index/indexed_docs
+SHA1-Digest: epwJoRFtvIHf4c7bwQ0H3vZoF94=
+
+Name: plugin.properties
+SHA1-Digest: 7BY8Dy17IUMqrGwkfGJkxRg2J7o=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: toc.xml
+SHA1-Digest: 9hfMhvfwmizbvrsWtl3fPcx7zZo=
+
+Name: index/deletable
+SHA1-Digest: kGnKeOdFCihRc0MbPlLFwlKZ5HM=
+

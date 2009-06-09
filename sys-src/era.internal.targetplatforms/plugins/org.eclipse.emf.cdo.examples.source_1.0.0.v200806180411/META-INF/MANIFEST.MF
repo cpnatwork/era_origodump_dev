@@ -1,0 +1,72 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.emf.cdo.examples.source; singleton=tr
+ ue
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-Version: 1.0.0.v200806180411
+Bundle-Vendor: %providerName
+
+Name: about.mappings
+SHA1-Digest: 5++W+CVD1CTs/vqncyL3SFV2K+g=
+
+Name: src/org.eclipse.emf.cdo.examples_1.0.0.v200806180411/src.zip
+SHA1-Digest: KT9RrRE4fDwfGSGdzqYRcJz5zSs=
+
+Name: about.html
+SHA1-Digest: mLkmRLtG3amkcY0I7KSYZX6qKhs=
+
+Name: license.html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: src/org.eclipse.emf.cdo.tests.mango_1.0.0.v200806180411/src.zip
+SHA1-Digest: oNL6lu+RvDbJuLxHkqFetRyHhDU=
+
+Name: plugin.xml
+SHA1-Digest: I0t+o6kXbySrxIY1bLaTaeai3Vc=
+
+Name: about.properties
+SHA1-Digest: 4KRJaJUyaRha/2ne3s3y6eYhv+o=
+
+Name: src/org.eclipse.emf.cdo.tests.model2_1.0.0.v200806180411/src.zip
+SHA1-Digest: A1nprGOwIpwoyAFfJz6eRle3YK0=
+
+Name: modeling32.png
+SHA1-Digest: ADlLWFV0eQ74YnLvHnPFkYLeLrs=
+
+Name: copyright.txt
+SHA1-Digest: HAelpb00pNeqamYTAbhcXdINgdE=
+
+Name: src/org.eclipse.emf.cdo.tests.model1.edit_1.0.0.v200806180411/sr
+ c.zip
+SHA1-Digest: XMbBAtD+Oo/wbxiJ8X7scT+wtpM=
+
+Name: about.ini
+SHA1-Digest: KQMVTFcyVja5dvVmIh2o+qDsslY=
+
+Name: epl-v10.html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: src/org.eclipse.emf.cdo.tests.model3.edit_1.0.0.v200806180411/sr
+ c.zip
+SHA1-Digest: KMLaNEQvGedFSiJ8JbXKOeKB1qo=
+
+Name: src/org.eclipse.emf.cdo.tests.model2.edit_1.0.0.v200806180411/sr
+ c.zip
+SHA1-Digest: P3LyHwqf+80fJUdU3sABmBFtEDM=
+
+Name: plugin.properties
+SHA1-Digest: osW9cfgijRr8yxFKa2j7oifnPRo=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: src/org.eclipse.emf.cdo.tests.model3_1.0.0.v200806180411/src.zip
+SHA1-Digest: JwxTBajcKV1HOKhk2zjFDhL4VXw=
+
+Name: src/org.eclipse.emf.cdo.tests.mango.edit_1.0.0.v200806180411/src
+ .zip
+SHA1-Digest: SQQhXFGZsFoq0kyF8EBwTLZLa2I=
+
+Name: src/org.eclipse.emf.cdo.tests.model1_1.0.0.v200806180411/src.zip
+SHA1-Digest: 0Z85bNpbzUeqntFtU9OU6DOd36w=
+

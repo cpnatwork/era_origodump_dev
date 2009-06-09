@@ -1,0 +1,37 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.emf.ocl.source; singleton=true
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-Version: 1.1.101.v200808291106-108Z7w3119193_2217
+Bundle-Vendor: %providerName
+
+Name: about.mappings
+SHA1-Digest: fB3ucYwiE1RN+qjY0P39HWkaR3I=
+
+Name: src/org.eclipse.emf.ocl_1.1.101.v200808291106/src.zip
+SHA1-Digest: ZhkfpFWIF8K4zMHjh3dv0X0qOO4=
+
+Name: about.ini
+SHA1-Digest: KQMVTFcyVja5dvVmIh2o+qDsslY=
+
+Name: plugin.properties
+SHA1-Digest: zIOIQRHnQNjm6v6iSjdtvW7KBJ4=
+
+Name: about.html
+SHA1-Digest: XX9QNRrVnHKSlwVc2mDJkamI7cs=
+
+Name: plugin.xml
+SHA1-Digest: I0t+o6kXbySrxIY1bLaTaeai3Vc=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: about.properties
+SHA1-Digest: Hwp0XRm3++ERc/1jZY30Qqf0O2s=
+
+Name: modeling32.png
+SHA1-Digest: ADlLWFV0eQ74YnLvHnPFkYLeLrs=
+
+Name: src/org.eclipse.emf.ocl_1.1.101.v200808291106/about.html
+SHA1-Digest: XX9QNRrVnHKSlwVc2mDJkamI7cs=
+

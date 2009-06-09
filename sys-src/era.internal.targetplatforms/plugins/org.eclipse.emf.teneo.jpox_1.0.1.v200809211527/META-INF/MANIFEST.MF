@@ -1,0 +1,52 @@
+Manifest-Version: 1.0
+Import-Package: org.apache.commons.logging
+Bundle-SymbolicName: org.eclipse.emf.teneo.jpox;singleton:=true
+Bundle-ManifestVersion: 2
+Eclipse-BuddyPolicy: dependent
+Bundle-Version: 1.0.1.v200809211527
+Eclipse-LazyStart: true
+Bundle-Vendor: %Plugin.providerName
+Require-Bundle: org.eclipse.emf.common,org.eclipse.emf.ecore,org.eclip
+ se.emf.ecore.xmi,org.eclipse.emf.teneo;visibility:=reexport,org.eclip
+ se.emf.teneo.annotations;visibility:=reexport
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Name: %Plugin.name
+Bundle-Localization: plugin
+Bundle-ClassPath: .,org.eclipse.emf.teneo.jpox.enhanced.jar,org.eclips
+ e.emf.teneo.jpox.jar
+Export-Package: org.eclipse.emf.teneo.jpox,org.eclipse.emf.teneo.jpox.
+ cache,org.eclipse.emf.teneo.jpox.elist,org.eclipse.emf.teneo.jpox.map
+ per,org.eclipse.emf.teneo.jpox.mapper.association,org.eclipse.emf.ten
+ eo.jpox.mapper.property,org.eclipse.emf.teneo.jpox.mapping,org.eclips
+ e.emf.teneo.jpox.resource,org.eclipse.emf.teneo.jpox.validation
+
+Name: about.ini
+SHA1-Digest: 682NZvZ3H5gebSXDoNVEDHwVFsg=
+
+Name: org.eclipse.emf.teneo.jpox.jar
+SHA1-Digest: rXt/vR7vXD6A4KAH7yX4FnggW8Q=
+
+Name: epl-v10.html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: plugin.properties
+SHA1-Digest: Hr/Ssrq5d5znglYjdGq+1JK8o50=
+
+Name: about.html
+SHA1-Digest: 4aUNey33prFSTe/fVMqou5L18hM=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: about.properties
+SHA1-Digest: +tNcPFK7FpmdpP4GytnutnT2BG8=
+
+Name: modeling32.png
+SHA1-Digest: ADlLWFV0eQ74YnLvHnPFkYLeLrs=
+
+Name: org.eclipse.emf.teneo.jpox.enhanced.jar
+SHA1-Digest: eTykM1wmMi15JKJlDaQHIA0LoXE=
+
+Name: copyright.txt
+SHA1-Digest: 8fEqc0yiT6oqPd/8aeKGMwGhNpk=
+

@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-Name: %pluginName
+Bundle-ClassPath: .,lib/hsqldb.jar
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Vendor: %providerName
+Bundle-ManifestVersion: 2
+Eclipse-RegisterBuddy: org.eclipse.net4j.db
+Bundle-Localization: plugin
+Bundle-SymbolicName: org.eclipse.net4j.db.hsqldb;singleton:=true
+Export-Package: org.eclipse.net4j.db.hsqldb;version="1.0.0",org.eclips
+ e.net4j.db.internal.hsqldb;version="1.0.0";x-internal:=true,org.eclip
+ se.net4j.db.internal.hsqldb.bundle;version="1.0.0";x-internal:=true,o
+ rg.hsqldb;version="1.8.0",org.hsqldb.index;version="1.8.0",org.hsqldb
+ .jdbc;version="1.8.0",org.hsqldb.lib;version="1.8.0",org.hsqldb.lib.j
+ ava;version="1.8.0",org.hsqldb.persist;version="1.8.0",org.hsqldb.res
+ ources;version="1.8.0",org.hsqldb.rowio;version="1.8.0",org.hsqldb.sc
+ riptio;version="1.8.0",org.hsqldb.store;version="1.8.0",org.hsqldb.ty
+ pes;version="1.8.0",org.hsqldb.util;version="1.8.0"
+Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.4.0,4.0.0)
+ ",org.eclipse.net4j.db;bundle-version="[1.0.0,2.0.0)";visibility:=ree
+ xport
+Bundle-Version: 1.0.0.v200806180305
+

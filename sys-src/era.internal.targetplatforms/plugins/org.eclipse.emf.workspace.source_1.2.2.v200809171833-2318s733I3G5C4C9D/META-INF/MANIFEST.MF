@@ -1,0 +1,43 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.emf.workspace.source; singleton=true
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-Version: 1.2.2.v200809171833-2318s733I3G5C4C9D
+Bundle-Vendor: %providerName
+
+Name: about.mappings
+SHA1-Digest: 0CvCaLmSbvr3j6+SFLp/EP0VvbM=
+
+Name: about.ini
+SHA1-Digest: KQMVTFcyVja5dvVmIh2o+qDsslY=
+
+Name: src/org.eclipse.emf.workspace.ui_1.2.0.v200805130238/src.zip
+SHA1-Digest: 18buegff264HDYUe7RD7PPIwb0I=
+
+Name: src/org.eclipse.emf.workspace.ui_1.2.0.v200805130238/about.html
+SHA1-Digest: DS6DkRPvZamWBcKJp/GvrrqSAJw=
+
+Name: plugin.properties
+SHA1-Digest: c8xLJXvxl2mbTQF4PJt/izIn0+0=
+
+Name: about.html
+SHA1-Digest: DS6DkRPvZamWBcKJp/GvrrqSAJw=
+
+Name: plugin.xml
+SHA1-Digest: I0t+o6kXbySrxIY1bLaTaeai3Vc=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: about.properties
+SHA1-Digest: tF+RIEerOObRl3OntzsLMVTFp3Q=
+
+Name: src/org.eclipse.emf.workspace_1.2.2.v200809171833/about.html
+SHA1-Digest: DS6DkRPvZamWBcKJp/GvrrqSAJw=
+
+Name: src/org.eclipse.emf.workspace_1.2.2.v200809171833/src.zip
+SHA1-Digest: TJ4AD8QP1jyFkGIpE+pkiCx6IP8=
+
+Name: modeling32.png
+SHA1-Digest: ADlLWFV0eQ74YnLvHnPFkYLeLrs=
+

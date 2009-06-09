@@ -1,0 +1,108 @@
+Signature-Version: 1.0
+SHA1-Digest-Manifest: jonnoos9YFcaXzFwlUPS1ar/Fmo=
+Created-By: 1.5.0 (IBM Corporation)
+SHA1-Digest-Manifest-Main-Attributes: XNJJYRJDuRBi76IIGLuYM8rd1A4=
+
+Name: lib/org.eclipse.gmt.tcs.extractor_1.0.0.jar
+SHA1-Digest: L9Wf+HCN2KqdxMtyw1QVooQUHqQ=
+
+Name: org/eclipse/m2m/atl/engine/AtlNbCharFile$Line.class
+SHA1-Digest: chPI9wz1ar51lvrojIB/50MoTnA=
+
+Name: org/eclipse/m2m/atl/engine/resources/ATLToASMCompiler.asm
+SHA1-Digest: gYX8WSLVuNf5ePmRAULqJ9E+OqU=
+
+Name: org/eclipse/m2m/atl/engine/EnginePlugin.class
+SHA1-Digest: oUkHpi9r0WmtJc17nIgbnUwGiw0=
+
+Name: org/eclipse/m2m/atl/engine/resources/Problem.ecore
+SHA1-Digest: 6OYGrcVl+eJD0zPPWITRe+wPVl8=
+
+Name: org/eclipse/m2m/atl/engine/resources/atltypespropagation.asm
+SHA1-Digest: Vg3c5RHChFJ8pIyjKGiAZxnZnLg=
+
+Name: plugin.xml
+SHA1-Digest: VvXsVzGDAp02HdcdIh0HoxMnJsA=
+
+Name: org/eclipse/m2m/atl/engine/AtlParser.class
+SHA1-Digest: y/kOEyBiGgep+ChotoTd6N4qHC4=
+
+Name: org/eclipse/m2m/atl/engine/AtlModelHandler.class
+SHA1-Digest: WzuMpIPAnYJmddWPFtlWWItrF/o=
+
+Name: org/eclipse/m2m/atl/engine/AtlDefaultCompiler.class
+SHA1-Digest: QgX67yNfwT7SPiB844RgNQI6NlY=
+
+Name: org/eclipse/m2m/atl/engine/Atl2004Compiler.class
+SHA1-Digest: qoWK3AxoYTdHd2bAtZhPkjLbqOg=
+
+Name: org/eclipse/m2m/atl/engine/AtlNbCharFile.class
+SHA1-Digest: A09HG0BQS/vn5VMwtPH4Vb20SsU=
+
+Name: org/eclipse/m2m/atl/engine/MarkerMaker$1.class
+SHA1-Digest: br+wXLWEyRb7KFp2lMx4vHRLP80=
+
+Name: org/eclipse/m2m/atl/engine/AtlEngineMessages.class
+SHA1-Digest: 247ivt3cpAqDljPLRttsCzRj/IA=
+
+Name: plugin.properties
+SHA1-Digest: /mP92QgXtjU00vj5OuHeK9XjAlw=
+
+Name: org/eclipse/m2m/atl/engine/ProblemConverter.class
+SHA1-Digest: xxKj1tiKpQoeHzil+LBDuLDcDZU=
+
+Name: org/eclipse/m2m/atl/engine/resources/typeencoding.asm
+SHA1-Digest: K6Tr722Ke+sy0Nbv8nYUK79mBkI=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: SAqY+5ITAL0mkdYeijlSRhyIaZk=
+
+Name: org/eclipse/m2m/atl/engine/messages.properties
+SHA1-Digest: wAX9+wMItrz2n55Der5CLqo+olc=
+
+Name: org/eclipse/m2m/atl/engine/CompilerNotFoundException.class
+SHA1-Digest: UCKxm1L7Ij0GDlbte8IqNupYPBg=
+
+Name: lib/org.eclipse.gmt.tcs.injector_1.0.0.jar
+SHA1-Digest: Vhe6fuZnXd1sHAmx1ZZOx0OHgO4=
+
+Name: org/eclipse/m2m/atl/engine/AtlEMFModelHandler.class
+SHA1-Digest: 3ASvxa5H0KmV48MPI0egCXaN9M0=
+
+Name: org/eclipse/m2m/atl/engine/AtlCompiler.class
+SHA1-Digest: yA8mkm8VRsAg3CxTaogs7E5VIQo=
+
+Name: org/eclipse/m2m/atl/engine/CompileTimeError.class
+SHA1-Digest: 4i15favzj1p4Y3xfFbp4u0/DYhQ=
+
+Name: about.html
+SHA1-Digest: l//2cAspk//br5+f02hDdABpWNM=
+
+Name: org/eclipse/m2m/atl/engine/AtlLauncher.class
+SHA1-Digest: M/ku0bhYhVnqTSwT0e9HNWQE89o=
+
+Name: org/eclipse/m2m/atl/engine/resources/ATL-WFR.asm
+SHA1-Digest: qnQ7PXPCfXPlkQczGhj8eE9nv7Y=
+
+Name: org/eclipse/m2m/atl/engine/AtlSuperimposeModule.class
+SHA1-Digest: oPJGIf78rIpgxCcw5IqcK290E68=
+
+Name: org/eclipse/m2m/atl/engine/AtlSuperimposeModule$AtlSuperimposeMo
+ duleException.class
+SHA1-Digest: cWHefKu5uk2I9nezi1jVD6IVqJ4=
+
+Name: org/eclipse/m2m/atl/engine/MarkerMaker.class
+SHA1-Digest: HWSQmMLdwzroCUEmTMTweqk6hAo=
+
+Name: lib/ATL-parser.jar
+SHA1-Digest: e9+GqNWvtpifCbg8CBc6AjBled8=
+
+Name: org/eclipse/m2m/atl/engine/resources/strings.asm
+SHA1-Digest: BENT2QVnufihqtY7FHOFKC4QgPM=
+
+Name: org/eclipse/m2m/atl/engine/resources/ATL-0.2.ecore
+SHA1-Digest: PMla3mJk36OuZIhpzBt61mI+b2s=
+
+Name: org/eclipse/m2m/atl/engine/AtlStandaloneCompiler.class
+SHA1-Digest: Azgy6JzmODQu77L13R+fLCBZydc=
+

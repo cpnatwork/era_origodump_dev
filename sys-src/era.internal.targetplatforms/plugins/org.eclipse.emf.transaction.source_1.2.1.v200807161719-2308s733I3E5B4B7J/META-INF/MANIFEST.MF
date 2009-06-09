@@ -1,0 +1,45 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.emf.transaction.source; singleton=tru
+ e
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-Version: 1.2.1.v200807161719-2308s733I3E5B4B7J
+Bundle-Vendor: %providerName
+
+Name: about.mappings
+SHA1-Digest: 0CvCaLmSbvr3j6+SFLp/EP0VvbM=
+
+Name: about.ini
+SHA1-Digest: KQMVTFcyVja5dvVmIh2o+qDsslY=
+
+Name: plugin.properties
+SHA1-Digest: 0q4sPR9ZM8zuTPyiCLYR2qGeJRM=
+
+Name: src/org.eclipse.emf.transaction.ui_1.2.0.v200805130238/src.zip
+SHA1-Digest: UjA1FlNcBGU4lyoH9LWWOgPVihE=
+
+Name: about.html
+SHA1-Digest: DS6DkRPvZamWBcKJp/GvrrqSAJw=
+
+Name: plugin.xml
+SHA1-Digest: I0t+o6kXbySrxIY1bLaTaeai3Vc=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: about.properties
+SHA1-Digest: S06Tk1qT51ZurjXAjAxoo7RZPOA=
+
+Name: src/org.eclipse.emf.transaction_1.2.1.v200807161719/src.zip
+SHA1-Digest: XP7mMXS8vRE29Mapb2nnpp5AKDw=
+
+Name: modeling32.png
+SHA1-Digest: ADlLWFV0eQ74YnLvHnPFkYLeLrs=
+
+Name: src/org.eclipse.emf.transaction_1.2.1.v200807161719/about.html
+SHA1-Digest: DS6DkRPvZamWBcKJp/GvrrqSAJw=
+
+Name: src/org.eclipse.emf.transaction.ui_1.2.0.v200805130238/about.htm
+ l
+SHA1-Digest: DS6DkRPvZamWBcKJp/GvrrqSAJw=
+

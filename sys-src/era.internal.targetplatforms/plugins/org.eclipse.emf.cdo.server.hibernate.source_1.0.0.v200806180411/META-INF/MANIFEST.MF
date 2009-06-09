@@ -1,0 +1,53 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.emf.cdo.server.hibernate.source; sing
+ leton=true
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-Version: 1.0.0.v200806180411
+Bundle-Vendor: %providerName
+
+Name: about.mappings
+SHA1-Digest: OOtlLdZBD3eUJt7KTncgtiSKFSw=
+
+Name: about.html
+SHA1-Digest: mLkmRLtG3amkcY0I7KSYZX6qKhs=
+
+Name: license.html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: src/org.eclipse.emf.cdo.server.hibernate_1.0.0.v200806180411/src
+ .zip
+SHA1-Digest: KWMgNU7WdmYqy6s8kW9z4X9YtcE=
+
+Name: plugin.xml
+SHA1-Digest: I0t+o6kXbySrxIY1bLaTaeai3Vc=
+
+Name: about.properties
+SHA1-Digest: G6cqQa3wbrR4iR3wCDl6JlDIGSg=
+
+Name: modeling32.png
+SHA1-Digest: ADlLWFV0eQ74YnLvHnPFkYLeLrs=
+
+Name: copyright.txt
+SHA1-Digest: HAelpb00pNeqamYTAbhcXdINgdE=
+
+Name: about.ini
+SHA1-Digest: KQMVTFcyVja5dvVmIh2o+qDsslY=
+
+Name: epl-v10.html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: plugin.properties
+SHA1-Digest: TE2/rwF6EOL8Yg/ARrx24OSsE0s=
+
+Name: src/org.eclipse.emf.cdo.server.hibernate.id_1.0.0.v200806180411/
+ src.zip
+SHA1-Digest: vxemQ6ieFZVvILKIkMoadMVGTKQ=
+
+Name: src/org.eclipse.emf.cdo.server.hibernate.teneo_1.0.0.v2008061804
+ 11/src.zip
+SHA1-Digest: lXRuT+CbRE8noSX1F2p+09mfI+U=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+

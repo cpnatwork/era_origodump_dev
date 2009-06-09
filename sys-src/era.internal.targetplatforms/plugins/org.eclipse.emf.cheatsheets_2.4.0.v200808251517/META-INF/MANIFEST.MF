@@ -1,0 +1,112 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.emf.cheatsheets;singleton:=true
+Bundle-Activator: org.eclipse.emf.cheatsheets.CheatSheetsPlugin$Implem
+ entation
+Bundle-ManifestVersion: 2
+Bundle-Version: 2.4.0.v200808251517
+Eclipse-LazyStart: true
+Bundle-Vendor: %providerName
+Require-Bundle: org.eclipse.ui.cheatsheets;bundle-version="[3.3.0,4.0.
+ 0)",org.eclipse.emf.importer;bundle-version="[2.4.1,3.0.0)",org.eclip
+ se.core.resources;bundle-version="[3.4.0,4.0.0)",org.eclipse.core.run
+ time;bundle-version="[3.4.0,4.0.0)",org.eclipse.jface;bundle-version=
+ "[3.4.0,4.0.0)",org.eclipse.ui.ide;bundle-version="[3.4.0,4.0.0)",org
+ .eclipse.ui.workbench;bundle-version="[3.4.0,4.0.0)",org.eclipse.emf.
+ codegen.ecore.ui;bundle-version="[2.4.1,3.0.0)",org.eclipse.jdt.core;
+ bundle-version="[3.4.0,4.0.0)",org.eclipse.emf.importer.java;bundle-v
+ ersion="[2.4.1,3.0.0)",org.eclipse.emf.importer.rose;bundle-version="
+ [2.4.0,3.0.0)"
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Name: %pluginName
+Bundle-Localization: plugin
+Bundle-ClassPath: .
+Bundle-ActivationPolicy: lazy
+Export-Package: org.eclipse.emf.cheatsheets,org.eclipse.emf.cheatsheet
+ s.actions
+
+Name: org/eclipse/emf/cheatsheets/CheatSheetsPlugin$Implementation.cla
+ ss
+SHA1-Digest: uV7x7oX8l8ytHtnBX4pkNooRw28=
+
+Name: cheatsheets/GenerateExtendedEMF.xml
+SHA1-Digest: 9JCyJhdq2K0JdWVDynqzuawW+ew=
+
+Name: org/eclipse/emf/cheatsheets/actions/OpenEmptyEMFProjectWizardAct
+ ion.class
+SHA1-Digest: /mB8f+KIyyDiIHwez8bkkGJqmrA=
+
+Name: archive/java/Writer.java
+SHA1-Digest: czmQBRV8pBaDvxD+pzGHATH1cLQ=
+
+Name: plugin.xml
+SHA1-Digest: k1kEiErVesGEjmpJHAI7viOkkY0=
+
+Name: cheatsheets/GenerateEMFFromRose.xml
+SHA1-Digest: hwMtIqccxUo6esg1Ct3huPlvpMk=
+
+Name: archive/rose/library.mdl
+SHA1-Digest: iQO1ML7QO9/6jfDZDlqfAObJyy4=
+
+Name: org/eclipse/emf/cheatsheets/actions/AbstractOpenWizardAction.cla
+ ss
+SHA1-Digest: MP22IZj3JgGKRZZluQM1Yg7fLng=
+
+Name: org/eclipse/emf/cheatsheets/actions/OpenEMFModelWizardAction.cla
+ ss
+SHA1-Digest: SF04QFIMzOv2LzGtQ28vmCcJUno=
+
+Name: org/eclipse/emf/cheatsheets/actions/NewJavaProjectAction.class
+SHA1-Digest: 784V2yFYmHvoym7DgzdapW3VkK4=
+
+Name: org/eclipse/emf/cheatsheets/actions/NewProjectAction$1.class
+SHA1-Digest: lQi+x0PdeAiI822FwdcjDdvf16U=
+
+Name: plugin.properties
+SHA1-Digest: TL9i/0frawkMbUUNXpQVokT+HVY=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: org/eclipse/emf/cheatsheets/actions/BuildAllProjectsAction.class
+SHA1-Digest: sff+y+aU5PlQtU9hxcwSfAeewc4=
+
+Name: org/eclipse/emf/cheatsheets/actions/BuildAllProjectsAction$1.cla
+ ss
+SHA1-Digest: rTs/0gGqIKRAQZVck+2yZrfcIyk=
+
+Name: org/eclipse/emf/cheatsheets/actions/NewProjectAction.class
+SHA1-Digest: MqyjrIS0ec7nr3Mom8CjzXK+Wko=
+
+Name: org/eclipse/emf/cheatsheets/actions/OpenEMFProjectWizardAction.c
+ lass
+SHA1-Digest: hPVp2MXbae6Jxmk4AEHoZ9xcXrM=
+
+Name: about.html
+SHA1-Digest: nk+t6mvX0TZBjKKhub2T0YT09zk=
+
+Name: archive/extended/schoollibrary.mdl
+SHA1-Digest: CEQZxpq5pmyKmUzVgytHeM8gzC0=
+
+Name: org/eclipse/emf/cheatsheets/actions/CopyFileFromPluginAction$1.c
+ lass
+SHA1-Digest: a3JtPjVTcPVPMF2pXDc9j122y0k=
+
+Name: cheatsheets/GenerateEMFFromJava.xml
+SHA1-Digest: xAB0JUCORwvwJhaScMZYXSOux4s=
+
+Name: archive/java/Book.java
+SHA1-Digest: Fs42OpAVJz04t8b8C1T/I8CPiI8=
+
+Name: archive/java/BookCategory.java
+SHA1-Digest: myHpMyHVhAKKWsTn52KQXJ52Pto=
+
+Name: org/eclipse/emf/cheatsheets/CheatSheetsPlugin.class
+SHA1-Digest: TSo4cdu5ivUY4xueLYt+10Di6Q8=
+
+Name: archive/java/Library.java
+SHA1-Digest: o+zQ+yuaSFAXJn/niA2oR2oaA2U=
+
+Name: org/eclipse/emf/cheatsheets/actions/CopyFileFromPluginAction.cla
+ ss
+SHA1-Digest: 7TyQg3HRKwpxwyGTk07dF/TKZ6M=
+
