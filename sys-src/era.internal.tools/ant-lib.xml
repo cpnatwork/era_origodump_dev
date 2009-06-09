@@ -62,6 +62,12 @@
 		<fileset dir="${era.dev}/${era.internal.targetplatforms}/plugins" includes="*.jar" />
 	</path>
 
+	<path id="_era.eclipse.launcher.path">
+		<fileset dir="${era.dev}/${era.internal.targetplatforms}/plugins"
+		         includes="org.eclipse.equinox.launcher*.jar" />
+	</path>
+	<property name="era.eclipse.launcher" refid="_era.eclipse.launcher.path" />
+
 	<macrodef name="era.propertyappend">
 		<attribute name="name" />
 		<attribute name="value" />
@@ -230,7 +236,7 @@
 				<equals arg1="${verbose}" arg2="true" />
 				<then>
 					<java classname="org.eclipse.equinox.launcher.Main"
-					      classpath="${era.dev}/${era.internal.targetplatforms}/plugins/org.eclipse.equinox.launcher_1.0.101.R34x_v20080819.jar"
+					      classpath="${era.eclipse.launcher}"
 					      fork="true"
 					      dir="."
 					      failonerror="yes"
@@ -238,6 +244,7 @@
 						<jvmarg line="@{jvmarg}" />
 						<arg line="-configuration @{configuration}" />
 						<arg line="-install ${era.dev}/${era.internal.targetplatforms}" />
+						<arg line="-initialize" />
 						<arg line="-data @{workspace}" />
 						<arg line="-application @{application}" />
 						<args />
@@ -257,6 +264,7 @@
 						<arg line="-data @{workspace}" />
 						<arg line="-configuration @{configuration}" />
 						<arg line="-install ${era.dev}/${era.internal.targetplatforms}" />
+						<arg line="-initialize" />
 						<arg line="-application @{application}" />
 						<args />
 						<sysproperties />
@@ -284,7 +292,7 @@
 			</foreach>
 
 			<!-- Compose report -->
-			<junitreport todir="${era.cwd}/${era.project.build}/report">
+			<junitreport todir="${era.cwd}/${era.project.build}/results">
 				<fileset dir="${era.cwd}/${era.project.build}/junit">
 					<include name="*.xml" />
 				</fileset>
@@ -437,7 +445,8 @@ era.project.classes: ${era.project.classes}
 era.buildnr: ${era.buildnr}
 era.internal.build: ${era.internal.build}       
 era.internal.tools: ${era.internal.tools}
-era.internal.tarplatforms: ${era.internal.targetplatforms}      
+era.internal.targetplatforms: ${era.internal.targetplatforms}
+era.eclipse.launcher: ${era.eclipse.launcher}
 		        
 Local properties:
 -----------------
