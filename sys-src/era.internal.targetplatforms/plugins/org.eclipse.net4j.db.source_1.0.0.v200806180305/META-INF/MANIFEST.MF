@@ -1,0 +1,52 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.net4j.db.source; singleton=true
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-Version: 1.0.0.v200806180305
+Bundle-Vendor: %providerName
+
+Name: about.mappings
+SHA1-Digest: +cLsTIgR5+AEMptAC7yTHloWM/w=
+
+Name: about.html
+SHA1-Digest: mLkmRLtG3amkcY0I7KSYZX6qKhs=
+
+Name: license.html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: plugin.xml
+SHA1-Digest: I0t+o6kXbySrxIY1bLaTaeai3Vc=
+
+Name: src/org.eclipse.net4j.db.mysql_1.0.0.v200806180305/src.zip
+SHA1-Digest: PfFDNEBv0CuLmJz/7m6fLJQhGYE=
+
+Name: about.properties
+SHA1-Digest: 0nLf4RbeJyxc7Ktqc7TIirVyvys=
+
+Name: modeling32.png
+SHA1-Digest: ADlLWFV0eQ74YnLvHnPFkYLeLrs=
+
+Name: copyright.txt
+SHA1-Digest: HAelpb00pNeqamYTAbhcXdINgdE=
+
+Name: about.ini
+SHA1-Digest: KQMVTFcyVja5dvVmIh2o+qDsslY=
+
+Name: src/org.eclipse.net4j.db.hsqldb_1.0.0.v200806180305/src.zip
+SHA1-Digest: ureVGX2Rni7FHGol6O55V0XRDXQ=
+
+Name: epl-v10.html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: plugin.properties
+SHA1-Digest: dPEybwPiwZS5YT1KxR93OMvi2+8=
+
+Name: src/org.eclipse.net4j.db_1.0.0.v200806180305/src.zip
+SHA1-Digest: VQ1HOYGws+61h81R7xgddeJKQEs=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: src/org.eclipse.net4j.db.derby_1.0.0.v200806180305/src.zip
+SHA1-Digest: SKnzGApVwTPv4YD8DbzYmXvShfQ=
+

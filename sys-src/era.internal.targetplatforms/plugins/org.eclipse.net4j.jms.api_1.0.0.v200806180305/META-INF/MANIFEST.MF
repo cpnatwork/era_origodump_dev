@@ -1,0 +1,41 @@
+Manifest-Version: 1.0
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-SymbolicName: org.eclipse.net4j.jms.api
+Bundle-ManifestVersion: 2
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-Version: 1.0.0.v200806180305
+Bundle-ClassPath: lib/jms.jar
+Bundle-Vendor: %providerName
+Export-Package: javax.jms;version="1.1.0"
+
+Name: epl-v10.html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: plugin.properties
+SHA1-Digest: /qD5OI4jKa/qXzHZEXNN5orq1UA=
+
+Name: license.html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: about.html
+SHA1-Digest: ICkzAYRqAGGXqQ+jfp205zg4dZI=
+
+Name: META-INF/geronimo-NOTICE.txt
+SHA1-Digest: j3bi6eMB1nDdeXvklpdGZCaMGG4=
+
+Name: META-INF/geronimo-LICENSE.txt
+SHA1-Digest: Wn199lW6QEeProCmq6/Gr8Nvm2o=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: lib/CDDL.html
+SHA1-Digest: PvyPbGJxzb+sM7slmSJ0uQGUyA8=
+
+Name: lib/jms.jar
+SHA1-Digest: 5b0UHiUpjqRv9XIApKomqRMXA7w=
+
+Name: copyright.txt
+SHA1-Digest: HAelpb00pNeqamYTAbhcXdINgdE=
+

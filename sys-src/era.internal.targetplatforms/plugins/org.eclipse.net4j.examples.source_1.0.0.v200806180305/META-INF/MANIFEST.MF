@@ -1,0 +1,75 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.net4j.examples.source; singleton=true
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-Version: 1.0.0.v200806180305
+Bundle-Vendor: %providerName
+
+Name: src/org.eclipse.net4j.jms.server.jdbc_1.0.0.v200806180305/src.zi
+ p
+SHA1-Digest: DOktVkU8V3/OiaJzzbur6KmTdBc=
+
+Name: about.mappings
+SHA1-Digest: +cLsTIgR5+AEMptAC7yTHloWM/w=
+
+Name: src/org.eclipse.net4j.jms.server_1.0.0.v200806180305/src.zip
+SHA1-Digest: 4ShAYQX6hLHMwlCvqDOhENXgf4g=
+
+Name: src/org.eclipse.net4j.buddies.chat_1.0.0.v200806180305/src.zip
+SHA1-Digest: j9BvKl0o+EkQ0xb/HRdZAuH+Txg=
+
+Name: about.html
+SHA1-Digest: mLkmRLtG3amkcY0I7KSYZX6qKhs=
+
+Name: license.html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: plugin.xml
+SHA1-Digest: I0t+o6kXbySrxIY1bLaTaeai3Vc=
+
+Name: src/org.eclipse.net4j.jms.admin_1.0.0.v200806180305/src.zip
+SHA1-Digest: 1MILdx4MRlDMVguVoa58trWMF74=
+
+Name: about.properties
+SHA1-Digest: NHVB8sl4RpXys3SRfA2UDGK/chc=
+
+Name: src/org.eclipse.net4j.examples_1.0.0.v200806180305/src.zip
+SHA1-Digest: Cp1DtI/WOXHQ5I2pzW/ir4jOK1w=
+
+Name: modeling32.png
+SHA1-Digest: ADlLWFV0eQ74YnLvHnPFkYLeLrs=
+
+Name: copyright.txt
+SHA1-Digest: HAelpb00pNeqamYTAbhcXdINgdE=
+
+Name: src/org.eclipse.net4j.buddies.chat.ui_1.0.0.v200806180305/src.zi
+ p
+SHA1-Digest: GvDahYrQm5UtMKPnlm0etRkz8Sw=
+
+Name: src/org.eclipse.net4j.buddies_1.0.0.v200806180305/src.zip
+SHA1-Digest: R7aM6RcSAV3J6Bx8rizntLSRnGg=
+
+Name: about.ini
+SHA1-Digest: KQMVTFcyVja5dvVmIh2o+qDsslY=
+
+Name: epl-v10.html
+SHA1-Digest: MdEWKncXyLG6O8nTK73lIoszYBw=
+
+Name: src/org.eclipse.net4j.buddies.common_1.0.0.v200806180305/src.zip
+SHA1-Digest: E36fYhi00VSvBNmOAHS2Aikb13M=
+
+Name: plugin.properties
+SHA1-Digest: pNGvJzdgPFM5U2z3uFBU/LPdyz0=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: src/org.eclipse.net4j.buddies.server_1.0.0.v200806180305/src.zip
+SHA1-Digest: nda4otmAuQUH5SCKhdywV+MYyoc=
+
+Name: src/org.eclipse.net4j.jms_1.0.0.v200806180305/src.zip
+SHA1-Digest: 15DFYCB3UBceyOMmOcmpiWAc34U=
+
+Name: src/org.eclipse.net4j.buddies.ui_1.0.0.v200806180305/src.zip
+SHA1-Digest: 70mzZYfYvlOIKD+Zu1a0p0fyVcQ=
+
