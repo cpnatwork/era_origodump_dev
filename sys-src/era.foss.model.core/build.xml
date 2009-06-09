@@ -5,8 +5,6 @@
 
 	<target name="all" depends="generate,compile,jar" />
 
-	<property file="ant.properties" />
-
 	<era.genmodelFile property="originalEcore.genmodel" file="${originalEcore.filename}" />
 	<era.genmodelFile property="extendedEcore.genmodel" file="${extendedEcore.filename}" />
 
