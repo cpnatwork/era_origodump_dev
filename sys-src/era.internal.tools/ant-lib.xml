@@ -12,8 +12,8 @@
 	<dirname property="_antlibcwd" file="${ant.file.era.internal.tools.ant-lib}" />
 	<dirname property="era.dev" file="${_antlibcwd}" />
 	<property name="_era.internal.build" value="${era.dev}/era.internal.build" />
-
 	<basename property="era.project.name" file="." />
+	<property name="era.plugin.id" value="${era.project.name}" />
 
 	<!--
 	Import ant configuration
@@ -50,7 +50,6 @@
 	<property name="era.project.jar" value="${era.project.name}_${era.project.version}.jar" />
 	<property name="era.plugin.jar" value="${era.project.name}_${era.project.version}.v${era.buildnr}.jar" />
 
-
 	<path id="era.classpath.default">
 		<pathelement path="${era.cwd}" />
 		<pathelement path="${era.cwd}/${era.project.classes}" />
@@ -71,28 +70,27 @@
 		</sequential>
 	</macrodef>
 
+	<macrodef name="era.genmodelFile" description="strips ecore extension and add genmodel extension to filename">
+		<attribute name="file" />
+		<attribute name="property" />
 
+		<sequential>
+			<basename property="__@{property}" file="@{file}" suffix="ecore" />
+			<property name="@{property}" value="${__@{property}}.genmodel" />
+		</sequential>
+	</macrodef>
 
 	<!--
 	tasks provided by era.internal.tools
 	-->
 	<if>
-		<not>
-			<equals arg1="${ant.project.name}" arg2="era.internal.tools" />
-		</not>
+		<and>
+			<not>
+				<equals arg1="${ant.project.name}" arg2="era.internal.tools" />
+			</not>
+			<available file="${era.dev}/${era.internal.build}/${era.project.build}/" />
+		</and>
 		<then>
-			<macrodef name="era.genmodelFile"
-			          description="strips ecore extension and add genmodel extension to filename">
-				<attribute name="file" />
-				<attribute name="property" />
-
-				<sequential>
-					<basename property="__@{property}" file="@{file}" suffix="ecore" />
-					<property name="@{property}" value="${__@{property}}.genmodel" />
-				</sequential>
-			</macrodef>
-
-
 			<!--
 	       extendEcore: adapt the initial ecore file of the rif model
 	       -->
@@ -153,7 +151,6 @@
 	</macrodef>
 
 
-
 	<macrodef name="era.compileJar" description="build the plug-in jar">
 		<element name="includes" optional="yes" />
 		<!-- description="additional includes"-->
@@ -196,9 +193,9 @@
 
 	<macrodef name="era.clean" description="removes default build directories">
 		<sequential>
-			<delete dir="${era.project.build}" verbose="false" failonerror="false" />
-			<delete dir="${era.project.classes}" verbose="false" failonerror="false" />
-			<delete dir="${era.project.build}" verbose="false" failonerror="false" />
+			<delete dir="${era.project.build}" verbose="true" failonerror="false" />
+			<delete dir="${era.project.classes}" verbose="true" failonerror="false" />
+			<delete dir="${era.project.build}" verbose="true" failonerror="false" />
 		</sequential>
 	</macrodef>
 
@@ -239,9 +236,9 @@
 					      failonerror="yes"
 					      timeout="7200000">
 						<jvmarg line="@{jvmarg}" />
-						<arg line="-data @{workspace}" />
 						<arg line="-configuration @{configuration}" />
 						<arg line="-install ${era.dev}/${era.internal.targetplatforms}" />
+						<arg line="-data @{workspace}" />
 						<arg line="-application @{application}" />
 						<args />
 						<sysproperties />
@@ -267,6 +264,89 @@
 					<var name="__era.eclipse.output" unset="true" />
 				</else>
 			</if>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="era.junit" description="runs a junit test plug-in">
+		<sequential>
+			<!-- run tests -->
+			<foreach target="_era.junit.run" param="classfile">
+				<path>
+					<fileset dir="${era.cwd}/${era.project.src}">
+						<include name="**/*Test.java" />
+						<exclude name="**/Abstract*Test.java" />
+					</fileset>
+				</path>
+
+				<mapper>
+					<globmapper from="${era.cwd}/${era.project.src}/*.java" to="*" handledirsep="yes" />
+				</mapper>
+			</foreach>
+
+			<!-- Compose report -->
+			<junitreport todir="${era.cwd}/${era.project.build}/report">
+				<fileset dir="${era.cwd}/${era.project.build}/junit">
+					<include name="*.xml" />
+				</fileset>
+			</junitreport>
+		</sequential>
+	</macrodef>
+
+	<!--
+	    Internal target for running a single junit plugin test with some parameters. Has no params,
+	  -->
+	<target name="_era.junit.run">
+		<!-- replace slashes with a dot -->
+		<propertyregex property="classname"
+		               override="true"
+		               input="${classfile}"
+		               regexp="[\\/]"
+		               replace="\."
+		               defaultValue="${classfile}"
+		               global="true" />
+		<echo>Running test ${classname}</echo>
+		<era.junit.class classname="${classname}" />
+	</target>
+
+
+	<!--
+	    Generic macro for running a single junit plugin testclass.
+
+	    @param classname             Name of the test class. Used also as filename for the output.	    
+	    @param testpluginname        Name of the the plugin containing the tests.	    
+	  -->
+	<macrodef name="era.junit.class">
+		<attribute name="classname" />
+		<attribute name="formatter" default="org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter" />
+
+		<sequential>
+			<mkdir dir="${era.project.build}/workspace" />
+			<mkdir dir="${era.cwd}/${era.project.build}/results" />
+			<mkdir dir="${era.cwd}/${era.project.build}/tmp" />
+			<mkdir dir="${era.cwd}/${era.project.build}/junit" />
+
+			<era.eclipse application="org.eclipse.pde.junit.runtime.coretestapplication"
+			             workspace="${era.cwd}/${era.project.build}/workspace"
+			             verbose="@{verbose}">
+				<args>
+					<arg line="-dev ${era.cwd}/${era.project.classes}" />
+					<arg line="-nl en" />
+					<arg line="showoutput=false" />
+					<arg line="printsummary=false" />
+					<arg line="formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter" />
+					<arg line="formatter=@{formatter},${era.cwd}/${era.project.build}/junit/@{classname}.xml" />
+					<arg line="-testLoaderClass org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader" />
+					<arg line="-loaderpluginname org.eclipse.jdt.junit4.runtime" />
+					<arg line="-testpluginname ${era.plugin.id}" />
+					<arg line="-classname @{classname}" />
+					<arg line="-consolelog" />
+				</args>
+				<sysproperties>
+					<sysproperty key="PLUGIN_PATH" value="@{eclipse-home}/plugins" />
+					<sysproperty key="test.temp" value="${era.cwd}/${era.project.build}/tmp" />
+					<sysproperty key="test.src" value="${era.cwd}/${era.project.src}" />
+				</sysproperties>
+			</era.eclipse>
 		</sequential>
 	</macrodef>
 
@@ -361,10 +441,11 @@ era.internal.tarplatforms: ${era.internal.targetplatforms}
 		        
 Local properties:
 -----------------
-era.project.name: ${era.project.name}
+era.project.name: ${era.project.name}			
 era.project.version: ${era.project.version}
 era.project.manifest: ${era.project.manifest}       
 era.project.jar: ${era.project.jar}
+era.plugin.id: ${era.plugin.id}				
 era.plugin.jar: ${era.plugin.jar}
 		     </echo>
 		</sequential>
