@@ -16,8 +16,7 @@
 	<classpathentry kind="lib" path="/era.internal.targetplatforms/plugins/org.eclipse.emf.importer.ecore_2.4.0.v200808251517.jar" sourcepath="/era.internal.targetplatforms/plugins/org.eclipse.emf.source_2.4.1.v200808251517/src/org.eclipse.emf.importer.ecore_2.4.0.v200808251517/src.zip"/>
 	<classpathentry kind="lib" path="/era.internal.targetplatforms/plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar"/>
 	<classpathentry kind="lib" path="/era.internal.targetplatforms/plugins/org.eclipse.core.runtime.compatibility.registry_3.2.200.v20080610/runtime_registry_compatibility.jar"/>
-	<classpathentry kind="lib" path="/era.internal.targetplatforms/lib/ant.jar"/>
-	<classpathentry kind="lib" path="/era.internal.targetplatforms/lib/emf.ant.tasks.jar" sourcepath="/era.internal.targetplatforms/plugins/org.eclipse.emf.source_2.4.1.v200808251517/src/org.eclipse.emf.ant_2.4.0.v200808251517/ant_tasks/emf.ant.taskssrc.zip"/>
-	<classpathentry kind="lib" path="/era.internal.targetplatforms/lib/importer.ecore.tasks.jar" sourcepath="/era.internal.targetplatforms/plugins/org.eclipse.emf.source_2.4.1.v200808251517/src/org.eclipse.emf.importer.ecore_2.4.0.v200808251517/ant_tasks/importer.ecore.taskssrc.zip"/>
+	<classpathentry kind="lib" path="ant-lib/ant-contrib-1.0b3.jar"/>
+	<classpathentry kind="lib" path="/era.internal.targetplatforms/plugins/org.apache.ant_1.7.0.v200803061910/lib/ant.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
