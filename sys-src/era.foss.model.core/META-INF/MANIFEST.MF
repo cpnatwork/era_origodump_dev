@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: era.foss.model.core;singleton:=true
-Bundle-Version: 1.0.0.v200905310425
+Bundle-Version: 1.0.0.v200906131237
 Bundle-ClassPath: .
 Bundle-Activator: era.foss.model.core.plugin.Activator$Implementation
 Bundle-Vendor: %providerName
