@@ -44,41 +44,47 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <plugin>
         <groupId>net.sf.mapasuta.build.maven.plugins</groupId>
         <artifactId>maven-emfgen-plugin</artifactId>
-        <!-- this newest version will check the Eclipse Version and complain ... <version>1.0.1-SNAPSHOT</version>-->
-        <configuration>
-          <eclipseDir>/proj.era/progs/eclipse</eclipseDir>
-          <eclipseVersion>3.4.1</eclipseVersion>
-          <!-- BEGIN INPUT -->
-          <metaModels>
-            <!-- these are INput -->
-            <metaModel>
-            ${basedir}/src/genbase/ecore/rif.extended.ecore</metaModel>
-          </metaModels>
-          <packageUris>
-            <!-- these must match the ecore-internal namespaces (for multi ecore-files support...!) -->
-            <packageUri>
-            http://automotive-his.de/schema/rif</packageUri>
-          </packageUris>
-          <!-- END INPUT -->
-          <!-- BEGIN OUTPUT -->
-          <!-- the log files from the generator run will be found in this "temporary" Eclipse workspace -->
-          <workspace>
-          ${basedir}/gen-rt/wsp.eclipse4gen</workspace>
-          <!-- this directory represents the resulting Eclipse plug-in -->
-          <outputDirectory>
-          ${basedir}/../era.foss.model.mvngenout</outputDirectory>
-          <!-- The Eclipse project name (CPN says: should equal the outputDirectory -->
-          <modelProject>era.foss.model.mvngenout</modelProject>
-          <!-- the genmodel is generated -->
-          <genSrc>src/main/java</genSrc>
-          <genModel>rif.extended.genmodel</genModel>
-          <!-- END OUTPUT -->
-          <prefixName>rifext</prefixName>
-        </configuration>
         <executions>
           <execution>
-            <id>generate-ecoremodel-sources</id>
-            <!-- execute with "mvn emfgen:genmode" -->
+            <!-- this newest version will check the Eclipse Version and complain ... <version>1.0.1-SNAPSHOT</version>-->
+            <configuration>
+              <!-- BEGIN ECLIPSE for HEADLESS execution -->
+              <eclipseDir>/proj.era/progs/eclipse</eclipseDir>
+              <eclipseVersion>3.4.1</eclipseVersion>
+              <!-- END ECLIPSE for HEADLESS execution -->
+              <!-- BEGIN INPUT -->
+              <metaModels>
+                <!-- these are INput -->
+                <metaModel>
+                ${basedir}/src/genbase/ecore/rif.extended.ecore</metaModel>
+              </metaModels>
+              <packageUris>
+                <!-- these must match the ecore-internal namespaces (for multi ecore-files support...!) -->
+                <packageUri>
+                http://automotive-his.de/schema/rif</packageUri>
+              </packageUris>
+              <!-- END INPUT -->
+              <!-- BEGIN OUTPUT -->
+              <!-- "temporary" Eclipse workspace for generator execution.
+                            e.g. the log files from the generator run will be found in its .metadata directory -->
+              <workspace>
+              ${basedir}/target/wsp.headlesseclipse</workspace>
+              <!-- This directory represents the resulting Eclipse plug-in .
+                                UNFORTUNATELY the output cannot be produced in THIS same directory "${basedir}/./"
+                                Prabably I am just too stupid...
+                                -->
+              <outputDirectory>
+              ${basedir}/../era.foss.model.mvngenout</outputDirectory>
+              <!-- The Eclipse project name (CPN says: should equal the outputDirectory's basename -->
+              <modelProject>era.foss.model.mvngenout</modelProject>
+              <!-- the src root folder of the generate Eclipse plug-in project -->
+              <genSrc>src</genSrc>
+              <!-- the genmodel is generated -->
+              <!-- (WHY do WE require a patched genmodel file?? -->
+              <genModel>rif.extended.genmodel</genModel>
+              <!-- END OUTPUT -->
+            </configuration>
+            <!-- by default the "mvn emfgen:genmode" will be bound by the maven plug-in to generate-source -->
             <goals>
               <goal>genmodel</goal>
             </goals>
