@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>era</groupId>
+  <artifactId>foss.model.gen</artifactId>
+  <version>0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>ERA FOSS Model Generation</name>
+  <properties>
+    <cpn.someDemoProp>2.5.6.A</cpn.someDemoProp>
+  </properties>
+  <developers>
+    <developer>
+      <id>cpn</id>
+      <name>Christoph Neumann</name>
+      <email>christoph.neumann@informatik.uni-erlangen.de</email>
+      <url>http://www6.informatik.uni-erlangen.de/people/cpn/</url>
+      <organization>Uni Erlangen - Informatik 6</organization>
+      <organizationUrl>
+      http://www6.informatik.uni-erlangen.de/</organizationUrl>
+    </developer>
+  </developers>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>net.sf.mapasuta.build.maven.plugins</groupId>
+        <artifactId>maven-emfgen-plugin</artifactId>
+        <configuration>
+          <eclipseDir>/proj.era/progs/eclipse</eclipseDir>
+          <baseName>cpnrifbasename</baseName>
+          <genSrc>src/main/java</genSrc>
+          <genModel>rif.extended.genmodel</genModel>
+          <metaModels>
+            <metaModel>${basedir}/src/genbase/ecore/rif.extended.ecore</metaModel>
+          </metaModels>
+          <packageUris>
+            <packageUri>
+            http://automotive-his.de/schema/rif</packageUri>
+          </packageUris>
+          <prefixName>my_model</prefixName>
+        </configuration>
+        <executions>
+          <execution>
+            <id>generate-rifmodel-sources</id>
+            <goals>
+              <goal>genmodel</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
