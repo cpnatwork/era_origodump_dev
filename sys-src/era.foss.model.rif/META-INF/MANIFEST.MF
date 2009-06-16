@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: era.foss.model.rif;singleton:=true
-Bundle-Version: 1.0.0.v200906161149
+Bundle-Version: 1.0.0
 Bundle-ClassPath: ., build/classes
 Bundle-Activator: era.foss.model.rif.plugin.ModelRifActivator$Implementation
 Bundle-Vendor: %providerName

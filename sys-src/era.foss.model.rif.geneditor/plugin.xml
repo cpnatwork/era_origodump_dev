@@ -15,9 +15,9 @@
             id="org.eclipse.emf.ecore.Wizard.category.ID"
             name="%_UI_Wizard_category"/>
       <wizard
-            id="era.foss.model.core.rif.editor.RifModelWizardID"
+            id="era.foss.model.rif.geneditor.RifModelWizardID"
             name="%_UI_RifModelWizard_label"
-            class="era.foss.model.core.rif.editor.RifModelWizard"
+            class="era.foss.model.rif.geneditor.RifModelWizard"
             category="org.eclipse.emf.ecore.Wizard.category.ID"
             icon="icons/full/obj16/RifModelFile.gif">
          <description>%_UI_RifModelWizard_description</description>
@@ -27,12 +27,12 @@
 
    <extension point="org.eclipse.ui.editors">
       <editor
-            id="era.foss.model.core.rif.editor.RifEditorID"
+            id="era.foss.model.rif.geneditor.RifEditorID"
             name="%_UI_RifEditor_label"
             icon="icons/full/obj16/RifModelFile.gif"
             extensions="rif"
-            class="era.foss.model.core.rif.editor.RifEditor"
-            contributorClass="era.foss.model.core.rif.editor.RifActionBarContributor">
+            class="era.foss.model.rif.geneditor.RifEditor"
+            contributorClass="era.foss.model.rif.geneditor.RifActionBarContributor">
       </editor>
    </extension>
 

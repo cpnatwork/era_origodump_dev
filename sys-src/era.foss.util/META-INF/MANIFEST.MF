@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Util Plug-in
 Bundle-SymbolicName: era.foss.util
-Bundle-Version: 1.0.0.v200906140855
+Bundle-Version: 1.0.0
 Bundle-Activator: era.foss.util.plugin.Activator
 Require-Bundle: org.eclipse.core.runtime
 Bundle-ActivationPolicy: lazy
