@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="org.foss.model.rif" basedir="." default="all">
+
+	<import file="../era.internal.tools/ant-lib.xml" />
+
+	<target name="all" depends="generate,compile,jar" />
+
+	<era.genmodelFile property="originalEcore.genmodel" file="${originalEcore.filename}" />
+	<era.genmodelFile property="extendedEcore.genmodel" file="${extendedEcore.filename}" />
+
+	<target name="zz_prepare" description="Creates missing directories">
+		<era.prepare />
+	</target>
+
+	<target name="generate"
+	        depends="zz_prepare,zz_gen-xsd2ecore,zz_gen-extend,zz_gen-java"
+	        description="Runs all generation targets" />
+
+	<target name="compile">
+		<era.compileJava />
+	</target>
+
+	<target name="jar">
+		<era.compileJar>
+			<includes>
+				<fileset dir="${era.cwd}" includes="${path.model}/*.xsd" />
+			</includes>
+		</era.compileJar>
+	</target>
+
+	<target name="dist" depends="all" description="distributes plug-in">
+		<era.distPlugin />
+	</target>
+
+	<target name="zz_gen-xsd2ecore" description="converts xsd file to ecore file">
+		<!--
+			This is not automated!
+			Do this by:
+			=> "File » New » "Other ..."
+			=> "Eclipse Modeling Framework" » "EMF Model"
+			=> Parent Folder: "era.foss.model.rif/model"; File name: "rif.genmodel"
+			=> Model Importers: "XML Schema"
+			=> Model URIs: "platform:/resource/era.foss.model.rif/model/rif.xsd"
+		-->
+	</target>
+
+	<target name="zz_gen-extend" description="patches the ecore file and creates a genmodel">
+
+		<era.extendEcore verbose="${verbose}"
+		                 config="${era.cwd}/${era.project.config}/${extendEcore.config}"
+		                 source="${era.cwd}/${path.model}/${originalEcore.filename}"
+		                 target="${era.cwd}/${path.model}/${extendedEcore.filename}" />
+
+		<!-- remove any original genmodel because it is obsolete -->
+		<delete file="${path.model}/${originalEcore.genmodel}" verbose="false" failonerror="false" />
+
+		<era.extendGenModel verbose="${verbose}"
+		                    config="${era.cwd}/${era.project.config}/${extendGenModel.config}"
+		                    source="${era.cwd}/${path.model}/${extendedEcore.filename}" />
+	</target>
+
+	<target name="zz_gen-java" description="generates java code from the ecore file">
+		<era.genJava verbose="${verbose}"
+		             genmodel="${era.cwd}/${path.model}/${extendedEcore.genmodel}"
+		             model="${generate.model}"
+		             edit="${generate.edit}"
+		             editor="${generate.editor}"
+		             tests="${generate.tests}" />
+	</target>
+
+	<target name="clean" description="Removes all compiled file">
+		<era.clean />
+	</target>
+
+	<target name="gen-clean" depends="clean" description="Removes all generated file">
+		<!-- delete original gemodel file -->
+		<delete file="${era.cwd}/${path.model}/${originalEcore.genmodel}" verbose="false" failonerror="false" />
+		<!-- delete ERA-patched or -generated ecor and genmodel files -->
+		<delete file="${era.cwd}/${path.model}/${extendedEcore.filename}" verbose="true" failonerror="false" />
+		<delete file="${era.cwd}/${path.model}/${extendedEcore.genmodel}" verbose="true" failonerror="false" />
+		<!-- delete generated Java source code files -->
+		<delete includeemptydirs="true">
+			<fileset dir="${era.cwd}/${era.project.src}">
+				<include name="era/foss/model/rif/**/*.java" />
+			</fileset>
+		</delete>
+	</target>
+
+</project>
