@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: era.foss.model.rif.geneditor;singleton:=true
-Bundle-Version: 1.0.0.v200906161130
+Bundle-Version: 1.0.0.v200906161150
 Bundle-ClassPath: .
 Bundle-Activator: era.foss.model.rif.geneditor.plugin.RifGenEditorActivator$Implementation
 Bundle-Vendor: %providerName
