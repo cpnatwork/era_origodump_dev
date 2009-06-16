@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: era.foss.model.edit;singleton:=true
 Bundle-Version: 1.0.0.v200906131238
 Bundle-ClassPath: .
-Bundle-Activator: era.foss.model.geneditor.plugin.Activator$Implementation
+Bundle-Activator: era.foss.model.edit.plugin.EditActivator$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
