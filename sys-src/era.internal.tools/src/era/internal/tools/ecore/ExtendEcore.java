@@ -16,8 +16,10 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**
  * This class takes the ecore model imported from rif.xsd and patches it to our needs.
@@ -45,6 +47,11 @@ public class ExtendEcore extends AbstractTools {
      * config properties: custom classname
      */
     public static final String CONFIG_CLASSNAME = "classname";
+
+    /**
+     * config properties: custom featurename
+     */
+    public static final String CONFIG_FEATURENAME = "featurename";
 
     //
     // private members
@@ -126,13 +133,13 @@ public class ExtendEcore extends AbstractTools {
      * @param containments SubType->SuperType containments structure
      */
     private void extendClassifierNames( EPackage pkg, Map<EClass, EClass> containments ) {
-        info( "Rework Classnames..." );
+        info( "Rework Class and feature names..." );
 
         // Find duplicate names
         Set<String> allNames = new HashSet<String>();
         Set<String> duplicateNames = new HashSet<String>();
         for( EClassifier classifier : pkg.getEClassifiers() ) {
-            String name = extractClassNameFromAnnotation( classifier );
+            String name = extractNameFromAnnotation( classifier, false );
             if( name == null ) continue;
             if( allNames.contains( name ) ) duplicateNames.add( name );
             allNames.add( name );
@@ -145,33 +152,82 @@ public class ExtendEcore extends AbstractTools {
         for( EClassifier classifier : pkg.getEClassifiers() ) {
             String name;
 
-            // Hand mapped
             String classifierName = classifier.getName();
             if( mappedClassName.containsKey( classifierName ) ) {
+                // Hand mapped
+
                 name = mappedClassName.get( classifierName );
                 if( seenNames.contains( name ) ) fail( "Duplicate manual classname " + name );
                 classifier.setName( name );
-                classifier.setName( name );
+                seenNames.add( name );
                 info( "  manual: " + classifierName + " -> " + name );
-                continue;
+            } else {
+                // Mapped via annotation
+
+                name = extractNameFromAnnotation( classifier, false );
+                if( name == null ) name = classifier.getName();
+                if( duplicateNames.contains( name ) ) {
+                    // Try to add super type prefix
+
+                    EClass superType = containments.get( (EClass)classifier );
+                    if( superType != null ) {
+                        String superName = extractNameFromAnnotation( superType, false );
+                        name = superName != null ? superName + name : name;
+                    }
+                }
+                if( seenNames.contains( name ) ) fail( "Duplicate automatic classname " + name );
+                classifier.setName( name );
+                seenNames.add( name );
+                info( "  automatic: " + classifierName + " -> " + name );
             }
 
-            // Mapped via annotation
-            name = extractClassNameFromAnnotation( classifier );
-            if( name == null ) continue;
-            if( duplicateNames.contains( name ) ) {
-                // Try to add super type prefix
-
-                EClass superType = containments.get( (EClass)classifier );
-                if( superType != null ) {
-                    String superName = extractClassNameFromAnnotation( superType );
-                    name = superName != null ? superName + name : name;
+            // Map attributes+references
+            if( classifier instanceof EClass ) {
+                Set<String> seenFeatureNames = new HashSet<String>();
+                Map<String, String> mappedFeatureNames = configuration.getMap( CONFIG_FEATURENAME );
+                for( EStructuralFeature feature : ((EClass)classifier).getEAllStructuralFeatures() ) {
+                    extendStructuralFeatureName( classifier, feature, mappedFeatureNames, seenFeatureNames );
                 }
             }
-            if( seenNames.contains( name ) ) fail( "Duplicate automatic classname " + name );
-            classifier.setName( name );
+        }
+    }
+
+    /**
+     * Converts attribute and reference names to camel case.
+     * 
+     * @param classifier the class containing the feature
+     * @param feature the feature
+     * @param mappedFeatureNames the manual configured feature names
+     * @param seenNames the names already seen for this class
+     * @since Jun 16, 2009
+     */
+    private void extendStructuralFeatureName( EClassifier classifier,
+                                              EStructuralFeature feature,
+                                              Map<String, String> mappedFeatureNames,
+                                              Set<String> seenNames ) {
+        String name;
+        String classifierName = classifier.getName();
+        String featureName = classifierName + "." + feature.getName();
+
+        if( mappedFeatureNames.containsKey( featureName ) ) {
+            // manual mapping
+
+            name = mappedFeatureNames.get( featureName );
+            if( seenNames.contains( name ) ) fail( "Duplicate manual featurename "
+                + name
+                + " for class "
+                + classifierName );
+            feature.setName( name );
             seenNames.add( name );
-            info( "  automatic: " + classifierName + " -> " + name );
+            info( "  manual: " + featureName + " -> " + name );
+        } else {
+            // Mapped via annotation
+            name = extractNameFromAnnotation( feature, true );
+            if( name == null || "".equals( name ) ) name = feature.getName();
+            if( seenNames.contains( name ) ) fail( "Duplicate automatic featurename " + name );
+            feature.setName( name );
+            seenNames.add( name );
+            info( "  automatic: " + featureName + " -> " + name );
         }
     }
 
@@ -180,17 +236,23 @@ public class ExtendEcore extends AbstractTools {
      * classifier.getEAllAttributes() ) { } }
      */
     /**
-     * Get the expected class name as CamelCase via the ExtendedMetaData annotation.
+     * Get the expected name as CamelCase via the ExtendedMetaData annotation.
      * 
-     * @param classifier The class
+     * @param element The element to rename
+     * @param feature create a name for a feature
      * @return the name
      */
-    private String extractClassNameFromAnnotation( EClassifier classifier ) {
-        EAnnotation annotation = classifier.getEAnnotation( "http:///org/eclipse/emf/ecore/util/ExtendedMetaData" );
+    private String extractNameFromAnnotation( ENamedElement element, boolean feature ) {
+        EAnnotation annotation = element.getEAnnotation( "http:///org/eclipse/emf/ecore/util/ExtendedMetaData" );
         String name = annotation.getDetails().get( "name" );
-        if( name == null || !name.endsWith( "_type" ) ) return null;
-        name = name.substring( 0, name.indexOf( '_' ) );
-        return camelCase( name, false );
+        if( name == null || "".equals( name ) ) return null;
+        if( name.endsWith( "_type" ) ) {
+            name = name.substring( 0, name.indexOf( '_' ) );
+        }
+        if( name.indexOf( ':' ) != -1 ) {
+            name = !feature ? name.replace( ':', '-' ) : name.substring( 0, name.indexOf( ':' ) );
+        }
+        return camelCase( name, feature );
     }
 
     /**

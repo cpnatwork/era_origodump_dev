@@ -136,12 +136,14 @@ public abstract class AbstractTools {
         StringBuilder b = new StringBuilder();
         boolean first = true;
         for( String chunk : chunks ) {
+            if( "".equals( chunk ) ) continue;
             chunk = chunk.toLowerCase();
             if( !first || !firstLower ) {
                 b.append( Character.toUpperCase( chunk.charAt( 0 ) ) );
-                b.append( chunk.substring( 1 ) );
+                b.append( chunk.substring( 1 ) );                
             } else {
                 b.append( chunk );
+                first = false;
             }
         }
         return b.toString();

@@ -64,7 +64,7 @@
 
 	<path id="_era.eclipse.launcher.path">
 		<fileset dir="${era.dev}/${era.internal.targetplatforms}/plugins"
-		         includes="org.eclipse.equinox.launcher*.jar" />
+		         includes="org.eclipse.equinox.launcher_*.jar" />
 	</path>
 	<property name="era.eclipse.launcher" refid="_era.eclipse.launcher.path" />
 
@@ -217,6 +217,15 @@
 		<element name="sysproperties" optional="true" />
 
 		<sequential>
+			<echo level="debug">
+era.eclipse
+  classpath: ${era.eclipse.launcher}
+  configuration: @{configuration}
+  install ${era.dev}/${era.internal.targetplatforms}
+  initialize
+  data @{workspace}
+  application @{application}
+			</echo>			
 			<if>
 				<equals arg1="@{clearconfiguration}" arg2="true" />
 				<then>
@@ -231,7 +240,6 @@
 				</then>
 			</if>
 			<mkdir dir="@{workspace}" />
-
 			<if>
 				<equals arg1="${verbose}" arg2="true" />
 				<then>
@@ -332,12 +340,11 @@
 			<mkdir dir="${era.cwd}/${era.project.build}/results" />
 			<mkdir dir="${era.cwd}/${era.project.build}/tmp" />
 			<mkdir dir="${era.cwd}/${era.project.build}/junit" />
-
 			<era.eclipse application="org.eclipse.pde.junit.runtime.coretestapplication"
 			             workspace="${era.cwd}/${era.project.build}/workspace"
 			             verbose="@{verbose}">
 				<args>
-					<arg line="-dev ${era.cwd}/${era.project.classes}" />
+					<arg line="-dev ${era.dev}/era.internal.testlib/build/classes,${era.cwd}/${era.project.classes},${era.dev}/era.foss.model.core/build/classes" />
 					<arg line="-nl en" />
 					<arg line="showoutput=false" />
 					<arg line="printsummary=false" />
