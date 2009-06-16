@@ -13,12 +13,12 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="http://automotive-his.de/schema/rif"
-            class="era.foss.model.core.rif.RifPackage"
+            class="era.foss.model.rif.RifPackage"
             genModel="model/rif.extended.genmodel"/>
    </extension>
    <extension point="org.eclipse.emf.ecore.extension_parser">
       <parser
             type="rif"
-            class="era.foss.model.core.rif.util.RifResourceFactoryImpl"/>
+            class="era.foss.model.rif.util.RifResourceFactoryImpl"/>
    </extension>
 </plugin>

@@ -6,7 +6,7 @@ package era.foss.model.rif.era;
 
 import org.eclipse.emf.ecore.resource.Resource;
 
-import era.foss.model.rif.SpecObject;
+import era.foss.model.rif.model.SpecObject;
 
 /**
  * 
