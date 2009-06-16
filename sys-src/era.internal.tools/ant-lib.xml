@@ -252,7 +252,6 @@ era.eclipse
 						<jvmarg line="@{jvmarg}" />
 						<arg line="-configuration @{configuration}" />
 						<arg line="-install ${era.dev}/${era.internal.targetplatforms}" />
-						<arg line="-initialize" />
 						<arg line="-data @{workspace}" />
 						<arg line="-application @{application}" />
 						<args />
@@ -272,7 +271,6 @@ era.eclipse
 						<arg line="-data @{workspace}" />
 						<arg line="-configuration @{configuration}" />
 						<arg line="-install ${era.dev}/${era.internal.targetplatforms}" />
-						<arg line="-initialize" />
 						<arg line="-application @{application}" />
 						<args />
 						<sysproperties />
