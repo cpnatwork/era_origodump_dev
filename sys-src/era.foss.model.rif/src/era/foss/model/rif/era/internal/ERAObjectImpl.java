@@ -31,4 +31,15 @@ public class ERAObjectImpl extends EObjectImpl implements IERAObject {
         }
     }
 
+    /**
+     * @return true if object is an identifiable
+     * @since Jun 19, 2009
+     */
+    @Override
+    public boolean isIdentifiable() {
+        return this.eClass().getEStructuralFeature( "identifier" ) != null;
+    }
+    
+    
+
 } // ERAObjectImpl

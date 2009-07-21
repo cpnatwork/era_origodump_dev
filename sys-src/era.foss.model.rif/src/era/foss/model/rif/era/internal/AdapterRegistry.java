@@ -21,7 +21,7 @@ public class AdapterRegistry {
     /**
      * Id of the extension-point.
      */
-    public static final String EXTENSION_PONT = "era.foss.model.core.adapter";
+    public static final String EXTENSION_PONT = "era.foss.model.rif.adapter";
 
     /**
      * The tag for the executable extension
