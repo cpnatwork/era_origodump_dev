@@ -30,9 +30,9 @@
             id="era.foss.model.rif.geneditor.RifEditorID"
             name="%_UI_RifEditor_label"
             icon="icons/full/obj16/RifModelFile.gif"
-            extensions="rif"
             class="era.foss.model.rif.geneditor.RifEditor"
             contributorClass="era.foss.model.rif.geneditor.RifActionBarContributor">
+         <contentTypeBinding contentTypeId="era.foss.model.rif.RifContentType"/>
       </editor>
    </extension>
 

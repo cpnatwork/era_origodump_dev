@@ -12,7 +12,7 @@
 
    <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
       <factory
-            uri="http://automotive-his.de/schema/rif"
+            uri="http://automotive-his.de/200706/rif"
             class="era.foss.model.rif.edit.RifItemProviderAdapterFactory"
             supportedTypes=
               "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
