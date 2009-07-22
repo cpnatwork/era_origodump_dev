@@ -11,25 +11,26 @@
 <plugin>
 
    <extension point="org.eclipse.ui.newWizards">
-      <category
-            id="org.eclipse.emf.ecore.Wizard.category.ID"
-            name="%_UI_Wizard_category"/>
       <wizard
-            id="era.foss.model.rif.geneditor.RifModelWizardID"
-            name="%_UI_RifModelWizard_label"
+            category="era.foss.model.rif.geneditor.category.ID"
             class="era.foss.model.rif.geneditor.RifModelWizard"
-            category="org.eclipse.emf.ecore.Wizard.category.ID"
-            icon="icons/full/obj16/RifModelFile.gif">
+            icon="icons/full/obj16/EraFile.gif"
+            id="era.foss.model.rif.geneditor.RifModelWizardID"
+            name="%_UI_RifModelWizard_label">
          <description>%_UI_RifModelWizard_description</description>
          <selection class="org.eclipse.core.resources.IResource"/>
       </wizard>
+      <category
+            id="era.foss.model.rif.geneditor.category.ID"
+            name="%_UI_Wizard_category">
+      </category>
    </extension>
 
    <extension point="org.eclipse.ui.editors">
       <editor
             id="era.foss.model.rif.geneditor.RifEditorID"
             name="%_UI_RifEditor_label"
-            icon="icons/full/obj16/RifModelFile.gif"
+            icon="icons/full/obj16/EraFile.gif"
             class="era.foss.model.rif.geneditor.RifEditor"
             contributorClass="era.foss.model.rif.geneditor.RifActionBarContributor">
          <contentTypeBinding contentTypeId="era.foss.model.rif.RifContentType"/>
