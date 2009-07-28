@@ -2,21 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/era.internal.targetplatforms/plugins/org.eclipse.emf.common_2.4.0.v200808251517.jar" sourcepath="/era.internal.targetplatforms/plugins/org.eclipse.emf.source_2.4.1.v200808251517/src/org.eclipse.emf.common_2.4.0.v200808251517/src.zip"/>
-	<classpathentry kind="lib" path="/era.internal.targetplatforms/plugins/org.eclipse.emf.ecore_2.4.1.v200808251517.jar" sourcepath="/era.internal.targetplatforms/plugins/org.eclipse.emf.source_2.4.1.v200808251517/src/org.eclipse.emf.ecore_2.4.1.v200808251517/src.zip"/>
-	<classpathentry kind="lib" path="/era.internal.targetplatforms/plugins/org.eclipse.emf.ecore.xmi_2.4.1.v200808251517.jar" sourcepath="/era.internal.targetplatforms/plugins/org.eclipse.emf.source_2.4.1.v200808251517/src/org.eclipse.emf.ecore.xmi_2.4.1.v200808251517/src.zip"/>
-	<classpathentry kind="lib" path="/era.internal.targetplatforms/plugins/org.eclipse.emf.codegen_2.4.0.v200808251517.jar" sourcepath="/era.internal.targetplatforms/plugins/org.eclipse.emf.source_2.4.1.v200808251517/src/org.eclipse.emf.codegen_2.4.0.v200808251517/src.zip"/>
-	<classpathentry kind="lib" path="/era.internal.targetplatforms/plugins/org.eclipse.emf.codegen.ecore_2.4.1.v200808251517.jar" sourcepath="/era.internal.targetplatforms/plugins/org.eclipse.emf.source_2.4.1.v200808251517/src/org.eclipse.emf.codegen.ecore_2.4.1.v200808251517/src.zip"/>
-	<classpathentry kind="lib" path="/era.internal.targetplatforms/plugins/org.eclipse.emf.ant_2.4.0.v200808251517.jar" sourcepath="/era.internal.targetplatforms/plugins/org.eclipse.emf.source_2.4.1.v200808251517/src/org.eclipse.emf.ant_2.4.0.v200808251517/src.zip"/>
-	<classpathentry kind="lib" path="/era.internal.targetplatforms/plugins/org.eclipse.emf.converter_2.4.0.v200808251517.jar"/>
-	<classpathentry kind="lib" path="/era.internal.targetplatforms/plugins/org.eclipse.emf.importer_2.4.1.v200808251517.jar"/>
-	<classpathentry kind="lib" path="/era.internal.targetplatforms/plugins/org.eclipse.emf.mapping.xsd2ecore_2.4.0.v200808251517.jar"/>
-	<classpathentry kind="lib" path="/era.internal.targetplatforms/plugins/org.eclipse.xsd_2.4.1.v200808251517.jar"/>
-	<classpathentry kind="lib" path="/era.internal.targetplatforms/plugins/org.eclipse.xsd.ecore.importer_2.4.0.v200808251517.jar"/>
-	<classpathentry kind="lib" path="/era.internal.targetplatforms/plugins/org.eclipse.emf.importer.ecore_2.4.0.v200808251517.jar" sourcepath="/era.internal.targetplatforms/plugins/org.eclipse.emf.source_2.4.1.v200808251517/src/org.eclipse.emf.importer.ecore_2.4.0.v200808251517/src.zip"/>
-	<classpathentry kind="lib" path="/era.internal.targetplatforms/plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar"/>
-	<classpathentry kind="lib" path="/era.internal.targetplatforms/plugins/org.eclipse.core.runtime.compatibility.registry_3.2.200.v20080610/runtime_registry_compatibility.jar"/>
-	<classpathentry kind="lib" path="ant-lib/ant-contrib-1.0b3.jar"/>
-	<classpathentry kind="lib" path="/era.internal.targetplatforms/plugins/org.apache.ant_1.7.0.v200803061910/lib/ant.jar"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
