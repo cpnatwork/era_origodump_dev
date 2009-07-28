@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rif:RIF xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rif="http://automotive-his.de/200706/rif" xmlns:rif-xhtml="http://automotive-his.de/200706/rif-xhtml" xsi:schemaLocation="http://automotive-his.de/schema/rif rif.xsd http://automotive-his.de/schema/rif-xhtml rif-xhtml.xsd">
+	<datatypes />
+	<specObjects>
+		<specObject>
+			<type />
+			<values>
+				<attributeValueEmbeddedDocument>
+					<xhtmlContent>
+						<p>Hello World</p>
+					</xhtmlContent>
+				</attributeValueEmbeddedDocument>
+			</values>
+		</specObject>
+	</specObjects>
+</rif:RIF>
