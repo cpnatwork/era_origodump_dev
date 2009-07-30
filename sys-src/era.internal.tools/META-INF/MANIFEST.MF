@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: era.internal.tools
+Bundle-SymbolicName: era.foss.model.rif.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Christoph the fucking genius
+Require-Bundle: org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Import-Package: org.apache.tools.ant,
+ org.eclipse.emf.codegen.ecore.genmodel,
+ org.eclipse.emf.codegen.ecore.genmodel.impl,
+ org.eclipse.emf.common.util,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.resource,
+ org.eclipse.emf.ecore.resource.impl,
+ org.eclipse.emf.ecore.xmi.impl
