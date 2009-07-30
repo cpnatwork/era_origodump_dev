@@ -7,6 +7,6 @@ Bundle-Activator: era.foss.model.rif.test.Activator
 Bundle-Vendor: Christoph the fucking genius
 Require-Bundle: org.eclipse.core.runtime,
  era.foss.model.rif;bundle-version="1.0.0",
- org.junit4;bundle-version="4.5.0"
+ org.junit4
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
