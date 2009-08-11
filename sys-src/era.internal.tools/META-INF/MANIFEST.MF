@@ -1,10 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: era.internal.tools
-Bundle-SymbolicName: era.foss.model.rif.test
-Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: Christoph the fucking genius
-Require-Bundle: org.eclipse.core.runtime
+Bundle-SymbolicName: era.internal.tools
+Bundle-Version: 1.0.0
+Bundle-Vendor: era
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore;bundle-version="2.5.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Import-Package: org.apache.tools.ant,

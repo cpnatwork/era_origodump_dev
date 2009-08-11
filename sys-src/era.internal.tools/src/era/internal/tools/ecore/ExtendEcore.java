@@ -8,11 +8,15 @@
 package era.internal.tools.ecore;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -20,6 +24,7 @@ import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 /**
  * This class takes the ecore model imported from rif.xsd and patches it to our needs.
@@ -52,6 +57,21 @@ public class ExtendEcore extends AbstractTools {
      * config properties: custom featurename
      */
     public static final String CONFIG_FEATURENAME = "featurename";
+
+    /**
+     * config properties: substitute.&lt;fromClass&gt; : &lt;toClass&gt;
+     */
+    public static final String CONFIG_SUBSTITUTE = "substitute";
+
+    /**
+     * config properties: extractSuperClass.&lt;fromClass&gt; : &lt;toClass&gt; &lt;Feature&gt;,...
+     */
+    public static final String CONFIG_EXTRACT_SUPER_CLASS = "extractSuperClass";
+
+    /**
+     * config properties: superClass.&lt;derivedClass&gt; : &lt;superClass&gt;
+     */
+    public static final String CONFIG_SUPER_CLASS = "superClass";
 
     //
     // private members
@@ -89,6 +109,18 @@ public class ExtendEcore extends AbstractTools {
         // Fix class names
         extendClassifierNames( pkg, containments );
 
+        // Substitute Classes
+        extendSubstitute( pkg );
+
+        // Extract a super class from an existing type
+        extendExtractSuperClass( pkg );
+
+        // Add super classes
+        extendAddSuperClass( pkg );
+
+        // Make feature unique
+        extendRemoveInheritedFeatures( pkg );
+
         // Save resource
         saveResource( outputEcore, pkg );
     }
@@ -98,7 +130,7 @@ public class ExtendEcore extends AbstractTools {
      */
     @Override
     protected String[] getResourceFileExtensions() {
-        return new String[]{FILEEXT_ECORE};
+        return new String[]{ FILEEXT_ECORE };
     }
 
     /**
@@ -113,7 +145,7 @@ public class ExtendEcore extends AbstractTools {
         info( "Find containment structure..." );
         Map<EClass, EClass> containments = new HashMap<EClass, EClass>();
         for( EClassifier classifier : pkg.getEClassifiers() ) {
-            if( !(classifier instanceof EClass) ) continue;
+            if( !( classifier instanceof EClass ) ) continue;
             EClass eClass = (EClass)classifier;
             for( EReference reference : eClass.getEAllReferences() ) {
                 if( reference.isContainment() ) {
@@ -185,7 +217,7 @@ public class ExtendEcore extends AbstractTools {
             if( classifier instanceof EClass ) {
                 Set<String> seenFeatureNames = new HashSet<String>();
                 Map<String, String> mappedFeatureNames = configuration.getMap( CONFIG_FEATURENAME );
-                for( EStructuralFeature feature : ((EClass)classifier).getEAllStructuralFeatures() ) {
+                for( EStructuralFeature feature : ( (EClass)classifier ).getEAllStructuralFeatures() ) {
                     extendStructuralFeatureName( classifier, feature, mappedFeatureNames, seenFeatureNames );
                 }
             }
@@ -253,6 +285,207 @@ public class ExtendEcore extends AbstractTools {
             name = !feature ? name.replace( ':', '-' ) : name.substring( 0, name.indexOf( ':' ) );
         }
         return camelCase( name, feature );
+    }
+
+    /**
+     * Substitutes one class by another (effectively removing the subsituted class) and fixes all references.
+     * 
+     * <p>
+     * Handles the configuration map {@link #CONFIG_SUBSTITUTE}.
+     * </p>
+     * 
+     * @param pkg The package
+     * @since Aug 4, 2009
+     */
+    private void extendSubstitute( EPackage pkg ) {
+        info( "Subsitute Classes..." );
+        Map<String, String> mergeMap = configuration.getMap( CONFIG_SUBSTITUTE );
+        for( Map.Entry<String, String> mergeEntry : mergeMap.entrySet() ) {
+            info( "  " + mergeEntry.getKey() + " -> " + mergeEntry.getValue() );
+            EClassifier substituteFrom = pkg.getEClassifier( mergeEntry.getKey() );
+            if( !( substituteFrom instanceof EClass ) ) {
+                fail( "Unknown class " + mergeEntry.getKey() );
+            }
+            EClassifier substituteTo = pkg.getEClassifier( mergeEntry.getValue() );
+            if( !( substituteTo instanceof EClass ) ) {
+                fail( "Unknown class " + mergeEntry.getValue() );
+            }
+
+            // Change all references to point to substituteTo instead of substituteFrom
+            for( EClassifier classifier : pkg.getEClassifiers() ) {
+                if( !( classifier instanceof EClass ) ) continue;
+                for( EReference reference : ( (EClass)classifier ).getEReferences() ) {
+                    if( reference.getEType().equals( substituteFrom ) ) {
+                        reference.setEType( substituteTo );
+                    }
+                }
+            }
+
+            // Remove mergeFrom
+            pkg.getEClassifiers().remove( substituteFrom );
+        }
+    }
+
+    /**
+     * Extracts super classes from a given classes setting the newly created class as superType of the given class and
+     * removing all but selected structural features.
+     * 
+     * <p>
+     * This method processes the config option map {@link ExtendEcore#CONFIG_EXTRACT_SUPER_CLASS}.
+     * </p>
+     * 
+     * @param pkg the package form the file
+     * @since Aug 5, 2009
+     */
+    private void extendExtractSuperClass( EPackage pkg ) {
+        info( "Extract SuperClasses..." );
+        Map<String, String> superClassMap = configuration.getMap( CONFIG_EXTRACT_SUPER_CLASS );
+        List<String> sortedSuperClassMapKeys = sortSuperClassMapKeys( superClassMap );
+        for( String key : sortedSuperClassMapKeys ) {
+            String value = superClassMap.get( key );
+            info( "  " + key + " :: " + value );
+
+            // Get the class for which to create s super-type
+            EClassifier derivedClass = pkg.getEClassifier( key );
+            if( !( derivedClass instanceof EClass ) ) {
+                fail( "Unknown class " + key );
+            }
+            // Split between super type name and optional list of feautres to preserve
+            String[] s = value.split( "\\s+", 2 );
+            if( s == null || s.length < 1 ) {
+                fail( "Missing superType for derived class " + key );
+            }
+
+            // extract super type name and list of features to preserve. If no feature are given preserve all
+            String superTypeName = s[0];
+            if( pkg.getEClassifier( superTypeName ) != null ) {
+                fail( "Type " + superTypeName + " already exists" );
+            }
+            List<String> features = null;
+            if( s.length > 1 ) {
+                features = Arrays.asList( s[1].split( "\\s*,\\s*" ) );
+            }
+
+            // Create the super type EClass and change its name to the requested one
+            EClass superClass = (EClass)EcoreUtil.copy( derivedClass );
+            superClass.setName( superTypeName );
+            EAnnotation annotation = superClass.getEAnnotation( "http:///org/eclipse/emf/ecore/util/ExtendedMetaData" );
+            if( annotation != null ) annotation.getDetails().remove( "name" );
+
+            // If a list of features is given eliminate all others
+            if( features != null ) {
+                EList<EStructuralFeature> structuralFeatures = superClass.getEStructuralFeatures();
+                for( EStructuralFeature feature : new ArrayList<EStructuralFeature>( structuralFeatures ) ) {
+                    if( !features.contains( feature.getName() ) ) structuralFeatures.remove( feature );
+                }
+            }
+
+            // Add super type to package
+            pkg.getEClassifiers().add( superClass );
+
+            // add as super type to derived class
+            ( (EClass)derivedClass ).getESuperTypes().add( superClass );
+        }
+    }
+
+    /**
+     * Called {@link #extendExtractSuperClass(EPackage)} to sort the keys of the classmap so that next to be created
+     * superclass does not doend on a notyet created superclass.
+     * 
+     * @param superClassMap the map with classes to derie
+     * @return the sorted keySet
+     * @since Aug 5, 2009
+     */
+    private List<String> sortSuperClassMapKeys( Map<String, String> superClassMap ) {
+        List<String> sortedSuperClassMapKeys = new ArrayList<String>();
+        superClassMap = new HashMap<String, String>( superClassMap );
+        while( !superClassMap.isEmpty() ) {
+            String nextEntryKey = null;
+            for( Map.Entry<String, String> entry : superClassMap.entrySet() ) {
+                if( !superClassMap.containsValue( entry.getKey() ) ) {
+                    nextEntryKey = entry.getKey();
+                    break;
+                }
+            }
+            if( nextEntryKey == null ) {
+                fail( "Circular class hierarchy" );
+            }
+            superClassMap.remove( nextEntryKey );
+            sortedSuperClassMapKeys.add( nextEntryKey );
+        }
+
+        return sortedSuperClassMapKeys;
+    }
+
+    /**
+     * Adds a super class to a selected object.
+     * 
+     * <p>
+     * This method handles the superClass configuration map.
+     * </p>
+     * 
+     * @param pkg the package of the model
+     * @since Aug 5, 2009
+     */
+    private void extendAddSuperClass( EPackage pkg ) {
+        info( "Adding SuperClasses..." );
+        Map<String, String> superClassMap = configuration.getMap( CONFIG_SUPER_CLASS );
+        for( Map.Entry<String, String> entry : superClassMap.entrySet() ) {
+            info( "  " + entry.getKey() + " :: " + entry.getValue() );
+
+            // Get the class for which to to set the super-type
+            EClassifier derivedClass = pkg.getEClassifier( entry.getKey() );
+            if( !( derivedClass instanceof EClass ) ) {
+                fail( "Unknown class " + entry.getKey() );
+            }
+
+            // Get the super type
+            EClassifier superClass = pkg.getEClassifier( entry.getValue() );
+            if( !( derivedClass instanceof EClass ) ) {
+                fail( "Unknown class " + entry.getValue() );
+            }
+
+            // add as super type to derived class
+            ( (EClass)derivedClass ).getESuperTypes().add( (EClass)superClass );
+
+        }
+    }
+
+    /**
+     * Removes features from each class in the model that one of it super classes already has.
+     * 
+     * <p>
+     * As super classes are in fact synthetic classes the inheriting class actually duplicates the features what seems a
+     * problem for EMF when generating the genmodel.
+     * </p>
+     * 
+     * @param pkg the package of the model
+     * @since Aug 5, 2009
+     */
+    private void extendRemoveInheritedFeatures( EPackage pkg ) {
+        info( "Removing inherited Features..." );
+        for( EClassifier classifier : pkg.getEClassifiers() ) {
+            if( !( classifier instanceof EClass ) ) continue;
+            EList<EClass> superTypes = ( (EClass)classifier ).getESuperTypes();
+            if( superTypes == null || superTypes.size() < 1 ) continue;
+
+            // Get feature names from superTypes
+            Set<String> inheritedFeatureNames = new HashSet<String>();
+            for( EClass superType : superTypes ) {
+                for( EStructuralFeature feature : superType.getEAllStructuralFeatures() ) {
+                    inheritedFeatureNames.add( feature.getName() );
+                }
+            }
+
+            // Remove feature from this type
+            List<EStructuralFeature> features = new ArrayList<EStructuralFeature>(
+                ( (EClass)classifier ).getEStructuralFeatures() );
+            for( EStructuralFeature feature : features ) {
+                if( inheritedFeatureNames.contains( feature.getName() ) ) {
+                    ( (EClass)classifier ).getEStructuralFeatures().remove( feature );
+                }
+            }
+        }
     }
 
     /**
