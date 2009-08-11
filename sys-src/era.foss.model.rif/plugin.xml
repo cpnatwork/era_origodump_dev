@@ -9,31 +9,16 @@
 -->
 
 <plugin>
-
+   <extension-point id="adapter" name="Adapter Factory extension" schema="schema/adapter.exsd"/>
    <extension point="org.eclipse.emf.ecore.generated_package">
       <package
-            uri="http://automotive-his.de/200706/rif"
+            uri="http://automotive-his.de/schema/rif"
             class="era.foss.model.rif.RifPackage"
             genModel="model/rif.extended.genmodel"/>
    </extension>
-
-   <extension point="org.eclipse.emf.ecore.content_parser">
+   <extension point="org.eclipse.emf.ecore.extension_parser">
       <parser
-            contentTypeIdentifier="RifContentType"
+            type="rif"
             class="era.foss.model.rif.util.RifResourceFactoryImpl"/>
    </extension>
-
-   <extension point="org.eclipse.core.runtime.contentTypes">
-      <content-type
-            base-type="org.eclipse.core.runtime.xml"
-            file-extensions="xml"
-            id="RifContentType"
-            name="%_UI_Rif_content_type"
-            priority="normal">
-         <describer class="org.eclipse.emf.ecore.xmi.impl.RootXMLContentHandlerImpl$Describer">
-            <parameter name="namespace" value="http://automotive-his.de/200706/rif"/>
-         </describer>
-      </content-type>
-   </extension>
-
 </plugin>
