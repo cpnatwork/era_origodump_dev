@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: era.foss.model.rif.edit;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.v200908040740
 Bundle-ClassPath: .
 Bundle-Activator: era.foss.model.rif.edit.plugin.RifEditActivator$Implementation
 Bundle-Vendor: %providerName
@@ -13,4 +13,5 @@ Export-Package: era.foss.model.rif.edit,
 Require-Bundle: org.eclipse.core.runtime,
  era.foss.model.rif;visibility:=reexport,
  org.eclipse.emf.edit;visibility:=reexport
+Eclipse-LazyStart: true
 Bundle-ActivationPolicy: lazy
