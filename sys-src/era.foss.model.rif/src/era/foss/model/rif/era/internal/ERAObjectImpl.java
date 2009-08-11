@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import era.foss.model.rif.era.IAdapterFactory;
 import era.foss.model.rif.era.IERAObject;
+import era.foss.model.rif.model.Identifiable;
 
 /**
  * Base class for all ERA objects.
@@ -37,9 +38,7 @@ public class ERAObjectImpl extends EObjectImpl implements IERAObject {
      */
     @Override
     public boolean isIdentifiable() {
-        return this.eClass().getEStructuralFeature( "identifier" ) != null;
+        return this instanceof Identifiable;
     }
     
-    
-
 } // ERAObjectImpl
