@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import era.foss.model.rif.RifFactory;
 import era.foss.model.rif.model.DocumentRoot;
-import era.foss.model.rif.model.RIF;
+import era.foss.model.rif.model.Rif;
 
 /**
  * 
@@ -41,15 +41,19 @@ public class CpnTumble {
     }
 
     public static void xhtmlAsString() throws Exception {
-        File outFile = File.createTempFile( "testRifXMLProcessor_", ".rif" );
+        
+    	// ++ prepare output file objects
+    	File outFile = File.createTempFile( "testRifXMLProcessor_", ".rif" );
         logger.info( "Temporary file used: " + outFile.getAbsolutePath() );
         OutputStream outputStream = new FileOutputStream( outFile );
         ResourceSet resourceSet = new ResourceSetImpl();
         resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put( "rif", new RifResourceFactoryImpl() );
         URI fileURI = URI.createFileURI( outFile.getAbsolutePath() );
+        
+        // ++ create the resource
         Resource resource = resourceSet.createResource( fileURI );
         DocumentRoot documentRoot = RifFactory.eINSTANCE.createDocumentRoot();
-        RIF rif = RifFactory.eINSTANCE.createRIF();
+        Rif rif = RifFactory.eINSTANCE.createRif();
         // SEE: http://dev.eclipse.org/newslists/news.eclipse.tools.emf/msg37779.html
         // Book book = null; //LibraryFactory.eINSTANCE.createBook();
         // rif.getBooks().add( book );
