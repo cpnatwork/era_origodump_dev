@@ -46,7 +46,7 @@ import era.foss.util.types.StringUtils;
  *      byId.put( id, registration );
  *  } 
  *  
- *  public static Map<String,MyExtensionPointRegistry> getById( String id ) {
+ *  public static MyExtensionPointRegistry getById( String id ) {
  *      registry.getRegistrations( MyExtensionPointRegistry.class, EXTENSION_POINT );
  *      return byId.get( id );
  *  }
@@ -184,7 +184,7 @@ public class Registry<T> {
         for( Map.Entry<String, Method> entry : attributeMethods.entrySet() ) {
             String value = ExtensionUtils.getAttribute( element, entry.getKey(), (String)null );
             if( value == null || "".equals( value ) ) continue;
-            setAttribute( attributeMethods, element, entry.getKey(), value );
+            setAttribute( attributeMethods, registration, entry.getKey(), value );
         }
 
         // Create sub objects
@@ -192,7 +192,7 @@ public class Registry<T> {
         for( Map.Entry<String, Method> entry : addMethods.entrySet() ) {
             for( IConfigurationElement subElement : element.getChildren( entry.getKey() ) ) {
                 Object subType = parseSubElement( registration, entry.getValue().getParameterTypes()[0], subElement );
-                addElement( addMethods, element, entry.getKey(), subType );
+                addElement( addMethods, registration, entry.getKey(), subType );
             }
         }
 
@@ -228,7 +228,7 @@ public class Registry<T> {
         for( Map.Entry<String, Method> entry : attributeMethods.entrySet() ) {
             String value = ExtensionUtils.getAttribute( element, entry.getKey(), (String)null );
             if( value == null || "".equals( value ) ) continue;
-            setAttribute( attributeMethods, element, entry.getKey(), value );
+            setAttribute( attributeMethods, object, entry.getKey(), value );
         }
 
         // Create sub objects
@@ -236,7 +236,7 @@ public class Registry<T> {
         for( Map.Entry<String, Method> entry : addMethods.entrySet() ) {
             for( IConfigurationElement subElement : element.getChildren( entry.getKey() ) ) {
                 Object subType = parseSubElement( object, entry.getValue().getParameterTypes()[0], subElement );
-                addElement( addMethods, element, entry.getKey(), subElement );
+                addElement( addMethods, object, entry.getKey(), subType );
             }
         }
 
@@ -260,9 +260,9 @@ public class Registry<T> {
         } catch( Exception e ) {
         }
         try {
-            constructor = type.getConstructor( new Class<?>[0] );
+            constructor = type.getConstructor();
             if( constructor == null ) throw new Exception();
-            return constructor.newInstance( element );
+            return constructor.newInstance();
         } catch( Exception e ) {
         }
         throw new IllegalStateException( "Cannot instantiate " + type.getName() );
@@ -285,7 +285,7 @@ public class Registry<T> {
             if( !method.getParameterTypes()[0].getClass().equals( String.class ) ) continue;
             if( !method.getParameterTypes()[1].getClass().equals( registrationType ) ) continue;
 
-            String attributeName = StringUtils.fcLower( method.getName().substring( 5 ) );
+            String attributeName = StringUtils.fcLower( method.getName().substring( 3 ) );
             idMethods.put( attributeName, method );
         }
 
@@ -329,7 +329,7 @@ public class Registry<T> {
             if( !method.getName().startsWith( SET_METHOD_PREFIX ) ) continue;
             if( method.getParameterTypes().length != 1 ) continue;
 
-            String attributeName = StringUtils.fcLower( method.getName().substring( 5 ) );
+            String attributeName = StringUtils.fcLower( method.getName().substring( 3 ) );
             attributeMethods.put( attributeName, method );
         }
 
@@ -355,7 +355,7 @@ public class Registry<T> {
         Method method = attributeMethods.get( attributeName );
         if( method == null ) throw new IllegalArgumentException( "Unknown attribute " + attributeName );
         try {
-            method.invoke( element, new Object[]{convertValue( method.getParameterTypes()[0].getClass(), value )} );
+            method.invoke( element, new Object[]{convertValue( method.getParameterTypes()[0], value )} );
         } catch( Exception e ) {
             throw new IllegalStateException( e );
         }
@@ -374,7 +374,7 @@ public class Registry<T> {
             if( !method.getName().startsWith( ADD_METHOD_PREFIX ) ) continue;
             if( method.getParameterTypes().length != 1 ) continue;
 
-            String elementName = StringUtils.fcLower( method.getName().substring( 5 ) );
+            String elementName = StringUtils.fcLower( method.getName().substring( 3 ) );
             addMethods.put( elementName, method );
         }
 
@@ -414,16 +414,16 @@ public class Registry<T> {
      * @since Jun 14, 2009
      */
     private Object convertValue( Class<?> type, String value ) throws IllegalArgumentException {
-        if( Boolean.class.equals( type ) ) return Boolean.valueOf( value );
-        if( Long.class.equals( type ) ) return Long.valueOf( value );
-        if( Integer.class.equals( type ) ) return Integer.valueOf( value );
-        if( Double.class.equals( type ) ) return Double.valueOf( value );
-        if( Float.class.equals( type ) ) return Float.valueOf( value );
-        if( Character.class.equals( type ) ) return value != null && value.length() >= 0
+        if( boolean.class.equals( type ) ) return Boolean.valueOf( value );
+        if( long.class.equals( type ) ) return Long.valueOf( value );
+        if( int.class.equals( type ) ) return Integer.valueOf( value );
+        if( double.class.equals( type ) ) return Double.valueOf( value );
+        if( float.class.equals( type ) ) return Float.valueOf( value );
+        if( char.class.equals( type ) ) return value != null && value.length() >= 0
             ? Character.valueOf( value.charAt( 0 ) )
             : null;
-        if( Byte.class.equals( type ) ) return Byte.valueOf( value );
-        if( Short.class.equals( type ) ) return Short.valueOf( value );
+        if( byte.class.equals( type ) ) return Byte.valueOf( value );
+        if( short.class.equals( type ) ) return Short.valueOf( value );
         return value;
     }
 

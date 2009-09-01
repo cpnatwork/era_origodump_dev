@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rif:RIF xmlns:rif="http://automotive-his.de/200706/rif">
+  <rif:COMMENT>RIF core types</rif:COMMENT>
+  <rif:IDENTIFIER>system:documentCore</rif:IDENTIFIER>
+  <rif:TITLE>Document Core</rif:TITLE>
+  <rif:VERSION>1.0</rif:VERSION>
+  <rif:DATATYPES>
+    <rif:DATATYPE-DEFINITION-STRING>
+      <rif:DESC></rif:DESC>
+      <rif:IDENTIFIER>system:documentCore:specTypeRef</rif:IDENTIFIER>
+      <rif:LONG-NAME>Reference to a SpecType</rif:LONG-NAME>
+    </rif:DATATYPE-DEFINITION-STRING>
+  </rif:DATATYPES>
+  <rif:SPEC-TYPES>
+    <rif:SPEC-TYPE>
+      <rif:DESC>Type of the Hierarchy Root</rif:DESC>
+      <rif:IDENTIFIER>system:documentCore:hierarchyRoot</rif:IDENTIFIER>
+      <rif:LONG-NAME>HierarchyRootType</rif:LONG-NAME>
+      <rif:SPEC-ATTRIBUTES/>
+    </rif:SPEC-TYPE>
+    <rif:SPEC-TYPE>
+      <rif:IDENTIFIER>system:documentCore:requirementGroup</rif:IDENTIFIER>
+      <rif:SPEC-ATTRIBUTES>
+        <rif:ATTRIBUTE-DEFINITION-SIMPLE>
+          <rif:IDENTIFIER>system:documentCore:requirementSpecType</rif:IDENTIFIER>
+          <rif:TYPE>
+            <rif:DATATYPE-DEFINITION-STRING-REF>system:documentCore:specTypeRef</rif:DATATYPE-DEFINITION-STRING-REF>
+          </rif:TYPE>
+        </rif:ATTRIBUTE-DEFINITION-SIMPLE>
+      </rif:SPEC-ATTRIBUTES>
+    </rif:SPEC-TYPE>
+  </rif:SPEC-TYPES>
+</rif:RIF>

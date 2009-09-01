@@ -1,4 +1,3 @@
-
 package era.foss.util.types;
 
 /**
@@ -7,7 +6,7 @@ package era.foss.util.types;
  * @author poldi
  */
 public class BooleanUtils {
-    
+
     //
     // defines
 

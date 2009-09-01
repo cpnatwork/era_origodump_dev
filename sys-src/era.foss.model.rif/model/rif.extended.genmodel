@@ -573,9 +573,6 @@
     <genClasses>
       <ecoreClass href="rif.extended.ecore#//SpecGroup"/>
       <genFeatures property="None" children="true" createChild="true">
-        <ecoreFeature xsi:type="ecore:EReference" href="rif.extended.ecore#//SpecGroup/values"/>
-      </genFeatures>
-      <genFeatures property="None" children="true" createChild="true">
         <ecoreFeature xsi:type="ecore:EReference" href="rif.extended.ecore#//SpecGroup/relationGroups"/>
       </genFeatures>
       <genFeatures property="None" children="true" createChild="true">
@@ -621,9 +618,6 @@
     <genClasses>
       <ecoreClass href="rif.extended.ecore#//SpecHierarchyRoot"/>
       <genFeatures property="None" children="true" createChild="true">
-        <ecoreFeature xsi:type="ecore:EReference" href="rif.extended.ecore#//SpecHierarchyRoot/values"/>
-      </genFeatures>
-      <genFeatures property="None" children="true" createChild="true">
         <ecoreFeature xsi:type="ecore:EReference" href="rif.extended.ecore#//SpecHierarchyRoot/children"/>
       </genFeatures>
     </genClasses>
@@ -656,9 +650,6 @@
     </genClasses>
     <genClasses>
       <ecoreClass href="rif.extended.ecore#//SpecObject"/>
-      <genFeatures property="None" children="true" createChild="true">
-        <ecoreFeature xsi:type="ecore:EReference" href="rif.extended.ecore#//SpecObject/values"/>
-      </genFeatures>
     </genClasses>
     <genClasses>
       <ecoreClass href="rif.extended.ecore#//SpecGroupSpecObjects"/>
@@ -689,9 +680,6 @@
     </genClasses>
     <genClasses>
       <ecoreClass href="rif.extended.ecore#//SpecRelation"/>
-      <genFeatures property="None" children="true" createChild="true">
-        <ecoreFeature xsi:type="ecore:EReference" href="rif.extended.ecore#//SpecRelation/values"/>
-      </genFeatures>
       <genFeatures property="None" children="true" createChild="true">
         <ecoreFeature xsi:type="ecore:EReference" href="rif.extended.ecore#//SpecRelation/source"/>
       </genFeatures>
@@ -883,6 +871,9 @@
       <ecoreClass href="rif.extended.ecore#//SpecElementWithUserDefinedAttributes"/>
       <genFeatures property="None" children="true" createChild="true">
         <ecoreFeature xsi:type="ecore:EReference" href="rif.extended.ecore#//SpecElementWithUserDefinedAttributes/type"/>
+      </genFeatures>
+      <genFeatures property="None" children="true" createChild="true">
+        <ecoreFeature xsi:type="ecore:EReference" href="rif.extended.ecore#//SpecElementWithUserDefinedAttributes/values"/>
       </genFeatures>
     </genClasses>
     <genClasses>

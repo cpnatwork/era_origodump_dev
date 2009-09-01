@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Core Plug-in
+Bundle-SymbolicName: era.foss.model.core;singleton:=true
+Bundle-Version: 1.0.0.v200908040740
+Bundle-Activator: era.foss.model.core.plugin.CoreActivator
+Require-Bundle: org.eclipse.core.runtime,
+ era.foss.model.rif;bundle-version="1.0.0",
+ era.foss.model.rif.edit;bundle-version="1.0.0",
+ era.foss.util;bundle-version="1.0.0",
+ org.eclipse.core.resources;bundle-version="3.4.1"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: era.foss.model.core.model

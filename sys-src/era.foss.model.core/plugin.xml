@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="systemDocument" name="System Document" schema="schema/systemDocument.exsd"/>
+   <extension-point id="documentSync" name="Document Sync Handler" schema="schema/documentSync.exsd"/>
+   <extension
+         point="era.foss.model.core.systemDocument">
+      <systemDocument
+            document="systemDocuments/documentCore.xml">
+      </systemDocument>
+   </extension>
+   <extension
+         point="era.foss.model.core.documentSync">
+      <documentSync
+            fix="true"
+            id="RootStructureSyncHandler"
+            schema="user">
+         <handler
+               class="era.foss.model.core.model.sync.RootStructureSyncHandler">
+         </handler>
+         <processType
+               type="era.foss.model.rif.model.Rif">
+         </processType>
+      </documentSync>
+   </extension>
+
+</plugin>

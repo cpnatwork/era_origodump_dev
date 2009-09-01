@@ -43,9 +43,9 @@ public class StringUtils {
      */
     private static String fcConvert( String value, boolean upper ) {
         if( value == null || "".equals( value ) ) return value;
-        StringBuilder b = new StringBuilder( upper
+        StringBuilder b = new StringBuilder( Character.toString( upper
             ? Character.toUpperCase( value.charAt( 0 ) )
-            : Character.toLowerCase( value.charAt( 0 ) ) );
+            : Character.toLowerCase( value.charAt( 0 ) ) ) );
         if( value.length() > 1 ) b.append( value.substring( 1 ) );
         return b.toString();
     }

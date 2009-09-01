@@ -14,5 +14,5 @@
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="config/extendEcore.properties model/rif.ecore model/rif.extended.ecore"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="era.internal.tools"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dverbose=true"/>
-<stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="${workspace_loc:era.foss.model.core}"/>
+<stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="${workspace_loc:era.foss.model.rif}"/>
 </launchConfiguration>
