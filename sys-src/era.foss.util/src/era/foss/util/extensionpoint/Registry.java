@@ -12,8 +12,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.naming.directory.AttributeModificationException;
-
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -394,7 +392,6 @@ public class Registry<T> {
      * @throws IllegalStateException in case the method call to the put method does not work
      * @since Jun 14, 2009
      */
-    @SuppressWarnings("unchecked")
     private void addElement( Map<String, Method> addMethods, Object element, String elementName, Object subElement )
         throws IllegalArgumentException,
         IllegalStateException {
