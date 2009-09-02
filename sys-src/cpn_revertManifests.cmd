@@ -5,7 +5,16 @@ rem ***************************************************************************
 rem * author: Christoph P. Neumann
 rem ***************************************************************************
 
-SET CHANGELIST=_%~n0.changelist
+SET CHANGELIST=%~dp0_%~n0.changelist
+
+echo.
+echo INFO: temporary changelist= %CHANGELIST%
+
+for /D %%D in (era.foss.*) do (
+
+echo.
+echo INFO: workdir= %%D
+cd %%D
 
 echo.
 echo INFO: create changelist
@@ -21,5 +30,8 @@ for /F %%F in (%CHANGELIST%) do (
 echo.
 echo INFO: delete the changelist file
 del %CHANGELIST%
+
+cd ..
+)
 
 pause
