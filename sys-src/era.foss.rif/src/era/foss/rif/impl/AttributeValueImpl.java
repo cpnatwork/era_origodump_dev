@@ -20,25 +20,24 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public abstract class AttributeValueImpl extends IdentifiableImpl implements
-		AttributeValue {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected AttributeValueImpl() {
-		super();
-	}
+public abstract class AttributeValueImpl extends IdentifiableImpl implements AttributeValue {
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected AttributeValueImpl() {
+        super();
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return RifPackage.Literals.ATTRIBUTE_VALUE;
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    protected EClass eStaticClass() {
+        return RifPackage.Literals.ATTRIBUTE_VALUE;
+    }
 
 } //AttributeValueImpl

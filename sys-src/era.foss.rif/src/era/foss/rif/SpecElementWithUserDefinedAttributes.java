@@ -9,24 +9,24 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface SpecElementWithUserDefinedAttributes extends Identifiable {
 
-	/**
-	 * @model containment="true"
-	 */
-	public EList<AttributeValue> getValues();
+    /**
+     * @model containment="true"
+     */
+    public EList<AttributeValue> getValues();
 
-	/**
-	 * @model
-	 */
-	public SpecType getType();
+    /**
+     * @model
+     */
+    public SpecType getType();
 
-	/**
-	 * Sets the value of the '{@link era.foss.rif.SpecElementWithUserDefinedAttributes#getType <em>Type</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Type</em>' reference.
-	 * @see #getType()
-	 * @generated
-	 */
-	void setType(SpecType value);
+    /**
+     * Sets the value of the '{@link era.foss.rif.SpecElementWithUserDefinedAttributes#getType <em>Type</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Type</em>' reference.
+     * @see #getType()
+     * @generated
+     */
+    void setType( SpecType value );
 
 }

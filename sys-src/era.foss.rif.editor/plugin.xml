@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="era.foss.rif.presentation.RifModelWizardID"
+            name="%_UI_RifModelWizard_label"
+            class="era.foss.rif.presentation.RifModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/RifModelFile.gif">
+         <description>%_UI_RifModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            id="era.editor"
+            name="%_UI_RifEditor_label"
+            icon="icons/full/obj16/RifModelFile.gif"
+            extensions="rif"
+            class="era.foss.rif.presentation.RifEditor"
+            contributorClass="era.foss.rif.presentation.RifActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

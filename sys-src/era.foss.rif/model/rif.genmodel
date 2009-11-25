@@ -4,7 +4,7 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/era.foss.rif/src"
     modelPluginID="era.foss.rif" forceOverwrite="true" modelName="Rif" featureMapWrapperInternalInterface=""
     codeFormatting="true" importerID="org.eclipse.emf.importer.java" complianceLevel="6.0"
-    copyrightFields="false" language="">
+    copyrightFields="false" editorPluginID="era.foss.rif.editor" language="">
   <foreignModel>@model</foreignModel>
   <genPackages prefix="Rif" basePackage="era.foss" disposableProviderFactory="true"
       ecorePackage="rif.ecore#/">

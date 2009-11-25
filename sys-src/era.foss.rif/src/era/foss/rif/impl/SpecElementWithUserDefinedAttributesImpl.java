@@ -39,191 +39,191 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public abstract class SpecElementWithUserDefinedAttributesImpl extends
-		IdentifiableImpl implements SpecElementWithUserDefinedAttributes {
-	/**
-	 * The cached value of the '{@link #getValues() <em>Values</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getValues()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<AttributeValue> values;
+public abstract class SpecElementWithUserDefinedAttributesImpl extends IdentifiableImpl implements
+        SpecElementWithUserDefinedAttributes {
+    /**
+     * The cached value of the '{@link #getValues() <em>Values</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getValues()
+     * @generated
+     * @ordered
+     */
+    protected EList<AttributeValue> values;
 
-	/**
-	 * The cached value of the '{@link #getType() <em>Type</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getType()
-	 * @generated
-	 * @ordered
-	 */
-	protected SpecType type;
+    /**
+     * The cached value of the '{@link #getType() <em>Type</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getType()
+     * @generated
+     * @ordered
+     */
+    protected SpecType type;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected SpecElementWithUserDefinedAttributesImpl() {
-		super();
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected SpecElementWithUserDefinedAttributesImpl() {
+        super();
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return RifPackage.Literals.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES;
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    protected EClass eStaticClass() {
+        return RifPackage.Literals.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES;
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<AttributeValue> getValues() {
-		if (values == null) {
-			values = new EObjectContainmentEList<AttributeValue>(
-					AttributeValue.class,
-					this,
-					RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES);
-		}
-		return values;
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList<AttributeValue> getValues() {
+        if( values == null ) {
+            values = new EObjectContainmentEList<AttributeValue>(
+                AttributeValue.class,
+                this,
+                RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES );
+        }
+        return values;
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SpecType getType() {
-		if (type != null && type.eIsProxy()) {
-			InternalEObject oldType = (InternalEObject) type;
-			type = (SpecType) eResolveProxy(oldType);
-			if (type != oldType) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(
-							this,
-							Notification.RESOLVE,
-							RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE,
-							oldType, type));
-			}
-		}
-		return type;
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SpecType getType() {
+        if( type != null && type.eIsProxy() ) {
+            InternalEObject oldType = (InternalEObject)type;
+            type = (SpecType)eResolveProxy( oldType );
+            if( type != oldType ) {
+                if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+                    this,
+                    Notification.RESOLVE,
+                    RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE,
+                    oldType,
+                    type ) );
+            }
+        }
+        return type;
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SpecType basicGetType() {
-		return type;
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SpecType basicGetType() {
+        return type;
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setType(SpecType newType) {
-		SpecType oldType = type;
-		type = newType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE,
-					oldType, type));
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setType( SpecType newType ) {
+        SpecType oldType = type;
+        type = newType;
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE,
+            oldType,
+            type ) );
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
-		switch (featureID) {
-		case RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES:
-			return ((InternalEList<?>) getValues()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public NotificationChain eInverseRemove( InternalEObject otherEnd, int featureID, NotificationChain msgs ) {
+        switch (featureID) {
+        case RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES:
+            return ((InternalEList<?>)getValues()).basicRemove( otherEnd, msgs );
+        }
+        return super.eInverseRemove( otherEnd, featureID, msgs );
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-		case RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES:
-			return getValues();
-		case RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE:
-			if (resolve)
-				return getType();
-			return basicGetType();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Object eGet( int featureID, boolean resolve, boolean coreType ) {
+        switch (featureID) {
+        case RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES:
+            return getValues();
+        case RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE:
+            if( resolve ) return getType();
+            return basicGetType();
+        }
+        return super.eGet( featureID, resolve, coreType );
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-		case RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES:
-			getValues().clear();
-			getValues().addAll((Collection<? extends AttributeValue>) newValue);
-			return;
-		case RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE:
-			setType((SpecType) newValue);
-			return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public void eSet( int featureID, Object newValue ) {
+        switch (featureID) {
+        case RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES:
+            getValues().clear();
+            getValues().addAll( (Collection<? extends AttributeValue>)newValue );
+            return;
+        case RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE:
+            setType( (SpecType)newValue );
+            return;
+        }
+        super.eSet( featureID, newValue );
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eUnset(int featureID) {
-		switch (featureID) {
-		case RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES:
-			getValues().clear();
-			return;
-		case RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE:
-			setType((SpecType) null);
-			return;
-		}
-		super.eUnset(featureID);
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public void eUnset( int featureID ) {
+        switch (featureID) {
+        case RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES:
+            getValues().clear();
+            return;
+        case RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE:
+            setType( (SpecType)null );
+            return;
+        }
+        super.eUnset( featureID );
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-		case RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES:
-			return values != null && !values.isEmpty();
-		case RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE:
-			return type != null;
-		}
-		return super.eIsSet(featureID);
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public boolean eIsSet( int featureID ) {
+        switch (featureID) {
+        case RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES:
+            return values != null && !values.isEmpty();
+        case RifPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE:
+            return type != null;
+        }
+        return super.eIsSet( featureID );
+    }
 
 } //SpecElementWithUserDefinedAttributesImpl

@@ -31,252 +31,257 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *
  * @generated
  */
-public abstract class IdentifiableImpl extends EObjectImpl implements
-		Identifiable {
-	/**
-	 * The default value of the '{@link #getID() <em>ID</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getID()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String ID_EDEFAULT = null;
+public abstract class IdentifiableImpl extends EObjectImpl implements Identifiable {
+    /**
+     * The default value of the '{@link #getID() <em>ID</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getID()
+     * @generated
+     * @ordered
+     */
+    protected static final String ID_EDEFAULT = null;
 
-	/**
-	 * The cached value of the '{@link #getID() <em>ID</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getID()
-	 * @generated
-	 * @ordered
-	 */
-	protected String iD = ID_EDEFAULT;
+    /**
+     * The cached value of the '{@link #getID() <em>ID</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getID()
+     * @generated
+     * @ordered
+     */
+    protected String iD = ID_EDEFAULT;
 
-	/**
-	 * The default value of the '{@link #getDesc() <em>Desc</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDesc()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String DESC_EDEFAULT = null;
+    /**
+     * The default value of the '{@link #getDesc() <em>Desc</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDesc()
+     * @generated
+     * @ordered
+     */
+    protected static final String DESC_EDEFAULT = null;
 
-	/**
-	 * The cached value of the '{@link #getDesc() <em>Desc</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDesc()
-	 * @generated
-	 * @ordered
-	 */
-	protected String desc = DESC_EDEFAULT;
+    /**
+     * The cached value of the '{@link #getDesc() <em>Desc</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDesc()
+     * @generated
+     * @ordered
+     */
+    protected String desc = DESC_EDEFAULT;
 
-	/**
-	 * The default value of the '{@link #getLongName() <em>Long Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLongName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String LONG_NAME_EDEFAULT = null;
+    /**
+     * The default value of the '{@link #getLongName() <em>Long Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLongName()
+     * @generated
+     * @ordered
+     */
+    protected static final String LONG_NAME_EDEFAULT = null;
 
-	/**
-	 * The cached value of the '{@link #getLongName() <em>Long Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLongName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String longName = LONG_NAME_EDEFAULT;
+    /**
+     * The cached value of the '{@link #getLongName() <em>Long Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLongName()
+     * @generated
+     * @ordered
+     */
+    protected String longName = LONG_NAME_EDEFAULT;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected IdentifiableImpl() {
-		super();
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected IdentifiableImpl() {
+        super();
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return RifPackage.Literals.IDENTIFIABLE;
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    protected EClass eStaticClass() {
+        return RifPackage.Literals.IDENTIFIABLE;
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getID() {
-		return iD;
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getID() {
+        return iD;
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setID(String newID) {
-		String oldID = iD;
-		iD = newID;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					RifPackage.IDENTIFIABLE__ID, oldID, iD));
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setID( String newID ) {
+        String oldID = iD;
+        iD = newID;
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            RifPackage.IDENTIFIABLE__ID,
+            oldID,
+            iD ) );
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getDesc() {
-		return desc;
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getDesc() {
+        return desc;
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDesc(String newDesc) {
-		String oldDesc = desc;
-		desc = newDesc;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					RifPackage.IDENTIFIABLE__DESC, oldDesc, desc));
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDesc( String newDesc ) {
+        String oldDesc = desc;
+        desc = newDesc;
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            RifPackage.IDENTIFIABLE__DESC,
+            oldDesc,
+            desc ) );
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getLongName() {
-		return longName;
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getLongName() {
+        return longName;
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setLongName(String newLongName) {
-		String oldLongName = longName;
-		longName = newLongName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					RifPackage.IDENTIFIABLE__LONG_NAME, oldLongName, longName));
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setLongName( String newLongName ) {
+        String oldLongName = longName;
+        longName = newLongName;
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            RifPackage.IDENTIFIABLE__LONG_NAME,
+            oldLongName,
+            longName ) );
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-		case RifPackage.IDENTIFIABLE__ID:
-			return getID();
-		case RifPackage.IDENTIFIABLE__DESC:
-			return getDesc();
-		case RifPackage.IDENTIFIABLE__LONG_NAME:
-			return getLongName();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Object eGet( int featureID, boolean resolve, boolean coreType ) {
+        switch (featureID) {
+        case RifPackage.IDENTIFIABLE__ID:
+            return getID();
+        case RifPackage.IDENTIFIABLE__DESC:
+            return getDesc();
+        case RifPackage.IDENTIFIABLE__LONG_NAME:
+            return getLongName();
+        }
+        return super.eGet( featureID, resolve, coreType );
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-		case RifPackage.IDENTIFIABLE__ID:
-			setID((String) newValue);
-			return;
-		case RifPackage.IDENTIFIABLE__DESC:
-			setDesc((String) newValue);
-			return;
-		case RifPackage.IDENTIFIABLE__LONG_NAME:
-			setLongName((String) newValue);
-			return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public void eSet( int featureID, Object newValue ) {
+        switch (featureID) {
+        case RifPackage.IDENTIFIABLE__ID:
+            setID( (String)newValue );
+            return;
+        case RifPackage.IDENTIFIABLE__DESC:
+            setDesc( (String)newValue );
+            return;
+        case RifPackage.IDENTIFIABLE__LONG_NAME:
+            setLongName( (String)newValue );
+            return;
+        }
+        super.eSet( featureID, newValue );
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eUnset(int featureID) {
-		switch (featureID) {
-		case RifPackage.IDENTIFIABLE__ID:
-			setID(ID_EDEFAULT);
-			return;
-		case RifPackage.IDENTIFIABLE__DESC:
-			setDesc(DESC_EDEFAULT);
-			return;
-		case RifPackage.IDENTIFIABLE__LONG_NAME:
-			setLongName(LONG_NAME_EDEFAULT);
-			return;
-		}
-		super.eUnset(featureID);
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public void eUnset( int featureID ) {
+        switch (featureID) {
+        case RifPackage.IDENTIFIABLE__ID:
+            setID( ID_EDEFAULT );
+            return;
+        case RifPackage.IDENTIFIABLE__DESC:
+            setDesc( DESC_EDEFAULT );
+            return;
+        case RifPackage.IDENTIFIABLE__LONG_NAME:
+            setLongName( LONG_NAME_EDEFAULT );
+            return;
+        }
+        super.eUnset( featureID );
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-		case RifPackage.IDENTIFIABLE__ID:
-			return ID_EDEFAULT == null ? iD != null : !ID_EDEFAULT.equals(iD);
-		case RifPackage.IDENTIFIABLE__DESC:
-			return DESC_EDEFAULT == null ? desc != null : !DESC_EDEFAULT
-					.equals(desc);
-		case RifPackage.IDENTIFIABLE__LONG_NAME:
-			return LONG_NAME_EDEFAULT == null ? longName != null
-					: !LONG_NAME_EDEFAULT.equals(longName);
-		}
-		return super.eIsSet(featureID);
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public boolean eIsSet( int featureID ) {
+        switch (featureID) {
+        case RifPackage.IDENTIFIABLE__ID:
+            return ID_EDEFAULT == null ? iD != null : !ID_EDEFAULT.equals( iD );
+        case RifPackage.IDENTIFIABLE__DESC:
+            return DESC_EDEFAULT == null ? desc != null : !DESC_EDEFAULT.equals( desc );
+        case RifPackage.IDENTIFIABLE__LONG_NAME:
+            return LONG_NAME_EDEFAULT == null ? longName != null : !LONG_NAME_EDEFAULT.equals( longName );
+        }
+        return super.eIsSet( featureID );
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy())
-			return super.toString();
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public String toString() {
+        if( eIsProxy() ) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (iD: ");
-		result.append(iD);
-		result.append(", desc: ");
-		result.append(desc);
-		result.append(", longName: ");
-		result.append(longName);
-		result.append(')');
-		return result.toString();
-	}
+        StringBuffer result = new StringBuffer( super.toString() );
+        result.append( " (iD: " );
+        result.append( iD );
+        result.append( ", desc: " );
+        result.append( desc );
+        result.append( ", longName: " );
+        result.append( longName );
+        result.append( ')' );
+        return result.toString();
+    }
 
 } //IdentifiableImpl

@@ -20,25 +20,24 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public abstract class DatatypeDefinitionImpl extends IdentifiableImpl implements
-		DatatypeDefinition {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected DatatypeDefinitionImpl() {
-		super();
-	}
+public abstract class DatatypeDefinitionImpl extends IdentifiableImpl implements DatatypeDefinition {
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected DatatypeDefinitionImpl() {
+        super();
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return RifPackage.Literals.DATATYPE_DEFINITION;
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    protected EClass eStaticClass() {
+        return RifPackage.Literals.DATATYPE_DEFINITION;
+    }
 
 } //DatatypeDefinitionImpl
