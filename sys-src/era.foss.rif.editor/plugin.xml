@@ -30,7 +30,7 @@
             id="era.editor"
             name="%_UI_RifEditor_label"
             icon="icons/full/obj16/RifModelFile.gif"
-            extensions="rif"
+            extensions="erf"
             class="era.foss.rif.presentation.RifEditor"
             contributorClass="era.foss.rif.presentation.RifActionBarContributor">
       </editor>
