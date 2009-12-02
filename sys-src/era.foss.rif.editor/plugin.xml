@@ -8,11 +8,6 @@
  $Id$
 -->
 
-<!-- @Georg: wieso ist diese Datei eingecheckt?!
-     (Einzig diese!)
-     Es gab einen guten Grund dafür ... aber ich hab ihn vergessen.
-     -->
-
 <plugin>
 
    <extension point="org.eclipse.ui.newWizards">
@@ -30,14 +25,19 @@
       </wizard>
    </extension>
 
+<!-- 
+	CPN reminder: the whole file has only been checked in
+	by Georg and me, because the editor extension point id
+	has to be set to "era.editor"!
+ -->
    <extension point="org.eclipse.ui.editors">
       <editor
             id="era.editor"
             name="%_UI_RifEditor_label"
             icon="icons/full/obj16/RifModelFile.gif"
-            extensions="erf"
             class="era.foss.rif.presentation.RifEditor"
             contributorClass="era.foss.rif.presentation.RifActionBarContributor">
+         <contentTypeBinding contentTypeId="era.foss.rif.ErfContentType"/>
       </editor>
    </extension>
 
