@@ -14,7 +14,27 @@
       <package
             uri="http:///era/foss/rif.ecore"
             class="era.foss.rif.RifPackage"
-            genModel="rif.genmodel"/>
+            genModel="model/rif.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.content_parser">
+      <parser
+            contentTypeIdentifier="ErfContentType"
+            class="org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            base-type="org.eclipse.emf.ecore.xmi"
+            file-extensions="erf"
+            id="ErfContentType"
+            name="%_UI_Rif_content_type"
+            priority="normal">
+         <describer class="org.eclipse.emf.ecore.xmi.impl.RootXMLContentHandlerImpl$Describer">
+            <parameter name="namespace" value="http:///era/foss/rif.ecore"/>
+            <parameter name="kind" value="xmi"/>
+         </describer>
+      </content-type>
    </extension>
 
 </plugin>
