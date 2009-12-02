@@ -7,7 +7,7 @@
     copyrightFields="false" editorPluginID="era.foss.rif.editor" language="">
   <foreignModel>@model</foreignModel>
   <genPackages prefix="Rif" basePackage="era.foss" disposableProviderFactory="true"
-      fileExtensions="erf" ecorePackage="rif.ecore#/">
+      contentTypeIdentifier="ErfContentType" fileExtensions="erf" ecorePackage="rif.ecore#/">
     <genClasses ecoreClass="rif.ecore#//RIF">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rif.ecore#//RIF/coreContent"/>
     </genClasses>
