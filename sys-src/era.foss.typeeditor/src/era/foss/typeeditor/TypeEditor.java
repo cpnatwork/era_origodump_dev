@@ -5,10 +5,14 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
+import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMIResource;
+import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
@@ -68,6 +72,8 @@ import era.foss.rif.util.RifAdapterFactory;
 public class TypeEditor extends Dialog {
 
     private EditingDomain editingDomain;
+    private Resource rifResource;
+    private RIF rifModel;
     private AdapterFactory adapterFactory;
 
     private IStructuredSelection selection;
@@ -91,6 +97,9 @@ public class TypeEditor extends Dialog {
         setShellStyle( getShellStyle() | SWT.RESIZE | SWT.MAX );
         this.editor = editor;
         this.editingDomain = ((IEditingDomainProvider)editor).getEditingDomain();
+        this.rifResource = (XMIResource)editingDomain.getResourceSet().getResource( EditUIUtil.getURI( editor.getEditorInput() ),
+                      true );
+        this.rifModel = (RIF)(rifResource).getContents().get( 0 );
         this.adapterFactory = ((AdapterFactoryEditingDomain)editingDomain).getAdapterFactory();
         
         //Fill hashMap with supported types
@@ -219,8 +228,12 @@ public class TypeEditor extends Dialog {
                 // Get index of old data type 
                 int currentDataTypePos = dataTypes.indexOf( dataType );
                 String currentDataTypeLongName = dataType.getLongName();
+
+                // prepare Command Stack
+                BasicCommandStack basicCommandStack  = (BasicCommandStack) editingDomain.getCommandStack();
+                
                 // remove old data type  
-                dataTypes.remove( currentDataTypePos );
+                Command removeCommand = RemoveCommand.create( editingDomain, dataType);
                 
                 DatatypeDefinition newDataType = null;
                 switch((Integer)value)
@@ -233,8 +246,17 @@ public class TypeEditor extends Dialog {
                         break;
                         
                 }              
-                dataTypes.add( currentDataTypePos, newDataType);
                 newDataType.setLongName( currentDataTypeLongName );
+
+                RIFContent addCommandOwner = rifModel.getCoreContent();
+                EReference addCommandFeature = RifPackage.eINSTANCE.getRIFContent_DataTypes();
+                DatatypeDefinition addCommandValue = newDataType;
+                Command addCommand = AddCommand.create( editingDomain, addCommandOwner , addCommandFeature , addCommandValue, currentDataTypePos );
+
+                // Execute both commands
+                basicCommandStack.execute( removeCommand );
+                basicCommandStack.execute( addCommand );
+                
                 break;
             default:
                 break;
@@ -320,13 +342,14 @@ public class TypeEditor extends Dialog {
         addElementButton.setText( "Add" );
         addElementButton.addSelectionListener( new SelectionAdapter() {
             public void widgetSelected(SelectionEvent event) {
-                XMIResource resource = (XMIResource)editingDomain.getResourceSet()
-                .getResource( EditUIUtil.getURI( editor.getEditorInput() ),
-                              true );
-RIF RIF = (RIF)(resource).getContents().get( 0 );
-                EList<DatatypeDefinition>  dataTypes = RIF.getCoreContent().getDataTypes();
-                DatatypeDefinition newDataType = RifFactoryImpl.eINSTANCE.createDatatypeDefinitionInteger();
-                dataTypes.add( newDataType );
+
+                RIFContent addCommandOwner = rifModel.getCoreContent();
+                EReference addCommandFeature = RifPackage.eINSTANCE.getRIFContent_DataTypes();
+                DatatypeDefinition addCommandValue = RifFactoryImpl.eINSTANCE.createDatatypeDefinitionInteger();
+                Command cmd = AddCommand.create( editingDomain, addCommandOwner , addCommandFeature , addCommandValue );
+                BasicCommandStack basicCommandStack  = (BasicCommandStack) editingDomain.getCommandStack();
+                basicCommandStack.execute( cmd );
+                
                 tableViewer.refresh();
             }
         });
@@ -334,6 +357,26 @@ RIF RIF = (RIF)(resource).getContents().get( 0 );
         return com;
     }
 
+    /**
+     * @see org.eclipse.jface.dialogs.Dialog#okPressed()
+     * @since 03.03.2010
+     */
+    protected void okPressed() {
+        rifResource.setTrackingModification( true );
+        rifResource.setModified( true );
+        // FIXME: this does NOT enable the option to save after dialog end
+        super.okPressed();
+    }
+
+    /**
+     * @see org.eclipse.jface.dialogs.Dialog#cancelPressed()
+     * @since 03.03.2010
+     */
+    protected void cancelPressed() {
+        //FIXME: howto UNDO (with or without BasicCommandStack)?
+        super.cancelPressed();
+    }
+    
     public class DatatypesAdapterFactoryContentProvider extends AdapterFactoryContentProvider {
         public DatatypesAdapterFactoryContentProvider( AdapterFactory adapterFactory ) {
             super( adapterFactory );
@@ -352,20 +395,17 @@ RIF RIF = (RIF)(resource).getContents().get( 0 );
 
         public Object[] getElements( Object object ) {
 
-            XMIResource resource = (XMIResource)editingDomain.getResourceSet()
-                                                             .getResource( EditUIUtil.getURI( editor.getEditorInput() ),
-                                                                           true );
-            RIF RIF = (RIF)(resource).getContents().get( 0 );
-
             Object[] objects;
             try {
-                objects = RIF.getCoreContent().getDataTypes().toArray();
+                objects = rifModel.getCoreContent().getDataTypes().toArray();
             } catch( NullPointerException e ) {
                 objects = new Object[0];
             }
 
             return objects;
         }
+
+
     }
 
     public class DatatypesLabelProvider extends LabelProvider implements ITableLabelProvider {
