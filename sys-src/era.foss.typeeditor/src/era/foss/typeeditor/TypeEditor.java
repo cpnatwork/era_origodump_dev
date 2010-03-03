@@ -1,7 +1,15 @@
 package era.foss.typeeditor;
 
+
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.List;
+
+import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.xmi.XMIResource;
+import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
@@ -9,7 +17,11 @@ import org.eclipse.emf.edit.provider.IChangeNotifier;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ColumnViewer;
+import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -18,10 +30,17 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
@@ -33,6 +52,12 @@ import org.eclipse.ui.IEditorPart;
 
 import era.foss.rif.DatatypeDefinition;
 import era.foss.rif.RIF;
+import era.foss.rif.RIFContent;
+import era.foss.rif.RifPackage;
+import era.foss.rif.impl.RIFContentImpl;
+import era.foss.rif.impl.RifFactoryImpl;
+import era.foss.rif.provider.RIFItemProvider;
+import era.foss.rif.util.RifAdapterFactory;
 
 /**
  * A simple input dialog for soliciting an input string from the user.
@@ -48,6 +73,10 @@ public class TypeEditor extends Dialog {
     private IStructuredSelection selection;
 
     private IEditorPart editor;
+   
+    private HashMap<Integer,String> DataTypeTypes;
+    
+    
 
     /**
      * Creates a editor for Datatype, Attributes and Spectypes
@@ -63,6 +92,11 @@ public class TypeEditor extends Dialog {
         this.editor = editor;
         this.editingDomain = ((IEditingDomainProvider)editor).getEditingDomain();
         this.adapterFactory = ((AdapterFactoryEditingDomain)editingDomain).getAdapterFactory();
+        
+        //Fill hashMap with supported types
+        DataTypeTypes = new HashMap<Integer, String>();
+        DataTypeTypes.put(RifPackage.DATATYPE_DEFINITION_INTEGER  , "Integer");
+        DataTypeTypes.put(RifPackage.DATATYPE_DEFINITION_STRING , "String");
     }
 
     /*
@@ -109,6 +143,113 @@ public class TypeEditor extends Dialog {
         applyDialogFont( composite );
         return composite;
     }
+    
+    public class DatatypesEditingSupport extends EditingSupport {
+        private CellEditor cellEditor;
+        private int column;
+
+        
+        
+        public DatatypesEditingSupport(ColumnViewer viewer, int column) {
+            super(viewer);
+            this.column = column;
+            
+            // Create the correct editor based on the column index
+            switch (column) {
+            case 0:
+                cellEditor = new TextCellEditor(((TableViewer) viewer).getTable());
+                break;
+            case 1: 
+                cellEditor = new ComboBoxCellEditor( ((TableViewer) viewer).getTable(), DataTypeTypes.values().toArray(new String[DataTypeTypes.size()]));
+                break;
+            default:
+                cellEditor = null;
+            }
+        }
+
+        @Override
+        protected boolean canEdit(Object element) {
+            return true;
+        }
+
+        @Override
+        protected CellEditor getCellEditor(Object element) {
+            return this.cellEditor;
+        }
+
+        @Override
+        protected Object getValue(Object element) {
+            DatatypeDefinition dataType = (DatatypeDefinition) element;
+            Object retVal = null;
+            
+            switch (this.column) {
+            case 0:
+                retVal = dataType.getLongName();
+                break;
+            case 1:   
+                String dataTypeName=DataTypeTypes.get( dataType.getID());
+                int index = 0;
+                String[] comboItems = ((ComboBoxCellEditor) this.cellEditor).getItems();
+                for (index = 0;index < comboItems.length;index++){
+                  if (dataTypeName == comboItems[index]){
+                      break;
+                  }
+                }
+                retVal = new Integer(index);
+                break;
+            default:
+                break;
+            }
+            return retVal;
+        }
+
+
+
+        @Override
+        protected void setValue(Object element, Object value) {
+            DatatypeDefinition dataType = (DatatypeDefinition) element;
+
+            switch (this.column) {
+            case 0:
+                dataType.setLongName( (String)value );
+                break;
+            case 1:
+                EList<DatatypeDefinition>  dataTypes = ((RIFContentImpl)editingDomain.getParent( dataType )).getDataTypes();
+                
+                // Get index of old data type 
+                int currentDataTypePos = dataTypes.indexOf( dataType );
+                String currentDataTypeLongName = dataType.getLongName();
+                // remove old data type  
+                dataTypes.remove( currentDataTypePos );
+                
+                DatatypeDefinition newDataType = null;
+                switch((Integer)value)
+                {
+                    case 0:
+                        newDataType = RifFactoryImpl.eINSTANCE.createDatatypeDefinitionInteger();
+                        break;
+                    case 1:
+                        newDataType = RifFactoryImpl.eINSTANCE.createDatatypeDefinitionString();
+                        break;
+                        
+                }              
+                dataTypes.add( currentDataTypePos, newDataType);
+                newDataType.setLongName( currentDataTypeLongName );
+                break;
+            default:
+                break;
+            }
+            getViewer().refresh();
+        }
+
+    }
+
+    private String getTypeName( DatatypeDefinition dataType ) {
+        int classifierID = dataType.eClass().getClassifierID();
+        return DataTypeTypes.get(new Integer(classifierID));
+    }
+    
+    
 
     private Control createDataTypeEditor( Composite parent ) {
         Composite com = new Composite( parent, SWT.NONE );
@@ -116,7 +257,9 @@ public class TypeEditor extends Dialog {
         GridLayout gridLayout = new GridLayout( 2, true );
         com.setLayout( gridLayout );
 
-        TableViewer tableViewer = new TableViewer( com );
+
+        
+        final TableViewer tableViewer = new TableViewer( com );
 
         // Table layout settings
         final Table table = tableViewer.getTable();
@@ -124,16 +267,19 @@ public class TypeEditor extends Dialog {
         table.setHeaderVisible( true );
         table.setLinesVisible( true );
 
-        String[] titles = {"ID", "Name", "Desc"};
-        int[] bounds = {50, 100, 200};
-        for( int i = 0; i < titles.length; i++ ) {
+        String[] colTitles = {"Name", "Type"};
+        int[] colBounds = {100, 200};
+        for( int colNr = 0; colNr < colTitles.length; colNr++ ) {
 
             TableViewerColumn column = new TableViewerColumn( tableViewer, SWT.NONE );
-            column.getColumn().setText( titles[i] );
-            column.getColumn().setWidth( bounds[i] );
+            column.getColumn().setText( colTitles[colNr] );
+            column.getColumn().setWidth( colBounds[colNr] );
             column.getColumn().setResizable( true );
             column.getColumn().setMoveable( true );
-            // TODO: Add editing domain
+            // enable editing support
+            column.setEditingSupport(new DatatypesEditingSupport(tableViewer, colNr));
+
+
         }
 
         tableViewer.setColumnProperties( new String[]{"a", "b", "c"} );
@@ -162,9 +308,29 @@ public class TypeEditor extends Dialog {
 
         tableViewer.setInput( editingDomain.getResourceSet() );
 
-        Text text = new Text( com, SWT.BORDER );
-        text.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
-        text.setText( "DataTypes" );
+        //Text text = new Text( com, SWT.BORDER );
+        //text.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
+        //text.setText( "DataTypes" );
+        
+        
+        
+        Button addElementButton = new Button(com,SWT.PUSH);
+        addElementButton.setSize( 50, 50 );
+        addElementButton.setLayoutData( new GridData( SWT.FILL, SWT.TOP, true, false ) );
+        addElementButton.setText( "Add" );
+        addElementButton.addSelectionListener( new SelectionAdapter() {
+            public void widgetSelected(SelectionEvent event) {
+                XMIResource resource = (XMIResource)editingDomain.getResourceSet()
+                .getResource( EditUIUtil.getURI( editor.getEditorInput() ),
+                              true );
+RIF RIF = (RIF)(resource).getContents().get( 0 );
+                EList<DatatypeDefinition>  dataTypes = RIF.getCoreContent().getDataTypes();
+                DatatypeDefinition newDataType = RifFactoryImpl.eINSTANCE.createDatatypeDefinitionInteger();
+                dataTypes.add( newDataType );
+                tableViewer.refresh();
+            }
+        });
+        
         return com;
     }
 
@@ -172,9 +338,14 @@ public class TypeEditor extends Dialog {
         public DatatypesAdapterFactoryContentProvider( AdapterFactory adapterFactory ) {
             super( adapterFactory );
             /*
-             * TODO: At the moment we are not quite sure if we need this. - Data type editor does not require
-             * information of other parts of the model. - The Type Editor shall be a modal dialog therefore the data
+             * TODO: At the moment we are not quite sure if we need this. 
+             * - Data type editor does not require
+             * information of other parts of the model. 
+             * 
+             * - The Type Editor shall be a modal dialog therefore the data
              * types can't be updated anywhere else
+             * 
+             * In this special case it might be sufficient to implement @IStructuredContentProvider
              */
             ((IChangeNotifier)adapterFactory).addListener( this );
         }
@@ -204,11 +375,9 @@ public class TypeEditor extends Dialog {
             DatatypeDefinition datatype = (DatatypeDefinition)element;
             switch (columnIndex) {
             case 0:
-                return datatype.getID();
-            case 1:
                 return datatype.getLongName();
-            case 2:
-                return datatype.getDesc();
+            case 1:
+                return getTypeName( datatype );
             default:
                 throw new RuntimeException( "Should not happen" );
             }
@@ -223,99 +392,3 @@ public class TypeEditor extends Dialog {
 
 }
 
-// import org.eclipse.jface.dialogs.Dialog;
-// import org.eclipse.swt.SWT;
-// import org.eclipse.swt.graphics.Point;
-// import org.eclipse.swt.layout.FillLayout;
-// import org.eclipse.swt.layout.FormLayout;
-// import org.eclipse.swt.layout.GridData;
-// import org.eclipse.swt.layout.GridLayout;
-// import org.eclipse.swt.widgets.Composite;
-// import org.eclipse.swt.widgets.Control;
-// import org.eclipse.swt.widgets.Label;
-// import org.eclipse.swt.widgets.Shell;
-// import org.eclipse.swt.widgets.TabFolder;
-// import org.eclipse.swt.widgets.TabItem;
-// import org.eclipse.swt.widgets.Text;
-//
-// public class TypeEditor extends Dialog {
-//
-// protected TypeEditor(Shell parentShell) {
-// super(parentShell);
-// }
-//
-// @Override
-// protected void configureShell(Shell shell) {
-// this.setShellStyle( SWT.DIALOG_TRIM | SWT.RESIZE | SWT.MAX );
-// super.configureShell(shell);
-// shell.setText("Type Editor"); // Dialog-Titel setzen
-//		
-// FormLayout formLayout = new FormLayout ();
-// formLayout.marginWidth = 10;
-// formLayout.marginHeight = 10;
-// formLayout.spacing = 10;
-// setLayout (formLayout);
-//
-//		
-// shell.setSize(450, 250);
-// }
-//	
-//
-// protected Control createDialogArea(Composite parent) {
-//
-// Composite composite = (Composite) super.createDialogArea(parent);
-//		
-//		
-//        
-// /* The editor for Datatypes, Attributes and SpecTypes
-// * are shown in different tabs.
-// */
-// TabFolder typeEditorTabFolder= new TabFolder( parent, SWT.BORDER );
-//		
-//		
-// /* tab for Datatype editor */
-// TabItem dataTypeEditorTab = new TabItem(typeEditorTabFolder, SWT.NULL);
-// dataTypeEditorTab.setText("Datatypes");
-// Text text = new Text(typeEditorTabFolder, SWT.BORDER);
-// text.setText("DataTypes");
-// dataTypeEditorTab.setControl(text);
-//		
-// /* tab for Attribute editor */
-// TabItem attributeEditorTab = new TabItem(typeEditorTabFolder, SWT.NULL);
-// attributeEditorTab.setText("Attributes");
-// Text text2 = new Text(typeEditorTabFolder, SWT.BORDER);
-// text.setText("Attributes");
-// dataTypeEditorTab.setControl(text2);
-//        
-// /* tab for Spectypes editor */
-// TabItem specTypeEditorTab = new TabItem(typeEditorTabFolder, SWT.NULL);
-// specTypeEditorTab.setText("Specification Types");
-// Text text3 = new Text(typeEditorTabFolder, SWT.BORDER);
-// text.setText("Specification Types");
-// dataTypeEditorTab.setControl(text3);
-//        
-// typeEditorTabFolder.setSize(500 , 300 );
-//
-//        
-//        
-// /*composite.setLayout(new GridLayout(1, false));
-//
-// label = new Label(composite, SWT.FLAT);
-// GridData gdl = new GridData();
-// gdl.grabExcessHorizontalSpace = true;
-// label.setLayoutData(gdl);
-// label.setText("Ihre Eingabe: ");
-//
-// text = new Text(composite, SWT.FLAT | SWT.BORDER);
-// GridData gdt = new GridData();
-// gdt.grabExcessHorizontalSpace = true;
-// text.setLayoutData(gdt);*/
-//
-// return composite;
-// }
-//
-// @Override
-// public void okPressed() {
-// close();
-// }
-// }
