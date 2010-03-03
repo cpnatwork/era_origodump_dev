@@ -196,7 +196,7 @@ public class TypeEditor extends Dialog {
                 retVal = dataType.getLongName();
                 break;
             case 1:   
-                String dataTypeName=DataTypeTypes.get( dataType.getID());
+                String dataTypeName=DataTypeTypes.get( dataType.eClass().getClassifierID());
                 int index = 0;
                 String[] comboItems = ((ComboBoxCellEditor) this.cellEditor).getItems();
                 for (index = 0;index < comboItems.length;index++){
@@ -204,7 +204,7 @@ public class TypeEditor extends Dialog {
                       break;
                   }
                 }
-                retVal = new Integer(index);
+                retVal = index;
                 break;
             default:
                 break;
@@ -221,6 +221,7 @@ public class TypeEditor extends Dialog {
             switch (this.column) {
             case 0:
                 dataType.setLongName( (String)value );
+                getViewer().update(element, null);
                 break;
             case 1:
                 EList<DatatypeDefinition>  dataTypes = ((RIFContentImpl)editingDomain.getParent( dataType )).getDataTypes();
@@ -293,7 +294,8 @@ public class TypeEditor extends Dialog {
         int[] colBounds = {100, 200};
         for( int colNr = 0; colNr < colTitles.length; colNr++ ) {
 
-            TableViewerColumn column = new TableViewerColumn( tableViewer, SWT.NONE );
+            TableViewerColumn column = new TableViewerColumn( tableViewer, SWT.MULTI 
+                                                              | SWT.V_SCROLL | SWT.FULL_SELECTION );
             column.getColumn().setText( colTitles[colNr] );
             column.getColumn().setWidth( colBounds[colNr] );
             column.getColumn().setResizable( true );
@@ -303,6 +305,7 @@ public class TypeEditor extends Dialog {
 
 
         }
+
 
         tableViewer.setColumnProperties( new String[]{"a", "b", "c"} );
 

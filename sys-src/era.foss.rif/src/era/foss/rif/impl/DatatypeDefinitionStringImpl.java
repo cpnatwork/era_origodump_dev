@@ -37,7 +37,7 @@ public class DatatypeDefinitionStringImpl extends DatatypeDefinitionSimpleImpl i
      * @generated
      * @ordered
      */
-    protected static final int MAX_LENGTH_EDEFAULT = 0;
+    protected static final int MAX_LENGTH_EDEFAULT = 2147483647;
 
     /**
      * The cached value of the '{@link #getMaxLength() <em>Max Length</em>}' attribute.

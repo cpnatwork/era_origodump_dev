@@ -60,7 +60,7 @@ public abstract class IdentifiableImpl extends EObjectImpl implements Identifiab
      * @generated
      * @ordered
      */
-    protected static final String DESC_EDEFAULT = null;
+    protected static final String DESC_EDEFAULT = "";
 
     /**
      * The cached value of the '{@link #getDesc() <em>Desc</em>}' attribute.
@@ -80,7 +80,7 @@ public abstract class IdentifiableImpl extends EObjectImpl implements Identifiab
      * @generated
      * @ordered
      */
-    protected static final String LONG_NAME_EDEFAULT = null;
+    protected static final String LONG_NAME_EDEFAULT = "";
 
     /**
      * The cached value of the '{@link #getLongName() <em>Long Name</em>}' attribute.

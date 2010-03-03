@@ -25,7 +25,7 @@ public interface Identifiable extends EObject {
     void setID( String value );
 
     /**
-     * @model 
+     * @model default=""
      */
     public String getDesc();
 
@@ -40,7 +40,7 @@ public interface Identifiable extends EObject {
     void setDesc( String value );
 
     /**
-     * @model 
+     * @model default="" 
      */
     public String getLongName();
 
