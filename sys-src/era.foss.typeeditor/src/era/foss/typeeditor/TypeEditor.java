@@ -168,7 +168,8 @@ public class TypeEditor extends Dialog {
             case 0:
                 cellEditor = new TextCellEditor(((TableViewer) viewer).getTable());
                 break;
-            case 1: 
+            case 1:
+                //FIXME: do not allow a user to delete/edit the DataTypeType-String
                 cellEditor = new ComboBoxCellEditor( ((TableViewer) viewer).getTable(), DataTypeTypes.values().toArray(new String[DataTypeTypes.size()]));
                 break;
             default:
