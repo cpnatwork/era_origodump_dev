@@ -1,11 +1,7 @@
 package era.foss.typeeditor;
 
-
 import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.List;
 
-import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.util.EList;
@@ -36,11 +32,8 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -60,8 +53,7 @@ import era.foss.rif.RIFContent;
 import era.foss.rif.RifPackage;
 import era.foss.rif.impl.RIFContentImpl;
 import era.foss.rif.impl.RifFactoryImpl;
-import era.foss.rif.provider.RIFItemProvider;
-import era.foss.rif.util.RifAdapterFactory;
+import era.foss.rif.presentation.EraCommandStack;
 
 /**
  * A simple input dialog for soliciting an input string from the user.
@@ -71,18 +63,16 @@ import era.foss.rif.util.RifAdapterFactory;
  */
 public class TypeEditor extends Dialog {
 
-    private EditingDomain editingDomain;
-    private Resource rifResource;
-    private RIF rifModel;
-    private AdapterFactory adapterFactory;
+    private EditingDomain editingDomain = null;
+    private Resource rifResource = null;
+    private RIF rifModel = null;
+    private AdapterFactory adapterFactory = null;
 
-    private IStructuredSelection selection;
+    private IStructuredSelection selection = null;
 
-    private IEditorPart editor;
-   
-    private HashMap<Integer,String> DataTypeTypes;
-    
-    
+    private HashMap<Integer, String> DataTypeTypes = null;
+
+    private EraCommandStack eraCommandStack = null;
 
     /**
      * Creates a editor for Datatype, Attributes and Spectypes
@@ -95,17 +85,19 @@ public class TypeEditor extends Dialog {
     public TypeEditor( Shell activeShell, IEditorPart editor ) {
         super( activeShell );
         setShellStyle( getShellStyle() | SWT.RESIZE | SWT.MAX );
-        this.editor = editor;
         this.editingDomain = ((IEditingDomainProvider)editor).getEditingDomain();
-        this.rifResource = (XMIResource)editingDomain.getResourceSet().getResource( EditUIUtil.getURI( editor.getEditorInput() ),
-                      true );
+        this.rifResource = (XMIResource)editingDomain.getResourceSet()
+                                                     .getResource( EditUIUtil.getURI( editor.getEditorInput() ), true );
         this.rifModel = (RIF)(rifResource).getContents().get( 0 );
         this.adapterFactory = ((AdapterFactoryEditingDomain)editingDomain).getAdapterFactory();
-        
-        //Fill hashMap with supported types
+
+        eraCommandStack = (EraCommandStack)editingDomain.getCommandStack();
+        eraCommandStack.plantCheckpoint();
+
+        // Fill hashMap with supported types
         DataTypeTypes = new HashMap<Integer, String>();
-        DataTypeTypes.put(RifPackage.DATATYPE_DEFINITION_INTEGER  , "Integer");
-        DataTypeTypes.put(RifPackage.DATATYPE_DEFINITION_STRING , "String");
+        DataTypeTypes.put( RifPackage.DATATYPE_DEFINITION_INTEGER, "Integer" );
+        DataTypeTypes.put( RifPackage.DATATYPE_DEFINITION_STRING, "String" );
     }
 
     /*
@@ -152,24 +144,25 @@ public class TypeEditor extends Dialog {
         applyDialogFont( composite );
         return composite;
     }
-    
+
     public class DatatypesEditingSupport extends EditingSupport {
         private CellEditor cellEditor;
         private int column;
 
-        
-        
-        public DatatypesEditingSupport(ColumnViewer viewer, int column) {
-            super(viewer);
+        public DatatypesEditingSupport( ColumnViewer viewer, int column ) {
+            super( viewer );
             this.column = column;
-            
+
             // Create the correct editor based on the column index
             switch (column) {
             case 0:
-                cellEditor = new TextCellEditor(((TableViewer) viewer).getTable());
+                cellEditor = new TextCellEditor( ((TableViewer)viewer).getTable() );
                 break;
             case 1:
-                cellEditor = new ComboBoxCellEditor( ((TableViewer) viewer).getTable(), DataTypeTypes.values().toArray(new String[DataTypeTypes.size()]),SWT.READ_ONLY);
+                cellEditor = new ComboBoxCellEditor(
+                    ((TableViewer)viewer).getTable(),
+                    DataTypeTypes.values().toArray( new String[DataTypeTypes.size()] ),
+                    SWT.READ_ONLY );
 
                 break;
             default:
@@ -178,32 +171,32 @@ public class TypeEditor extends Dialog {
         }
 
         @Override
-        protected boolean canEdit(Object element) {
+        protected boolean canEdit( Object element ) {
             return true;
         }
 
         @Override
-        protected CellEditor getCellEditor(Object element) {
+        protected CellEditor getCellEditor( Object element ) {
             return this.cellEditor;
         }
 
         @Override
-        protected Object getValue(Object element) {
-            DatatypeDefinition dataType = (DatatypeDefinition) element;
+        protected Object getValue( Object element ) {
+            DatatypeDefinition dataType = (DatatypeDefinition)element;
             Object retVal = null;
-            
+
             switch (this.column) {
             case 0:
                 retVal = dataType.getLongName();
                 break;
-            case 1:   
-                String dataTypeName=DataTypeTypes.get( dataType.eClass().getClassifierID());
+            case 1:
+                String dataTypeName = DataTypeTypes.get( dataType.eClass().getClassifierID() );
                 int index = 0;
-                String[] comboItems = ((ComboBoxCellEditor) this.cellEditor).getItems();
-                for (index = 0;index < comboItems.length;index++){
-                  if (dataTypeName == comboItems[index]){
-                      break;
-                  }
+                String[] comboItems = ((ComboBoxCellEditor)this.cellEditor).getItems();
+                for( index = 0; index < comboItems.length; index++ ) {
+                    if( dataTypeName == comboItems[index] ) {
+                        break;
+                    }
                 }
                 retVal = index;
                 break;
@@ -213,52 +206,50 @@ public class TypeEditor extends Dialog {
             return retVal;
         }
 
-
-
         @Override
-        protected void setValue(Object element, Object value) {
-            DatatypeDefinition dataType = (DatatypeDefinition) element;
+        protected void setValue( Object element, Object value ) {
+            DatatypeDefinition dataType = (DatatypeDefinition)element;
 
             switch (this.column) {
             case 0:
                 dataType.setLongName( (String)value );
-                getViewer().update(element, null);
+                getViewer().update( element, null );
                 break;
             case 1:
-                EList<DatatypeDefinition>  dataTypes = ((RIFContentImpl)editingDomain.getParent( dataType )).getDataTypes();
-                
-                // Get index of old data type 
+                EList<DatatypeDefinition> dataTypes = ((RIFContentImpl)editingDomain.getParent( dataType )).getDataTypes();
+
+                // Get index of old data type
                 int currentDataTypePos = dataTypes.indexOf( dataType );
                 String currentDataTypeLongName = dataType.getLongName();
 
-                // prepare Command Stack
-                BasicCommandStack basicCommandStack  = (BasicCommandStack) editingDomain.getCommandStack();
-                
-                // remove old data type  
-                Command removeCommand = RemoveCommand.create( editingDomain, dataType);
-                
+                // remove old data type
+                Command removeCommand = RemoveCommand.create( editingDomain, dataType );
+
                 DatatypeDefinition newDataType = null;
-                switch((Integer)value)
-                {
-                    case 0:
-                        newDataType = RifFactoryImpl.eINSTANCE.createDatatypeDefinitionInteger();
-                        break;
-                    case 1:
-                        newDataType = RifFactoryImpl.eINSTANCE.createDatatypeDefinitionString();
-                        break;
-                        
-                }              
+                switch ((Integer)value) {
+                case 0:
+                    newDataType = RifFactoryImpl.eINSTANCE.createDatatypeDefinitionInteger();
+                    break;
+                case 1:
+                    newDataType = RifFactoryImpl.eINSTANCE.createDatatypeDefinitionString();
+                    break;
+
+                }
                 newDataType.setLongName( currentDataTypeLongName );
 
                 RIFContent addCommandOwner = rifModel.getCoreContent();
                 EReference addCommandFeature = RifPackage.eINSTANCE.getRIFContent_DataTypes();
                 DatatypeDefinition addCommandValue = newDataType;
-                Command addCommand = AddCommand.create( editingDomain, addCommandOwner , addCommandFeature , addCommandValue, currentDataTypePos );
+                Command addCommand = AddCommand.create( editingDomain,
+                                                        addCommandOwner,
+                                                        addCommandFeature,
+                                                        addCommandValue,
+                                                        currentDataTypePos );
 
                 // Execute both commands
-                basicCommandStack.execute( removeCommand );
-                basicCommandStack.execute( addCommand );
-                
+                eraCommandStack.execute( removeCommand );
+                eraCommandStack.execute( addCommand );
+
                 break;
             default:
                 break;
@@ -270,10 +261,8 @@ public class TypeEditor extends Dialog {
 
     private String getTypeName( DatatypeDefinition dataType ) {
         int classifierID = dataType.eClass().getClassifierID();
-        return DataTypeTypes.get(new Integer(classifierID));
+        return DataTypeTypes.get( new Integer( classifierID ) );
     }
-    
-    
 
     private Control createDataTypeEditor( Composite parent ) {
         Composite com = new Composite( parent, SWT.NONE );
@@ -281,9 +270,7 @@ public class TypeEditor extends Dialog {
         GridLayout gridLayout = new GridLayout( 2, true );
         com.setLayout( gridLayout );
 
-
-        
-        final TableViewer tableViewer = new TableViewer(com,SWT.MULTI| SWT.V_SCROLL | SWT.FULL_SELECTION);
+        final TableViewer tableViewer = new TableViewer( com, SWT.MULTI | SWT.V_SCROLL | SWT.FULL_SELECTION );
 
         // Table layout settings
         final Table table = tableViewer.getTable();
@@ -295,18 +282,17 @@ public class TypeEditor extends Dialog {
         int[] colBounds = {100, 200};
         for( int colNr = 0; colNr < colTitles.length; colNr++ ) {
 
-            TableViewerColumn column = new TableViewerColumn( tableViewer, SWT.MULTI 
-                                                              | SWT.V_SCROLL | SWT.FULL_SELECTION );
+            TableViewerColumn column = new TableViewerColumn( tableViewer, SWT.MULTI
+                | SWT.V_SCROLL
+                | SWT.FULL_SELECTION );
             column.getColumn().setText( colTitles[colNr] );
             column.getColumn().setWidth( colBounds[colNr] );
             column.getColumn().setResizable( true );
             column.getColumn().setMoveable( true );
             // enable editing support
-            column.setEditingSupport(new DatatypesEditingSupport(tableViewer, colNr));
-
+            column.setEditingSupport( new DatatypesEditingSupport( tableViewer, colNr ) );
 
         }
-
 
         tableViewer.setColumnProperties( new String[]{"a", "b", "c"} );
 
@@ -334,30 +320,27 @@ public class TypeEditor extends Dialog {
 
         tableViewer.setInput( editingDomain.getResourceSet() );
 
-        //Text text = new Text( com, SWT.BORDER );
-        //text.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
-        //text.setText( "DataTypes" );
-        
-        
-        
-        Button addElementButton = new Button(com,SWT.PUSH);
+        // Text text = new Text( com, SWT.BORDER );
+        // text.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
+        // text.setText( "DataTypes" );
+
+        Button addElementButton = new Button( com, SWT.PUSH );
         addElementButton.setSize( 50, 50 );
         addElementButton.setLayoutData( new GridData( SWT.FILL, SWT.TOP, true, false ) );
         addElementButton.setText( "Add" );
         addElementButton.addSelectionListener( new SelectionAdapter() {
-            public void widgetSelected(SelectionEvent event) {
+            public void widgetSelected( SelectionEvent event ) {
 
                 RIFContent addCommandOwner = rifModel.getCoreContent();
                 EReference addCommandFeature = RifPackage.eINSTANCE.getRIFContent_DataTypes();
                 DatatypeDefinition addCommandValue = RifFactoryImpl.eINSTANCE.createDatatypeDefinitionInteger();
-                Command cmd = AddCommand.create( editingDomain, addCommandOwner , addCommandFeature , addCommandValue );
-                BasicCommandStack basicCommandStack  = (BasicCommandStack) editingDomain.getCommandStack();
-                basicCommandStack.execute( cmd );
-                
+                Command cmd = AddCommand.create( editingDomain, addCommandOwner, addCommandFeature, addCommandValue );
+                eraCommandStack.execute( cmd );
+
                 tableViewer.refresh();
             }
-        });
-        
+        } );
+
         return com;
     }
 
@@ -367,6 +350,8 @@ public class TypeEditor extends Dialog {
      */
     protected void okPressed() {
         super.okPressed();
+        // the performed commands should not be available for undo after OK.
+        eraCommandStack.inhibitUndos();
     }
 
     /**
@@ -374,20 +359,19 @@ public class TypeEditor extends Dialog {
      * @since 03.03.2010
      */
     protected void cancelPressed() {
-        // FIXME: howto UNDO (with or without BasicCommandStack)?
         super.cancelPressed();
+        // undo the complete CommandStack:
+        eraCommandStack.rollback();
     }
-    
+
     public class DatatypesAdapterFactoryContentProvider extends AdapterFactoryContentProvider {
         public DatatypesAdapterFactoryContentProvider( AdapterFactory adapterFactory ) {
             super( adapterFactory );
             /*
-             * TODO: At the moment we are not quite sure if we need this. 
-             * - Data type editor does not require
-             * information of other parts of the model. 
+             * TODO: At the moment we are not quite sure if we need this. - Data type editor does not require
+             * information of other parts of the model.
              * 
-             * - The Type Editor shall be a modal dialog therefore the data
-             * types can't be updated anywhere else
+             * - The Type Editor shall be a modal dialog therefore the data types can't be updated anywhere else
              * 
              * In this special case it might be sufficient to implement @IStructuredContentProvider
              */
@@ -405,7 +389,6 @@ public class TypeEditor extends Dialog {
 
             return objects;
         }
-
 
     }
 
@@ -432,4 +415,3 @@ public class TypeEditor extends Dialog {
     }
 
 }
-
