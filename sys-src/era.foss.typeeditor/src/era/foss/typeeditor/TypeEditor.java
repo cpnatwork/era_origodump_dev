@@ -366,9 +366,6 @@ public class TypeEditor extends Dialog {
      * @since 03.03.2010
      */
     protected void okPressed() {
-        rifResource.setTrackingModification( true );
-        rifResource.setModified( true );
-        // FIXME: this does NOT enable the option to save after dialog end
         super.okPressed();
     }
 
@@ -377,7 +374,7 @@ public class TypeEditor extends Dialog {
      * @since 03.03.2010
      */
     protected void cancelPressed() {
-        //FIXME: howto UNDO (with or without BasicCommandStack)?
+        // FIXME: howto UNDO (with or without BasicCommandStack)?
         super.cancelPressed();
     }
     
