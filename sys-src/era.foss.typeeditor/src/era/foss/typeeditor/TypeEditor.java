@@ -283,7 +283,7 @@ public class TypeEditor extends Dialog {
 
 
         
-        final TableViewer tableViewer = new TableViewer( com );
+        final TableViewer tableViewer = new TableViewer(com,SWT.MULTI| SWT.V_SCROLL | SWT.FULL_SELECTION);
 
         // Table layout settings
         final Table table = tableViewer.getTable();
