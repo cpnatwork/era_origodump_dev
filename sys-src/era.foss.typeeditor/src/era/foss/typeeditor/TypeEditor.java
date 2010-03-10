@@ -43,7 +43,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
-import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorPart;
 
@@ -269,22 +268,18 @@ public class TypeEditor extends Dialog {
         com.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
         GridLayout gridLayout = new GridLayout( 2, true );
         com.setLayout( gridLayout );
-
-        final TableViewer tableViewer = new TableViewer( com, SWT.MULTI | SWT.V_SCROLL | SWT.FULL_SELECTION );
-
-        // Table layout settings
-        final Table table = tableViewer.getTable();
-        table.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
-        table.setHeaderVisible( true );
-        table.setLinesVisible( true );
+        
+        final StandardTableViewer tableViewer = new StandardTableViewer(com,SWT.MULTI| SWT.V_SCROLL | SWT.FULL_SELECTION);
+        tableViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ));
+        
+        tableViewer.setEditingDomain( editingDomain );
+        tableViewer.setAddCommandParameter( rifModel.getCoreContent(), RifPackage.eINSTANCE.getRIFContent_DataTypes(), RifFactoryImpl.eINSTANCE.createDatatypeDefinitionInteger().eClass() );
 
         String[] colTitles = {"Name", "Type"};
         int[] colBounds = {100, 200};
         for( int colNr = 0; colNr < colTitles.length; colNr++ ) {
 
-            TableViewerColumn column = new TableViewerColumn( tableViewer, SWT.MULTI
-                | SWT.V_SCROLL
-                | SWT.FULL_SELECTION );
+            TableViewerColumn column = new TableViewerColumn( tableViewer, SWT.NONE);
             column.getColumn().setText( colTitles[colNr] );
             column.getColumn().setWidth( colBounds[colNr] );
             column.getColumn().setResizable( true );
