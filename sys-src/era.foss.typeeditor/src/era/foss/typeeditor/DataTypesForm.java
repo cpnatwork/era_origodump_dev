@@ -73,12 +73,12 @@ public class DataTypesForm extends AbstractTypesForm {
 
         final AddDeleteTableViewer tableViewer = new AddDeleteTableViewer( this, SWT.MULTI
             | SWT.V_SCROLL
+            | SWT.BORDER
             | SWT.FULL_SELECTION );
         tableViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
 
         tableViewer.setEditingDomain( editingDomain );
         tableViewer.setAddCommandParameter( rifModel.getCoreContent(),
-                                            RifPackage.eINSTANCE.getRIFContent_DataTypes(),
                                             RifFactoryImpl.eINSTANCE.createDatatypeDefinitionInteger().eClass() );
 
         String[] colTitles = {"Name", "Type"};

@@ -11,8 +11,12 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
@@ -21,6 +25,18 @@ import org.eclipse.swt.widgets.Table;
 
 import era.foss.rif.impl.RifFactoryImpl;
 
+/**
+ * @author schorsch
+ *
+ */
+/**
+ * @author schorsch
+ *
+ */
+/**
+ * @author schorsch
+ * 
+ */
 public class AddDeleteTableViewer extends TableViewer {
 
     // The composite containing the table and all its
@@ -36,21 +52,33 @@ public class AddDeleteTableViewer extends TableViewer {
     // The section above the table containing the button
     private Composite buttonBar;
 
-    // parameters for add Command invloked by the add Button
+    // standard add and remove button
+    Button removeElementsButton;
+    Button addElementButton;
+
+    // parameters for add Command
     private EObject addCommandOwner;
-    private EReference addCommandFeature;
     private EClass addCommandValueDefaultType;
 
+    /**
+     * @see TableViewer
+     */
     public AddDeleteTableViewer( Composite parent ) {
         this( parent, SWT.NONE );
     }
 
+    /**
+     * @see TableViewer
+     */
     public AddDeleteTableViewer( Table table ) {
         super( table );
         table = this.getTable();
         composite = table.getParent();
     }
 
+    /**
+     * @see TableViewer
+     */
     public AddDeleteTableViewer( Composite parent, int style ) {
         // XXX: Looks strange, might be done better
         // XXX: stomach ache
@@ -60,66 +88,126 @@ public class AddDeleteTableViewer extends TableViewer {
         layoutComposite();
     }
 
+    /**
+     * layout the Composite
+     */
     private void layoutComposite() {
         // pack button bar and table into parent composite
-        composite.setLayout( new RowLayout( SWT.VERTICAL ) );
+        composite.setLayout( new GridLayout( 1, false ) );
 
-        layoutButtonBar();
+        createButtonBar();
 
-        table.setLayoutData( new RowData() );
+        table.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
         table.setHeaderVisible( true );
         table.setLinesVisible( true );
 
+        table.addKeyListener( new KeyListener() {
+
+            public void keyPressed( KeyEvent e ) {
+                if( e.character == SWT.DEL ) {
+                    removeElements();
+                    refresh();
+                }
+            }
+
+            @Override
+            public void keyReleased( KeyEvent e ) {
+                // TODO Auto-generated method stub
+
+            }
+        } );
     }
 
-    private void layoutButtonBar() {
+    /**
+     * Create a button bar holding the Add and Remove Button
+     */
+    private void createButtonBar() {
 
         buttonBar = new Composite( composite, SWT.NONE );
-        buttonBar.setLayoutData( new RowData() );
+        buttonBar.setLayoutData( new GridData( SWT.LEFT, SWT.BOTTOM, true, false ) );
 
         buttonBar.setLayout( new RowLayout( SWT.HORIZONTAL ) );
 
         // Create Add Button
-        Button addElementButton = new Button( buttonBar, SWT.PUSH );
+        addElementButton = new Button( buttonBar, SWT.PUSH );
         addElementButton.setLayoutData( new RowData() );
         addElementButton.setText( "Add" );
         addElementButton.addSelectionListener( new SelectionAdapter() {
             public void widgetSelected( SelectionEvent event ) {
-                EObject addCommandValue = RifFactoryImpl.eINSTANCE.create( addCommandValueDefaultType );
-                Command cmd = AddCommand.create( editingDomain, addCommandOwner, addCommandFeature, addCommandValue );
-                BasicCommandStack basicCommandStack = (BasicCommandStack)editingDomain.getCommandStack();
-                basicCommandStack.execute( cmd );
-
+                addElement();
                 refresh();
             }
         } );
 
         // Create Delete Button
-        Button removeElementsButton = new Button( buttonBar, SWT.PUSH );
+        removeElementsButton = new Button( buttonBar, SWT.PUSH );
         removeElementsButton.setLayoutData( new RowData() );
         removeElementsButton.setText( "Remove" );
         removeElementsButton.addSelectionListener( new SelectionAdapter() {
             public void widgetSelected( SelectionEvent event ) {
-                // remove all selected elements
-                Command removeCommand = RemoveCommand.create( editingDomain,
-                                                              ((IStructuredSelection)getSelection()).toList() );
-                editingDomain.getCommandStack().execute( removeCommand );
+                removeElements();
                 refresh();
             }
         } );
 
     }
 
-    public void setAddCommandParameter( EObject addCommandOwner,
-                                        EReference addCommandFeature,
-                                        EClass addCommandValueDefaultType ) {
+    /**
+     * Set layout data
+     * 
+     * @param layoutData
+     * @see org.eclipse.swt.widgets.Control#setLayoutData(Object)
+     */
+    public void setLayoutData( Object layoutData ) {
+        composite.setLayoutData( layoutData );
+    }
+
+    /**
+     * Show add button
+     */
+    public void showAddButton( boolean enabled ) {
+        addElementButton.setEnabled( enabled );
+    }
+
+    /**
+     * Show delete button
+     */
+    public void showRemoveButton( boolean enabled ) {
+        removeElementsButton.setEnabled( enabled );
+    }
+
+    /**
+     * Set the information required for adding a new element to the table with {@link #addElement()}
+     * 
+     * @param addCommandOwner The element the new element is put at
+     * @param addCommandValueDefaultType
+     */
+    public void setAddCommandParameter( EObject addCommandOwner, EClass addCommandValueDefaultType ) {
         this.addCommandOwner = addCommandOwner;
-        this.addCommandFeature = addCommandFeature;
         this.addCommandValueDefaultType = addCommandValueDefaultType;
     }
 
-    public void setLayoutData( Object layoutData ) {
-        composite.setLayoutData( layoutData );
+    /**
+     * Add a new element to the list using the EMF Command Stack The information for adding the element has to be
+     * specified by calling {@link #setAddCommandParameter(EObject, EReference, EClass)}
+     */
+    public void addElement() {
+        EObject addCommandValue = RifFactoryImpl.eINSTANCE.create( addCommandValueDefaultType );
+        Command cmd = AddCommand.create( editingDomain, addCommandOwner, null, addCommandValue );
+        BasicCommandStack basicCommandStack = (BasicCommandStack)editingDomain.getCommandStack();
+        basicCommandStack.execute( cmd );
+    }
+
+    /**
+     * Remove selected elements from this table
+     */
+    public void removeElements() {
+        if( getSelection().isEmpty() == false ) {
+            Command removeCommand = RemoveCommand.create( editingDomain,
+                                                          ((IStructuredSelection)getSelection()).toList() );
+            editingDomain.getCommandStack().execute( removeCommand );
+        }
+
     }
 
 }
