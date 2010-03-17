@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 public interface Identifiable extends EObject {
 
     /**
-     * @model lowerBound="1" upperBound="1"
+     * @model lowerBound="1" upperBound="1" unsettable="true" unique="true"
      */
     public String getID();
 
@@ -19,10 +19,35 @@ public interface Identifiable extends EObject {
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @param value the new value of the '<em>ID</em>' attribute.
+     * @see #isSetID()
+     * @see #unsetID()
      * @see #getID()
      * @generated
      */
     void setID( String value );
+
+    /**
+     * Unsets the value of the '{@link era.foss.rif.Identifiable#getID <em>ID</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetID()
+     * @see #getID()
+     * @see #setID(String)
+     * @generated
+     */
+    void unsetID();
+
+    /**
+     * Returns whether the value of the '{@link era.foss.rif.Identifiable#getID <em>ID</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>ID</em>' attribute is set.
+     * @see #unsetID()
+     * @see #getID()
+     * @see #setID(String)
+     * @generated
+     */
+    boolean isSetID();
 
     /**
      * @model default=""

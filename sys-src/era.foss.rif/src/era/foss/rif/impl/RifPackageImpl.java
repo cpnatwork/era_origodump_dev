@@ -928,7 +928,7 @@ public class RifPackageImpl extends EPackageImpl implements RifPackage {
                         !IS_TRANSIENT,
                         !IS_VOLATILE,
                         IS_CHANGEABLE,
-                        !IS_UNSETTABLE,
+                        IS_UNSETTABLE,
                         !IS_ID,
                         IS_UNIQUE,
                         !IS_DERIVED,

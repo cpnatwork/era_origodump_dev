@@ -6,6 +6,8 @@
  */
 package era.foss.rif.impl;
 
+import java.util.UUID;
+
 import era.foss.rif.Identifiable;
 import era.foss.rif.RifPackage;
 
@@ -53,6 +55,15 @@ public abstract class IdentifiableImpl extends EObjectImpl implements Identifiab
     protected String iD = ID_EDEFAULT;
 
     /**
+     * This is true if the ID attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean iDESet;
+
+    /**
      * The default value of the '{@link #getDesc() <em>Desc</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -95,10 +106,11 @@ public abstract class IdentifiableImpl extends EObjectImpl implements Identifiab
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @NOT generated
      */
     protected IdentifiableImpl() {
         super();
+        setID( UUID.randomUUID().toString());
     }
 
     /**
@@ -128,12 +140,43 @@ public abstract class IdentifiableImpl extends EObjectImpl implements Identifiab
     public void setID( String newID ) {
         String oldID = iD;
         iD = newID;
+        boolean oldIDESet = iDESet;
+        iDESet = true;
         if( eNotificationRequired() ) eNotify( new ENotificationImpl(
             this,
             Notification.SET,
             RifPackage.IDENTIFIABLE__ID,
             oldID,
-            iD ) );
+            iD,
+            !oldIDESet ) );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetID() {
+        String oldID = iD;
+        boolean oldIDESet = iDESet;
+        iD = ID_EDEFAULT;
+        iDESet = false;
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.UNSET,
+            RifPackage.IDENTIFIABLE__ID,
+            oldID,
+            ID_EDEFAULT,
+            oldIDESet ) );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetID() {
+        return iDESet;
     }
 
     /**
@@ -234,7 +277,7 @@ public abstract class IdentifiableImpl extends EObjectImpl implements Identifiab
     public void eUnset( int featureID ) {
         switch (featureID) {
         case RifPackage.IDENTIFIABLE__ID:
-            setID( ID_EDEFAULT );
+            unsetID();
             return;
         case RifPackage.IDENTIFIABLE__DESC:
             setDesc( DESC_EDEFAULT );
@@ -255,7 +298,7 @@ public abstract class IdentifiableImpl extends EObjectImpl implements Identifiab
     public boolean eIsSet( int featureID ) {
         switch (featureID) {
         case RifPackage.IDENTIFIABLE__ID:
-            return ID_EDEFAULT == null ? iD != null : !ID_EDEFAULT.equals( iD );
+            return isSetID();
         case RifPackage.IDENTIFIABLE__DESC:
             return DESC_EDEFAULT == null ? desc != null : !DESC_EDEFAULT.equals( desc );
         case RifPackage.IDENTIFIABLE__LONG_NAME:
@@ -275,7 +318,8 @@ public abstract class IdentifiableImpl extends EObjectImpl implements Identifiab
 
         StringBuffer result = new StringBuffer( super.toString() );
         result.append( " (iD: " );
-        result.append( iD );
+        if( iDESet ) result.append( iD );
+        else result.append( "<unset>" );
         result.append( ", desc: " );
         result.append( desc );
         result.append( ", longName: " );
