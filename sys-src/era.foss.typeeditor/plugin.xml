@@ -22,7 +22,7 @@
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="era.foss.typeeditor.TypeEditorCommandHandler"
+            class="era.foss.typeeditor.TypeDialogCommandHandler"
             commandId="era.command.openTypeEditor">
       </handler>
    </extension>
