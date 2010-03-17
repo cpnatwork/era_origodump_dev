@@ -22,6 +22,7 @@ import era.foss.rif.RIF;
 import era.foss.rif.presentation.EraCommandStack;
 
 /**
+ * An abstract form, that contains members and constructor code that is common to all editing forms for ERA types.
  * 
  * @author cpn
  */
@@ -66,7 +67,7 @@ public class AbstractTypesForm extends Composite {
      */
     public AbstractTypesForm( Composite parent, IEditorPart editor, int style ) {
         super( parent, style );
-        
+
         // set-up context
         this.editingDomain = ((IEditingDomainProvider)editor).getEditingDomain();
         this.rifResource = (XMIResource)editingDomain.getResourceSet()
