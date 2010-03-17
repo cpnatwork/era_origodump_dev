@@ -12,8 +12,10 @@ import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
-import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IEditorPart;
@@ -26,15 +28,14 @@ import era.foss.rif.presentation.EraCommandStack;
  * 
  * @author cpn
  */
-public class AbstractTypesForm extends Composite {
+public abstract class AbstractTypesForm extends Composite {
 
+    protected IEditorPart editor = null;
     protected EditingDomain editingDomain = null;
     protected Resource rifResource = null;
     protected RIF rifModel = null;
     protected EraCommandStack eraCommandStack = null;
     protected AdapterFactory adapterFactory = null;
-
-    protected IStructuredSelection selection = null;
 
     /**
      * Constructs a new instance of this class - defaulting the style to {@link SWT#NONE}.
@@ -69,6 +70,7 @@ public class AbstractTypesForm extends Composite {
         super( parent, style );
 
         // set-up context
+        this.editor = editor;
         this.editingDomain = ((IEditingDomainProvider)editor).getEditingDomain();
         this.rifResource = (XMIResource)editingDomain.getResourceSet()
                                                      .getResource( EditUIUtil.getURI( editor.getEditorInput() ), true );
@@ -77,5 +79,29 @@ public class AbstractTypesForm extends Composite {
         this.eraCommandStack = (EraCommandStack)editingDomain.getCommandStack();
         this.adapterFactory = ((AdapterFactoryEditingDomain)editingDomain).getAdapterFactory();
 
+        // set-up layout
+        this.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
+        GridLayout gridLayout = new GridLayout( 2, true );
+        this.setLayout( gridLayout );
+
+        // allow derived classes to do pre initializations
+        this.constructorPreHook();
+        // set up left side (= TableViewer)
+        TableViewer tableViewer = this.setupLeftSide();
+        // set up right side (= types' properties viewer) [need TableViewer]
+        this.setupRightSide( tableViewer );
     }
+
+    protected void constructorPreHook(){};
+    abstract protected TableViewer setupLeftSide();
+
+    private void setupRightSide( TableViewer tableViewer ) {
+        TypePropertiesViewer typePropertiesViewer = new TypePropertiesViewer(
+            this,
+            this.editor,
+            tableViewer,
+            SWT.MULTI | SWT.V_SCROLL | SWT.FULL_SELECTION );
+        typePropertiesViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
+    }
+
 }
