@@ -146,6 +146,7 @@ final public class DataTypesForm extends AbstractTypesForm {
                 }
 
                 // copy old data type attributes
+                newDataType.setID( dataType.getID() );
                 newDataType.setLongName( dataType.getLongName() );
                 newDataType.setDesc( dataType.getDesc() );
 
