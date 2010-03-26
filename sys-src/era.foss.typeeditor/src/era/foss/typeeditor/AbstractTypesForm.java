@@ -9,7 +9,6 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
-import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.jface.viewers.TableViewer;
@@ -31,7 +30,7 @@ import era.foss.rif.presentation.EraCommandStack;
 public abstract class AbstractTypesForm extends Composite {
 
     protected IEditorPart editor = null;
-    protected EditingDomain editingDomain = null;
+    protected AdapterFactoryEditingDomain editingDomain = null;
     protected Resource rifResource = null;
     protected RIF rifModel = null;
     protected EraCommandStack eraCommandStack = null;
@@ -71,7 +70,7 @@ public abstract class AbstractTypesForm extends Composite {
 
         // set-up context
         this.editor = editor;
-        this.editingDomain = ((IEditingDomainProvider)editor).getEditingDomain();
+        this.editingDomain = (AdapterFactoryEditingDomain)((IEditingDomainProvider)editor).getEditingDomain();
         this.rifResource = (XMIResource)editingDomain.getResourceSet()
                                                      .getResource( EditUIUtil.getURI( editor.getEditorInput() ), true );
         this.rifModel = (RIF)(rifResource).getContents().get( 0 );

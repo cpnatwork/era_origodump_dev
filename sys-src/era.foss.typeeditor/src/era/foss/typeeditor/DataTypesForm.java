@@ -4,36 +4,43 @@
 
 package era.foss.typeeditor;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.edit.command.AddCommand;
+import org.eclipse.emf.edit.command.CommandParameter;
 import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.provider.IChangeNotifier;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnViewer;
+import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorPart;
 
 import era.foss.rif.DatatypeDefinition;
-import era.foss.rif.RIFContent;
-import era.foss.rif.RifPackage;
+import era.foss.rif.impl.DatatypeDefinitionImpl;
 import era.foss.rif.impl.RIFContentImpl;
 import era.foss.rif.impl.RifFactoryImpl;
+import era.foss.rif.provider.DatatypeDefinitionItemProvider;
 
 /**
  * Editor form for manipulating data types.
@@ -44,13 +51,20 @@ import era.foss.rif.impl.RifFactoryImpl;
  */
 final public class DataTypesForm extends AbstractTypesForm {
 
-    /**
-     * Stores the Types of DataType
-     */
-    private HashMap<Integer, String> supportedTypesOfDataType;
+    /** Provider for accessing the properties of the EMF Edit plugin */
+    private DatatypeDefinitionItemProvider dataTypesProvider;
+
+    /** List holding the names of the DatatypeDefintion supported in the model */ 
+    private ArrayList<String> supportedDataTypeNames;
+
+    /** List holding the EClasses of the DatatypeDefintion supported in the model 
+     *  The entries in list are in the same order as in list {@link supportedDataTypeNames}
+     * */ 
+    private List<EClass> supportedDataTypesClasses;
 
     public DataTypesForm( Composite parent, IEditorPart editor ) {
         super( parent, editor, SWT.NONE );
+
     }
 
     public class DatatypesEditingSupport extends EditingSupport {
@@ -69,8 +83,7 @@ final public class DataTypesForm extends AbstractTypesForm {
             case 1:
                 cellEditor = new ComboBoxCellEditor(
                     ((TableViewer)viewer).getTable(),
-                    DataTypesForm.this.supportedTypesOfDataType.values()
-                                                               .toArray( new String[supportedTypesOfDataType.size()] ),
+                    DataTypesForm.this.supportedDataTypeNames.toArray( new String[supportedDataTypeNames.size()] ),
                     SWT.READ_ONLY );
 
                 break;
@@ -99,16 +112,8 @@ final public class DataTypesForm extends AbstractTypesForm {
                 retVal = dataType.getLongName();
                 break;
             case 1:
-                String dataTypeName = DataTypesForm.this.supportedTypesOfDataType.get( dataType.eClass()
-                                                                                               .getClassifierID() );
-                int index = 0;
-                String[] comboItems = ((ComboBoxCellEditor)this.cellEditor).getItems();
-                for( index = 0; index < comboItems.length; index++ ) {
-                    if( dataTypeName == comboItems[index] ) {
-                        break;
-                    }
-                }
-                retVal = index;
+                String dataTypeName = DataTypesForm.this.getDataTypeName( dataType );
+                retVal = ((CCombo)this.cellEditor.getControl()).indexOf( dataTypeName );
                 break;
             default:
                 break;
@@ -128,43 +133,37 @@ final public class DataTypesForm extends AbstractTypesForm {
             case 1:
                 EList<DatatypeDefinition> dataTypes = ((RIFContentImpl)editingDomain.getParent( dataType )).getDataTypes();
 
-                // if no change is represented (unfortunately this method is called in any case), then do nothing
-                if( (Integer)value == 0
-                    && dataType.eClass().getClassifierID() == RifPackage.DATATYPE_DEFINITION_INTEGER ) break;
-                if( (Integer)value == 1
-                    && dataType.eClass().getClassifierID() == RifPackage.DATATYPE_DEFINITION_STRING ) break;
+                String dataTypeNameCurrent = getDataTypeName( dataType );
+                String dataTypeNameNew = ((CCombo)this.cellEditor.getControl()).getItem( (Integer)value );
 
-                // TRANSFORM to new type
-                DatatypeDefinition newDataType = null;
-                switch ((Integer)value) {
-                case 0:
-                    newDataType = RifFactoryImpl.eINSTANCE.createDatatypeDefinitionInteger();
-                    break;
-                case 1:
-                    newDataType = RifFactoryImpl.eINSTANCE.createDatatypeDefinitionString();
+                if( dataTypeNameNew == dataTypeNameCurrent ) {
+                    // the current data type is the same data type selected in the ComboBox
+                    // therefore: DO NOTHING
                     break;
                 }
+
+                // create new datatype
+                EClass newDataTypeClass = supportedDataTypesClasses.get( (Integer)value );
+                DatatypeDefinition newDataType = (DatatypeDefinition)RifFactoryImpl.eINSTANCE.create( newDataTypeClass );
 
                 // copy old data type attributes
                 newDataType.setID( dataType.getID() );
                 newDataType.setLongName( dataType.getLongName() );
                 newDataType.setDesc( dataType.getDesc() );
 
-                // Command: remove old data type
+                
+                // Remove Command:
+                // remove old data type
                 Command removeCommand = RemoveCommand.create( editingDomain, dataType );
 
+                // Add Command:
                 // Get index of old data type (in order to add it at the same position)
-                int currentDataTypePos = dataTypes.indexOf( dataType );
-
-                // Command: add new data type
-                RIFContent addCommandOwner = rifModel.getCoreContent();
-                EReference addCommandFeature = RifPackage.eINSTANCE.getRIFContent_DataTypes();
-                DatatypeDefinition addCommandValue = newDataType;
+                int index = dataTypes.indexOf( dataType );
                 Command addCommand = AddCommand.create( editingDomain,
-                                                        addCommandOwner,
-                                                        addCommandFeature,
-                                                        addCommandValue,
-                                                        currentDataTypePos );
+                                                        rifModel.getCoreContent(),
+                                                        null,
+                                                        newDataType,
+                                                        index );
 
                 // Execute both commands
                 eraCommandStack.execute( removeCommand );
@@ -176,7 +175,6 @@ final public class DataTypesForm extends AbstractTypesForm {
             }
             getViewer().refresh();
         }
-
     }
 
     public class DatatypesAdapterFactoryContentProvider extends AdapterFactoryContentProvider {
@@ -201,22 +199,21 @@ final public class DataTypesForm extends AbstractTypesForm {
             } catch( NullPointerException e ) {
                 objects = new Object[0];
             }
-
             return objects;
         }
-
     }
 
     public class DatatypesLabelProvider extends LabelProvider implements ITableLabelProvider {
 
         @Override
         public String getColumnText( Object element, int columnIndex ) {
-            DatatypeDefinition datatype = (DatatypeDefinition)element;
+            DatatypeDefinition dataType = (DatatypeDefinition)element;
+
             switch (columnIndex) {
             case 0:
-                return datatype.getLongName();
+                return dataType.getLongName();
             case 1:
-                return getTypeName( datatype );
+                return getDataTypeName( dataType );
             default:
                 throw new RuntimeException( "Should not happen" );
             }
@@ -226,24 +223,33 @@ final public class DataTypesForm extends AbstractTypesForm {
         public Image getColumnImage( Object element, int columnIndex ) {
             return null;
         }
-
-        private String getTypeName( DatatypeDefinition dataType ) {
-            int classifierID = dataType.eClass().getClassifierID();
-            return DataTypesForm.this.supportedTypesOfDataType.get( new Integer( classifierID ) );
-        }
     }
 
     /**
      * @see era.foss.typeeditor.AbstractTypesForm#constructorPreHook()
      * @since 17.03.2010
      */
+    @SuppressWarnings("unchecked")
     @Override
     protected void constructorPreHook() {
         super.constructorPreHook();
-        // Fill hashMap with supported types
-        supportedTypesOfDataType = new HashMap<Integer, String>();
-        supportedTypesOfDataType.put( RifPackage.DATATYPE_DEFINITION_INTEGER, "Integer" );
-        supportedTypesOfDataType.put( RifPackage.DATATYPE_DEFINITION_STRING, "String" );
+
+        // Setup item provider for DatatypeDefinition items
+        // used for accessing information stored in the edit plugin
+        dataTypesProvider = new DatatypeDefinitionItemProvider( adapterFactory );
+
+        // Get Information about supported DatatypeDefintions
+        supportedDataTypesClasses = new ArrayList<EClass>();
+        supportedDataTypeNames = new ArrayList<String>();
+        Collection<CommandParameter> descriptors = (Collection<CommandParameter>)editingDomain.getNewChildDescriptors( rifModel.getCoreContent(),
+                                                                                                                       null );
+        for( CommandParameter descriptor : descriptors ) {
+            if( descriptor.value instanceof DatatypeDefinitionImpl ) {
+                DatatypeDefinitionImpl dataType = (DatatypeDefinitionImpl)descriptor.value;
+                supportedDataTypesClasses.add( dataType.eClass() );
+                supportedDataTypeNames.add( getDataTypeName( dataType ) );
+            }
+        }
     }
 
     /**
@@ -262,19 +268,22 @@ final public class DataTypesForm extends AbstractTypesForm {
         tableViewer.setEditingDomain( editingDomain );
         tableViewer.setAddCommandParameter( rifModel.getCoreContent(),
                                             RifFactoryImpl.eINSTANCE.createDatatypeDefinitionInteger().eClass() );
-
+        //TableColumnLayout tl= new TableColumnLayout();
+        //tableViewer.getTable().setLayout( tl );
         String[] colTitles = {"Name", "Type"};
-        int[] colBounds = {100, 200};
+        int[] colMinWidth = {200, 100};
+        int[] colWeigth = {70, 30};
+        boolean[] colResize = {true, false};
         for( int colNr = 0; colNr < colTitles.length; colNr++ ) {
 
             TableViewerColumn column = new TableViewerColumn( tableViewer, SWT.NONE );
             column.getColumn().setText( colTitles[colNr] );
-            column.getColumn().setWidth( colBounds[colNr] );
-            column.getColumn().setResizable( true );
-            column.getColumn().setMoveable( true );
+            column.getColumn().setWidth( colMinWidth[colNr] );
+            column.getColumn().setResizable( colResize[colNr]);
+            column.getColumn().setMoveable( false );
+            //tl.setColumnData(column.getColumn(), new ColumnWeightData(colWeigth[colNr], colBounds[colNr]));
             // enable editing support
             column.setEditingSupport( new DatatypesEditingSupport( tableViewer, colNr ) );
-
         }
 
         tableViewer.setColumnProperties( new String[]{"a", "b", "c"} );
@@ -287,4 +296,9 @@ final public class DataTypesForm extends AbstractTypesForm {
         return tableViewer;
     }
 
+    private String getDataTypeName( Object dataType ) {
+        // get the text specified in the resource file of the edit plugin
+        // for this data type
+        return dataTypesProvider.getCreateChildText( dataType, null, dataType, null );
+    }
 }
