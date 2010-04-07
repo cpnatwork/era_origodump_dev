@@ -26,14 +26,7 @@ import org.eclipse.swt.widgets.Table;
 
 import era.foss.rif.impl.RifFactoryImpl;
 
-/**
- * @author schorsch
- *
- */
-/**
- * @author schorsch
- *
- */
+
 /**
  * @author schorsch
  * 

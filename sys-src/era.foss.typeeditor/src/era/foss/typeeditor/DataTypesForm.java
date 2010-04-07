@@ -274,7 +274,7 @@ final public class DataTypesForm extends AbstractTypesForm {
                                                                     .eClass() );
         TableColumnLayout columnLayout= tableViewer.getTableColumnLayout();
         String[] colTitles = {"Name", "Type"};
-        int[] colMinWidth = {200, 100};
+        int[] colMinWidth = {100, 50};
         int[] colWeigth = {70, 30};
         boolean[] colResize = {true, false};
         for( int colNr = 0; colNr < colTitles.length; colNr++ ) {
@@ -283,7 +283,6 @@ final public class DataTypesForm extends AbstractTypesForm {
                 tableViewer,
                 SWT.NONE );
             column.getColumn().setText( colTitles[colNr] );
-            column.getColumn().setWidth( colMinWidth[colNr] );
             column.getColumn().setResizable( colResize[colNr] );
             column.getColumn().setMoveable( false );
             columnLayout.setColumnData(column.getColumn(), new ColumnWeightData(colWeigth[colNr], colMinWidth[colNr]));
