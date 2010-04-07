@@ -106,13 +106,13 @@ public class AddDeleteTableViewer extends TableViewer {
         // set column layout of table composite
         tableColumnLayout = new TableColumnLayout();
         tableComposite.setLayout(tableColumnLayout);
+        tableComposite.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
         
         // pack button bar and table into parent composite
         composite.setLayout( new GridLayout( 1, false ) );
-
         createButtonBar();
 
-        table.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
+        // set table attributes
         table.setHeaderVisible( true );
         table.setLinesVisible( true );
 
