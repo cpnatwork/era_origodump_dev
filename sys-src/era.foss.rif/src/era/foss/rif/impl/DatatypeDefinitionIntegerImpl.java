@@ -38,7 +38,7 @@ public class DatatypeDefinitionIntegerImpl extends DatatypeDefinitionSimpleImpl 
      * @generated
      * @ordered
      */
-    protected static final int MAX_EDEFAULT = -2147483648;
+    protected static final int MAX_EDEFAULT = 0;
 
     /**
      * The cached value of the '{@link #getMax() <em>Max</em>}' attribute.
@@ -58,7 +58,7 @@ public class DatatypeDefinitionIntegerImpl extends DatatypeDefinitionSimpleImpl 
      * @generated
      * @ordered
      */
-    protected static final int MIN_EDEFAULT = 2147483647;
+    protected static final int MIN_EDEFAULT = 0;
 
     /**
      * The cached value of the '{@link #getMin() <em>Min</em>}' attribute.

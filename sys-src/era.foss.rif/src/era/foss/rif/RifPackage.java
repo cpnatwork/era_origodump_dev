@@ -52,14 +52,6 @@ public interface RifPackage extends EPackage {
     String eNS_PREFIX = "era.foss.rif";
 
     /**
-     * The package content type ID.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    String eCONTENT_TYPE = "ErfContentType";
-
-    /**
      * The singleton instance of the package.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

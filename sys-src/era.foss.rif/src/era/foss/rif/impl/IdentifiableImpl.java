@@ -110,7 +110,7 @@ public abstract class IdentifiableImpl extends EObjectImpl implements Identifiab
      */
     protected IdentifiableImpl() {
         super();
-        setID( UUID.randomUUID().toString());
+        setID( UUID.randomUUID().toString() );
     }
 
     /**

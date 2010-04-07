@@ -37,16 +37,13 @@
         eType="#//AttributeDefinitionSimple"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DatatypeDefinitionInteger" eSuperTypes="#//DatatypeDefinitionSimple">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="max" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
-        defaultValueLiteral="-2147483648"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="min" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
-        defaultValueLiteral="2147483647"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="max" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="min" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DatatypeDefinitionSimple" abstract="true"
       eSuperTypes="#//DatatypeDefinition"/>
   <eClassifiers xsi:type="ecore:EClass" name="DatatypeDefinitionString" eSuperTypes="#//DatatypeDefinitionSimple">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxLength" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="2147483647"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxLength" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RIFContent">
     <eStructuralFeatures xsi:type="ecore:EReference" name="specObjects" upperBound="-1"

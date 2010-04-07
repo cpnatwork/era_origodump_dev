@@ -8,7 +8,7 @@ package era.foss.rif;
 public interface DatatypeDefinitionInteger extends DatatypeDefinitionSimple {
 
     /**
-     * @model default="-2147483648"
+     * @model 
      * @return
      */
     public int getMax();
@@ -24,7 +24,7 @@ public interface DatatypeDefinitionInteger extends DatatypeDefinitionSimple {
     void setMax( int value );
 
     /**
-     * @model default="2147483647"
+     * @model
      * @return
      */
     public int getMin();

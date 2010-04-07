@@ -7,7 +7,7 @@ package era.foss.rif;
  */
 public interface DatatypeDefinitionString extends DatatypeDefinitionSimple {
     /**
-     * @model lowerBound="1" upperBound="1" default="2147483647"
+     * @model
      */
     public int getMaxLength();
 
