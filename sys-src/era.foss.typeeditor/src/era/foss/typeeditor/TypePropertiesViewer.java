@@ -68,10 +68,12 @@ public class TypePropertiesViewer extends Composite {
         GridLayout gridLayout = new GridLayout( 1, true );
         this.setLayout( gridLayout );
 
+        // Text widget for the general Description attribute of any RIF-Identifiable
         descriptionText = new Text( this, SWT.BORDER );
         descriptionText.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
         descriptionText.setEditable( false );
 
+        // Listener: absorb Text modification into model
         descriptionText.addModifyListener( new ModifyListener() {
             @Override
             public void modifyText( ModifyEvent e ) {
@@ -85,6 +87,7 @@ public class TypePropertiesViewer extends Composite {
             }
         } );
 
+        // Listener: selection change (left side => update Text widget for newly focused RIF-Identifiable's description) 
         modelTableViewer.addSelectionChangedListener( new ISelectionChangedListener() {
             public void selectionChanged( SelectionChangedEvent event ) {
                 TypePropertiesViewer.this.selection = (IStructuredSelection)event.getSelection();

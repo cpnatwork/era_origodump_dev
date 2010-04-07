@@ -72,7 +72,8 @@ public abstract class AbstractTypesForm extends Composite {
         this.editor = editor;
         this.editingDomain = (AdapterFactoryEditingDomain)((IEditingDomainProvider)editor).getEditingDomain();
         this.rifResource = (XMIResource)editingDomain.getResourceSet()
-                                                     .getResource( EditUIUtil.getURI( editor.getEditorInput() ), true );
+                                                     .getResource( EditUIUtil.getURI( editor.getEditorInput() ),
+                                                                   true );
         this.rifModel = (RIF)(rifResource).getContents().get( 0 );
 
         this.eraCommandStack = (EraCommandStack)editingDomain.getCommandStack();
@@ -91,7 +92,9 @@ public abstract class AbstractTypesForm extends Composite {
         this.setupRightSide( tableViewer );
     }
 
-    protected void constructorPreHook(){};
+    protected void constructorPreHook() {
+    };
+
     abstract protected TableViewer setupLeftSide();
 
     private void setupRightSide( TableViewer tableViewer ) {
@@ -100,7 +103,11 @@ public abstract class AbstractTypesForm extends Composite {
             this.editor,
             tableViewer,
             SWT.MULTI | SWT.V_SCROLL | SWT.FULL_SELECTION );
-        typePropertiesViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
+        typePropertiesViewer.setLayoutData( new GridData(
+            SWT.FILL,
+            SWT.FILL,
+            true,
+            true ) );
     }
 
 }
