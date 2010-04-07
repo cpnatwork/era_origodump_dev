@@ -46,9 +46,15 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rif.ecore#//RIFContent/dataTypes"/>
     </genClasses>
     <genClasses image="false" ecoreClass="rif.ecore#//Identifiable">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rif.ecore#//Identifiable/iD"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rif.ecore#//Identifiable/desc"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rif.ecore#//Identifiable/longName"/>
+      <genFeatures createChild="false" propertyDescription="" ecoreFeature="ecore:EAttribute rif.ecore#//Identifiable/iD">
+        <propertyFilterFlags>org.eclipse.ui.views.properties.expert</propertyFilterFlags>
+      </genFeatures>
+      <genFeatures createChild="false" propertyCategory="" ecoreFeature="ecore:EAttribute rif.ecore#//Identifiable/desc">
+        <propertyFilterFlags>org.eclipse.ui.views.properties.expert</propertyFilterFlags>
+      </genFeatures>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rif.ecore#//Identifiable/longName">
+        <propertyFilterFlags>org.eclipse.ui.views.properties.expert</propertyFilterFlags>
+      </genFeatures>
     </genClasses>
     <genClasses ecoreClass="rif.ecore#//AttributeDefinitionSimple">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rif.ecore#//AttributeDefinitionSimple/defaultValue"/>
