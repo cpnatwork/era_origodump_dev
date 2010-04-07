@@ -16,8 +16,10 @@ import org.eclipse.emf.edit.command.CommandParameter;
 import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.provider.IChangeNotifier;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnViewer;
+import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -270,12 +272,9 @@ final public class DataTypesForm extends AbstractTypesForm {
         tableViewer.setAddCommandParameter( rifModel.getCoreContent(),
                                             RifFactoryImpl.eINSTANCE.createDatatypeDefinitionInteger()
                                                                     .eClass() );
-        // TableColumnLayout tl= new TableColumnLayout();
-        // tableViewer.getTable().setLayout( tl );
+        TableColumnLayout columnLayout= tableViewer.getTableColumnLayout();
         String[] colTitles = {"Name", "Type"};
         int[] colMinWidth = {200, 100};
-        // TODO: Column width
-        @SuppressWarnings("unused")
         int[] colWeigth = {70, 30};
         boolean[] colResize = {true, false};
         for( int colNr = 0; colNr < colTitles.length; colNr++ ) {
@@ -287,7 +286,7 @@ final public class DataTypesForm extends AbstractTypesForm {
             column.getColumn().setWidth( colMinWidth[colNr] );
             column.getColumn().setResizable( colResize[colNr] );
             column.getColumn().setMoveable( false );
-            // tl.setColumnData(column.getColumn(), new ColumnWeightData(colWeigth[colNr], colBounds[colNr]));
+            columnLayout.setColumnData(column.getColumn(), new ColumnWeightData(colWeigth[colNr], colMinWidth[colNr]));
             // enable editing support
             column.setEditingSupport( new DatatypesEditingSupport(
                 tableViewer,

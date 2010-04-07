@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
@@ -42,6 +43,10 @@ public class AddDeleteTableViewer extends TableViewer {
     // The composite containing the table and all its
     // buttons
     private Composite composite;
+    private TableColumnLayout tableColumnLayout;
+
+
+    private Composite tableComposite;
     private Table table;
     private EditingDomain editingDomain;
 
@@ -82,9 +87,14 @@ public class AddDeleteTableViewer extends TableViewer {
     public AddDeleteTableViewer( Composite parent, int style ) {
         // XXX: Looks strange, might be done better
         // XXX: stomach ache
-        super( new Composite( parent, SWT.NONE ), style );
+        super( new Composite( new Composite( parent, SWT.NONE ), SWT.NONE ), style );
         table = this.getTable();
-        composite = table.getParent();
+        
+        // get composite for table column layout
+        tableComposite = table.getParent();
+
+        // get composite for buttons and table
+        composite= tableComposite.getParent();
         layoutComposite();
     }
 
@@ -92,6 +102,11 @@ public class AddDeleteTableViewer extends TableViewer {
      * layout the Composite
      */
     private void layoutComposite() {
+        
+        // set column layout of table composite
+        tableColumnLayout = new TableColumnLayout();
+        tableComposite.setLayout(tableColumnLayout);
+        
         // pack button bar and table into parent composite
         composite.setLayout( new GridLayout( 1, false ) );
 
@@ -208,6 +223,14 @@ public class AddDeleteTableViewer extends TableViewer {
             editingDomain.getCommandStack().execute( removeCommand );
         }
 
+    }
+    
+    /**
+     * Get the column layout assigned to the table
+     * @return column layout assigned to the table
+     */
+    public TableColumnLayout getTableColumnLayout() {
+        return tableColumnLayout;
     }
 
 }
