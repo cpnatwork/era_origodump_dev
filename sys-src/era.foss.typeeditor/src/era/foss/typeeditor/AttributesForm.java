@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorPart;
 
 import era.foss.rif.AttributeDefinition;
+import era.foss.rif.DatatypeDefinition;
 import era.foss.rif.SpecType;
 import era.foss.rif.impl.RifFactoryImpl;
 
@@ -52,10 +53,9 @@ public class AttributesForm extends AbstractTypesForm {
             Command addCommand = AddCommand.create( editingDomain,
                                                     rifModel.getCoreContent(),
                                                     null,
-                                                    RifFactoryImpl.eINSTANCE.createRIFContent());
+                                                    RifFactoryImpl.eINSTANCE.createSpecType());
             eraCommandStack.execute( addCommand );
         }
-        //FIXME: Somehow a new spec type is not created
         specType=(SpecType)rifModel.getCoreContent().getSpecTypes().get(0);
     }
 
@@ -96,8 +96,14 @@ public class AttributesForm extends AbstractTypesForm {
             case 0:
                 return attribute.getLongName();
             case 1:
-                //TODO: get datatype
-                return "Datatype";
+                DatatypeDefinition type = attribute.getType();
+                if(type == null){
+                    return "";
+                }
+                else {
+                    return type.getLongName();
+                }
+                    
             default:
                 throw new RuntimeException( "Should not happen" );
             }
