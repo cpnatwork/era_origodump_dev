@@ -10,10 +10,19 @@ import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.provider.IChangeNotifier;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jface.layout.TableColumnLayout;
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
+import org.eclipse.jface.viewers.ComboBoxViewerCellEditor;
+import org.eclipse.jface.viewers.EditingSupport;
+import org.eclipse.jface.viewers.IBaseLabelProvider;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
@@ -120,8 +129,115 @@ public class AttributesForm extends AbstractTypesForm {
         }
     }
 
+    public class AttributesEditingSupport extends EditingSupport {
+        private CellEditor cellEditor;
+        private int column;
+
+        /**
+         * Content provider for the combo box
+         * 
+         * @author schorsch
+         * 
+         */
+        public class ComboContentProvider implements IStructuredContentProvider {
+
+            @Override
+            public Object[] getElements( Object inputElement ) {
+                Object[] objects;
+                try {
+                    objects = rifModel.getCoreContent().getDataTypes().toArray();
+                } catch( NullPointerException e ) {
+                    objects = new Object[0];
+                }
+                return objects;
+            }
+
+            @Override
+            public void dispose() {
+            }
+
+            @Override
+            public void inputChanged( Viewer viewer, Object oldInput, Object newInput ) {
+            }
+        }
+
+        /** Label provider for the Combo box */
+        public class ComboLabelProvider  extends LabelProvider implements IBaseLabelProvider {
+       
+        }
+
+        public AttributesEditingSupport( ColumnViewer viewer, int column ) {
+            super( viewer );
+            this.column = column;
+
+            // Create the correct editor based on the column index
+            switch (column) {
+            case 0:
+                cellEditor = new TextCellEditor( ((TableViewer)viewer).getTable() );
+                break;
+            case 1:
+                ComboBoxViewerCellEditor comboCellEditor = new ComboBoxViewerCellEditor(
+                    ((TableViewer)viewer).getTable() );
+                comboCellEditor.setContenProvider( new ComboContentProvider() );
+                comboCellEditor.setLabelProvider( new ComboLabelProvider() );
+                // comboCellEditor.setInput( input );
+
+                break;
+            default:
+                cellEditor = null;
+            }
+        }
+
+        @Override
+        protected boolean canEdit( Object element ) {
+            return true;
+        }
+
+        @Override
+        protected CellEditor getCellEditor( Object element ) {
+            return this.cellEditor;
+        }
+
+        @Override
+        protected Object getValue( Object element ) {
+            AttributeDefinition attribute = (AttributeDefinition)element;
+            Object retVal = null;
+
+            switch (this.column) {
+            case 0:
+                retVal = attribute.getLongName();
+                break;
+            case 1:
+                // TODO: return name of
+                retVal = null;
+                break;
+            default:
+                break;
+            }
+            return retVal;
+        }
+
+        @Override
+        protected void setValue( Object element, Object value ) {
+            AttributeDefinition outdatedAttribute = (AttributeDefinition)element;
+
+            switch (this.column) {
+            case 0:
+                outdatedAttribute.setLongName( (String)value );
+                getViewer().update( element, null );
+                break;
+            case 1:
+                // TODO: Set refernce to selected data type
+                break;
+            default:
+                break;
+            }
+            getViewer().refresh();
+        }
+    }
+
     /**
-     * 
+     * Create Table viewer showing attributes
      */
     private void createTableViewer() {
 
@@ -145,10 +261,8 @@ public class AttributesForm extends AbstractTypesForm {
             columnLayout.setColumnData( column.getColumn(), new ColumnWeightData(
                 colWeigth[colNr],
                 colMinWidth[colNr] ) );
-            // TODO: enable editing support
-            // column.setEditingSupport( new DatatypesEditingSupport(
-            // tableViewer,
-            // colNr ) );
+
+            // column.setEditingSupport( new AttributesEditingSupport( tableViewer, colNr ) );
         }
 
         tableViewer.setContentProvider( new AttributesAdapterFactoryContentProvider( adapterFactory ) );

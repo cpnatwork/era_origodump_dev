@@ -34,7 +34,6 @@ import org.eclipse.swt.widgets.Text;
 import era.foss.rif.Identifiable;
 import era.foss.rif.RifPackage;
 import era.foss.rif.impl.RifFactoryImpl;
-import era.foss.rif.presentation.RifEditorPlugin;
 
 
 /**
@@ -48,7 +47,7 @@ public class AddDeleteTableViewer extends TableViewer {
     private Composite composite;
     private TableColumnLayout tableColumnLayout;
     
-    // The description field for the elements in the table
+    /** The description field for the elements in the table */
     Text descriptionText;
 
 
@@ -146,7 +145,7 @@ public class AddDeleteTableViewer extends TableViewer {
     {
         // Label for description
         Label descriptionLabel = new Label( composite, SWT.NONE );
-        descriptionLabel.setText(RifEditorPlugin.INSTANCE.getString( "_UI_Description_label")+ ":");
+        descriptionLabel.setText(era.foss.typeeditor.Activator.INSTANCE.getString( "_UI_Description_label")+ ":");
         descriptionLabel.setLayoutData( new GridData( SWT.LEFT, SWT.BOTTOM, true, true, 0, 0 ) );
         
         

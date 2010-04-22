@@ -1,9 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Typeeditor
+Bundle-Name: %pluginName
 Bundle-SymbolicName: era.foss.typeeditor;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: era.foss.typeeditor.Activator
+Bundle-ClassPath: .
+Bundle-Activator: era.foss.typeeditor.Activator$Implementation
+Export-Package: era.foss.typeeditor
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources;visibility:=reexport,
  era.foss.rif.edit;visibility:=reexport,
