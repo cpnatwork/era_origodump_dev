@@ -1,6 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Util Plug-in
+Bundle-Name: %pluginName
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
 Bundle-SymbolicName: era.foss.util
 Bundle-Version: 1.0.0.v200908040739
 Bundle-Activator: era.foss.util.plugin.Activator
