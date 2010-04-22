@@ -4,8 +4,6 @@ import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.ui.EclipseUIPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
 
-import era.foss.rif.presentation.RifEditorPlugin;
-
 /**
  * The activator class controls the plug-in life cycle
  */
@@ -17,7 +15,7 @@ public final class Activator extends EMFPlugin {
      * <!-- end-user-doc -->
      * @generated
      */
-    public static final RifEditorPlugin INSTANCE = new RifEditorPlugin();
+    public static final Activator INSTANCE = new Activator();
 
     /**
      * Keep track of the singleton.

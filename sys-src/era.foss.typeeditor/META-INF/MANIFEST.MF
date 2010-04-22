@@ -5,6 +5,9 @@ Bundle-SymbolicName: era.foss.typeeditor;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: era.foss.typeeditor.Activator$Implementation
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: era.foss.typeeditor
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources;visibility:=reexport,
@@ -15,4 +18,3 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  era.foss.rif.editor
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
