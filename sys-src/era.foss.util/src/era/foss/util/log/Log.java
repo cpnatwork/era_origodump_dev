@@ -8,7 +8,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.ui.statushandlers.StatusManager;
 
