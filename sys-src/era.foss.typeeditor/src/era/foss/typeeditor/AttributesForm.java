@@ -13,11 +13,11 @@ import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorPart;
 
@@ -26,7 +26,6 @@ import era.foss.rif.DatatypeDefinition;
 import era.foss.rif.SpecType;
 import era.foss.rif.impl.RifFactoryImpl;
 
-
 /**
  * Editor form for manipulating attributes.
  * 
@@ -34,11 +33,22 @@ import era.foss.rif.impl.RifFactoryImpl;
  */
 public class AttributesForm extends AbstractTypesForm {
 
- // for now the one and only spec type
+    // for now the one and only spec type
     private SpecType specType;
+
+    /**
+     * Table viewer holding the attributes of a spec type
+     */
+    private AddDeleteTableViewer tableViewer;
 
     public AttributesForm( Composite parent, IEditorPart editor ) {
         super( parent, editor, SWT.NONE );
+
+        // set-up layout
+        GridLayout gridLayout = new GridLayout( 2, true );
+        this.setLayout( gridLayout );
+
+        createTableViewer();
     }
 
     /**
@@ -48,23 +58,20 @@ public class AttributesForm extends AbstractTypesForm {
     @Override
     protected void constructorPreHook() {
         super.constructorPreHook();
-        if (rifModel.getCoreContent().getSpecTypes().size() == 0)
-        {
+        if( rifModel.getCoreContent().getSpecTypes().size() == 0 ) {
             Command addCommand = AddCommand.create( editingDomain,
                                                     rifModel.getCoreContent(),
                                                     null,
-                                                    RifFactoryImpl.eINSTANCE.createSpecType());
+                                                    RifFactoryImpl.eINSTANCE.createSpecType() );
             eraCommandStack.execute( addCommand );
         }
-        specType=(SpecType)rifModel.getCoreContent().getSpecTypes().get(0);
+        specType = (SpecType)rifModel.getCoreContent().getSpecTypes().get( 0 );
     }
 
-    
     /**
      * Provide data for table containing SpecTypes
      */
-    public class AttributesAdapterFactoryContentProvider extends
-            AdapterFactoryContentProvider {
+    public class AttributesAdapterFactoryContentProvider extends AdapterFactoryContentProvider {
         public AttributesAdapterFactoryContentProvider( AdapterFactory adapterFactory ) {
             super( adapterFactory );
             ((IChangeNotifier)adapterFactory).addListener( this );
@@ -85,8 +92,7 @@ public class AttributesForm extends AbstractTypesForm {
     /**
      * Provide label for data of table containing SpecTypes
      */
-    public class AttributesLabelProvider extends LabelProvider implements
-            ITableLabelProvider {
+    public class AttributesLabelProvider extends LabelProvider implements ITableLabelProvider {
 
         @Override
         public String getColumnText( Object element, int columnIndex ) {
@@ -97,13 +103,12 @@ public class AttributesForm extends AbstractTypesForm {
                 return attribute.getLongName();
             case 1:
                 DatatypeDefinition type = attribute.getType();
-                if(type == null){
+                if( type == null ) {
                     return "";
-                }
-                else {
+                } else {
                     return type.getLongName();
                 }
-                    
+
             default:
                 throw new RuntimeException( "Should not happen" );
             }
@@ -116,50 +121,40 @@ public class AttributesForm extends AbstractTypesForm {
     }
 
     /**
-     * @see era.foss.typeeditor.AbstractTypesForm#setupLeftSide()
-     * @since 17.03.2010
+     * 
      */
-    @Override
-    protected TableViewer setupLeftSide() {
+    private void createTableViewer() {
 
-        final AddDeleteTableViewer tableViewer = new AddDeleteTableViewer(
-            this,
-            SWT.MULTI | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
+        tableViewer = new AddDeleteTableViewer( this, SWT.MULTI | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
         tableViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
 
         tableViewer.setEditingDomain( editingDomain );
-        tableViewer.setAddCommandParameter( specType,
-                                            RifFactoryImpl.eINSTANCE.createAttributeDefinitionSimple().eClass() );
+        tableViewer.setAddCommandParameter( specType, RifFactoryImpl.eINSTANCE.createAttributeDefinitionSimple()
+                                                                              .eClass() );
         TableColumnLayout columnLayout = tableViewer.getTableColumnLayout();
-        String[] colTitles = {"Name","Datatype"};
-        int[] colMinWidth = {100,100};
-        int[] colWeigth = {50,50};
-        boolean[] colResize = {true,false};
+        String[] colTitles = {"Name", "Datatype"};
+        int[] colMinWidth = {100, 100};
+        int[] colWeigth = {50, 50};
+        boolean[] colResize = {true, false};
         for( int colNr = 0; colNr < colTitles.length; colNr++ ) {
 
-            TableViewerColumn column = new TableViewerColumn(
-                tableViewer,
-                SWT.NONE );
+            TableViewerColumn column = new TableViewerColumn( tableViewer, SWT.NONE );
             column.getColumn().setText( colTitles[colNr] );
             column.getColumn().setResizable( colResize[colNr] );
             column.getColumn().setMoveable( false );
-            columnLayout.setColumnData( column.getColumn(),
-                                        new ColumnWeightData(
-                                            colWeigth[colNr],
-                                           colMinWidth[colNr] ) );
+            columnLayout.setColumnData( column.getColumn(), new ColumnWeightData(
+                colWeigth[colNr],
+                colMinWidth[colNr] ) );
             // TODO: enable editing support
-            //column.setEditingSupport( new DatatypesEditingSupport(
-             //tableViewer,
-             //colNr ) );
+            // column.setEditingSupport( new DatatypesEditingSupport(
+            // tableViewer,
+            // colNr ) );
         }
 
-        tableViewer.setContentProvider( new AttributesAdapterFactoryContentProvider(
-            adapterFactory ) );
+        tableViewer.setContentProvider( new AttributesAdapterFactoryContentProvider( adapterFactory ) );
         tableViewer.setLabelProvider( new AttributesLabelProvider() );
 
         tableViewer.setInput( editingDomain.getResourceSet() );
-
-        return tableViewer;
     }
 
 }

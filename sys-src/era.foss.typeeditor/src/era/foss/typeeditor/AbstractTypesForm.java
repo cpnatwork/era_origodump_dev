@@ -11,10 +11,8 @@ import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IEditorPart;
@@ -79,35 +77,14 @@ public abstract class AbstractTypesForm extends Composite {
         this.eraCommandStack = (EraCommandStack)editingDomain.getCommandStack();
         this.adapterFactory = ((AdapterFactoryEditingDomain)editingDomain).getAdapterFactory();
 
-        // set-up layout
+
         this.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
-        GridLayout gridLayout = new GridLayout( 2, true );
-        this.setLayout( gridLayout );
 
         // allow derived classes to do pre initializations
         this.constructorPreHook();
-        // set up left side (= TableViewer)
-        TableViewer tableViewer = this.setupLeftSide();
-        // set up right side (= types' properties viewer) [need TableViewer]
-        this.setupRightSide( tableViewer );
     }
 
     protected void constructorPreHook() {
     };
-
-    abstract protected TableViewer setupLeftSide();
-
-    private void setupRightSide( TableViewer tableViewer ) {
-        TypePropertiesViewer typePropertiesViewer = new TypePropertiesViewer(
-            this,
-            this.editor,
-            tableViewer,
-            SWT.MULTI | SWT.V_SCROLL | SWT.FULL_SELECTION );
-        typePropertiesViewer.setLayoutData( new GridData(
-            SWT.FILL,
-            SWT.FILL,
-            true,
-            true ) );
-    }
 
 }

@@ -4,10 +4,8 @@
 
 package era.foss.typeeditor;
 
-import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.notify.AdapterFactory;
-import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
@@ -17,18 +15,13 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 
-import era.foss.rif.Identifiable;
-import era.foss.rif.RifPackage;
 import era.foss.rif.presentation.EraCommandStack;
 
 /**
@@ -42,8 +35,6 @@ public class TypePropertiesViewer extends Composite {
     protected EraCommandStack eraCommandStack = null;
 
     private IStructuredSelection selection = null;
-
-    private Text descriptionText = null;
     private PropertySheetPage propertySheetPage = null;
 
     /**
@@ -70,51 +61,18 @@ public class TypePropertiesViewer extends Composite {
         GridLayout gridLayout = new GridLayout( 2, true );
         this.setLayout( gridLayout );
 
-        // Text widget for the general Description attribute of any RIF-Identifiable
-        descriptionText = new Text( this, SWT.BORDER );
-        descriptionText.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true, 2, 0 ) );
-        descriptionText.setEditable( false );
 
-        // Listener: absorb Text modification into model
-        descriptionText.addModifyListener( new ModifyListener() {
-            @Override
-            public void modifyText( ModifyEvent e ) {
-                assert (TypePropertiesViewer.this.selection != null);
-                Identifiable identifiable = (Identifiable)TypePropertiesViewer.this.selection.getFirstElement();
-                Command command = SetCommand.create( editingDomain,
-                                                     identifiable,
-                                                     RifPackage.eINSTANCE.getIdentifiable_Desc(),
-                                                     descriptionText.getText() );
-                TypePropertiesViewer.this.eraCommandStack.execute( command );
-            }
-        } );
 
-        // Listener: selection change (left side => update Text widget for newly focused RIF-Identifiable's description)
-        modelTableViewer.addSelectionChangedListener( new ISelectionChangedListener() {
-            public void selectionChanged( SelectionChangedEvent event ) {
-                TypePropertiesViewer.this.selection = (IStructuredSelection)event.getSelection();
-                if( TypePropertiesViewer.this.selection.isEmpty() ) {
-                    descriptionText.setText( "" );
-                    descriptionText.setEditable( false );
-                    return;
-                }
-                Identifiable identifiable = (Identifiable)TypePropertiesViewer.this.selection.getFirstElement();
-                descriptionText.setText( identifiable.getDesc() );
-                descriptionText.setEditable( true );
-                descriptionText.redraw();
-            }
-        } );
-
-        propertySheetPage = new PropertySheetPage() {
-        };
+        propertySheetPage = new PropertySheetPage();
         // XXX: first try to filter was a specialized impl of PropSheetPage ...
 //        propertySheetPage = new EraFilteredPropertySheetPage() {
 //        };
+        Composite propertySheetPageComposite = new Composite( this, SWT.BORDER );
+        propertySheetPageComposite.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true, 2, 0 ) );
+        propertySheetPageComposite.setLayout( new FillLayout() );
         propertySheetPage.setPropertySourceProvider( new AdapterFactoryContentProvider( adapterFactory ) );
-        propertySheetPage.createControl( this );
-        Control control = propertySheetPage.getControl();
-        control.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true, 2, 0 ) );
-
+        propertySheetPage.createControl( propertySheetPageComposite);
+        
         modelTableViewer.addSelectionChangedListener( new ISelectionChangedListener() {
             public void selectionChanged( SelectionChangedEvent event ) {
                 TypePropertiesViewer.this.selection = (IStructuredSelection)event.getSelection();

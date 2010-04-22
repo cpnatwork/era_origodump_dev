@@ -7,13 +7,18 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
+import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.layout.TableColumnLayout;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -22,9 +27,14 @@ import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.Text;
 
+import era.foss.rif.Identifiable;
+import era.foss.rif.RifPackage;
 import era.foss.rif.impl.RifFactoryImpl;
+import era.foss.rif.presentation.RifEditorPlugin;
 
 
 /**
@@ -37,6 +47,9 @@ public class AddDeleteTableViewer extends TableViewer {
     // buttons
     private Composite composite;
     private TableColumnLayout tableColumnLayout;
+    
+    // The description field for the elements in the table
+    Text descriptionText;
 
 
     private Composite tableComposite;
@@ -104,6 +117,8 @@ public class AddDeleteTableViewer extends TableViewer {
         // pack button bar and table into parent composite
         composite.setLayout( new GridLayout( 1, false ) );
         createButtonBar();
+        
+        createDescriptionField();
 
         // set table attributes
         table.setHeaderVisible( true );
@@ -125,7 +140,53 @@ public class AddDeleteTableViewer extends TableViewer {
             }
         } );
     }
-
+    
+    
+    private void createDescriptionField()
+    {
+        // Label for description
+        Label descriptionLabel = new Label( composite, SWT.NONE );
+        descriptionLabel.setText(RifEditorPlugin.INSTANCE.getString( "_UI_Description_label")+ ":");
+        descriptionLabel.setLayoutData( new GridData( SWT.LEFT, SWT.BOTTOM, true, true, 0, 0 ) );
+        
+        
+        // Text widget for the general Description attribute of any RIF-Identifiable
+        descriptionText = new Text( composite, SWT.BORDER );
+        descriptionText.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true, 0, 0 ) );
+        descriptionText.setEditable( false );
+        
+        
+        // Listener: absorb Text modification into model
+        descriptionText.addModifyListener( new ModifyListener() {
+            public void modifyText( ModifyEvent e ) {
+                IStructuredSelection selection= (IStructuredSelection)AddDeleteTableViewer.this.getSelection();
+                assert (selection != null);
+                Identifiable identifiable = (Identifiable) selection.getFirstElement();
+                Command command = SetCommand.create( editingDomain,
+                                                     identifiable,
+                                                     RifPackage.eINSTANCE.getIdentifiable_Desc(),
+                                                     descriptionText.getText() );
+                editingDomain.getCommandStack().execute( command );
+            }
+        } );
+        
+        
+        // Listener: selection change (left side => update Text widget for newly focused RIF-Identifiable's description)
+        this.addSelectionChangedListener( new ISelectionChangedListener() {
+            public void selectionChanged( SelectionChangedEvent event ) {
+                IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+                if( selection.isEmpty() ) {
+                    descriptionText.setText( "" );
+                    descriptionText.setEditable( false );
+                    return;
+                }
+                Identifiable identifiable = (Identifiable) selection.getFirstElement();
+                descriptionText.setText( identifiable.getDesc() );
+                descriptionText.setEditable( true );
+                descriptionText.redraw();
+            }
+        } );
+    }
     /**
      * Create a button bar holding the Add and Remove Button
      */

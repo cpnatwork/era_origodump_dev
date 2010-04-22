@@ -31,6 +31,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorPart;
 
@@ -60,10 +61,32 @@ final public class DataTypesForm extends AbstractTypesForm {
      * order as in list {@link supportedDataTypeNames}
      * */
     private List<EClass> supportedDataTypesClasses;
+    
+    /**
+     * Table viewer containing the datatype definitions
+     */
+    private AddDeleteTableViewer tableViewer;
 
     public DataTypesForm( Composite parent, IEditorPart editor ) {
         super( parent, editor, SWT.NONE );
-
+        
+        // set-up layout
+        GridLayout gridLayout = new GridLayout( 2, true );
+        this.setLayout( gridLayout );
+        
+        createTableViewer();
+        
+        // setup property viewer
+        TypePropertiesViewer typePropertiesViewer = new TypePropertiesViewer(
+                                                                             this,
+                                                                             this.editor,
+                                                                             tableViewer,
+                                                                             SWT.MULTI | SWT.V_SCROLL | SWT.FULL_SELECTION );
+                                                                         typePropertiesViewer.setLayoutData( new GridData(
+                                                                             SWT.FILL,
+                                                                             SWT.FILL,
+                                                                             true,
+                                                                             true ) );
     }
 
     public class DatatypesEditingSupport extends EditingSupport {
@@ -256,14 +279,10 @@ final public class DataTypesForm extends AbstractTypesForm {
         }
     }
 
-    /**
-     * @see era.foss.typeeditor.AbstractTypesForm#setupLeftSide()
-     * @since 17.03.2010
-     */
-    @Override
-    protected TableViewer setupLeftSide() {
 
-        final AddDeleteTableViewer tableViewer = new AddDeleteTableViewer(
+    private void createTableViewer() {
+
+        tableViewer = new AddDeleteTableViewer(
             this,
             SWT.MULTI | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
         tableViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
@@ -300,7 +319,6 @@ final public class DataTypesForm extends AbstractTypesForm {
 
         tableViewer.setInput( editingDomain.getResourceSet() );
 
-        return tableViewer;
     }
 
     private String getDataTypeName( Object dataType ) {
