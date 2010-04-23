@@ -35,7 +35,6 @@ import era.foss.rif.Identifiable;
 import era.foss.rif.RifPackage;
 import era.foss.rif.impl.RifFactoryImpl;
 
-
 /**
  * @author schorsch
  * 
@@ -46,10 +45,9 @@ public class AddDeleteTableViewer extends TableViewer {
     // buttons
     private Composite composite;
     private TableColumnLayout tableColumnLayout;
-    
+
     /** The description field for the elements in the table */
     Text descriptionText;
-
 
     private Composite tableComposite;
     private Table table;
@@ -94,12 +92,12 @@ public class AddDeleteTableViewer extends TableViewer {
         // XXX: stomach ache
         super( new Composite( new Composite( parent, SWT.NONE ), SWT.NONE ), style );
         table = this.getTable();
-        
+
         // get composite for table column layout
         tableComposite = table.getParent();
 
         // get composite for buttons and table
-        composite= tableComposite.getParent();
+        composite = tableComposite.getParent();
         layoutComposite();
     }
 
@@ -107,16 +105,16 @@ public class AddDeleteTableViewer extends TableViewer {
      * layout the Composite
      */
     private void layoutComposite() {
-        
+
         // set column layout of table composite
         tableColumnLayout = new TableColumnLayout();
-        tableComposite.setLayout(tableColumnLayout);
+        tableComposite.setLayout( tableColumnLayout );
         tableComposite.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
-        
+
         // pack button bar and table into parent composite
         composite.setLayout( new GridLayout( 1, false ) );
         createButtonBar();
-        
+
         createDescriptionField();
 
         // set table attributes
@@ -134,58 +132,60 @@ public class AddDeleteTableViewer extends TableViewer {
 
             @Override
             public void keyReleased( KeyEvent e ) {
-                // TODO Auto-generated method stub
-
+                /* do nothing */             
             }
         } );
     }
-    
-    
-    private void createDescriptionField()
-    {
+
+    private void createDescriptionField() {
+
         // Label for description
         Label descriptionLabel = new Label( composite, SWT.NONE );
-        descriptionLabel.setText(era.foss.typeeditor.Activator.INSTANCE.getString( "_UI_Description_label")+ ":");
+        descriptionLabel.setText( era.foss.typeeditor.Activator.INSTANCE.getString( "_UI_Description_label" ) + ":" );
         descriptionLabel.setLayoutData( new GridData( SWT.LEFT, SWT.BOTTOM, true, true, 0, 0 ) );
-        
-        
+
         // Text widget for the general Description attribute of any RIF-Identifiable
         descriptionText = new Text( composite, SWT.BORDER );
         descriptionText.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true, 0, 0 ) );
         descriptionText.setEditable( false );
-        
-        
+
         // Listener: absorb Text modification into model
         descriptionText.addModifyListener( new ModifyListener() {
             public void modifyText( ModifyEvent e ) {
-                IStructuredSelection selection= (IStructuredSelection)AddDeleteTableViewer.this.getSelection();
-                assert (selection != null);
-                Identifiable identifiable = (Identifiable) selection.getFirstElement();
-                Command command = SetCommand.create( editingDomain,
-                                                     identifiable,
-                                                     RifPackage.eINSTANCE.getIdentifiable_Desc(),
-                                                     descriptionText.getText() );
-                editingDomain.getCommandStack().execute( command );
+                if( descriptionText.isEnabled()) {
+                    IStructuredSelection selection = (IStructuredSelection)AddDeleteTableViewer.this.getSelection();
+                    assert (selection != null);
+                    Identifiable identifiable = (Identifiable)selection.getFirstElement();
+                    Command command = SetCommand.create( editingDomain,
+                                                         identifiable,
+                                                         RifPackage.eINSTANCE.getIdentifiable_Desc(),
+                                                         descriptionText.getText() );
+                    editingDomain.getCommandStack().execute( command );
+                }
             }
+
         } );
-        
-        
+
         // Listener: selection change (left side => update Text widget for newly focused RIF-Identifiable's description)
         this.addSelectionChangedListener( new ISelectionChangedListener() {
             public void selectionChanged( SelectionChangedEvent event ) {
-                IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+                
+                descriptionText.setEnabled( false );
+                descriptionText.setEditable( false );
+                IStructuredSelection selection = (IStructuredSelection)event.getSelection();
                 if( selection.isEmpty() ) {
-                    descriptionText.setText( "" );
-                    descriptionText.setEditable( false );
+                    descriptionText.setText( "" );       
                     return;
                 }
-                Identifiable identifiable = (Identifiable) selection.getFirstElement();
+                Identifiable identifiable = (Identifiable)selection.getFirstElement();
                 descriptionText.setText( identifiable.getDesc() );
+                descriptionText.setEnabled( true );
                 descriptionText.setEditable( true );
                 descriptionText.redraw();
             }
         } );
     }
+
     /**
      * Create a button bar holding the Add and Remove Button
      */
@@ -277,9 +277,10 @@ public class AddDeleteTableViewer extends TableViewer {
         }
 
     }
-    
+
     /**
      * Get the column layout assigned to the table
+     * 
      * @return column layout assigned to the table
      */
     public TableColumnLayout getTableColumnLayout() {

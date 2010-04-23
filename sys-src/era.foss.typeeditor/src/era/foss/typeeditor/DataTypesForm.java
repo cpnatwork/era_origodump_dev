@@ -14,7 +14,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.CommandParameter;
 import org.eclipse.emf.edit.command.RemoveCommand;
-import org.eclipse.emf.edit.provider.IChangeNotifier;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.CellEditor;
@@ -61,7 +60,7 @@ final public class DataTypesForm extends AbstractTypesForm {
      * order as in list {@link supportedDataTypeNames}
      * */
     private List<EClass> supportedDataTypesClasses;
-    
+
     /**
      * Table viewer containing the datatype definitions
      */
@@ -69,24 +68,20 @@ final public class DataTypesForm extends AbstractTypesForm {
 
     public DataTypesForm( Composite parent, IEditorPart editor ) {
         super( parent, editor, SWT.NONE );
-        
+
         // set-up layout
         GridLayout gridLayout = new GridLayout( 2, true );
         this.setLayout( gridLayout );
-        
+
         createTableViewer();
-        
+
         // setup property viewer
         TypePropertiesViewer typePropertiesViewer = new TypePropertiesViewer(
-                                                                             this,
-                                                                             this.editor,
-                                                                             tableViewer,
-                                                                             SWT.MULTI | SWT.V_SCROLL | SWT.FULL_SELECTION );
-                                                                         typePropertiesViewer.setLayoutData( new GridData(
-                                                                             SWT.FILL,
-                                                                             SWT.FILL,
-                                                                             true,
-                                                                             true ) );
+            this,
+            this.editor,
+            tableViewer,
+            SWT.MULTI | SWT.V_SCROLL | SWT.FULL_SELECTION );
+        typePropertiesViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
     }
 
     public class DatatypesEditingSupport extends EditingSupport {
@@ -100,8 +95,7 @@ final public class DataTypesForm extends AbstractTypesForm {
             // Create the correct editor based on the column index
             switch (column) {
             case 0:
-                cellEditor = new TextCellEditor(
-                    ((TableViewer)viewer).getTable() );
+                cellEditor = new TextCellEditor( ((TableViewer)viewer).getTable() );
                 break;
             case 1:
                 cellEditor = new ComboBoxCellEditor(
@@ -150,11 +144,15 @@ final public class DataTypesForm extends AbstractTypesForm {
 
             switch (this.column) {
             case 0:
-                outdatedDataType.setLongName( (String)value );
-                getViewer().update( element, null );
+                
+                // only update data model in case the value has changed
+                if (! outdatedDataType.getLongName().equals( value )){
+                    outdatedDataType.setLongName( (String)value );
+                    getViewer().update( element, null );
+                }          
                 break;
             case 1:
-                
+
                 String dataTypeNameCurrent = getDataTypeName( outdatedDataType );
                 String dataTypeNameNew = ((CCombo)this.cellEditor.getControl()).getItem( (Integer)value );
 
@@ -175,15 +173,14 @@ final public class DataTypesForm extends AbstractTypesForm {
 
                 // Remove Command:
                 // remove old data type
-                Command removeCommand = RemoveCommand.create( editingDomain,
-                                                              outdatedDataType );
+                Command removeCommand = RemoveCommand.create( editingDomain, outdatedDataType );
 
                 // Add Command:
                 // Get index of old data type (in order to add it at the same position)
 
                 // FIXME: Is this assumption really, really true?
                 RIFContent dataTypeParent = ((RIFContent)editingDomain.getParent( outdatedDataType ));
-                assert(dataTypeParent == rifModel.getCoreContent());
+                assert (dataTypeParent == rifModel.getCoreContent());
                 Command addCommand = AddCommand.create( editingDomain,
                                                         dataTypeParent,
                                                         null,
@@ -193,28 +190,18 @@ final public class DataTypesForm extends AbstractTypesForm {
                 // Execute both commands
                 eraCommandStack.execute( removeCommand );
                 eraCommandStack.execute( addCommand );
-
+                getViewer().refresh();
                 break;
             default:
                 break;
             }
-            getViewer().refresh();
+            
         }
     }
 
-    public class DatatypesAdapterFactoryContentProvider extends
-            AdapterFactoryContentProvider {
+    public class DatatypesAdapterFactoryContentProvider extends AdapterFactoryContentProvider {
         public DatatypesAdapterFactoryContentProvider( AdapterFactory adapterFactory ) {
             super( adapterFactory );
-            /*
-             * TODO: At the moment we are not quite sure if we need this. - Data type editor does not require
-             * information of other parts of the model.
-             * 
-             * - The Type Editor shall be a modal dialog therefore the data types can't be updated anywhere else
-             * 
-             * In this special case it might be sufficient to implement @IStructuredContentProvider
-             */
-            ((IChangeNotifier)adapterFactory).addListener( this );
         }
 
         public Object[] getElements( Object object ) {
@@ -229,8 +216,7 @@ final public class DataTypesForm extends AbstractTypesForm {
         }
     }
 
-    public class DatatypesLabelProvider extends LabelProvider implements
-            ITableLabelProvider {
+    public class DatatypesLabelProvider extends LabelProvider implements ITableLabelProvider {
 
         @Override
         public String getColumnText( Object element, int columnIndex ) {
@@ -279,42 +265,35 @@ final public class DataTypesForm extends AbstractTypesForm {
         }
     }
 
-
     private void createTableViewer() {
 
-        tableViewer = new AddDeleteTableViewer(
-            this,
-            SWT.MULTI | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
+        tableViewer = new AddDeleteTableViewer( this, SWT.MULTI | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
         tableViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
 
         tableViewer.setEditingDomain( editingDomain );
         tableViewer.setAddCommandParameter( rifModel.getCoreContent(),
-                                            RifFactoryImpl.eINSTANCE.createDatatypeDefinitionInteger()
-                                                                    .eClass() );
-        TableColumnLayout columnLayout= tableViewer.getTableColumnLayout();
+                                            RifFactoryImpl.eINSTANCE.createDatatypeDefinitionInteger().eClass() );
+        TableColumnLayout columnLayout = tableViewer.getTableColumnLayout();
         String[] colTitles = {"Name", "Type"};
         int[] colMinWidth = {100, 50};
         int[] colWeigth = {70, 30};
         boolean[] colResize = {true, false};
         for( int colNr = 0; colNr < colTitles.length; colNr++ ) {
 
-            TableViewerColumn column = new TableViewerColumn(
-                tableViewer,
-                SWT.NONE );
+            TableViewerColumn column = new TableViewerColumn( tableViewer, SWT.NONE );
             column.getColumn().setText( colTitles[colNr] );
             column.getColumn().setResizable( colResize[colNr] );
             column.getColumn().setMoveable( false );
-            columnLayout.setColumnData(column.getColumn(), new ColumnWeightData(colWeigth[colNr], colMinWidth[colNr]));
+            columnLayout.setColumnData( column.getColumn(), new ColumnWeightData(
+                colWeigth[colNr],
+                colMinWidth[colNr] ) );
             // enable editing support
-            column.setEditingSupport( new DatatypesEditingSupport(
-                tableViewer,
-                colNr ) );
+            column.setEditingSupport( new DatatypesEditingSupport( tableViewer, colNr ) );
         }
 
         tableViewer.setColumnProperties( new String[]{"a", "b", "c"} );
 
-        tableViewer.setContentProvider( new DatatypesAdapterFactoryContentProvider(
-            adapterFactory ) );
+        tableViewer.setContentProvider( new DatatypesAdapterFactoryContentProvider( adapterFactory ) );
         tableViewer.setLabelProvider( new DatatypesLabelProvider() );
 
         tableViewer.setInput( editingDomain.getResourceSet() );
@@ -324,9 +303,6 @@ final public class DataTypesForm extends AbstractTypesForm {
     private String getDataTypeName( Object dataType ) {
         // get the text specified in the resource file of the edit plugin
         // for this data type
-        return dataTypesProvider.getCreateChildText( dataType,
-                                                     null,
-                                                     dataType,
-                                                     null );
+        return dataTypesProvider.getCreateChildText( dataType, null, dataType, null );
     }
 }
