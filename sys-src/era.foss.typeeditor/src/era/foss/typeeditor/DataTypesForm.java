@@ -29,6 +29,7 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -111,8 +112,8 @@ final public class DataTypesForm extends AbstractTypesForm {
             this,
             this.editor,
             tableViewer,
-            SWT.MULTI | SWT.V_SCROLL | SWT.FULL_SELECTION );
-        typePropertiesViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
+            SWT.MULTI | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER );
+        typePropertiesViewer.setLayout( new FillLayout() );
     }
 
     public class DatatypesEditingSupport extends EditingSupport {
