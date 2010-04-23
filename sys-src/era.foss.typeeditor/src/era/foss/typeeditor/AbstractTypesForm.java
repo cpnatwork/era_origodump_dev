@@ -66,25 +66,16 @@ public abstract class AbstractTypesForm extends Composite {
     public AbstractTypesForm( Composite parent, IEditorPart editor, int style ) {
         super( parent, style );
 
-        // set-up context
         this.editor = editor;
         this.editingDomain = (AdapterFactoryEditingDomain)((IEditingDomainProvider)editor).getEditingDomain();
         this.rifResource = (XMIResource)editingDomain.getResourceSet()
-                                                     .getResource( EditUIUtil.getURI( editor.getEditorInput() ),
-                                                                   true );
+                                                     .getResource( EditUIUtil.getURI( editor.getEditorInput() ), true );
         this.rifModel = (RIF)(rifResource).getContents().get( 0 );
 
         this.eraCommandStack = (EraCommandStack)editingDomain.getCommandStack();
         this.adapterFactory = ((AdapterFactoryEditingDomain)editingDomain).getAdapterFactory();
 
-
         this.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
-
-        // allow derived classes to do pre initializations
-        this.constructorPreHook();
     }
-
-    protected void constructorPreHook() {
-    };
 
 }

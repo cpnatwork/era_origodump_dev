@@ -15,10 +15,13 @@ import org.eclipse.ui.IEditorPart;
 import era.foss.rif.presentation.EraCommandStack;
 
 /**
- * A simple input dialog for soliciting an input string from the user.
+ * The topmost UI class of the typeeditor plug-in: representing the overall dialog.
  * <p>
- * This concrete dialog class can be instantiated as is, or further subclassed as required.
- * </p>
+ * Structured by a tab folder for which it instantiates forms for DatatypeDefinitions and SpecificationTypes.
+ * <p>
+ * Instantiates the {@link EraCommandStack} for handling the OK and Cancel buttons.
+ * 
+ * @author cpn
  */
 public class TypeDialog extends Dialog {
 
@@ -73,7 +76,7 @@ public class TypeDialog extends Dialog {
         Control[] listOfControls = {
             new DataTypesForm( typeEditorTabFolder, this.editor ),
             new AttributesForm( typeEditorTabFolder, this.editor )};
-        String[] listOfTabLabels = {"Datatypes", "Attributes", "Specification Types"};
+        String[] listOfTabLabels = {"Datatypes", "(Sole) Specification Type"};
         TabItem additionalTabItem = null;
         for( int iter = 0; iter < listOfControls.length; ++iter ) {
             additionalTabItem = new TabItem( typeEditorTabFolder, SWT.NONE );

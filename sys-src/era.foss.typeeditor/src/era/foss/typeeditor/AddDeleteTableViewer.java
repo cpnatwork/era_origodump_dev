@@ -36,8 +36,14 @@ import era.foss.rif.RifPackage;
 import era.foss.rif.impl.RifFactoryImpl;
 
 /**
- * @author schorsch
+ * A TableViewer with Add and Delete buttons.
+ * <p>
+ * Integrates layout and a Composite for the button bar.
+ * <p>
+ * Actually, this should be a generic UI widget. But now it is not any more. A description field was added, which is
+ * bound to the basic {@link Identifiable} element from the RIF model.
  * 
+ * @author schorsch
  */
 public class AddDeleteTableViewer extends TableViewer {
 
@@ -132,7 +138,7 @@ public class AddDeleteTableViewer extends TableViewer {
 
             @Override
             public void keyReleased( KeyEvent e ) {
-                /* do nothing */             
+                /* do nothing */
             }
         } );
     }
@@ -152,7 +158,7 @@ public class AddDeleteTableViewer extends TableViewer {
         // Listener: absorb Text modification into model
         descriptionText.addModifyListener( new ModifyListener() {
             public void modifyText( ModifyEvent e ) {
-                if( descriptionText.isEnabled()) {
+                if( descriptionText.isEnabled() ) {
                     IStructuredSelection selection = (IStructuredSelection)AddDeleteTableViewer.this.getSelection();
                     assert (selection != null);
                     Identifiable identifiable = (Identifiable)selection.getFirstElement();
@@ -169,12 +175,12 @@ public class AddDeleteTableViewer extends TableViewer {
         // Listener: selection change (left side => update Text widget for newly focused RIF-Identifiable's description)
         this.addSelectionChangedListener( new ISelectionChangedListener() {
             public void selectionChanged( SelectionChangedEvent event ) {
-                
+
                 descriptionText.setEnabled( false );
                 descriptionText.setEditable( false );
                 IStructuredSelection selection = (IStructuredSelection)event.getSelection();
                 if( selection.isEmpty() ) {
-                    descriptionText.setText( "" );       
+                    descriptionText.setText( "" );
                     return;
                 }
                 Identifiable identifiable = (Identifiable)selection.getFirstElement();

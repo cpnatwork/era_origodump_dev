@@ -25,6 +25,10 @@ import org.eclipse.ui.views.properties.PropertySheetPage;
 import era.foss.rif.presentation.EraCommandStack;
 
 /**
+ * The properties viewer for the era types ...
+ * <p>
+ * FIXME
+ * 
  * 
  * @author cpn
  */

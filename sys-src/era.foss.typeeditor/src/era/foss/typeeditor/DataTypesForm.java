@@ -41,7 +41,19 @@ import era.foss.rif.impl.RifFactoryImpl;
 import era.foss.rif.provider.DatatypeDefinitionItemProvider;
 
 /**
- * Editor form for manipulating data types.
+ * A form for editing {@link DatatypeDefinition}s.
+ * <p>
+ * Presents the list of {@link DatatypeDefinition}s in form of an {@link AddDeleteTableViewer}. Each
+ * {@link DatatypeDefinition} is presented as row which consists of a user-defined long name and its model-based class
+ * name. On row selection the description property of a {@link DatatypeDefinition} can be edited.
+ * <p>
+ * A properties viewer for any additional {@link DatatypeDefinition} attributes is instantiated.
+ * <p>
+ * The inner class {@link .DatatypesAdapterFactoryContentProvider} is registered to the {@link AddDeleteTableViewer} and
+ * extracts all {@link DatatypeDefinition} elements from the RIF model -- by the model reference named "dataTypes".
+ * <p>
+ * The inner class {@link .DatatypesLabelProvider} is registered to the {@link AddDeleteTableViewer} and provides the
+ * cell values from the {@link DatatypeDefinition} element.
  * 
  * @author cpn
  * 
@@ -66,9 +78,28 @@ final public class DataTypesForm extends AbstractTypesForm {
      */
     private AddDeleteTableViewer tableViewer;
 
+    @SuppressWarnings("unchecked")
     public DataTypesForm( Composite parent, IEditorPart editor ) {
         super( parent, editor, SWT.NONE );
 
+        // set-up item provider for DatatypeDefinition items
+        // used for accessing information stored in the edit plugin
+        dataTypesProvider = new DatatypeDefinitionItemProvider( adapterFactory );
+
+        // Get Information about supported DatatypeDefintions
+        // FIXME: replace this by new ComboBox thingies
+        supportedDataTypesClasses = new ArrayList<EClass>();
+        supportedDataTypeNames = new ArrayList<String>();
+        Collection<CommandParameter> descriptors = (Collection<CommandParameter>)editingDomain.getNewChildDescriptors( rifModel.getCoreContent(),
+                                                                                                                       null );
+        for( CommandParameter descriptor : descriptors ) {
+            if( descriptor.value instanceof DatatypeDefinitionImpl ) {
+                DatatypeDefinitionImpl dataType = (DatatypeDefinitionImpl)descriptor.value;
+                supportedDataTypesClasses.add( dataType.eClass() );
+                supportedDataTypeNames.add( getDataTypeName( dataType ) );
+            }
+        }
+        
         // set-up layout
         GridLayout gridLayout = new GridLayout( 2, true );
         this.setLayout( gridLayout );
@@ -206,11 +237,11 @@ final public class DataTypesForm extends AbstractTypesForm {
 
         public Object[] getElements( Object object ) {
 
-            Object[] objects;
+            DatatypeDefinition[] objects;
             try {
-                objects = rifModel.getCoreContent().getDataTypes().toArray();
+                objects = (DatatypeDefinition[]) rifModel.getCoreContent().getDataTypes().toArray();
             } catch( NullPointerException e ) {
-                objects = new Object[0];
+                objects = new DatatypeDefinition[0];
             }
             return objects;
         }
@@ -235,33 +266,6 @@ final public class DataTypesForm extends AbstractTypesForm {
         @Override
         public Image getColumnImage( Object element, int columnIndex ) {
             return null;
-        }
-    }
-
-    /**
-     * @see era.foss.typeeditor.AbstractTypesForm#constructorPreHook()
-     * @since 17.03.2010
-     */
-    @SuppressWarnings("unchecked")
-    @Override
-    protected void constructorPreHook() {
-        super.constructorPreHook();
-
-        // Setup item provider for DatatypeDefinition items
-        // used for accessing information stored in the edit plugin
-        dataTypesProvider = new DatatypeDefinitionItemProvider( adapterFactory );
-
-        // Get Information about supported DatatypeDefintions
-        supportedDataTypesClasses = new ArrayList<EClass>();
-        supportedDataTypeNames = new ArrayList<String>();
-        Collection<CommandParameter> descriptors = (Collection<CommandParameter>)editingDomain.getNewChildDescriptors( rifModel.getCoreContent(),
-                                                                                                                       null );
-        for( CommandParameter descriptor : descriptors ) {
-            if( descriptor.value instanceof DatatypeDefinitionImpl ) {
-                DatatypeDefinitionImpl dataType = (DatatypeDefinitionImpl)descriptor.value;
-                supportedDataTypesClasses.add( dataType.eClass() );
-                supportedDataTypeNames.add( getDataTypeName( dataType ) );
-            }
         }
     }
 
