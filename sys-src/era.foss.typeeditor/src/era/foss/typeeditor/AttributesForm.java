@@ -22,6 +22,7 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
@@ -34,7 +35,6 @@ import era.foss.rif.AttributeDefinitionSimple;
 import era.foss.rif.AttributeValueSimple;
 import era.foss.rif.DatatypeDefinition;
 import era.foss.rif.SpecType;
-import era.foss.rif.impl.DatatypeDefinitionImpl;
 import era.foss.rif.impl.RifFactoryImpl;
 
 /**
@@ -66,20 +66,25 @@ public class AttributesForm extends AbstractTypesForm {
     // for now the one and only spec type
     private SpecType specType;
 
-    /** Content Provider for ComboBox holding reference to Datatype */
-    private ComboContentProvider comboBoxContentProvider;
-    /** Label Provider for ComboBox holding reference to Datatype */
-    private ComboLabelProvider comboBoxLabelProvider;
-
     /**
      * Table viewer holding the attributes of a spec type
      */
     private AddDeleteTableViewer tableViewer;
 
+    /** Content provider for {@link #tableViewer} */
+    private AttributesContentProvider attributesContentProvider;
+    /** Label provider for {@link #tableViewer} */
+    private AttributesLabelProvider attributesLabelProvider;
+
+    /**
+     * Label Provider for ComboBox in {@link #tableViewer} holding reference to Datatype
+     */
+    private ComboLabelProvider comboBoxLabelProvider;
+
     public AttributesForm( Composite parent, IEditorPart editor ) {
         super( parent, editor, SWT.NONE );
 
-        // check for and eventually initialize the sole SpecType 
+        // check for and eventually initialize the sole SpecType
         if( rifModel.getCoreContent().getSpecTypes().size() == 0 ) {
             Command addCommand = AddCommand.create( editingDomain,
                                                     rifModel.getCoreContent(),
@@ -88,23 +93,21 @@ public class AttributesForm extends AbstractTypesForm {
             eraCommandStack.execute( addCommand );
         }
         specType = (SpecType)rifModel.getCoreContent().getSpecTypes().get( 0 );
-        
-        // wire the ComboBox structure
-        comboBoxContentProvider = new ComboContentProvider( adapterFactory );
-        comboBoxLabelProvider = new ComboLabelProvider();
 
         // set-up layout
         GridLayout gridLayout = new GridLayout( 1, true );
         this.setLayout( gridLayout );
 
+        // set up table viewer for attribute definitions
         createTableViewer();
+
     }
 
     /**
      * Provide data for table containing Attribute definitions of spec types
      */
-    public class AttributesAdapterFactoryContentProvider extends AdapterFactoryContentProvider {
-        public AttributesAdapterFactoryContentProvider( AdapterFactory adapterFactory ) {
+    public class AttributesContentProvider extends AdapterFactoryContentProvider {
+        public AttributesContentProvider( AdapterFactory adapterFactory ) {
             super( adapterFactory );
             ((IChangeNotifier)adapterFactory).addListener( this );
         }
@@ -167,31 +170,34 @@ public class AttributesForm extends AbstractTypesForm {
      * Content provider for the combo box
      */
     public class ComboContentProvider extends AdapterFactoryContentProvider {
-        public ComboContentProvider( AdapterFactory adapterFactory ) {
+
+        public ComboContentProvider( AdapterFactory adapterFactory, Viewer viewer ) {
             super( adapterFactory );
+            this.viewer = viewer;
         }
 
         // get elements which are show in the combobox
         public Object[] getElements( Object object ) {
 
-            Object[] objects;
+            DatatypeDefinition[] dataTypes;
             try {
-                objects = rifModel.getCoreContent().getDataTypes().toArray();
+                dataTypes = (DatatypeDefinition[]) rifModel.getCoreContent().getDataTypes().toArray();
             } catch( NullPointerException e ) {
-                objects = new Object[0];
+                dataTypes = new DatatypeDefinition[0];
             }
-            return objects;
+            return dataTypes;
         }
 
         // listen on changes of Datatype definitions
         @Override
         public void notifyChanged( Notification notification ) {
             super.notifyChanged( notification );
-            /*
-             * XXX: Maybe there is a way to create an adapter factory which only adapts to Datatype Defintions. This way
-             * we won't have to filter all the other events here
-             */
-            if( (notification.getNotifier() instanceof DatatypeDefinitionImpl) ) {
+
+            // handle changes of a data type definition
+            if( (notification.getNotifier() instanceof DatatypeDefinition)
+                || (notification.getNewValue() instanceof DatatypeDefinition)
+                || (notification.getOldValue() instanceof DatatypeDefinition) ) {
+                viewer.refresh();
                 tableViewer.refresh();
             }
         }
@@ -230,7 +236,10 @@ public class AttributesForm extends AbstractTypesForm {
             case 1:
                 ComboBoxViewerCellEditor comboCellEditor = new ComboBoxViewerCellEditor(
                     ((TableViewer)viewer).getTable() );
-                comboCellEditor.setContenProvider( comboBoxContentProvider );
+                comboCellEditor.setContenProvider( new ComboContentProvider(
+                    adapterFactory,
+                    comboCellEditor.getViewer() ) );
+                
                 comboCellEditor.setLabelProvider( comboBoxLabelProvider );
                 comboCellEditor.setInput( editingDomain.getResourceSet() );
                 this.cellEditor = comboCellEditor;
@@ -295,6 +304,15 @@ public class AttributesForm extends AbstractTypesForm {
      */
     private void createTableViewer() {
 
+        // create provider for table viewer
+        attributesContentProvider = new AttributesContentProvider( adapterFactory );
+        attributesLabelProvider = new AttributesLabelProvider();
+
+        // create provider for Combo Box of table viewer
+        // comboBoxContentProvider = new ComboContentProvider( adapterFactory );
+        comboBoxLabelProvider = new ComboLabelProvider();
+
+        // create table viewer
         tableViewer = new AddDeleteTableViewer( this, SWT.MULTI | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
         tableViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
 
@@ -319,8 +337,8 @@ public class AttributesForm extends AbstractTypesForm {
             column.setEditingSupport( new AttributesEditingSupport( tableViewer, colNr ) );
         }
 
-        tableViewer.setContentProvider( new AttributesAdapterFactoryContentProvider( adapterFactory ) );
-        tableViewer.setLabelProvider( new AttributesLabelProvider() );
+        tableViewer.setContentProvider( attributesContentProvider );
+        tableViewer.setLabelProvider( attributesLabelProvider );
 
         tableViewer.setInput( editingDomain.getResourceSet() );
     }

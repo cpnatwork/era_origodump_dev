@@ -76,7 +76,7 @@ public class TypeDialog extends Dialog {
         Control[] listOfControls = {
             new DataTypesForm( typeEditorTabFolder, this.editor ),
             new AttributesForm( typeEditorTabFolder, this.editor )};
-        String[] listOfTabLabels = {"Datatypes", "(Sole) Specification Type"};
+        String[] listOfTabLabels = {"Datatypes", "Specification Type"};
         TabItem additionalTabItem = null;
         for( int iter = 0; iter < listOfControls.length; ++iter ) {
             additionalTabItem = new TabItem( typeEditorTabFolder, SWT.NONE );
