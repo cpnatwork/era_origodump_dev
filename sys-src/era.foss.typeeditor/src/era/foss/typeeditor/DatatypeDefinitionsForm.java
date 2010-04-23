@@ -1,5 +1,5 @@
 /*
- * NAME: era.foss.typeeditor.DataTypesForm
+ * NAME: era.foss.typeeditor.DatatypeDefinitionsForm
  */
 
 package era.foss.typeeditor;
@@ -60,7 +60,7 @@ import era.foss.rif.provider.DatatypeDefinitionItemProvider;
  * 
  * @see DatatypeDefinition
  */
-final public class DataTypesForm extends AbstractTypesForm {
+final public class DatatypeDefinitionsForm extends AbstractTypesForm {
 
     /** Provider for accessing the properties of the EMF Edit plugin */
     private DatatypeDefinitionItemProvider dataTypesProvider;
@@ -80,7 +80,7 @@ final public class DataTypesForm extends AbstractTypesForm {
     private AddDeleteTableViewer tableViewer;
 
     @SuppressWarnings("unchecked")
-    public DataTypesForm( Composite parent, IEditorPart editor ) {
+    public DatatypeDefinitionsForm( Composite parent, IEditorPart editor ) {
         super( parent, editor, SWT.NONE );
 
         // set-up item provider for DatatypeDefinition items
@@ -132,7 +132,7 @@ final public class DataTypesForm extends AbstractTypesForm {
             case 1:
                 cellEditor = new ComboBoxCellEditor(
                     ((TableViewer)viewer).getTable(),
-                    DataTypesForm.this.supportedDataTypeNames.toArray( new String[supportedDataTypeNames.size()] ),
+                    DatatypeDefinitionsForm.this.supportedDataTypeNames.toArray( new String[supportedDataTypeNames.size()] ),
                     SWT.READ_ONLY );
 
                 break;
@@ -161,7 +161,7 @@ final public class DataTypesForm extends AbstractTypesForm {
                 retVal = dataType.getLongName();
                 break;
             case 1:
-                String dataTypeName = DataTypesForm.this.getDataTypeName( dataType );
+                String dataTypeName = DatatypeDefinitionsForm.this.getDataTypeName( dataType );
                 retVal = ((CCombo)this.cellEditor.getControl()).indexOf( dataTypeName );
                 break;
             default:

@@ -1,5 +1,5 @@
 /*
- * NAME: era.foss.typeeditor.AttributesForm
+ * NAME: era.foss.typeeditor.SpecTypeForm
  */
 
 package era.foss.typeeditor;
@@ -61,7 +61,7 @@ import era.foss.rif.impl.RifFactoryImpl;
  * @see AttributeDefinition
  * @see AttributeValueSimple
  */
-public class AttributesForm extends AbstractTypesForm {
+public class SpecTypeForm extends AbstractTypesForm {
 
     // for now the one and only spec type
     private SpecType specType;
@@ -81,7 +81,7 @@ public class AttributesForm extends AbstractTypesForm {
      */
     private ComboLabelProvider comboBoxLabelProvider;
 
-    public AttributesForm( Composite parent, IEditorPart editor ) {
+    public SpecTypeForm( Composite parent, IEditorPart editor ) {
         super( parent, editor, SWT.NONE );
 
         // check for and eventually initialize the sole SpecType

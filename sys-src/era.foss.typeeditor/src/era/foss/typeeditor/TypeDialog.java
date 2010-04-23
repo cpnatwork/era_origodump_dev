@@ -74,8 +74,8 @@ public class TypeDialog extends Dialog {
 
         // Lists for TabItems: Controls and Labels
         Control[] listOfControls = {
-            new DataTypesForm( typeEditorTabFolder, this.editor ),
-            new AttributesForm( typeEditorTabFolder, this.editor )};
+            new DatatypeDefinitionsForm( typeEditorTabFolder, this.editor ),
+            new SpecTypeForm( typeEditorTabFolder, this.editor )};
         String[] listOfTabLabels = {"Datatypes", "Specification Type"};
         TabItem additionalTabItem = null;
         for( int iter = 0; iter < listOfControls.length; ++iter ) {
