@@ -33,7 +33,7 @@ import org.eclipse.ui.views.properties.PropertySheetPage;
  * 
  * @see PropertySheetPage
  */
-public class TypePropertiesViewer extends Composite {
+public class TableElemPropertySheet extends Composite {
 
     /**
      * The reference to the PropertySheetPage.
@@ -50,7 +50,7 @@ public class TypePropertiesViewer extends Composite {
      * 
      * @see #AbstractTypesForm(Composite, IEditorPart, int)
      */
-    public TypePropertiesViewer( Composite parent, IEditorPart editor, TableViewer modelTableViewer ) {
+    public TableElemPropertySheet( Composite parent, IEditorPart editor, TableViewer modelTableViewer ) {
         this( parent, editor, modelTableViewer, SWT.NONE );
     }
 
@@ -65,7 +65,7 @@ public class TypePropertiesViewer extends Composite {
      * @param modelTableViewer a TableViewer that provides SelectionChangedEvent
      * @param style the style of widget to construct
      */
-    public TypePropertiesViewer( Composite parent, IEditorPart editor, TableViewer modelTableViewer, int style ) {
+    public TableElemPropertySheet( Composite parent, IEditorPart editor, TableViewer modelTableViewer, int style ) {
         super( parent, style );
 
         this.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
@@ -82,11 +82,11 @@ public class TypePropertiesViewer extends Composite {
         modelTableViewer.addSelectionChangedListener( new ISelectionChangedListener() {
             public void selectionChanged( SelectionChangedEvent event ) {
                 /*
-                 * No special TypePropertiesViewer.this.selection.isEmpty() is required. The property viewer is emptying
+                 * No special TableElemPropertySheet.this.selection.isEmpty() is required. The property viewer is emptying
                  * the list itself.
                  */
-                TypePropertiesViewer.this.propertySheetPage.selectionChanged( null, event.getSelection() );
-                TypePropertiesViewer.this.propertySheetPage.refresh();
+                TableElemPropertySheet.this.propertySheetPage.selectionChanged( null, event.getSelection() );
+                TableElemPropertySheet.this.propertySheetPage.refresh();
             }
         } );
     }

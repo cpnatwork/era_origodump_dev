@@ -22,6 +22,10 @@ import era.foss.rif.presentation.EraCommandStack;
 
 /**
  * An abstract form, that contains members and constructor code that is common to all editing forms for ERA types.
+ * <p>
+ * Contains a reference to the {@link RIF} model.
+ * <p>
+ * Contains a reference to the {@link EraCommandStack}.
  * 
  * @author cpn
  */

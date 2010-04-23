@@ -108,12 +108,12 @@ final public class DatatypeDefinitionsForm extends AbstractTypesForm {
         createTableViewer();
 
         // setup property viewer
-        TypePropertiesViewer typePropertiesViewer = new TypePropertiesViewer(
+        TableElemPropertySheet tableElemPropertySheet = new TableElemPropertySheet(
             this,
             this.editor,
             tableViewer,
             SWT.MULTI | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER );
-        typePropertiesViewer.setLayout( new FillLayout() );
+        tableElemPropertySheet.setLayout( new FillLayout() );
     }
 
     public class DatatypesEditingSupport extends EditingSupport {
