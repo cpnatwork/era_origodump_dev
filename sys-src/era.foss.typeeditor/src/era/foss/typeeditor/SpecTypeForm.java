@@ -61,7 +61,7 @@ import era.foss.rif.impl.RifFactoryImpl;
  * @see AttributeDefinition
  * @see AttributeValueSimple
  */
-public class SpecTypeForm extends AbstractTypesForm {
+public class SpecTypeForm extends AbstractErfTypesForm {
 
     // for now the one and only spec type
     private SpecType specType;

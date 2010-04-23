@@ -60,7 +60,7 @@ import era.foss.rif.provider.DatatypeDefinitionItemProvider;
  * 
  * @see DatatypeDefinition
  */
-final public class DatatypeDefinitionsForm extends AbstractTypesForm {
+final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
 
     /** Provider for accessing the properties of the EMF Edit plugin */
     private DatatypeDefinitionItemProvider dataTypesProvider;

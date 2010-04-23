@@ -1,5 +1,5 @@
 /*
- * NAME: era.foss.typeeditor.AbstractTypesForm
+ * NAME: era.foss.typeeditor.AbstractErfTypesForm
  */
 
 package era.foss.typeeditor;
@@ -29,7 +29,7 @@ import era.foss.rif.presentation.EraCommandStack;
  * 
  * @author cpn
  */
-public abstract class AbstractTypesForm extends Composite {
+public abstract class AbstractErfTypesForm extends Composite {
 
     protected IEditorPart editor = null;
     protected AdapterFactoryEditingDomain editingDomain = null;
@@ -44,9 +44,9 @@ public abstract class AbstractTypesForm extends Composite {
      * @param parent a widget which will be the parent of the new instance (cannot be null)
      * @param editor the editor from which the and {@link CommandStack} can be derived
      * 
-     * @see #AbstractTypesForm(Composite, IEditorPart, int)
+     * @see #AbstractErfTypesForm(Composite, IEditorPart, int)
      */
-    public AbstractTypesForm( Composite parent, IEditorPart editor ) {
+    public AbstractErfTypesForm( Composite parent, IEditorPart editor ) {
         this( parent, editor, SWT.NONE );
     }
 
@@ -67,7 +67,7 @@ public abstract class AbstractTypesForm extends Composite {
      * @see SWT#DOUBLE_BUFFERED
      * @see Widget#getStyle
      */
-    public AbstractTypesForm( Composite parent, IEditorPart editor, int style ) {
+    public AbstractErfTypesForm( Composite parent, IEditorPart editor, int style ) {
         super( parent, style );
 
         this.editor = editor;
