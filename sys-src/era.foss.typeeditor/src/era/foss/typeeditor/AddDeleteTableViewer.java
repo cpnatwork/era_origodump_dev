@@ -51,15 +51,18 @@ import era.foss.rif.impl.RifFactoryImpl;
  */
 public class AddDeleteTableViewer extends TableViewer {
 
-    // The composite containing the table and all its
-    // buttons
+    /**
+     * Composite holding the table, the element description ({@link #descriptionText}) and the button bar (
+     * {@link #buttonBar})
+     */
     private Composite composite;
+
+    /** Layout for specifying the layout */
     private TableColumnLayout tableColumnLayout;
 
     /** The description field for the elements in the table */
     Text descriptionText;
 
-    private Composite tableComposite;
     private Table table;
     private EditingDomain editingDomain;
 
@@ -67,7 +70,9 @@ public class AddDeleteTableViewer extends TableViewer {
         this.editingDomain = editingDomain;
     }
 
-    // The section above the table containing the button
+    /**
+     * Button bar holding the Add and remove buttons New buttons can be added by the users of this table
+     */
     private Composite buttonBar;
 
     // standard add and remove button
@@ -98,23 +103,25 @@ public class AddDeleteTableViewer extends TableViewer {
      * @see TableViewer
      */
     public AddDeleteTableViewer( Composite parent, int style ) {
-        // XXX: Looks strange, might be done better
-        // XXX: stomach ache
         super( new Composite( new Composite( parent, SWT.NONE ), SWT.NONE ), style );
         table = this.getTable();
 
-        // get composite for table column layout
-        tableComposite = table.getParent();
-
-        // get composite for buttons and table
-        composite = tableComposite.getParent();
         layoutComposite();
+        createButtonBar();
+        createDescriptionField();
+        setupTable();
     }
 
     /**
-     * layout the Composite
+     * Layout the Composites
      */
     private void layoutComposite() {
+
+        // get composite for table column layout
+        Composite tableComposite = table.getParent();
+
+        // get composite for buttons and table
+        composite = tableComposite.getParent();
 
         // set column layout of table composite
         tableColumnLayout = new TableColumnLayout();
@@ -123,10 +130,13 @@ public class AddDeleteTableViewer extends TableViewer {
 
         // pack button bar and table into parent composite
         composite.setLayout( new GridLayout( 1, false ) );
-        createButtonBar();
 
-        createDescriptionField();
+    }
 
+    /**
+     * Create table
+     */
+    private void setupTable() {
         // set table attributes
         table.setHeaderVisible( true );
         table.setLinesVisible( true );
@@ -164,6 +174,9 @@ public class AddDeleteTableViewer extends TableViewer {
 
     }
 
+    /**
+     * Create Text widget for displaying the element description
+     */
     private void createDescriptionField() {
 
         // Label for description
