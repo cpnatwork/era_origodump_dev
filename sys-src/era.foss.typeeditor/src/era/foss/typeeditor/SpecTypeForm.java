@@ -4,12 +4,18 @@
 
 package era.foss.typeeditor;
 
+import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.edit.command.AddCommand;
+import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.provider.IChangeNotifier;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnViewer;
@@ -17,6 +23,7 @@ import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ComboBoxViewerCellEditor;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
@@ -34,6 +41,7 @@ import era.foss.rif.AttributeDefinition;
 import era.foss.rif.AttributeDefinitionSimple;
 import era.foss.rif.AttributeValueSimple;
 import era.foss.rif.DatatypeDefinition;
+import era.foss.rif.RifPackage;
 import era.foss.rif.SpecType;
 import era.foss.rif.impl.RifFactoryImpl;
 
@@ -145,6 +153,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 }
                 break;
             case 2:
+                retVal = "n/a";
                 if( attribute instanceof AttributeDefinitionSimple ) {
                     AttributeValueSimple defaultValue = ((AttributeDefinitionSimple)attribute).getDefaultValue();
                     if( defaultValue != null ) {
@@ -161,7 +170,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
 
         @Override
         public Image getColumnImage( Object element, int columnIndex ) {
-            // TODO Auto-generated method stub
+            // no icons (yet)
             return null;
         }
     }
@@ -181,7 +190,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
 
             DatatypeDefinition[] dataTypes;
             try {
-                dataTypes = (DatatypeDefinition[]) rifModel.getCoreContent().getDataTypes().toArray();
+                dataTypes = (DatatypeDefinition[])rifModel.getCoreContent().getDataTypes().toArray();
             } catch( NullPointerException e ) {
                 dataTypes = new DatatypeDefinition[0];
             }
@@ -239,10 +248,13 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 comboCellEditor.setContenProvider( new ComboContentProvider(
                     adapterFactory,
                     comboCellEditor.getViewer() ) );
-                
+
                 comboCellEditor.setLabelProvider( comboBoxLabelProvider );
                 comboCellEditor.setInput( editingDomain.getResourceSet() );
                 this.cellEditor = comboCellEditor;
+                break;
+            case 2:
+                this.cellEditor = new TextCellEditor( ((TableViewer)viewer).getTable() );
                 break;
             default:
                 this.cellEditor = null;
@@ -251,7 +263,15 @@ public class SpecTypeForm extends AbstractErfTypesForm {
 
         @Override
         protected boolean canEdit( Object element ) {
-            return true;
+            boolean retVal = true;
+
+            AttributeDefinition attribute = (AttributeDefinition)element;
+
+            if( (this.column == 2)
+                && ((!(attribute instanceof AttributeDefinitionSimple)) || ((AttributeDefinitionSimple)attribute).getDefaultValue() == null) ) {
+                retVal = false;
+            }
+            return retVal;
         }
 
         @Override
@@ -270,6 +290,9 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 break;
             case 1:
                 retVal = attribute.getType();
+                break;
+            case 2:
+                retVal = ((AttributeDefinitionSimple)attribute).getDefaultValue().getTheValue();
                 break;
             default:
                 break;
@@ -292,6 +315,13 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 // Set reference to datatype definition if value has changed
                 attribute.setType( (DatatypeDefinition)value );
                 getViewer().refresh();
+                break;
+            case 2:
+                AttributeValueSimple DefaultValue = ((AttributeDefinitionSimple)attribute).getDefaultValue();
+                if( !DefaultValue.getTheValue().equals( value ) ) {
+                    DefaultValue.setTheValue( (String)value );
+                    getViewer().update( element, null );
+                }
                 break;
             default:
                 break;
@@ -330,17 +360,81 @@ public class SpecTypeForm extends AbstractErfTypesForm {
             column.getColumn().setText( colTitles[colNr] );
             column.getColumn().setResizable( colResize[colNr] );
             column.getColumn().setMoveable( false );
+
             columnLayout.setColumnData( column.getColumn(), new ColumnWeightData(
                 colWeigth[colNr],
                 colMinWidth[colNr] ) );
 
             column.setEditingSupport( new AttributesEditingSupport( tableViewer, colNr ) );
         }
+        
 
         tableViewer.setContentProvider( attributesContentProvider );
         tableViewer.setLabelProvider( attributesLabelProvider );
 
         tableViewer.setInput( editingDomain.getResourceSet() );
+        
+        // Context menu for creating Elements of default values
+        createContextMenu();
+    }
+    
+    /** create context menu for
+     *   -Adding and removing Dafatult values
+     */
+    private void createContextMenu(){
+        final class DefaultValueAction extends Action{
+            /** remove Default value instead of adding */
+            private AttributeDefinitionSimple attribute;
+            
+            @Override
+            public void run() {
+                BasicCommandStack basicCommandStack = (BasicCommandStack)editingDomain.getCommandStack();
+                Command cmd=null;
+                if (attribute.getDefaultValue() == null)
+                {
+                    AttributeValueSimple addCommandValue = RifFactoryImpl.eINSTANCE.createAttributeValueSimple();
+                    addCommandValue.setTheValue( "" );
+                    cmd = AddCommand.create( editingDomain, attribute, RifPackage.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE, addCommandValue );
+                }else{
+                    cmd = RemoveCommand.create( editingDomain,attribute.getDefaultValue());
+                }
+                basicCommandStack.execute( cmd );
+                tableViewer.refresh();
+            }
+            
+            public void setAttribute( AttributeDefinitionSimple attribute ) {
+                this.attribute = attribute;
+                if (attribute.getDefaultValue() == null)
+                {
+                    this.setText( "Add Default Value" );
+                }else
+                {
+                    this.setText( "Remove Default Value" );
+                }
+            }
+        }
+        
+        final DefaultValueAction defaultValueAction = new DefaultValueAction(); 
+        
+        
+        final MenuManager menuMgr = new MenuManager();
+        menuMgr.setRemoveAllWhenShown(true);
+
+        menuMgr.addMenuListener(new IMenuListener() {
+
+            /* (non-Javadoc)
+             * @see org.eclipse.jface.action.IMenuListener#menuAboutToShow(org.eclipse.jface.action.IMenuManager)
+             */
+            public void menuAboutToShow(IMenuManager manager) {
+                IStructuredSelection selection = (IStructuredSelection) tableViewer.getSelection();
+                if (!selection.isEmpty() && (selection.getFirstElement() instanceof AttributeDefinitionSimple)) {
+                   AttributeDefinitionSimple attribute = (AttributeDefinitionSimple)selection.getFirstElement();
+                   defaultValueAction.setAttribute(attribute);
+                   menuMgr.add(defaultValueAction);
+                }
+            }
+        });
+        tableViewer.getControl().setMenu(menuMgr.createContextMenu(tableViewer.getControl()));
     }
 
 }

@@ -10,10 +10,14 @@ import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.layout.TableColumnLayout;
+import org.eclipse.jface.viewers.ColumnViewerEditor;
+import org.eclipse.jface.viewers.ColumnViewerEditorActivationEvent;
+import org.eclipse.jface.viewers.ColumnViewerEditorActivationStrategy;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TableViewerEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -127,6 +131,7 @@ public class AddDeleteTableViewer extends TableViewer {
         table.setHeaderVisible( true );
         table.setLinesVisible( true );
 
+        // add key listener
         table.addKeyListener( new KeyListener() {
 
             public void keyPressed( KeyEvent e ) {
@@ -141,6 +146,21 @@ public class AddDeleteTableViewer extends TableViewer {
                 /* do nothing */
             }
         } );
+
+        // create table editor for setting the behavior when editing table cells
+        ColumnViewerEditorActivationStrategy actSupport = new ColumnViewerEditorActivationStrategy(this) {
+            protected boolean isEditorActivationEvent( ColumnViewerEditorActivationEvent event ) {
+                return event.eventType == ColumnViewerEditorActivationEvent.TRAVERSAL
+                    || event.eventType == ColumnViewerEditorActivationEvent.MOUSE_DOUBLE_CLICK_SELECTION
+                    || event.eventType == ColumnViewerEditorActivationEvent.PROGRAMMATIC;
+            }
+        };
+
+        TableViewerEditor.create( this, actSupport, ColumnViewerEditor.TABBING_HORIZONTAL
+            | ColumnViewerEditor.TABBING_MOVE_TO_ROW_NEIGHBOR
+            | ColumnViewerEditor.TABBING_VERTICAL
+            | ColumnViewerEditor.KEYBOARD_ACTIVATION );
+
     }
 
     private void createDescriptionField() {
