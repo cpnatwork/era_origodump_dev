@@ -147,8 +147,8 @@ public class AddDeleteTableViewer extends TableViewer {
             }
         } );
 
-        // create table editor for setting the behavior when editing table cells
-        ColumnViewerEditorActivationStrategy actSupport = new ColumnViewerEditorActivationStrategy(this) {
+        // prepare the activation strategy for setting the behavior when editing table cells
+        ColumnViewerEditorActivationStrategy actStrategy = new ColumnViewerEditorActivationStrategy(this) {
             protected boolean isEditorActivationEvent( ColumnViewerEditorActivationEvent event ) {
                 return event.eventType == ColumnViewerEditorActivationEvent.TRAVERSAL
                     || event.eventType == ColumnViewerEditorActivationEvent.MOUSE_DOUBLE_CLICK_SELECTION
@@ -156,7 +156,8 @@ public class AddDeleteTableViewer extends TableViewer {
             }
         };
 
-        TableViewerEditor.create( this, actSupport, ColumnViewerEditor.TABBING_HORIZONTAL
+        // create table viewer editor (*?*) 
+        TableViewerEditor.create( this, actStrategy, ColumnViewerEditor.TABBING_HORIZONTAL
             | ColumnViewerEditor.TABBING_MOVE_TO_ROW_NEIGHBOR
             | ColumnViewerEditor.TABBING_VERTICAL
             | ColumnViewerEditor.KEYBOARD_ACTIVATION );

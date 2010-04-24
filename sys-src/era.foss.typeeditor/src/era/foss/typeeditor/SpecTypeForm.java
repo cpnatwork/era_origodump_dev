@@ -109,6 +109,8 @@ public class SpecTypeForm extends AbstractErfTypesForm {
         // set up table viewer for attribute definitions
         createTableViewer();
 
+        // Context menu for creating Elements of default values
+        createContextMenu();
     }
 
     /**
@@ -367,74 +369,76 @@ public class SpecTypeForm extends AbstractErfTypesForm {
 
             column.setEditingSupport( new AttributesEditingSupport( tableViewer, colNr ) );
         }
-        
 
         tableViewer.setContentProvider( attributesContentProvider );
         tableViewer.setLabelProvider( attributesLabelProvider );
 
         tableViewer.setInput( editingDomain.getResourceSet() );
-        
-        // Context menu for creating Elements of default values
-        createContextMenu();
+
     }
-    
-    /** create context menu for
-     *   -Adding and removing Dafatult values
+
+    /**
+     * create context menu for -Adding and removing Dafatult values
      */
-    private void createContextMenu(){
-        final class DefaultValueAction extends Action{
+    private void createContextMenu() {
+        final class DefaultValueAction extends Action {
             /** remove Default value instead of adding */
             private AttributeDefinitionSimple attribute;
-            
+
             @Override
             public void run() {
                 BasicCommandStack basicCommandStack = (BasicCommandStack)editingDomain.getCommandStack();
-                Command cmd=null;
-                if (attribute.getDefaultValue() == null)
-                {
+                Command cmd = null;
+                if( attribute.getDefaultValue() == null ) {
                     AttributeValueSimple addCommandValue = RifFactoryImpl.eINSTANCE.createAttributeValueSimple();
                     addCommandValue.setTheValue( "" );
-                    cmd = AddCommand.create( editingDomain, attribute, RifPackage.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE, addCommandValue );
-                }else{
-                    cmd = RemoveCommand.create( editingDomain,attribute.getDefaultValue());
+                    cmd = AddCommand.create( editingDomain,
+                                             attribute,
+                                             RifPackage.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE,
+                                             addCommandValue );
+                } else {
+                    cmd = RemoveCommand.create( editingDomain, attribute.getDefaultValue() );
                 }
                 basicCommandStack.execute( cmd );
                 tableViewer.refresh();
             }
-            
+
             public void setAttribute( AttributeDefinitionSimple attribute ) {
                 this.attribute = attribute;
-                if (attribute.getDefaultValue() == null)
-                {
+                if( attribute.getDefaultValue() == null ) {
                     this.setText( "Add Default Value" );
-                }else
-                {
+                } else {
                     this.setText( "Remove Default Value" );
                 }
             }
         }
-        
-        final DefaultValueAction defaultValueAction = new DefaultValueAction(); 
-        
-        
+
+        final DefaultValueAction defaultValueAction = new DefaultValueAction();
+
         final MenuManager menuMgr = new MenuManager();
-        menuMgr.setRemoveAllWhenShown(true);
+        menuMgr.setRemoveAllWhenShown( true );
 
-        menuMgr.addMenuListener(new IMenuListener() {
+        menuMgr.addMenuListener( new IMenuListener() {
 
-            /* (non-Javadoc)
+            /*
+             * (non-Javadoc)
+             * 
              * @see org.eclipse.jface.action.IMenuListener#menuAboutToShow(org.eclipse.jface.action.IMenuManager)
              */
-            public void menuAboutToShow(IMenuManager manager) {
-                IStructuredSelection selection = (IStructuredSelection) tableViewer.getSelection();
-                if (!selection.isEmpty() && (selection.getFirstElement() instanceof AttributeDefinitionSimple)) {
-                   AttributeDefinitionSimple attribute = (AttributeDefinitionSimple)selection.getFirstElement();
-                   defaultValueAction.setAttribute(attribute);
-                   menuMgr.add(defaultValueAction);
-                }
+            public void menuAboutToShow( IMenuManager manager ) {
+                IStructuredSelection selection = (IStructuredSelection)tableViewer.getSelection();
+                // after a delete there is no selection
+                if( selection.isEmpty() ) return;
+                // check if the row type is correct (at the moment this is implicitly always true)  
+                if( !(selection.getFirstElement() instanceof AttributeDefinitionSimple) ) return;
+                // pass the first element of the row, the attribute definition, to the handler
+                AttributeDefinitionSimple attribute = (AttributeDefinitionSimple)selection.getFirstElement();
+                defaultValueAction.setAttribute( attribute );
+                menuMgr.add( defaultValueAction );
             }
-        });
-        tableViewer.getControl().setMenu(menuMgr.createContextMenu(tableViewer.getControl()));
+        } );
+        // register menu at the table viewer
+        tableViewer.getControl().setMenu( menuMgr.createContextMenu( tableViewer.getControl() ) );
     }
 
 }

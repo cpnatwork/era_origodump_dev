@@ -77,13 +77,14 @@ public class TableElemPropertySheet extends Composite {
         // create the property sheet page control
         propertySheetPage = new PropertySheetPage();
         propertySheetPage.setPropertySourceProvider( new AdapterFactoryContentProvider( adapterFactory ) );
+        // create the PropertySheetViewer and its control (which is a Tree)
         propertySheetPage.createControl( this );
 
         modelTableViewer.addSelectionChangedListener( new ISelectionChangedListener() {
             public void selectionChanged( SelectionChangedEvent event ) {
                 /*
-                 * No special TableElemPropertySheet.this.selection.isEmpty() is required. The property viewer is emptying
-                 * the list itself.
+                 * No special TableElemPropertySheet.this.selection.isEmpty() is required. The property viewer is
+                 * emptying the list itself.
                  */
                 TableElemPropertySheet.this.propertySheetPage.selectionChanged( null, event.getSelection() );
                 TableElemPropertySheet.this.propertySheetPage.refresh();
