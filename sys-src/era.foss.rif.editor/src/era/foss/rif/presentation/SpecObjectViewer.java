@@ -229,7 +229,7 @@ public class SpecObjectViewer extends TableViewer {
         @Override
         protected Object getValue( Object element ) {
             SpecObject specObject = (SpecObject)element;
-            Object retVal = null;
+            String retVal = null;
 
             // check if the spec object provides a value for this column/attribute
             for( AttributeValue value : specObject.getValues() ) {
@@ -249,6 +249,14 @@ public class SpecObjectViewer extends TableViewer {
                     }
                 }
             }
+            
+            // if there is still no value return empty string for the
+            // cell editor
+            if (retVal == null)
+            {
+               retVal ="";
+            }
+            
             return retVal;
         }
 
