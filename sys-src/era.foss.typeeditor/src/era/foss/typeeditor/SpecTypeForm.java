@@ -4,16 +4,11 @@
 
 package era.foss.typeeditor;
 
-import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
-
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.Notifier;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.provider.IChangeNotifier;
@@ -52,7 +47,6 @@ import era.foss.rif.RifPackage;
 import era.foss.rif.SpecObject;
 import era.foss.rif.SpecType;
 import era.foss.rif.impl.RifFactoryImpl;
-import era.foss.rif.provider.RifEditPlugin;
 
 /**
  * A form for editing the {@link SpecType}.
