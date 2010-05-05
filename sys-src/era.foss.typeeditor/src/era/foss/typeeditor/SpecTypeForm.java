@@ -36,6 +36,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IEditorPart;
 
 import era.foss.rif.AttributeDefinition;
@@ -206,7 +207,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
         @Override
         public void notifyChanged( Notification notification ) {
             super.notifyChanged( notification );
-        
+
             // handle changes of a data type definition
             if( (notification.getNotifier() instanceof DatatypeDefinition)
                 || (notification.getNewValue() instanceof DatatypeDefinition)
@@ -214,22 +215,23 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 viewer.refresh();
                 tableViewer.refresh();
             }
-            
-            // In case a spec type is removed also remove the according values 
+
+            // In case a spec type is removed also remove the according values
             // of the spec objects
-            if( (notification.getOldValue() instanceof AttributeDefinition) && (notification.getEventType() == Notification.REMOVE)){
-               AttributeDefinition removedAttributeDefinition = (AttributeDefinition) notification.getOldValue();
+            if( (notification.getOldValue() instanceof AttributeDefinition)
+                && (notification.getEventType() == Notification.REMOVE) ) {
+                AttributeDefinition removedAttributeDefinition = (AttributeDefinition)notification.getOldValue();
                 LinkedList<AttributeValue> attributeValuesToRemove = new LinkedList<AttributeValue>();
-               for (SpecObject specObject : rifModel.getCoreContent().getSpecObjects()){
-                   for (AttributeValue attributeValue : specObject.getValues()){
-                       if ((attributeValue instanceof AttributeValueSimple) && 
-                               (((AttributeValueSimple) attributeValue).getDefinition().getID() == removedAttributeDefinition.getID())){
-                            attributeValuesToRemove.add( attributeValue );        
-                       }
-                   }
-               }
-               Command removeCommand = RemoveCommand.create( editingDomain,attributeValuesToRemove);
-               editingDomain.getCommandStack().execute( removeCommand );
+                for( SpecObject specObject : rifModel.getCoreContent().getSpecObjects() ) {
+                    for( AttributeValue attributeValue : specObject.getValues() ) {
+                        if( (attributeValue instanceof AttributeValueSimple)
+                            && (((AttributeValueSimple)attributeValue).getDefinition().getID() == removedAttributeDefinition.getID()) ) {
+                            attributeValuesToRemove.add( attributeValue );
+                        }
+                    }
+                }
+                Command removeCommand = RemoveCommand.create( editingDomain, attributeValuesToRemove );
+                editingDomain.getCommandStack().execute( removeCommand );
             }
         }
     }
@@ -364,6 +366,11 @@ public class SpecTypeForm extends AbstractErfTypesForm {
         // comboBoxContentProvider = new ComboContentProvider( adapterFactory );
         comboBoxLabelProvider = new ComboLabelProvider();
 
+        // Label for table
+        Label descriptionLabel = new Label( this, SWT.NONE );
+        descriptionLabel.setText( typeEditorActivator.getString( "_UI_AttributeDefinitionTable_label" ) + ":" );
+        descriptionLabel.setLayoutData( new GridData( SWT.LEFT, SWT.BOTTOM, false, false, 0, 0 ) );
+
         // create table viewer
         tableViewer = new AddDeleteTableViewer( this, SWT.MULTI | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
         tableViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
@@ -372,7 +379,10 @@ public class SpecTypeForm extends AbstractErfTypesForm {
         tableViewer.setAddCommandParameter( specType, RifFactoryImpl.eINSTANCE.createAttributeDefinitionSimple()
                                                                               .eClass() );
         TableColumnLayout columnLayout = tableViewer.getTableColumnLayout();
-        String[] colTitles = {"Name", "Datatype", "Default Value"};
+        String[] colTitles = {
+            typeEditorActivator.getString( "_UI_AttributeDefinitionName_label" ),
+            typeEditorActivator.getString( "_UI_AttributeDefinitionType_label" ),
+            typeEditorActivator.getString( "_UI_AttributeDefinitionDefaultValue_label" )};
         int[] colMinWidth = {100, 100, 100};
         int[] colWeigth = {34, 33, 33};
         boolean[] colResize = {true, true, false};
@@ -449,7 +459,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 IStructuredSelection selection = (IStructuredSelection)tableViewer.getSelection();
                 // after a delete there is no selection
                 if( selection.isEmpty() ) return;
-                // check if the row type is correct (at the moment this is implicitly always true)  
+                // check if the row type is correct (at the moment this is implicitly always true)
                 if( !(selection.getFirstElement() instanceof AttributeDefinitionSimple) ) return;
                 // pass the first element of the row, the attribute definition, to the handler
                 AttributeDefinitionSimple attribute = (AttributeDefinitionSimple)selection.getFirstElement();

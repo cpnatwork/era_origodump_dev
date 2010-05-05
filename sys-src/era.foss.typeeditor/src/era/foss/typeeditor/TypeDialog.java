@@ -29,6 +29,7 @@ public class TypeDialog extends Dialog {
     private EditingDomain editingDomain = null;
     // commandStack is required for Ok and Cancel Buttons
     private EraCommandStack eraCommandStack = null;
+    private Activator typeEditorActivator = null;
 
     /**
      * Creates a editor for Datatype, Attributes and Spectypes
@@ -46,6 +47,7 @@ public class TypeDialog extends Dialog {
         this.editor = editor;
         this.editingDomain = ((IEditingDomainProvider)editor).getEditingDomain();
         this.eraCommandStack = (EraCommandStack)editingDomain.getCommandStack();
+        this.typeEditorActivator = era.foss.typeeditor.Activator.INSTANCE;
 
         // plant an initial checkpoint
         this.eraCommandStack.plantCheckpoint();
@@ -74,9 +76,11 @@ public class TypeDialog extends Dialog {
 
         // Lists for TabItems: Controls and Labels
         Control[] listOfControls = {
-            new DatatypeDefinitionsForm( typeEditorTabFolder, this.editor ),
-            new SpecTypeForm( typeEditorTabFolder, this.editor )};
-        String[] listOfTabLabels = {"Datatypes", "Specification Type"};
+            new SpecTypeForm( typeEditorTabFolder, this.editor ),
+            new DatatypeDefinitionsForm( typeEditorTabFolder, this.editor )};
+        String[] listOfTabLabels = {
+            typeEditorActivator.getString( "_UI_SpecTypeTab_label" ),
+            typeEditorActivator.getString( "_UI_DataTypeDefinitionTab_label" )};
         TabItem additionalTabItem = null;
         for( int iter = 0; iter < listOfControls.length; ++iter ) {
             additionalTabItem = new TabItem( typeEditorTabFolder, SWT.NONE );

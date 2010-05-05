@@ -33,6 +33,7 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IEditorPart;
 
 import era.foss.rif.DatatypeDefinition;
@@ -272,14 +273,22 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
 
     private void createTableViewer() {
 
+        
+        // Label for table
+        Label descriptionLabel = new Label( this, SWT.NONE );
+        descriptionLabel.setText( typeEditorActivator.getString( "_UI_DataTypeDefinitionTable_label" ) + ":" );
+        descriptionLabel.setLayoutData( new GridData( SWT.LEFT, SWT.BOTTOM, true, false, 2, 0 ) );
+        
+        
         tableViewer = new AddDeleteTableViewer( this, SWT.MULTI | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
         tableViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
-
         tableViewer.setEditingDomain( editingDomain );
         tableViewer.setAddCommandParameter( rifModel.getCoreContent(),
                                             RifFactoryImpl.eINSTANCE.createDatatypeDefinitionInteger().eClass() );
         TableColumnLayout columnLayout = tableViewer.getTableColumnLayout();
-        String[] colTitles = {"Name", "Type"};
+        String[] colTitles = {
+            typeEditorActivator.getString( "_UI_DataTypeDefinitionName_label" ),
+            typeEditorActivator.getString( "_UI_DataTypeDefinitionType_label" )};
         int[] colMinWidth = {100, 50};
         int[] colWeigth = {70, 30};
         boolean[] colResize = {true, false};

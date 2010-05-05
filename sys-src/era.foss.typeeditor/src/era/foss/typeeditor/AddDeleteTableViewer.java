@@ -63,9 +63,10 @@ public class AddDeleteTableViewer extends TableViewer {
     /** The description field for the elements in the table */
     Text descriptionText;
 
-    private Table table;
-    private EditingDomain editingDomain;
-
+    protected Table table;
+    protected EditingDomain editingDomain;
+    protected Activator typeEditorActivator;
+    
     public void setEditingDomain( EditingDomain editingDomain ) {
         this.editingDomain = editingDomain;
     }
@@ -99,12 +100,14 @@ public class AddDeleteTableViewer extends TableViewer {
         composite = table.getParent();
     }
 
+    
     /**
      * @see TableViewer
      */
     public AddDeleteTableViewer( Composite parent, int style ) {
         super( new Composite( new Composite( parent, SWT.NONE ), SWT.NONE ), style );
         table = this.getTable();
+        this.typeEditorActivator = era.foss.typeeditor.Activator.INSTANCE;
 
         layoutComposite();
         createButtonBar();
@@ -128,7 +131,6 @@ public class AddDeleteTableViewer extends TableViewer {
         tableComposite.setLayout( tableColumnLayout );
         tableComposite.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
 
-        // pack button bar and table into parent composite
         composite.setLayout( new GridLayout( 1, false ) );
 
     }
@@ -137,6 +139,7 @@ public class AddDeleteTableViewer extends TableViewer {
      * Create table
      */
     private void setupTable() {
+        
         // set table attributes
         table.setHeaderVisible( true );
         table.setLinesVisible( true );
@@ -181,11 +184,11 @@ public class AddDeleteTableViewer extends TableViewer {
 
         // Label for description
         Label descriptionLabel = new Label( composite, SWT.NONE );
-        descriptionLabel.setText( era.foss.typeeditor.Activator.INSTANCE.getString( "_UI_Description_label" ) + ":" );
-        descriptionLabel.setLayoutData( new GridData( SWT.LEFT, SWT.BOTTOM, true, true, 0, 0 ) );
+        descriptionLabel.setText( typeEditorActivator.getString( "_UI_Description_label" ) + ":" );
+        descriptionLabel.setLayoutData( new GridData( SWT.LEFT, SWT.BOTTOM, false, false, 0, 0 ) );
 
         // Text widget for the general Description attribute of any RIF-Identifiable
-        descriptionText = new Text( composite, SWT.BORDER );
+        descriptionText = new Text( composite, SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
         descriptionText.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true, 0, 0 ) );
         descriptionText.setEditable( false );
 
