@@ -4,10 +4,16 @@
 
 package era.foss.typeeditor;
 
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.provider.IChangeNotifier;
@@ -39,11 +45,14 @@ import org.eclipse.ui.IEditorPart;
 
 import era.foss.rif.AttributeDefinition;
 import era.foss.rif.AttributeDefinitionSimple;
+import era.foss.rif.AttributeValue;
 import era.foss.rif.AttributeValueSimple;
 import era.foss.rif.DatatypeDefinition;
 import era.foss.rif.RifPackage;
+import era.foss.rif.SpecObject;
 import era.foss.rif.SpecType;
 import era.foss.rif.impl.RifFactoryImpl;
+import era.foss.rif.provider.RifEditPlugin;
 
 /**
  * A form for editing the {@link SpecType}.
@@ -203,13 +212,30 @@ public class SpecTypeForm extends AbstractErfTypesForm {
         @Override
         public void notifyChanged( Notification notification ) {
             super.notifyChanged( notification );
-
+        
             // handle changes of a data type definition
             if( (notification.getNotifier() instanceof DatatypeDefinition)
                 || (notification.getNewValue() instanceof DatatypeDefinition)
                 || (notification.getOldValue() instanceof DatatypeDefinition) ) {
                 viewer.refresh();
                 tableViewer.refresh();
+            }
+            
+            // In case a spec type is removed also remove the according values 
+            // of the spec objects
+            if( (notification.getOldValue() instanceof AttributeDefinition) && (notification.getEventType() == Notification.REMOVE)){
+               AttributeDefinition removedAttributeDefinition = (AttributeDefinition) notification.getOldValue();
+                LinkedList<AttributeValue> attributeValuesToRemove = new LinkedList<AttributeValue>();
+               for (SpecObject specObject : rifModel.getCoreContent().getSpecObjects()){
+                   for (AttributeValue attributeValue : specObject.getValues()){
+                       if ((attributeValue instanceof AttributeValueSimple) && 
+                               (((AttributeValueSimple) attributeValue).getDefinition().getID() == removedAttributeDefinition.getID())){
+                            attributeValuesToRemove.add( attributeValue );        
+                       }
+                   }
+               }
+               Command removeCommand = RemoveCommand.create( editingDomain,attributeValuesToRemove);
+               editingDomain.getCommandStack().execute( removeCommand );
             }
         }
     }
