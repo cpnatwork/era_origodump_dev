@@ -5,6 +5,7 @@
 package era.foss.typeeditor;
 
 import java.util.LinkedList;
+
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -36,7 +37,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IEditorPart;
 
 import era.foss.rif.AttributeDefinition;
@@ -83,16 +83,6 @@ public class SpecTypeForm extends AbstractErfTypesForm {
      */
     private AddDeleteTableViewer tableViewer;
 
-    /** Content provider for {@link #tableViewer} */
-    private AttributesContentProvider attributesContentProvider;
-    /** Label provider for {@link #tableViewer} */
-    private AttributesLabelProvider attributesLabelProvider;
-
-    /**
-     * Label Provider for ComboBox in {@link #tableViewer} holding reference to Datatype
-     */
-    private ComboLabelProvider comboBoxLabelProvider;
-
     public SpecTypeForm( Composite parent, IEditorPart editor ) {
         super( parent, editor, SWT.NONE );
 
@@ -118,11 +108,12 @@ public class SpecTypeForm extends AbstractErfTypesForm {
     }
 
     /**
-     * Provide data for table containing Attribute definitions of spec types
+     * Provide data for table which contains {@link AttributeDefinition} elements of the {@link SpecType}.
      */
-    public class AttributesContentProvider extends AdapterFactoryContentProvider {
-        public AttributesContentProvider( AdapterFactory adapterFactory ) {
+    public class AttributeDefinitionContentProvider extends AdapterFactoryContentProvider {
+        public AttributeDefinitionContentProvider( AdapterFactory adapterFactory ) {
             super( adapterFactory );
+            // FIXME: cpn@schorsch: isn't this done by the super(..) constructor?
             ((IChangeNotifier)adapterFactory).addListener( this );
         }
 
@@ -142,7 +133,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
     /**
      * Provide label for data of table containing SpecTypes
      */
-    public class AttributesLabelProvider extends LabelProvider implements ITableLabelProvider {
+    public class AttributeDefinitionLabelProvider extends LabelProvider implements ITableLabelProvider {
 
         @Override
         public String getColumnText( Object element, int columnIndex ) {
@@ -154,18 +145,19 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 break;
             case 1:
                 DatatypeDefinition type = attribute.getType();
-                if( type != null ) {
-                    retVal = type.getLongName();
-                }
+                // special action for "fresh & uninitialized": show nothing  
+                if( type == null ) break;
+                // main action: show long name
+                retVal = type.getLongName();
                 break;
             case 2:
                 retVal = "n/a";
-                if( attribute instanceof AttributeDefinitionSimple ) {
-                    AttributeValueSimple defaultValue = ((AttributeDefinitionSimple)attribute).getDefaultValue();
-                    if( defaultValue != null ) {
-                        retVal = defaultValue.getTheValue();
-                    }
-                }
+                assert( attribute instanceof AttributeDefinitionSimple );
+                AttributeValueSimple defaultValue = ((AttributeDefinitionSimple)attribute).getDefaultValue();
+                // special action for "undeclared": show nothing  
+                if( defaultValue == null )  break;
+                // main action: show default value
+                retVal = defaultValue.getTheValue();
                 break;
 
             default:
@@ -184,9 +176,9 @@ public class SpecTypeForm extends AbstractErfTypesForm {
     /**
      * Content provider for the combo box
      */
-    public class ComboContentProvider extends AdapterFactoryContentProvider {
+    public class DatatypesComboContentProvider extends AdapterFactoryContentProvider {
 
-        public ComboContentProvider( AdapterFactory adapterFactory, Viewer viewer ) {
+        public DatatypesComboContentProvider( AdapterFactory adapterFactory, Viewer viewer ) {
             super( adapterFactory );
             this.viewer = viewer;
         }
@@ -239,7 +231,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
     /**
      * Label provider for the Combo box
      */
-    public class ComboLabelProvider extends LabelProvider implements IBaseLabelProvider {
+    public class DatatypesComboLabelProvider extends LabelProvider implements IBaseLabelProvider {
 
         @Override
         public String getText( Object element ) {
@@ -253,11 +245,11 @@ public class SpecTypeForm extends AbstractErfTypesForm {
      * @param viewer
      * @param column
      */
-    public class AttributesEditingSupport extends EditingSupport {
+    public class AttributeDefinitionEditingSupport extends EditingSupport {
         private CellEditor cellEditor;
         private int column;
 
-        public AttributesEditingSupport( ColumnViewer viewer, int column ) {
+        public AttributeDefinitionEditingSupport( ColumnViewer viewer, int column ) {
             super( viewer );
             this.column = column;
 
@@ -269,11 +261,11 @@ public class SpecTypeForm extends AbstractErfTypesForm {
             case 1:
                 ComboBoxViewerCellEditor comboCellEditor = new ComboBoxViewerCellEditor(
                     ((TableViewer)viewer).getTable() );
-                comboCellEditor.setContenProvider( new ComboContentProvider(
+                comboCellEditor.setContenProvider( new DatatypesComboContentProvider(
                     adapterFactory,
                     comboCellEditor.getViewer() ) );
 
-                comboCellEditor.setLabelProvider( comboBoxLabelProvider );
+                comboCellEditor.setLabelProvider(  new DatatypesComboLabelProvider() );
                 comboCellEditor.setInput( editingDomain.getResourceSet() );
                 this.cellEditor = comboCellEditor;
                 break;
@@ -358,20 +350,6 @@ public class SpecTypeForm extends AbstractErfTypesForm {
      */
     private void createTableViewer() {
 
-        // create provider for table viewer
-        attributesContentProvider = new AttributesContentProvider( adapterFactory );
-        attributesLabelProvider = new AttributesLabelProvider();
-
-        // create provider for Combo Box of table viewer
-        // comboBoxContentProvider = new ComboContentProvider( adapterFactory );
-        comboBoxLabelProvider = new ComboLabelProvider();
-
-        // Label for table
-        Label descriptionLabel = new Label( this, SWT.NONE );
-        descriptionLabel.setText( typeEditorActivator.getString( "_UI_AttributeDefinitionTable_label" ) + ":" );
-        descriptionLabel.setLayoutData( new GridData( SWT.LEFT, SWT.BOTTOM, false, false, 0, 0 ) );
-
-        // create table viewer
         tableViewer = new AddDeleteTableViewer( this, SWT.MULTI | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
         tableViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
 
@@ -397,11 +375,11 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 colWeigth[colNr],
                 colMinWidth[colNr] ) );
 
-            column.setEditingSupport( new AttributesEditingSupport( tableViewer, colNr ) );
+            column.setEditingSupport( new AttributeDefinitionEditingSupport( tableViewer, colNr ) );
         }
 
-        tableViewer.setContentProvider( attributesContentProvider );
-        tableViewer.setLabelProvider( attributesLabelProvider );
+        tableViewer.setContentProvider( new AttributeDefinitionContentProvider( adapterFactory ) );
+        tableViewer.setLabelProvider( new AttributeDefinitionLabelProvider() );
 
         tableViewer.setInput( editingDomain.getResourceSet() );
 
