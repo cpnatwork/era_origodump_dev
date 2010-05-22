@@ -1342,7 +1342,8 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
                 } else {
                     // Set the input to the widget.
                     //
-                    if( currentViewerPane.getViewer().getInput() != selectedElement ) {
+                    
+                    if( currentViewerPane instanceof SpecObjectViewerPane && currentViewerPane.getViewer().getInput() != selectedElement ) {
                         currentViewerPane.getViewer().setInput( selectedElement );
                         currentViewerPane.setTitle( selectedElement );
                     }
