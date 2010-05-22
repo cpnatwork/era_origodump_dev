@@ -6,32 +6,35 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.edit.command.AddCommand;
+import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.ColumnViewerEditor;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationEvent;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationStrategy;
 import org.eclipse.jface.viewers.EditingSupport;
-import org.eclipse.jface.viewers.ITableLabelProvider;
-import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TableViewerEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
+
 import era.foss.rif.AttributeDefinition;
 import era.foss.rif.AttributeDefinitionSimple;
 import era.foss.rif.AttributeValue;
 import era.foss.rif.AttributeValueSimple;
+import era.foss.rif.DatatypeDefinition;
 import era.foss.rif.RIF;
 import era.foss.rif.RifPackage;
 import era.foss.rif.SpecObject;
@@ -68,11 +71,7 @@ public class SpecObjectViewer extends TableViewer {
         table.setHeaderVisible( true );
         table.setLinesVisible( true );
 
-        // get attributes for the spec object
-
-        // currently we only have one specType
-        SpecType specType = rifModel.getCoreContent().getSpecTypes().get( 0 );
-        EList<AttributeDefinition> specAttributeList = specType.getSpecAttributes();
+        
 
         
         // prepare the activation strategy for setting the behavior when editing table cells
@@ -92,8 +91,23 @@ public class SpecObjectViewer extends TableViewer {
         
         
         // create columns
-        for( AttributeDefinition attribute : specAttributeList ) {
-            
+        create_columns();
+       
+
+        this.setContentProvider( new SpecObjectContentProvider( rifEditor.getAdapterFactory() ) );
+        this.setInput(rifModel.getCoreContent().getSpecObjects() );
+    }
+
+    /**
+     * Create columns for the spec Object viewer
+     */
+    private void create_columns() {
+        // get attributes for the spec object
+        // Remark: currently we only have one specType
+        SpecType specType = rifModel.getCoreContent().getSpecTypes().get( 0 );
+        EList<AttributeDefinition> specAttributeList = specType.getSpecAttributes(); 
+       
+       for( AttributeDefinition attribute : specAttributeList ) {    
             TableViewerColumn column = new TableViewerColumn( this, SWT.NONE );
             column.getColumn().setText( attribute.getLongName() );
             column.getColumn().setResizable( true);
@@ -101,18 +115,27 @@ public class SpecObjectViewer extends TableViewer {
             column.getColumn().setWidth( 100 );
             column.getColumn().setData( SPEC_ATTRIBUTE_COLUMN_DATA, attribute );
             column.setEditingSupport( new SpecObjectEditingSupport( this, attribute ) );
+            column.setLabelProvider(new SpecObjectLabelProvider(attribute));
         }
-
-        this.setContentProvider( new SpecObjectContentProvider( rifEditor.getAdapterFactory() ) );
-        this.setLabelProvider( new SpecObjectLabelProvider() );
+       
     }
 
     /**
      * Provide data for table containing spec objects
      */
-    public class SpecObjectContentProvider extends AdapterFactoryContentProvider {
+    public class SpecObjectContentProvider extends AdapterFactoryContentProvider 
+   {
+        private EContentAdapter contentAdapter;
+        
         public SpecObjectContentProvider( AdapterFactory adapterFactory ) {
             super( adapterFactory );
+            
+            // The EContent adapter adapts all new objects !
+            // That is we get automatically get 
+            //TODO: Is this REALLY the right place to adapt  ALL elements ???
+            contentAdapter = new EContentAdapter();
+            rifModel.getCoreContent().eAdapters().add(contentAdapter);
+  
         }
 
         // get elements shown in the table viewer holding S
@@ -126,70 +149,81 @@ public class SpecObjectViewer extends TableViewer {
             }
             return objects;
         }
+        
+        
 
         // listen on changes of Spec Object
-        // THIS IS FOR DEBUGGING ONLY as the this functionality is not
-        // required later
         @Override
         public void notifyChanged( Notification notification ) {
             super.notifyChanged( notification );
-
+            
             // handle changes of a data type definition
             if( (notification.getNotifier() instanceof SpecObject)
                 || (notification.getNewValue() instanceof SpecObject)
                 || (notification.getOldValue() instanceof SpecObject)
                 || (notification.getNotifier() instanceof AttributeValue)
                 || (notification.getNewValue() instanceof AttributeValue)
-                || (notification.getOldValue() instanceof AttributeValue) ) {
+                || (notification.getOldValue() instanceof AttributeValue) ){
+                
+                //TODO: Be more clever and don't refresh the whole viewer
+                // if only a single element is changed
                 SpecObjectViewer.this.refresh();
             }
+            
+            //listen on changes of datatype definitions
+            // the refresh of this viewer is done when the type editor is closed
+            // TODO: This should not be done here... ideally this should be done once after the Type Dialog has been
+            // closed BUT ONLY in case there are changes. We probably need to introduce a new interface for the editor
+            // here       
+            if( (notification.getNotifier() instanceof DatatypeDefinition)
+                    || (notification.getNewValue() instanceof DatatypeDefinition)
+                    || (notification.getOldValue() instanceof DatatypeDefinition)
+                    || (notification.getNotifier() instanceof AttributeDefinition)
+                    || (notification.getNewValue() instanceof AttributeDefinition)
+                    || (notification.getOldValue() instanceof AttributeDefinition) ){
+                    
+                    for (TableColumn column : SpecObjectViewer.this.getTable().getColumns()){
+                        column.dispose();
+                    }
+                    create_columns();
+                }
         }
     }
 
     /**
      * Provide label for data of table containing SpecTypes
      */
-    public class SpecObjectLabelProvider extends LabelProvider implements ITableLabelProvider {
+    public class SpecObjectLabelProvider extends ColumnLabelProvider {
 
+        /** The attribute defintion for this label provider *
+         * Required for getting the defatult value in case no value is
+         * defined
+         */
+        private AttributeDefinition attributeDefinition;
+        
+
+        public SpecObjectLabelProvider(AttributeDefinition attributeDefinition) {
+            this.attributeDefinition=attributeDefinition;
+        }
+        
         @Override
-        public String getColumnText( Object element, int columnIndex ) {
+        public String getText( Object element ) {
 
             // current element is a spec object
             SpecObject specObject = (SpecObject)element;
 
-            // get attribute definition displayed in this column
-            AttributeDefinition attributeDefinition = (AttributeDefinition)SpecObjectViewer.this.getTable()
-                                                                                                .getColumn( columnIndex )
-                                                                                                .getData( SPEC_ATTRIBUTE_COLUMN_DATA );
-            String retVal = null;
-
-            // check if the spec object provides a value for this column/attribute
-            for( AttributeValue value : specObject.getValues() ) {
-                if( value instanceof AttributeValueSimple ) {
-                    if( attributeDefinition.equals( ((AttributeValueSimple)value).getDefinition() ) ) {
-                        retVal = ((AttributeValueSimple)value).getTheValue();
-                    }
-                }
-            }
-
-            // if return value is not set try to show default value if it is defined
-            if( retVal == null ) {
-                if( attributeDefinition instanceof AttributeDefinitionSimple ) {
-                    AttributeValueSimple defaultValue = ((AttributeDefinitionSimple)attributeDefinition).getDefaultValue();
-                    if( defaultValue != null ) {
-                        retVal = defaultValue.getTheValue();
-                    }
-                }
-            }
-
-            return retVal;
+            return SpecObjectViewer.this.getSpecObjectAttributeValue(specObject,attributeDefinition);
+        }
+        
+        /**
+         *  get the attribute definition for this column
+         * @return 
+         */
+        public AttributeDefinition getAttributeDefinition()
+        {
+            return attributeDefinition;
         }
 
-        @Override
-        public Image getColumnImage( Object element, int columnIndex ) {
-            // no icons (yet)
-            return null;
-        }
     }
 
     /**
@@ -202,7 +236,7 @@ public class SpecObjectViewer extends TableViewer {
         private CellEditor cellEditor;
         private BasicCommandStack basicCommandStack;
 
-        /* Attribute defintion shown in this column */
+        /** Attribute defintion shown in this column */
         AttributeDefinition attributeDefinition;
 
         public SpecObjectEditingSupport( ColumnViewer viewer, AttributeDefinition attributeDefinition ) {
@@ -229,35 +263,7 @@ public class SpecObjectViewer extends TableViewer {
         @Override
         protected Object getValue( Object element ) {
             SpecObject specObject = (SpecObject)element;
-            String retVal = null;
-
-            // check if the spec object provides a value for this column/attribute
-            for( AttributeValue value : specObject.getValues() ) {
-                if( value instanceof AttributeValueSimple ) {
-                    if( attributeDefinition.equals( ((AttributeValueSimple)value).getDefinition() ) ) {
-                        retVal = ((AttributeValueSimple)value).getTheValue();
-                    }
-                }
-            }
-
-            // if return value is not set try to show default value if it is defined
-            if( retVal == null ) {
-                if( attributeDefinition instanceof AttributeDefinitionSimple ) {
-                    AttributeValueSimple defaultValue = ((AttributeDefinitionSimple)attributeDefinition).getDefaultValue();
-                    if( defaultValue != null ) {
-                        retVal = defaultValue.getTheValue();
-                    }
-                }
-            }
-            
-            // if there is still no value return empty string for the
-            // cell editor
-            if (retVal == null)
-            {
-               retVal ="";
-            }
-            
-            return retVal;
+            return SpecObjectViewer.this.getSpecObjectAttributeValue( specObject, attributeDefinition );
         }
 
         @Override
@@ -311,7 +317,6 @@ public class SpecObjectViewer extends TableViewer {
 
                     basicCommandStack.execute( cmd );
                     SpecObjectViewer.this.update( specObject, null );
-                    SpecObjectViewer.this.refresh();
                 }
             }
 
@@ -322,23 +327,59 @@ public class SpecObjectViewer extends TableViewer {
             }else{
                 // The value in the editor and the model differ: set value in the model 
                 
-                //FIXME: set command does not work WHY ??
-                // Command cmd = SetCommand.create( editingDomain,
-                //                                 attributeValue,
-                //                                 RifPackage.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE,
-                //                                 editorValue );
-
-                //basicCommandStack.execute( cmd );
-                attributeValue.setTheValue( (String)editorValue );
+                // The set command does not work when the object is created via the
+                // create() method. Reason: Due to a bug the 'feature Id' is not passed
+                // to the command. Therefore the execution fails.
+                Command cmd = new SetCommand( editingDomain,
+                                                 attributeValue,
+                                                 attributeValue.eClass().getEStructuralFeature( RifPackage.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE ),
+                                                 editorValue );
+               
+                basicCommandStack.execute( cmd );
                 SpecObjectViewer.this.update( specObject, null );
-                SpecObjectViewer.this.update( attributeValue, null );
-                SpecObjectViewer.this.refresh();
             }   
         }
     }
 
     // Helper for using the SpecObjectViewer from a viewer pane
+    //TODO: Remove this as soon we have our complete own editor
     public void setup() {
         setupTableViewer();
     }
+
+    /** get the value show in a column of a spec object according to the
+     * attribute Definition
+     * @param specObject of which the attribute value is taken
+     * @param attributeDefinition of which the value is taken
+     * @return
+     */
+    public String getSpecObjectAttributeValue( SpecObject specObject, AttributeDefinition attributeDefinition ) {
+        
+        // the value
+        // return an empty string in case we find no value nor default value
+        String valueString="";
+        
+        // check if the spec object provides a value for this column/attribute
+        for( AttributeValue value : specObject.getValues() ) {
+            if( value instanceof AttributeValueSimple ) {
+                if( attributeDefinition.equals( ((AttributeValueSimple)value).getDefinition() ) ) {
+                    valueString = ((AttributeValueSimple)value).getTheValue();
+                }
+            }
+        }
+
+        // if return value is not set try to show default value if it is defined
+        if( valueString == "" ) {
+            if( attributeDefinition instanceof AttributeDefinitionSimple ) {
+                AttributeValueSimple defaultValue = ((AttributeDefinitionSimple)attributeDefinition).getDefaultValue();
+                if( defaultValue != null ) {
+                    valueString = defaultValue.getTheValue();
+                }
+            }
+        }
+        
+        
+        return valueString;
+    }
+
 }
