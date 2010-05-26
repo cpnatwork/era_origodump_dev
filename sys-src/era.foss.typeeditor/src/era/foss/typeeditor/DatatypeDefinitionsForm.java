@@ -27,6 +27,7 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
@@ -38,7 +39,7 @@ import org.eclipse.ui.IEditorPart;
 import era.foss.rif.DatatypeDefinition;
 import era.foss.rif.RIFContent;
 import era.foss.rif.impl.RifFactoryImpl;
-import era.foss.rif.provider.DatatypeDefinitionItemProvider;
+import era.foss.rif.provider.RifEditPlugin;
 
 /**
  * A form for editing {@link DatatypeDefinition}s.
@@ -61,9 +62,6 @@ import era.foss.rif.provider.DatatypeDefinitionItemProvider;
  */
 final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
 
-    /** Provider for accessing the properties of the EMF Edit plugin */
-    private DatatypeDefinitionItemProvider dataTypesProvider;
-
     /**
      * Table viewer containing the datatype definitions
      */
@@ -71,10 +69,6 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
 
     public DatatypeDefinitionsForm( Composite parent, IEditorPart editor ) {
         super( parent, editor, SWT.NONE );
-
-        // set-up item provider for DatatypeDefinition items
-        // used for accessing information stored in the edit plugin
-        dataTypesProvider = new DatatypeDefinitionItemProvider( adapterFactory );
 
         // set-up layout
         GridLayout gridLayout = new GridLayout( 2, true );
@@ -106,7 +100,8 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
                 break;
             case 1:
                 ComboBoxViewerCellEditor comboCellEditor = new ComboBoxViewerCellEditor(
-                    ((TableViewer)viewer).getTable() );
+                    ((TableViewer)viewer).getTable(),
+                    SWT.READ_ONLY );
                 comboCellEditor.setContenProvider( new TypesForDatatypeDefinitionComboContentProvider(
                     adapterFactory,
                     comboCellEditor.getViewer() ) );
@@ -127,6 +122,10 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
 
         @Override
         protected CellEditor getCellEditor( Object element ) {
+            if( this.column == 1 ) {
+                // FIXME: the selected type of datatype falsly propagates with mouse reselection
+                ((CCombo)((ComboBoxViewerCellEditor)this.cellEditor).getControl()).clearSelection();
+            }
             return this.cellEditor;
         }
 
@@ -140,7 +139,8 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
                 retVal = dataType.getLongName();
                 break;
             case 1:
-                retVal = element;
+                retVal = dataType;
+                // FIXME: there is something rotten in the state of Combo
                 break;
             default:
                 break;
@@ -158,10 +158,13 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
                 // only update data model in case the value has changed
                 if( !dataType.getLongName().equals( value ) ) {
                     dataType.setLongName( (String)value );
-                    getViewer().update( element, null );
+                    getViewer().update( dataType, null );
                 }
                 break;
             case 1:
+
+                // the value must always be valid (ensured with ComboBox and SWT.READ_ONLY for the cells)
+                if( value == null ) break;
 
                 DatatypeDefinition newDataType = (DatatypeDefinition)value;
 
@@ -201,6 +204,10 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
                 // Execute both commands
                 eraCommandStack.execute( removeCommand );
                 eraCommandStack.execute( addCommand );
+
+                ((ComboBoxViewerCellEditor)this.cellEditor).setValue( null );
+                ((CCombo)((ComboBoxViewerCellEditor)this.cellEditor).getControl()).clearSelection();
+
                 getViewer().refresh();
                 break;
             default:
@@ -270,6 +277,7 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
                  * Extract the types which are available as foundation for defining an own DatatypeDefinition from the
                  * structure of the RIF model
                  */
+                // FIXME magic mullu mullu (getNewChildDescriptors)
                 Collection<CommandParameter> descriptors = (Collection<CommandParameter>)editingDomain.getNewChildDescriptors( rifModel.getCoreContent(),
                                                                                                                                null );
                 LinkedList<DatatypeDefinition> typesForDatatypeDefinitionList = new LinkedList<DatatypeDefinition>();
@@ -302,13 +310,11 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
 
     private void createTableViewer() {
 
-        
         // Label for table
         Label descriptionLabel = new Label( this, SWT.NONE );
         descriptionLabel.setText( typeEditorActivator.getString( "_UI_DataTypeDefinitionTable_label" ) + ":" );
         descriptionLabel.setLayoutData( new GridData( SWT.LEFT, SWT.BOTTOM, true, false, 2, 0 ) );
-        
-        
+
         tableViewer = new AddDeleteTableViewer( this, SWT.MULTI | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
         tableViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
         tableViewer.setEditingDomain( editingDomain );
@@ -352,6 +358,8 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
         // get the text specified in the resource file of the edit plugin
         // for this data type definition
         // TODO: Implement more simple method for retrieving the Name of a data type definitions
-        return dataTypesProvider.getCreateChildText( dataType, null, dataType, null );
+        String eclassName = dataType.eClass().getName();
+        String nameFromResource = RifEditPlugin.INSTANCE.getString( "_UI_" + eclassName + "_type" );
+        return (nameFromResource == null) ? eclassName : nameFromResource;
     }
 }

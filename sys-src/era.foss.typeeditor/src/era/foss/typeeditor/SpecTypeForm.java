@@ -12,7 +12,6 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
-import org.eclipse.emf.edit.provider.IChangeNotifier;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
@@ -113,8 +112,6 @@ public class SpecTypeForm extends AbstractErfTypesForm {
     public class AttributeDefinitionContentProvider extends AdapterFactoryContentProvider {
         public AttributeDefinitionContentProvider( AdapterFactory adapterFactory ) {
             super( adapterFactory );
-            // FIXME: cpn@schorsch: isn't this done by the super(..) constructor?
-            ((IChangeNotifier)adapterFactory).addListener( this );
         }
 
         // get elements shown in the table viewer holding Attribute defintions
@@ -145,17 +142,17 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 break;
             case 1:
                 DatatypeDefinition type = attribute.getType();
-                // special action for "fresh & uninitialized": show nothing  
+                // special action for "fresh & uninitialized": show nothing
                 if( type == null ) break;
                 // main action: show long name
                 retVal = type.getLongName();
                 break;
             case 2:
                 retVal = "n/a";
-                assert( attribute instanceof AttributeDefinitionSimple );
+                assert (attribute instanceof AttributeDefinitionSimple);
                 AttributeValueSimple defaultValue = ((AttributeDefinitionSimple)attribute).getDefaultValue();
-                // special action for "undeclared": show nothing  
-                if( defaultValue == null )  break;
+                // special action for "undeclared": show nothing
+                if( defaultValue == null ) break;
                 // main action: show default value
                 retVal = defaultValue.getTheValue();
                 break;
@@ -204,24 +201,29 @@ public class SpecTypeForm extends AbstractErfTypesForm {
             if( (notification.getNotifier() instanceof DatatypeDefinition)
                 || (notification.getNewValue() instanceof DatatypeDefinition)
                 || (notification.getOldValue() instanceof DatatypeDefinition) ) {
-                viewer.refresh();
-                tableViewer.refresh();
+                // refresh this combo box [there is only one instance of the Combo Box (and this, its Content Provider)
+                // namely for the column]
+                super.viewer.refresh();
+                // refresh the table (e.g. the name of the datatypye definition has changed => all rows must update)
+                SpecTypeForm.this.tableViewer.refresh();
             }
 
-            // In case a spec type is removed also remove the according values
-            // of the spec objects
+            // CLEAN-UP instances (value objects of spec objects) upon schema change (attribute defs of spec types)
             if( (notification.getOldValue() instanceof AttributeDefinition)
                 && (notification.getEventType() == Notification.REMOVE) ) {
+
                 AttributeDefinition removedAttributeDefinition = (AttributeDefinition)notification.getOldValue();
+
                 LinkedList<AttributeValue> attributeValuesToRemove = new LinkedList<AttributeValue>();
                 for( SpecObject specObject : rifModel.getCoreContent().getSpecObjects() ) {
                     for( AttributeValue attributeValue : specObject.getValues() ) {
-                        if( (attributeValue instanceof AttributeValueSimple)
-                            && (((AttributeValueSimple)attributeValue).getDefinition().getID() == removedAttributeDefinition.getID()) ) {
-                            attributeValuesToRemove.add( attributeValue );
-                        }
+                        if( !(attributeValue instanceof AttributeValueSimple) ) continue;
+                        if( ((AttributeValueSimple)attributeValue).getDefinition().getID() != removedAttributeDefinition.getID() ) continue;
+                        // matched attribute value: remember it for deletion
+                        attributeValuesToRemove.add( attributeValue );
                     }
                 }
+
                 Command removeCommand = RemoveCommand.create( editingDomain, attributeValuesToRemove );
                 editingDomain.getCommandStack().execute( removeCommand );
             }
@@ -265,7 +267,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                     adapterFactory,
                     comboCellEditor.getViewer() ) );
 
-                comboCellEditor.setLabelProvider(  new DatatypesComboLabelProvider() );
+                comboCellEditor.setLabelProvider( new DatatypesComboLabelProvider() );
                 comboCellEditor.setInput( editingDomain.getResourceSet() );
                 this.cellEditor = comboCellEditor;
                 break;
@@ -389,6 +391,10 @@ public class SpecTypeForm extends AbstractErfTypesForm {
      * create context menu for -Adding and removing Dafatult values
      */
     private void createContextMenu() {
+
+        // FIXME: provide double click as legitimate insert trigger for adding default values
+        // (requires knowledge about which column is affected by click)
+
         final class DefaultValueAction extends Action {
             /** remove Default value instead of adding */
             private AttributeDefinitionSimple attribute;
