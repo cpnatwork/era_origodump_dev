@@ -158,7 +158,7 @@ public class SpecObjectViewer extends TableViewer {
             //FIXME: notification is not sent anymore
             super.notifyChanged( notification );
             
-            // handle changes of a data type definition
+            // handle changes of a Spec Objects
             if( (notification.getNotifier() instanceof SpecObject)
                 || (notification.getNewValue() instanceof SpecObject)
                 || (notification.getOldValue() instanceof SpecObject)
