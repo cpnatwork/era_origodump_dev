@@ -155,6 +155,7 @@ public class SpecObjectViewer extends TableViewer {
         // listen on changes of Spec Object
         @Override
         public void notifyChanged( Notification notification ) {
+            //FIXME: notification is not sent anymore
             super.notifyChanged( notification );
             
             // handle changes of a data type definition

@@ -140,9 +140,6 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
                 retVal = dataType.getLongName();
                 break;
             case 1:
-                // FIXME: cpn@schorsch: Häh??
-                // String dataTypeName = DatatypeDefinitionsForm.this.getDataTypeName( dataType );
-                // retVal = ((CCombo)this.cellEditor.getControl()).indexOf( dataTypeName );
                 retVal = element;
                 break;
             default:
@@ -353,7 +350,8 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
      */
     private String getNameOfTypeForDatatypeDefinition( DatatypeDefinition dataType ) {
         // get the text specified in the resource file of the edit plugin
-        // for this data type
+        // for this data type definition
+        // TODO: Implement more simple method for retrieving the Name of a data type definitions
         return dataTypesProvider.getCreateChildText( dataType, null, dataType, null );
     }
 }
