@@ -905,7 +905,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
      * This is the method used by the framework to install your own controls. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
-     * @generated
+     * @not generated
      */
     @Override
     public void createPages() {
@@ -1317,7 +1317,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
      * This deals with how we want selection in the outliner to affect the other views. <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * 
-     * @generated
+     * @not generated
      */
     public void handleContentOutlineSelection( ISelection selection ) {
         if( currentViewerPane != null && !selection.isEmpty() && selection instanceof IStructuredSelection ) {
@@ -1342,8 +1342,8 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
                 } else {
                     // Set the input to the widget.
                     //
-                    
-                    if( currentViewerPane instanceof SpecObjectViewerPane && currentViewerPane.getViewer().getInput() != selectedElement ) {
+                    // do not set input if it is a specobjectviewer
+                    if( !(currentViewerPane instanceof SpecObjectViewerPane) && currentViewerPane.getViewer().getInput() != selectedElement ) {
                         currentViewerPane.getViewer().setInput( selectedElement );
                         currentViewerPane.setTitle( selectedElement );
                     }
