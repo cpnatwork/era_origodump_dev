@@ -12,6 +12,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
+import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
@@ -322,24 +323,43 @@ public class SpecTypeForm extends AbstractErfTypesForm {
         protected void setValue( Object element, Object value ) {
             AttributeDefinition attribute = (AttributeDefinition)element;
 
+            Command cmd = null;
             switch (this.column) {
             case 0:
-                if( !attribute.getLongName().equals( value ) ) {
-                    attribute.setLongName( (String)value );
-                    getViewer().update( element, null );
-                }
+                // only update data model in case the value has changed
+                if( attribute.getLongName().equals( value ) ) break;
+                // set longname to new value (using a command)
+                cmd = new SetCommand(
+                    editingDomain,
+                    attribute,
+                    attribute.eClass().getEStructuralFeature( RifPackage.ATTRIBUTE_DEFINITION__LONG_NAME ),
+                    (String)value );
+                eraCommandStack.execute( cmd );
+                super.getViewer().update( attribute, null );
                 break;
             case 1:
-                // Set reference to datatype definition if value has changed
-                attribute.setType( (DatatypeDefinition)value );
-                getViewer().refresh();
+                assert (value != null);
+                // set reference to datatype definition (using a command)
+                cmd = new SetCommand(
+                    editingDomain,
+                    attribute,
+                    attribute.eClass().getEStructuralFeature( RifPackage.ATTRIBUTE_DEFINITION__TYPE ),
+                    (DatatypeDefinition)value );
+                eraCommandStack.execute( cmd );
+                super.getViewer().refresh();
                 break;
             case 2:
-                AttributeValueSimple DefaultValue = ((AttributeDefinitionSimple)attribute).getDefaultValue();
-                if( !DefaultValue.getTheValue().equals( value ) ) {
-                    DefaultValue.setTheValue( (String)value );
-                    getViewer().update( element, null );
-                }
+                // only update data model in case the value has changed
+                AttributeValueSimple defaultValue = ((AttributeDefinitionSimple)attribute).getDefaultValue();
+                if( defaultValue.getTheValue().equals( value ) ) break;
+                // set TheValue of the attribute's DefaultValue to the new value (using a command)
+                cmd = new SetCommand(
+                    editingDomain,
+                    defaultValue,
+                    defaultValue.eClass().getEStructuralFeature( RifPackage.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE ),
+                    (String)value );
+                eraCommandStack.execute( cmd );
+                super.getViewer().update( element, null );
                 break;
             default:
                 break;

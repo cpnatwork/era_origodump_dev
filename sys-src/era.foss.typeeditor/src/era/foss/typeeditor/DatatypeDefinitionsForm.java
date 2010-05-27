@@ -12,6 +12,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.CommandParameter;
 import org.eclipse.emf.edit.command.RemoveCommand;
+import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.CellEditor;
@@ -38,6 +39,7 @@ import org.eclipse.ui.IEditorPart;
 
 import era.foss.rif.DatatypeDefinition;
 import era.foss.rif.RIFContent;
+import era.foss.rif.RifPackage;
 import era.foss.rif.impl.RifFactoryImpl;
 import era.foss.rif.provider.RifEditPlugin;
 
@@ -154,17 +156,20 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
 
             switch (this.column) {
             case 0:
-
                 // only update data model in case the value has changed
-                if( !dataType.getLongName().equals( value ) ) {
-                    dataType.setLongName( (String)value );
-                    getViewer().update( dataType, null );
-                }
+                if( dataType.getLongName().equals( value ) ) break;
+                // set longname to new value (using a command)
+                Command cmd = new SetCommand(
+                    editingDomain,
+                    dataType,
+                    dataType.eClass().getEStructuralFeature( RifPackage.DATATYPE_DEFINITION__LONG_NAME ),
+                    (String)value );
+                eraCommandStack.execute( cmd );
+                super.getViewer().update( dataType, null );
                 break;
             case 1:
-
                 // the value must always be valid (ensured with ComboBox and SWT.READ_ONLY for the cells)
-                if( value == null ) break;
+                assert( value != null );
 
                 DatatypeDefinition newDataType = (DatatypeDefinition)value;
 
@@ -277,7 +282,7 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
                  * Extract the types which are available as foundation for defining an own DatatypeDefinition from the
                  * structure of the RIF model
                  */
-                // FIXME magic mullu mullu (getNewChildDescriptors)
+                // FIXME: magic mullu mullu (getNewChildDescriptors)
                 Collection<CommandParameter> descriptors = (Collection<CommandParameter>)editingDomain.getNewChildDescriptors( rifModel.getCoreContent(),
                                                                                                                                null );
                 LinkedList<DatatypeDefinition> typesForDatatypeDefinitionList = new LinkedList<DatatypeDefinition>();
@@ -349,16 +354,17 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
     }
 
     /**
-     * Extracts for any DatatypeDefinition object the name of its type
+     * Extracts for any DatatypeDefinition object the name of its type.
+     * <p>
+     * Gets the text specified in the resource file of the edit plug-in.
      * 
      * @param dataType the DatatypeDefinition object in question
      * @return its type name
      */
     private String getNameOfTypeForDatatypeDefinition( DatatypeDefinition dataType ) {
-        // get the text specified in the resource file of the edit plugin
-        // for this data type definition
-        // TODO: Implement more simple method for retrieving the Name of a data type definitions
+        // default name by eClass
         String eclassName = dataType.eClass().getName();
+        // name from resource file (plugin.properties)
         String nameFromResource = RifEditPlugin.INSTANCE.getString( "_UI_" + eclassName + "_type" );
         return (nameFromResource == null) ? eclassName : nameFromResource;
     }
