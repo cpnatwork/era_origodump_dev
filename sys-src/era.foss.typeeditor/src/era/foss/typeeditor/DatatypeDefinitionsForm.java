@@ -9,6 +9,7 @@ import java.util.LinkedList;
 
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.CommandParameter;
 import org.eclipse.emf.edit.command.RemoveCommand;
@@ -124,10 +125,6 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
 
         @Override
         protected CellEditor getCellEditor( Object element ) {
-            if( this.column == 1 ) {
-                // FIXME: the selected type of datatype falsly propagates with mouse reselection
-                ((CCombo)((ComboBoxViewerCellEditor)this.cellEditor).getControl()).clearSelection();
-            }
             return this.cellEditor;
         }
 
@@ -141,8 +138,7 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
                 retVal = dataType.getLongName();
                 break;
             case 1:
-                retVal = dataType;
-                // FIXME: there is something rotten in the state of Combo
+                retVal = dataType.eClass();
                 break;
             default:
                 break;
@@ -169,25 +165,19 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
                 break;
             case 1:
                 // the value must always be valid (ensured with ComboBox and SWT.READ_ONLY for the cells)
-                assert( value != null );
-
-                DatatypeDefinition newDataType = (DatatypeDefinition)value;
-
-                String dataTypeNameCurrent = getNameOfTypeForDatatypeDefinition( dataType );
-                // String dataTypeNameNew = ((CCombo)this.cellEditor.getControl()).getItem( (Integer)value );
-                String dataTypeNameNew = getNameOfTypeForDatatypeDefinition( newDataType );
-
+                assert (value instanceof EClass);
+                String dataTypeNameNew = getTypenameForDatatypeDefinition( (EClass)value );
+                String dataTypeNameCurrent = getTypenameForDatatypeDefinition( dataType );
                 if( dataTypeNameNew.equals( dataTypeNameCurrent ) ) {
                     // the current data type is the same data type selected in the ComboBox
                     // therefore: DO NOTHING
                     break;
                 }
 
-                // create new datatype
-                // EClass newDataTypeClass = supportedDataTypesClasses.get( (Integer)value );
-                // DatatypeDefinition newDataType = (DatatypeDefinition)RifFactoryImpl.eINSTANCE.create( value );
+                // create new a datatypeDefinition based on the value
+                DatatypeDefinition newDataType = (DatatypeDefinition)RifFactoryImpl.eINSTANCE.create( (EClass)value );
 
-                // copy old data type attributes
+                // copy old data type attributes (direct set can be usend; no commands required here)
                 newDataType.setID( dataType.getID() );
                 newDataType.setLongName( dataType.getLongName() );
                 newDataType.setDesc( dataType.getDesc() );
@@ -195,6 +185,9 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
                 // Remove Command:
                 // remove old data type
                 Command removeCommand = RemoveCommand.create( editingDomain, dataType );
+
+                // FIXME: if the type changes through this method, the SpecTypeForm "looses" the according notification
+                // => Is it just, that the SpecTypeForm needs also refresh?
 
                 // Add Command:
                 // Get index of old data type (in order to add it at the same position)
@@ -213,7 +206,7 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
                 ((ComboBoxViewerCellEditor)this.cellEditor).setValue( null );
                 ((CCombo)((ComboBoxViewerCellEditor)this.cellEditor).getControl()).clearSelection();
 
-                getViewer().refresh();
+                super.getViewer().refresh();
                 break;
             default:
                 break;
@@ -249,7 +242,7 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
             case 0:
                 return dataType.getLongName();
             case 1:
-                return getNameOfTypeForDatatypeDefinition( dataType );
+                return getTypenameForDatatypeDefinition( dataType );
             default:
                 throw new RuntimeException( "Should not happen" );
             }
@@ -272,31 +265,30 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
             this.viewer = viewer;
         }
 
-        // get elements which are show in the combobox
+        /**
+         * Get list of typenames for the allowed DatatypeDefinition elements which hawe to be show in the combobox
+         * 
+         * @see org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider#getElements(java.lang.Object)
+         * @return EClass[] of form (DatatypeDefinition x).eClass()
+         */
         @SuppressWarnings("unchecked")
         public Object[] getElements( Object object ) {
+            // this input will be ignored; the list is created based on the generally allowed model-structure
+            assert (object instanceof DatatypeDefinition);
 
-            DatatypeDefinition[] typesForDatatypeDefinition = null;
-            try {
-                /*
-                 * Extract the types which are available as foundation for defining an own DatatypeDefinition from the
-                 * structure of the RIF model
-                 */
-                // FIXME: magic mullu mullu (getNewChildDescriptors)
-                Collection<CommandParameter> descriptors = (Collection<CommandParameter>)editingDomain.getNewChildDescriptors( rifModel.getCoreContent(),
-                                                                                                                               null );
-                LinkedList<DatatypeDefinition> typesForDatatypeDefinitionList = new LinkedList<DatatypeDefinition>();
-                for( CommandParameter descriptor : descriptors ) {
-                    if( !(descriptor.value instanceof DatatypeDefinition) ) continue;
-                    DatatypeDefinition typeofDatatypeDefinition = (DatatypeDefinition)descriptor.value;
-                    typesForDatatypeDefinitionList.add( typeofDatatypeDefinition );
-                }
-                typesForDatatypeDefinition = new DatatypeDefinition[typesForDatatypeDefinitionList.size()];
-                typesForDatatypeDefinition = typesForDatatypeDefinitionList.toArray( typesForDatatypeDefinition );
-            } catch( NullPointerException e ) {
-                typesForDatatypeDefinition = new DatatypeDefinition[0];
-            }
-            return typesForDatatypeDefinition;
+            // The editing domain provides functionality to extract allowed children
+            RIFContent toplevel = rifModel.getCoreContent();
+            Collection<CommandParameter> allAllowedDescriptors = (Collection<CommandParameter>)editingDomain.getNewChildDescriptors( toplevel,
+                                                                                                                                     null );
+            // filter the child descriptors by the base type of DatatypeDefinition
+            Collection<EClass> filteredAllowedDescriptors = new LinkedList<EClass>();
+            for( CommandParameter descriptor : allAllowedDescriptors )
+                if( (descriptor.value instanceof DatatypeDefinition) ) filteredAllowedDescriptors.add( ((DatatypeDefinition)descriptor.value).eClass() );
+
+            // transform Collection into Array
+            EClass[] toplevelDatatypeDefinitionNames = new EClass[filteredAllowedDescriptors.size()];
+            toplevelDatatypeDefinitionNames = filteredAllowedDescriptors.toArray( toplevelDatatypeDefinitionNames );
+            return toplevelDatatypeDefinitionNames;
         }
 
     }
@@ -305,11 +297,9 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
      * Label provider for the Combo box
      */
     public class TypesForDatatypeDefinitionComboLabelProvider extends LabelProvider implements IBaseLabelProvider {
-
         @Override
         public String getText( Object element ) {
-            assert (element instanceof DatatypeDefinition);
-            return getNameOfTypeForDatatypeDefinition( (DatatypeDefinition)element );
+            return getTypenameForDatatypeDefinition( (EClass)element );
         }
     }
 
@@ -361,11 +351,13 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
      * @param dataType the DatatypeDefinition object in question
      * @return its type name
      */
-    private String getNameOfTypeForDatatypeDefinition( DatatypeDefinition dataType ) {
-        // default name by eClass
-        String eclassName = dataType.eClass().getName();
-        // name from resource file (plugin.properties)
-        String nameFromResource = RifEditPlugin.INSTANCE.getString( "_UI_" + eclassName + "_type" );
-        return (nameFromResource == null) ? eclassName : nameFromResource;
+    private String getTypenameForDatatypeDefinition( EClass eClass ) {
+        String nameFromResource = RifEditPlugin.INSTANCE.getString( "_UI_" + eClass.getName() + "_type" );
+        return (nameFromResource == null) ? eClass.getName() : nameFromResource;
     }
+
+    private String getTypenameForDatatypeDefinition( DatatypeDefinition dataType ) {
+        return getTypenameForDatatypeDefinition( dataType.eClass() );
+    }
+
 }
