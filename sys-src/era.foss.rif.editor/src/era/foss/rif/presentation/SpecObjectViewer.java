@@ -91,7 +91,7 @@ public class SpecObjectViewer extends TableViewer {
 
         this.setContentProvider( new SpecObjectContentProvider( rifEditor.getAdapterFactory() ) );
 
-        // FIXME: Is this REALLY the right place to adapt ALL elements ???
+        // FIXME: Is this really the right place to adapt ALL elements ???
         rifModel.getCoreContent().eAdapters().add( new ViewerRefreshEContentAdapter() );
 
         this.setInput( rifModel.getCoreContent().getSpecObjects() );

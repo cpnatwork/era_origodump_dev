@@ -5,14 +5,15 @@
 package era.foss.typeeditor;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.CommandParameter;
-import org.eclipse.emf.edit.command.RemoveCommand;
+import org.eclipse.emf.edit.command.ReplaceCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jface.layout.TableColumnLayout;
@@ -177,35 +178,28 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
                 // create new a datatypeDefinition based on the value
                 DatatypeDefinition newDataType = (DatatypeDefinition)RifFactoryImpl.eINSTANCE.create( (EClass)value );
 
-                // copy old data type attributes (direct set can be usend; no commands required here)
-                newDataType.setID( dataType.getID() );
+                // copy old data type attributes
+                // direct set can be used; no commands required here
+                // (but do NOT copy the ID!!)
                 newDataType.setLongName( dataType.getLongName() );
                 newDataType.setDesc( dataType.getDesc() );
 
-                // Remove Command:
-                // remove old data type
-                Command removeCommand = RemoveCommand.create( editingDomain, dataType );
-
-                // FIXME: if the type changes through this method, the SpecTypeForm "looses" the according notification
-                // => Is it just, that the SpecTypeForm needs also refresh?
-
-                // Add Command:
-                // Get index of old data type (in order to add it at the same position)
                 RIFContent dataTypeParent = ((RIFContent)editingDomain.getParent( dataType ));
-                assert (dataTypeParent == rifModel.getCoreContent());
-                Command addCommand = AddCommand.create( editingDomain,
-                                                        dataTypeParent,
-                                                        null,
-                                                        newDataType,
-                                                        dataTypeParent.eContents().indexOf( dataType ) );
+                Command replaceCommand = ReplaceCommand.create( editingDomain,
+                                                                dataTypeParent,
+                                                                dataTypeParent.eClass()
+                                                                              .getEStructuralFeature( RifPackage.RIF_CONTENT__DATA_TYPES ),
+                                                                dataType,
+                                                                Collections.singleton( newDataType ) );
+                // the ReplaceCommand will result in an REMOVE and ADD notification
+                eraCommandStack.execute( replaceCommand );
 
-                // Execute both commands
-                eraCommandStack.execute( removeCommand );
-                eraCommandStack.execute( addCommand );
-
+                // reset the cellEditor (remember: there is only one object, which handles all cell in its row)
+                // because the selected value must not propagate if another row is selected
                 ((ComboBoxViewerCellEditor)this.cellEditor).setValue( null );
                 ((CCombo)((ComboBoxViewerCellEditor)this.cellEditor).getControl()).clearSelection();
 
+                // refresh the tableViewer for the datatypes
                 super.getViewer().refresh();
                 break;
             default:
@@ -229,6 +223,19 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
                 objects = new DatatypeDefinition[0];
             }
             return objects;
+        }
+
+        // listen on changes of Datatype definitions
+        @Override
+        public void notifyChanged( Notification notification ) {
+            super.notifyChanged( notification );
+
+            if( (notification.getNotifier() instanceof DatatypeDefinition)
+                || (notification.getNewValue() instanceof DatatypeDefinition)
+                || (notification.getOldValue() instanceof DatatypeDefinition) ) {
+                // refresh the table (e.g. the name of the datatypye definition has changed => all rows must update)
+                DatatypeDefinitionsForm.this.tableViewer.refresh();
+            }
         }
     }
 
