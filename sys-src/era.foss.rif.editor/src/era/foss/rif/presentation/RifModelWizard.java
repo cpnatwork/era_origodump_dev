@@ -91,7 +91,7 @@ import org.eclipse.ui.PartInitException;
  * This is a simple wizard for creating a new model file.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
- * @generated
+ * @not generated
  */
 public class RifModelWizard extends Wizard implements INewWizard {
     /**
@@ -461,6 +461,22 @@ public class RifModelWizard extends Wizard implements INewWizard {
             return getEncodings().contains( encodingField.getText() );
         }
 
+        /**
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @not generated
+         */
+        @Override
+        public void setVisible( boolean visible ){}
+
+        /**
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @not generated
+         */
+        public String getInitialObjectName() {
+            return "RIF";
+        }
 
         /**
          * <!-- begin-user-doc -->
