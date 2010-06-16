@@ -101,7 +101,14 @@ public class SpecObjectViewer extends TableViewer {
      * Create columns for the spec Object viewer
      */
     private void create_columns() {
-        // get attributes for the spec object
+        
+    	// in case we don't have a spec type don't create columns
+    	if (rifModel.getCoreContent().getSpecTypes().isEmpty())
+    	{
+    		return;
+    	}
+    	
+    	// get attributes for the spec object
         // Remark: currently we only have one specType
         SpecType specType = rifModel.getCoreContent().getSpecTypes().get( 0 );
         EList<AttributeDefinition> specAttributeList = specType.getSpecAttributes();
