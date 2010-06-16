@@ -146,6 +146,14 @@ public class SpecObjectViewer extends TableViewer {
             }
             return objects;
         }
+        
+        @Override
+        public void notifyChanged( Notification notification ) {
+            super.notifyChanged( notification );
+
+            //handleInstanceLevel( notification );
+            //handleTypeLevel( notification );
+        }
     }
 
     /**

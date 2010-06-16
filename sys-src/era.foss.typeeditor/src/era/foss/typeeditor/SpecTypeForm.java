@@ -4,8 +4,6 @@
 
 package era.foss.typeeditor;
 
-import java.util.LinkedList;
-
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -41,11 +39,9 @@ import org.eclipse.ui.IEditorPart;
 
 import era.foss.rif.AttributeDefinition;
 import era.foss.rif.AttributeDefinitionSimple;
-import era.foss.rif.AttributeValue;
 import era.foss.rif.AttributeValueSimple;
 import era.foss.rif.DatatypeDefinition;
 import era.foss.rif.RifPackage;
-import era.foss.rif.SpecObject;
 import era.foss.rif.SpecType;
 import era.foss.rif.impl.RifFactoryImpl;
 
@@ -87,6 +83,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
         super( parent, editor, SWT.NONE );
 
         // check for and eventually initialize the sole SpecType
+        // FIXME: we could remove this default spectype creation (the new filewizard handles it)
         if( rifModel.getCoreContent().getSpecTypes().size() == 0 ) {
             Command addCommand = AddCommand.create( editingDomain,
                                                     rifModel.getCoreContent(),
@@ -127,8 +124,6 @@ public class SpecTypeForm extends AbstractErfTypesForm {
             return objects;
         }
 
-        private DatatypeDefinition rememberedDatatypeDefinitionInCaseOfReplace = null;
-
         // handle changes relevant to the table (not the combo box)
         @Override
         public void notifyChanged( Notification notification ) {
@@ -142,47 +137,12 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 // refresh the tableViewer (e.g. the name of the datatypye definition has changed => all rows must
                 // update)
                 super.viewer.refresh();
-
-                // any SET indicates that this has nothing to do with _replace_
-                if( rememberedDatatypeDefinitionInCaseOfReplace != null ) rememberedDatatypeDefinitionInCaseOfReplace = null;
             }
 
             // CASE: a plain new available DatatypeDefinition
             // CASE: a type-changed DatatypeDefinition (because ReplaceCommand also triggers ADD as its 2nd step)
             if( (notification.getNewValue() instanceof DatatypeDefinition)
                 && (notification.getEventType() == Notification.ADD) ) {
-
-                if( rememberedDatatypeDefinitionInCaseOfReplace != null ) {
-                    DatatypeDefinition addedDatatypeDefinition = (DatatypeDefinition)notification.getNewValue();
-
-                    // check if the LongName matches the remembered one (the _replace_ is atmomic in its REMOVE/ADD and
-                    // the LongName will not change in between
-                    if( rememberedDatatypeDefinitionInCaseOfReplace.getLongName()
-                                                                   .equals( addedDatatypeDefinition.getLongName() ) ) {
-                        // assume the add as the second phase in a _replace_
-                        DatatypeDefinition removedDatatypeDefinition = rememberedDatatypeDefinitionInCaseOfReplace;
-                        for( AttributeDefinition attributeDefinition : theOneAndOnlySpecType.getSpecAttributes() ) {
-                            if( !(attributeDefinition.getType() == removedDatatypeDefinition) ) continue;
-                            // this AttributeDefinition is affected by the _replace_
-                            Command cmd = new SetCommand(
-                                editingDomain,
-                                attributeDefinition,
-                                attributeDefinition.eClass()
-                                                   .getEStructuralFeature( RifPackage.ATTRIBUTE_DEFINITION__TYPE ),
-                                addedDatatypeDefinition );
-                            eraCommandStack.execute( cmd );
-                        }
-                        // conclude the _replace_
-                        rememberedDatatypeDefinitionInCaseOfReplace = null;
-                    } else {
-                        // FIXME: all this is very shitty! (the ReplaceCommand should have its own notification type)
-                        // a REMOVE had been indicated, but we waited for an ADD ...
-                        // so now we have to redo the REMOVE: delete references
-                    }
-
-                    // any other ADD indicates that this has nothing to do with _replace_
-                    rememberedDatatypeDefinitionInCaseOfReplace = null;
-                }
                 // refresh the table
                 super.viewer.refresh();
             }
@@ -191,120 +151,21 @@ public class SpecTypeForm extends AbstractErfTypesForm {
             // CASE: a type-changed DatatypeDefinition (because ReplaceCommand also triggers REMOVE as its 1st step)
             if( (notification.getOldValue() instanceof DatatypeDefinition)
                 && (notification.getEventType() == Notification.REMOVE) ) {
-
-                DatatypeDefinition removedDatatypeDefinition = (DatatypeDefinition)notification.getOldValue();
-
-                // remember! probably this is a _replace_
-                this.rememberedDatatypeDefinitionInCaseOfReplace = removedDatatypeDefinition;
-
-                // search for affected AttributeDefinitions
-                for( AttributeDefinition attributeDefinition : theOneAndOnlySpecType.getSpecAttributes() ) {
-                    if( (attributeDefinition.getType() != removedDatatypeDefinition) ) continue;
-
-                    // this AttributeDefinition is Affected by the removal of its type (DatatypeDefinition)
-                    // => erase all AttributeValues from all SpecObjects of this affected AttributeDefinition
-                    LinkedList<AttributeValue> attributeValuesToRemove = new LinkedList<AttributeValue>();
-                    // look at every SpecObject
-                    for( SpecObject specObject : rifModel.getCoreContent().getSpecObjects() ) {
-                        // look at every AttributeValue
-                        for( AttributeValue attributeValue : specObject.getValues() ) {
-                            assert (attributeValue instanceof AttributeValueSimple);
-                            // search for an affected AttributeValue
-                            if( ((AttributeValueSimple)attributeValue).getDefinition().getID() != attributeDefinition.getID() ) continue;
-                            // this AttributeValue is of the type of the affected AttributeDefinition: remember it for
-                            // deletion
-                            attributeValuesToRemove.add( attributeValue );
-                        }
-                    }
-                    // now remove all these selected AttributeValues
-                    if( !attributeValuesToRemove.isEmpty() ) {
-                        Command removeCommand = RemoveCommand.create( editingDomain, attributeValuesToRemove );
-                        editingDomain.getCommandStack().execute( removeCommand );
-                    }
-
-                    // FIXME: under normal circumstances we would now set the AttributeDefition's type to null, BUT ...
-                    // see the "all this is very shitty" comment!?!!?!
-                }
-
                 // refresh the table (probably this is not necessary)
                 super.viewer.refresh();
             }
 
             // SYNCHRONIZE/LISTEN TO CHANGE FROM THE SpecTypeForm ITSELF !!
-            // FIXME: probably all the SpecObjects clean-up cases should be factored out
-            // into a separate EContentProvider!?
 
-            // CASE: a removed AttributeDefinition (from this.theOneAndOnlySpecType) (caused in this form)
-            // clean-up the spec objects (as the instances of the spec type) => remove according AttributeValues
+            // Viewer.refresh()s are triggered by the AddDeleteTableViewer class
+            
+            // FIXME : interaction with AddDeleteTableViewer must be reflected
             if( (notification.getOldValue() instanceof AttributeDefinition)
                 && (notification.getEventType() == Notification.REMOVE) ) {
-
-                // this AttributeDefinition has just now been removed from theOneAndOnlySpecType
                 AttributeDefinition removedAttributeDefinition = (AttributeDefinition)notification.getOldValue();
-
-                LinkedList<AttributeValue> attributeValuesToRemove = new LinkedList<AttributeValue>();
-                // look at every SpecObject
-                for( SpecObject specObject : rifModel.getCoreContent().getSpecObjects() ) {
-                    // look at every AttributeValue
-                    for( AttributeValue attributeValue : specObject.getValues() ) {
-                        assert (attributeValue instanceof AttributeValueSimple);
-                        // search for an affected AttributeValue
-                        if( ((AttributeValueSimple)attributeValue).getDefinition().getID() != removedAttributeDefinition.getID() ) continue;
-                        // this AttributeValue is of the type of the removed AttributeDefinition: remember it for
-                        // deletion
-                        attributeValuesToRemove.add( attributeValue );
-                    }
-                }
-                // now remove all these selected AttributeValues
-                if( !attributeValuesToRemove.isEmpty() ) {
-                    Command removeCommand = RemoveCommand.create( editingDomain, attributeValuesToRemove );
-                    editingDomain.getCommandStack().execute( removeCommand );
-                }
+                SpecTypeForm.this.spectypeChangeWorker.removeAttributedefinition( removedAttributeDefinition );
             }
 
-            // CASE: the type (= DatatypeDefinition) of an AttributeDefinition has changed
-            // clean-up the spec objects (as the instances of the spec type) => remove according AttributeValues
-            if( (notification.getNewValue() instanceof AttributeDefinition)
-                && (notification.getEventType() == Notification.SET) ) {
-
-                // this AttributeDefinition has just now been removed from theOneAndOnlySpecType
-                AttributeDefinition setAttributeDefinition = (AttributeDefinition)notification.getNewValue();
-
-                LinkedList<AttributeValue> attributeValuesToRemove = new LinkedList<AttributeValue>();
-                // look at every SpecObject
-                for( SpecObject specObject : rifModel.getCoreContent().getSpecObjects() ) {
-                    // look at every AttributeValue
-                    for( AttributeValue attributeValue : specObject.getValues() ) {
-                        assert (attributeValue instanceof AttributeValueSimple);
-                        // search for an affected AttributeValue
-                        if( ((AttributeValueSimple)attributeValue).getDefinition().getID() != setAttributeDefinition.getID() ) continue;
-                        // this AttributeValue is of the type of the removed AttributeDefinition: remember it for
-                        // deletion
-                        attributeValuesToRemove.add( attributeValue );
-                    }
-                }
-                // now remove all these selected AttributeValues
-                if( !attributeValuesToRemove.isEmpty() ) {
-                    Command removeCommand = RemoveCommand.create( editingDomain, attributeValuesToRemove );
-                    editingDomain.getCommandStack().execute( removeCommand );
-                }
-            }
-
-            // CASE: the removed AttributeDefinition is the _last_ one
-            /*
-             * purge all SpecObjects, because if then again new AttributeDefinitions are created, there still exists the
-             * pointless old list of empty SpecObjects with generated internal IDs
-             */
-            if( (notification.getOldValue() instanceof AttributeDefinition)
-                && (notification.getEventType() == Notification.REMOVE)
-                && rifModel.getCoreContent().getSpecTypes().get( 0 ).getSpecAttributes().isEmpty() ) {
-                // remove all SpecObjects
-                Command removeCommand = RemoveCommand.create( editingDomain, rifModel.getCoreContent()
-                                                                                     .getSpecObjects() );
-                editingDomain.getCommandStack().execute( removeCommand );
-            }
-
-            // CURRENTLY NO OTHER CASE
         }
     }
 
@@ -498,36 +359,31 @@ public class SpecTypeForm extends AbstractErfTypesForm {
 
         @Override
         protected void setValue( Object element, Object value ) {
-            AttributeDefinition attribute = (AttributeDefinition)element;
+            AttributeDefinition attributeDefinition = (AttributeDefinition)element;
 
             Command cmd = null;
             switch (this.column) {
             case 0:
                 // only update data model in case the value has changed
-                if( attribute.getLongName().equals( value ) ) break;
+                if( attributeDefinition.getLongName().equals( value ) ) break;
                 // set longname to new value (using a command)
                 cmd = new SetCommand(
                     editingDomain,
-                    attribute,
-                    attribute.eClass().getEStructuralFeature( RifPackage.ATTRIBUTE_DEFINITION__LONG_NAME ),
+                    attributeDefinition,
+                    attributeDefinition.eClass().getEStructuralFeature( RifPackage.ATTRIBUTE_DEFINITION__LONG_NAME ),
                     (String)value );
                 eraCommandStack.execute( cmd );
-                super.getViewer().update( attribute, null );
+                super.getViewer().update( attributeDefinition, null );
                 break;
             case 1:
                 assert (value != null);
-                // set reference to datatype definition (using a command)
-                cmd = new SetCommand(
-                    editingDomain,
-                    attribute,
-                    attribute.eClass().getEStructuralFeature( RifPackage.ATTRIBUTE_DEFINITION__TYPE ),
-                    (DatatypeDefinition)value );
-                eraCommandStack.execute( cmd );
-                super.getViewer().refresh();
+                SpecTypeForm.this.spectypeChangeWorker.selfretypeAttributedefinition( attributeDefinition,
+                                                                          (DatatypeDefinition)value );
+                super.getViewer().update( attributeDefinition, null );
                 break;
             case 2:
                 // only update data model in case the value has changed
-                AttributeValueSimple defaultValue = ((AttributeDefinitionSimple)attribute).getDefaultValue();
+                AttributeValueSimple defaultValue = ((AttributeDefinitionSimple)attributeDefinition).getDefaultValue();
                 if( defaultValue.getTheValue().equals( value ) ) break;
                 // set TheValue of the attribute's DefaultValue to the new value (using a command)
                 cmd = new SetCommand(
@@ -536,7 +392,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                     defaultValue.eClass().getEStructuralFeature( RifPackage.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE ),
                     (String)value );
                 eraCommandStack.execute( cmd );
-                super.getViewer().update( element, null );
+                super.getViewer().update( attributeDefinition, null );
                 break;
             default:
                 break;
@@ -600,14 +456,19 @@ public class SpecTypeForm extends AbstractErfTypesForm {
             public void run() {
                 BasicCommandStack basicCommandStack = (BasicCommandStack)editingDomain.getCommandStack();
                 Command cmd = null;
-                if( attribute.getDefaultValue() == null ) {
+
+                if( attribute.getDefaultValue() == null )
+                // act: add default value (-> empty string)
+                {
                     AttributeValueSimple addCommandValue = RifFactoryImpl.eINSTANCE.createAttributeValueSimple();
                     addCommandValue.setTheValue( "" );
                     cmd = AddCommand.create( editingDomain,
                                              attribute,
                                              RifPackage.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE,
                                              addCommandValue );
-                } else {
+                } else
+                // act: remove default value
+                {
                     cmd = RemoveCommand.create( editingDomain, attribute.getDefaultValue() );
                 }
                 basicCommandStack.execute( cmd );
