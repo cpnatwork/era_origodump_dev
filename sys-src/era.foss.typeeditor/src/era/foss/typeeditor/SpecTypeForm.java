@@ -440,7 +440,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 break;
             case 1:
                 ComboBoxViewerCellEditor comboCellEditor = new ComboBoxViewerCellEditor(
-                    ((TableViewer)viewer).getTable() );
+                    ((TableViewer)viewer).getTable(), SWT.READ_ONLY );
                 comboCellEditor.setContenProvider( new DatatypesComboContentProvider(
                     adapterFactory,
                     comboCellEditor.getViewer() ) );
