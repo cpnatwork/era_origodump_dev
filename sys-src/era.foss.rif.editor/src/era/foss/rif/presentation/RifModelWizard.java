@@ -467,7 +467,8 @@ public class RifModelWizard extends Wizard implements INewWizard {
          * @not generated
          */
         @Override
-        public void setVisible( boolean visible ){}
+        public void setVisible( boolean visible ) {
+        }
 
         /**
          * <!-- begin-user-doc -->
