@@ -94,506 +94,480 @@ import org.eclipse.ui.PartInitException;
  * @generated
  */
 public class RifModelWizard extends Wizard implements INewWizard {
-	/**
-	 * The supported extensions for created files.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final List<String> FILE_EXTENSIONS = Collections
-			.unmodifiableList(Arrays.asList(RifEditorPlugin.INSTANCE.getString(
-					"_UI_RifEditorFilenameExtensions").split("\\s*,\\s*")));
+    /**
+     * The supported extensions for created files.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public static final List<String> FILE_EXTENSIONS = Collections.unmodifiableList( Arrays.asList( RifEditorPlugin.INSTANCE.getString( "_UI_RifEditorFilenameExtensions" )
+                                                                                                                            .split( "\\s*,\\s*" ) ) );
 
-	/**
-	 * A formatted list of supported file extensions, suitable for display.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final String FORMATTED_FILE_EXTENSIONS = RifEditorPlugin.INSTANCE
-			.getString("_UI_RifEditorFilenameExtensions").replaceAll(
-					"\\s*,\\s*", ", ");
+    /**
+     * A formatted list of supported file extensions, suitable for display.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public static final String FORMATTED_FILE_EXTENSIONS = RifEditorPlugin.INSTANCE.getString( "_UI_RifEditorFilenameExtensions" )
+                                                                                   .replaceAll( "\\s*,\\s*", ", " );
 
-	/**
-	 * This caches an instance of the model package.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected RifPackage rifPackage = RifPackage.eINSTANCE;
+    /**
+     * This caches an instance of the model package.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected RifPackage rifPackage = RifPackage.eINSTANCE;
 
-	/**
-	 * This caches an instance of the model factory.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected RifFactory rifFactory = rifPackage.getRifFactory();
+    /**
+     * This caches an instance of the model factory.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected RifFactory rifFactory = rifPackage.getRifFactory();
 
-	/**
-	 * This is the file creation page.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected RifModelWizardNewFileCreationPage newFileCreationPage;
+    /**
+     * This is the file creation page.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected RifModelWizardNewFileCreationPage newFileCreationPage;
 
-	/**
-	 * This is the initial object creation page.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected RifModelWizardInitialObjectCreationPage initialObjectCreationPage;
+    /**
+     * This is the initial object creation page.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected RifModelWizardInitialObjectCreationPage initialObjectCreationPage;
 
-	/**
-	 * Remember the selection during initialization for populating the default container.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected IStructuredSelection selection;
+    /**
+     * Remember the selection during initialization for populating the default container.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected IStructuredSelection selection;
 
-	/**
-	 * Remember the workbench during initialization.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected IWorkbench workbench;
+    /**
+     * Remember the workbench during initialization.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected IWorkbench workbench;
 
-	/**
-	 * Caches the names of the types that can be created as the root object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected List<String> initialObjectNames;
+    /**
+     * Caches the names of the types that can be created as the root object.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected List<String> initialObjectNames;
 
-	/**
-	 * This just records the information.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		this.workbench = workbench;
-		this.selection = selection;
-		setWindowTitle(RifEditorPlugin.INSTANCE.getString("_UI_Wizard_label"));
-		setDefaultPageImageDescriptor(ExtendedImageRegistry.INSTANCE
-				.getImageDescriptor(RifEditorPlugin.INSTANCE
-						.getImage("full/wizban/NewRif")));
-	}
+    /**
+     * This just records the information.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void init( IWorkbench workbench, IStructuredSelection selection ) {
+        this.workbench = workbench;
+        this.selection = selection;
+        setWindowTitle( RifEditorPlugin.INSTANCE.getString( "_UI_Wizard_label" ) );
+        setDefaultPageImageDescriptor( ExtendedImageRegistry.INSTANCE.getImageDescriptor( RifEditorPlugin.INSTANCE.getImage( "full/wizban/NewRif" ) ) );
+    }
 
-	/**
-	 * Returns the names of the types that can be created as the root object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected Collection<String> getInitialObjectNames() {
-		if (initialObjectNames == null) {
-			initialObjectNames = new ArrayList<String>();
-			for (EClassifier eClassifier : rifPackage.getEClassifiers()) {
-				if (eClassifier instanceof EClass) {
-					EClass eClass = (EClass) eClassifier;
-					if (!eClass.isAbstract()) {
-						initialObjectNames.add(eClass.getName());
-					}
-				}
-			}
-			Collections.sort(initialObjectNames, CommonPlugin.INSTANCE
-					.getComparator());
-		}
-		return initialObjectNames;
-	}
+    /**
+     * Returns the names of the types that can be created as the root object.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected Collection<String> getInitialObjectNames() {
+        if( initialObjectNames == null ) {
+            initialObjectNames = new ArrayList<String>();
+            for( EClassifier eClassifier : rifPackage.getEClassifiers() ) {
+                if( eClassifier instanceof EClass ) {
+                    EClass eClass = (EClass)eClassifier;
+                    if( !eClass.isAbstract() ) {
+                        initialObjectNames.add( eClass.getName() );
+                    }
+                }
+            }
+            Collections.sort( initialObjectNames, CommonPlugin.INSTANCE.getComparator() );
+        }
+        return initialObjectNames;
+    }
 
-	/**
-	 * Create a new model.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @not generated
-	 */
-	protected EObject createInitialModel() {
-		RIF rifModel = rifFactory.createRIF();
-		
-		// The core content has to be created in any case
-		rifModel.setCoreContent(rifFactory.createRIFContent());
-		
-		// Right now we support only one spec type for a single document
-		rifModel.getCoreContent().getSpecTypes().add(rifFactory.createSpecType());
-		return rifModel;
-	}
+    /**
+     * Create a new model.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @not generated
+     */
+    protected EObject createInitialModel() {
+        RIF rifModel = rifFactory.createRIF();
 
-	/**
-	 * Do the work after everything is specified.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean performFinish() {
-		try {
-			// Remember the file.
-			//
-			final IFile modelFile = getModelFile();
+        // The core content has to be created in any case
+        rifModel.setCoreContent( rifFactory.createRIFContent() );
 
-			// Do the work within an operation.
-			//
-			WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
-				@Override
-				protected void execute(IProgressMonitor progressMonitor) {
-					try {
-						// Create a resource set
-						//
-						ResourceSet resourceSet = new ResourceSetImpl();
+        // Right now we support only one spec type for a single document
+        rifModel.getCoreContent().getSpecTypes().add( rifFactory.createSpecType() );
+        return rifModel;
+    }
 
-						// Get the URI of the model file.
-						//
-						URI fileURI = URI.createPlatformResourceURI(modelFile
-								.getFullPath().toString(), true);
+    /**
+     * Do the work after everything is specified.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public boolean performFinish() {
+        try {
+            // Remember the file.
+            //
+            final IFile modelFile = getModelFile();
 
-						// Create a resource for this file.
-						//
-						Resource resource = resourceSet.createResource(fileURI);
+            // Do the work within an operation.
+            //
+            WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
+                @Override
+                protected void execute( IProgressMonitor progressMonitor ) {
+                    try {
+                        // Create a resource set
+                        //
+                        ResourceSet resourceSet = new ResourceSetImpl();
 
-						// Add the initial model object to the contents.
-						//
-						EObject rootObject = createInitialModel();
-						if (rootObject != null) {
-							resource.getContents().add(rootObject);
-						}
+                        // Get the URI of the model file.
+                        //
+                        URI fileURI = URI.createPlatformResourceURI( modelFile.getFullPath().toString(), true );
 
-						// Save the contents of the resource to the file system.
-						//
-						Map<Object, Object> options = new HashMap<Object, Object>();
-						options.put(XMLResource.OPTION_ENCODING,
-								initialObjectCreationPage.getEncoding());
-						resource.save(options);
-					} catch (Exception exception) {
-						RifEditorPlugin.INSTANCE.log(exception);
-					} finally {
-						progressMonitor.done();
-					}
-				}
-			};
+                        // Create a resource for this file.
+                        //
+                        Resource resource = resourceSet.createResource( fileURI );
 
-			getContainer().run(false, false, operation);
+                        // Add the initial model object to the contents.
+                        //
+                        EObject rootObject = createInitialModel();
+                        if( rootObject != null ) {
+                            resource.getContents().add( rootObject );
+                        }
 
-			// Select the new file resource in the current view.
-			//
-			IWorkbenchWindow workbenchWindow = workbench
-					.getActiveWorkbenchWindow();
-			IWorkbenchPage page = workbenchWindow.getActivePage();
-			final IWorkbenchPart activePart = page.getActivePart();
-			if (activePart instanceof ISetSelectionTarget) {
-				final ISelection targetSelection = new StructuredSelection(
-						modelFile);
-				getShell().getDisplay().asyncExec(new Runnable() {
-					public void run() {
-						((ISetSelectionTarget) activePart)
-								.selectReveal(targetSelection);
-					}
-				});
-			}
+                        // Save the contents of the resource to the file system.
+                        //
+                        Map<Object, Object> options = new HashMap<Object, Object>();
+                        options.put( XMLResource.OPTION_ENCODING, initialObjectCreationPage.getEncoding() );
+                        resource.save( options );
+                    } catch( Exception exception ) {
+                        RifEditorPlugin.INSTANCE.log( exception );
+                    } finally {
+                        progressMonitor.done();
+                    }
+                }
+            };
 
-			// Open an editor on the new file.
-			//
-			try {
-				page.openEditor(new FileEditorInput(modelFile), workbench
-						.getEditorRegistry().getDefaultEditor(
-								modelFile.getFullPath().toString()).getId());
-			} catch (PartInitException exception) {
-				MessageDialog.openError(workbenchWindow.getShell(),
-						RifEditorPlugin.INSTANCE
-								.getString("_UI_OpenEditorError_label"),
-						exception.getMessage());
-				return false;
-			}
+            getContainer().run( false, false, operation );
 
-			return true;
-		} catch (Exception exception) {
-			RifEditorPlugin.INSTANCE.log(exception);
-			return false;
-		}
-	}
+            // Select the new file resource in the current view.
+            //
+            IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
+            IWorkbenchPage page = workbenchWindow.getActivePage();
+            final IWorkbenchPart activePart = page.getActivePart();
+            if( activePart instanceof ISetSelectionTarget ) {
+                final ISelection targetSelection = new StructuredSelection( modelFile );
+                getShell().getDisplay().asyncExec( new Runnable() {
+                    public void run() {
+                        ((ISetSelectionTarget)activePart).selectReveal( targetSelection );
+                    }
+                } );
+            }
 
-	/**
-	 * This is the one page of the wizard.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public class RifModelWizardNewFileCreationPage extends
-			WizardNewFileCreationPage {
-		/**
-		 * Pass in the selection.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public RifModelWizardNewFileCreationPage(String pageId,
-				IStructuredSelection selection) {
-			super(pageId, selection);
-		}
+            // Open an editor on the new file.
+            //
+            try {
+                page.openEditor( new FileEditorInput( modelFile ),
+                                 workbench.getEditorRegistry()
+                                          .getDefaultEditor( modelFile.getFullPath().toString() )
+                                          .getId() );
+            } catch( PartInitException exception ) {
+                MessageDialog.openError( workbenchWindow.getShell(),
+                                         RifEditorPlugin.INSTANCE.getString( "_UI_OpenEditorError_label" ),
+                                         exception.getMessage() );
+                return false;
+            }
 
-		/**
-		 * The framework calls this to see if the file is correct.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		@Override
-		protected boolean validatePage() {
-			if (super.validatePage()) {
-				String extension = new Path(getFileName()).getFileExtension();
-				if (extension == null || !FILE_EXTENSIONS.contains(extension)) {
-					String key = FILE_EXTENSIONS.size() > 1 ? "_WARN_FilenameExtensions"
-							: "_WARN_FilenameExtension";
-					setErrorMessage(RifEditorPlugin.INSTANCE.getString(key,
-							new Object[] { FORMATTED_FILE_EXTENSIONS }));
-					return false;
-				}
-				return true;
-			}
-			return false;
-		}
+            return true;
+        } catch( Exception exception ) {
+            RifEditorPlugin.INSTANCE.log( exception );
+            return false;
+        }
+    }
 
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public IFile getModelFile() {
-			return ResourcesPlugin.getWorkspace().getRoot().getFile(
-					getContainerFullPath().append(getFileName()));
-		}
-	}
+    /**
+     * This is the one page of the wizard.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public class RifModelWizardNewFileCreationPage extends WizardNewFileCreationPage {
+        /**
+         * Pass in the selection.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        public RifModelWizardNewFileCreationPage( String pageId, IStructuredSelection selection ) {
+            super( pageId, selection );
+        }
 
-	/**
-	 * This is the page where the type of object to create is selected.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @not generated
-	 */
-	public class RifModelWizardInitialObjectCreationPage extends WizardPage {
+        /**
+         * The framework calls this to see if the file is correct.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        @Override
+        protected boolean validatePage() {
+            if( super.validatePage() ) {
+                String extension = new Path( getFileName() ).getFileExtension();
+                if( extension == null || !FILE_EXTENSIONS.contains( extension ) ) {
+                    String key = FILE_EXTENSIONS.size() > 1 ? "_WARN_FilenameExtensions" : "_WARN_FilenameExtension";
+                    setErrorMessage( RifEditorPlugin.INSTANCE.getString( key, new Object[]{FORMATTED_FILE_EXTENSIONS} ) );
+                    return false;
+                }
+                return true;
+            }
+            return false;
+        }
 
-		/**
-		 * @generated
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 */
-		protected List<String> encodings;
+        /**
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        public IFile getModelFile() {
+            return ResourcesPlugin.getWorkspace().getRoot().getFile( getContainerFullPath().append( getFileName() ) );
+        }
+    }
 
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected Combo encodingField;
+    /**
+     * This is the page where the type of object to create is selected.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @not generated
+     */
+    public class RifModelWizardInitialObjectCreationPage extends WizardPage {
 
-		/**
-		 * Pass in the selection.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public RifModelWizardInitialObjectCreationPage(String pageId) {
-			super(pageId);
-		}
+        /**
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        protected Combo initialObjectField;
 
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @not generated
-		 */
-		public void createControl(Composite parent) {
-			Composite composite = new Composite(parent, SWT.NONE);
-			{
-				GridLayout layout = new GridLayout();
-				layout.numColumns = 1;
-				layout.verticalSpacing = 12;
-				composite.setLayout(layout);
+        /**
+         * @generated
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         */
+        protected List<String> encodings;
 
-				GridData data = new GridData();
-				data.verticalAlignment = GridData.FILL;
-				data.grabExcessVerticalSpace = true;
-				data.horizontalAlignment = GridData.FILL;
-				composite.setLayoutData(data);
-			}
+        /**
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        protected Combo encodingField;
 
+        /**
+         * Pass in the selection.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        public RifModelWizardInitialObjectCreationPage( String pageId ) {
+            super( pageId );
+        }
 
-			Label encodingLabel = new Label(composite, SWT.LEFT);
-			{
-				encodingLabel.setText(RifEditorPlugin.INSTANCE
-						.getString("_UI_XMLEncoding"));
+        /**
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @not generated
+         */
+        public void createControl( Composite parent ) {
+            Composite composite = new Composite( parent, SWT.NONE );
+            {
+                GridLayout layout = new GridLayout();
+                layout.numColumns = 1;
+                layout.verticalSpacing = 12;
+                composite.setLayout( layout );
 
-				GridData data = new GridData();
-				data.horizontalAlignment = GridData.FILL;
-				encodingLabel.setLayoutData(data);
-			}
-			encodingField = new Combo(composite, SWT.BORDER);
-			{
-				GridData data = new GridData();
-				data.horizontalAlignment = GridData.FILL;
-				data.grabExcessHorizontalSpace = true;
-				encodingField.setLayoutData(data);
-			}
+                GridData data = new GridData();
+                data.verticalAlignment = GridData.FILL;
+                data.grabExcessVerticalSpace = true;
+                data.horizontalAlignment = GridData.FILL;
+                composite.setLayoutData( data );
+            }
 
-			for (String encoding : getEncodings()) {
-				encodingField.add(encoding);
-			}
+            Label encodingLabel = new Label( composite, SWT.LEFT );
+            {
+                encodingLabel.setText( RifEditorPlugin.INSTANCE.getString( "_UI_XMLEncoding" ) );
 
-			encodingField.select(0);
-			encodingField.addModifyListener(validator);
+                GridData data = new GridData();
+                data.horizontalAlignment = GridData.FILL;
+                encodingLabel.setLayoutData( data );
+            }
+            encodingField = new Combo( composite, SWT.BORDER );
+            {
+                GridData data = new GridData();
+                data.horizontalAlignment = GridData.FILL;
+                data.grabExcessHorizontalSpace = true;
+                encodingField.setLayoutData( data );
+            }
 
-			setPageComplete(validatePage());
-			setControl(composite);
-		}
+            for( String encoding : getEncodings() ) {
+                encodingField.add( encoding );
+            }
 
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected ModifyListener validator = new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
-				setPageComplete(validatePage());
-			}
-		};
+            encodingField.select( 0 );
+            encodingField.addModifyListener( validator );
 
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected boolean validatePage() {
-			return getEncodings().contains(encodingField.getText());
-		}
+            setPageComplete( validatePage() );
+            setControl( composite );
+        }
+
+        /**
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        protected ModifyListener validator = new ModifyListener() {
+            public void modifyText( ModifyEvent e ) {
+                setPageComplete( validatePage() );
+            }
+        };
+
+        /**
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @not generated
+         */
+        protected boolean validatePage() {
+            return getEncodings().contains( encodingField.getText() );
+        }
 
 
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public String getEncoding() {
-			return encodingField.getText();
-		}
+        /**
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        public String getEncoding() {
+            return encodingField.getText();
+        }
 
-		/**
-		 * Returns the label for the specified type name.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected String getLabel(String typeName) {
-			try {
-				return RifEditPlugin.INSTANCE.getString("_UI_" + typeName
-						+ "_type");
-			} catch (MissingResourceException mre) {
-				RifEditorPlugin.INSTANCE.log(mre);
-			}
-			return typeName;
-		}
+        /**
+         * Returns the label for the specified type name.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        protected String getLabel( String typeName ) {
+            try {
+                return RifEditPlugin.INSTANCE.getString( "_UI_" + typeName + "_type" );
+            } catch( MissingResourceException mre ) {
+                RifEditorPlugin.INSTANCE.log( mre );
+            }
+            return typeName;
+        }
 
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected Collection<String> getEncodings() {
-			if (encodings == null) {
-				encodings = new ArrayList<String>();
-				for (StringTokenizer stringTokenizer = new StringTokenizer(
-						RifEditorPlugin.INSTANCE
-								.getString("_UI_XMLEncodingChoices")); stringTokenizer
-						.hasMoreTokens();) {
-					encodings.add(stringTokenizer.nextToken());
-				}
-			}
-			return encodings;
-		}
-	}
+        /**
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        protected Collection<String> getEncodings() {
+            if( encodings == null ) {
+                encodings = new ArrayList<String>();
+                for( StringTokenizer stringTokenizer = new StringTokenizer(
+                    RifEditorPlugin.INSTANCE.getString( "_UI_XMLEncodingChoices" ) ); stringTokenizer.hasMoreTokens(); ) {
+                    encodings.add( stringTokenizer.nextToken() );
+                }
+            }
+            return encodings;
+        }
+    }
 
-	/**
-	 * The framework calls this to create the contents of the wizard.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void addPages() {
-		// Create a page, set the title, and the initial model file name.
-		//
-		newFileCreationPage = new RifModelWizardNewFileCreationPage("Whatever",
-				selection);
-		newFileCreationPage.setTitle(RifEditorPlugin.INSTANCE
-				.getString("_UI_RifModelWizard_label"));
-		newFileCreationPage.setDescription(RifEditorPlugin.INSTANCE
-				.getString("_UI_RifModelWizard_description"));
-		newFileCreationPage.setFileName(RifEditorPlugin.INSTANCE
-				.getString("_UI_RifEditorFilenameDefaultBase")
-				+ "." + FILE_EXTENSIONS.get(0));
-		addPage(newFileCreationPage);
+    /**
+     * The framework calls this to create the contents of the wizard.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public void addPages() {
+        // Create a page, set the title, and the initial model file name.
+        //
+        newFileCreationPage = new RifModelWizardNewFileCreationPage( "Whatever", selection );
+        newFileCreationPage.setTitle( RifEditorPlugin.INSTANCE.getString( "_UI_RifModelWizard_label" ) );
+        newFileCreationPage.setDescription( RifEditorPlugin.INSTANCE.getString( "_UI_RifModelWizard_description" ) );
+        newFileCreationPage.setFileName( RifEditorPlugin.INSTANCE.getString( "_UI_RifEditorFilenameDefaultBase" )
+            + "."
+            + FILE_EXTENSIONS.get( 0 ) );
+        addPage( newFileCreationPage );
 
-		// Try and get the resource selection to determine a current directory for the file dialog.
-		//
-		if (selection != null && !selection.isEmpty()) {
-			// Get the resource...
-			//
-			Object selectedElement = selection.iterator().next();
-			if (selectedElement instanceof IResource) {
-				// Get the resource parent, if its a file.
-				//
-				IResource selectedResource = (IResource) selectedElement;
-				if (selectedResource.getType() == IResource.FILE) {
-					selectedResource = selectedResource.getParent();
-				}
+        // Try and get the resource selection to determine a current directory for the file dialog.
+        //
+        if( selection != null && !selection.isEmpty() ) {
+            // Get the resource...
+            //
+            Object selectedElement = selection.iterator().next();
+            if( selectedElement instanceof IResource ) {
+                // Get the resource parent, if its a file.
+                //
+                IResource selectedResource = (IResource)selectedElement;
+                if( selectedResource.getType() == IResource.FILE ) {
+                    selectedResource = selectedResource.getParent();
+                }
 
-				// This gives us a directory...
-				//
-				if (selectedResource instanceof IFolder
-						|| selectedResource instanceof IProject) {
-					// Set this for the container.
-					//
-					newFileCreationPage.setContainerFullPath(selectedResource
-							.getFullPath());
+                // This gives us a directory...
+                //
+                if( selectedResource instanceof IFolder || selectedResource instanceof IProject ) {
+                    // Set this for the container.
+                    //
+                    newFileCreationPage.setContainerFullPath( selectedResource.getFullPath() );
 
-					// Make up a unique new name here.
-					//
-					String defaultModelBaseFilename = RifEditorPlugin.INSTANCE
-							.getString("_UI_RifEditorFilenameDefaultBase");
-					String defaultModelFilenameExtension = FILE_EXTENSIONS
-							.get(0);
-					String modelFilename = defaultModelBaseFilename + "."
-							+ defaultModelFilenameExtension;
-					for (int i = 1; ((IContainer) selectedResource)
-							.findMember(modelFilename) != null; ++i) {
-						modelFilename = defaultModelBaseFilename + i + "."
-								+ defaultModelFilenameExtension;
-					}
-					newFileCreationPage.setFileName(modelFilename);
-				}
-			}
-		}
-		initialObjectCreationPage = new RifModelWizardInitialObjectCreationPage(
-				"Whatever2");
-		initialObjectCreationPage.setTitle(RifEditorPlugin.INSTANCE
-				.getString("_UI_RifModelWizard_label"));
-		initialObjectCreationPage.setDescription(RifEditorPlugin.INSTANCE
-				.getString("_UI_Wizard_initial_object_description"));
-		addPage(initialObjectCreationPage);
-	}
+                    // Make up a unique new name here.
+                    //
+                    String defaultModelBaseFilename = RifEditorPlugin.INSTANCE.getString( "_UI_RifEditorFilenameDefaultBase" );
+                    String defaultModelFilenameExtension = FILE_EXTENSIONS.get( 0 );
+                    String modelFilename = defaultModelBaseFilename + "." + defaultModelFilenameExtension;
+                    for( int i = 1; ((IContainer)selectedResource).findMember( modelFilename ) != null; ++i ) {
+                        modelFilename = defaultModelBaseFilename + i + "." + defaultModelFilenameExtension;
+                    }
+                    newFileCreationPage.setFileName( modelFilename );
+                }
+            }
+        }
+        initialObjectCreationPage = new RifModelWizardInitialObjectCreationPage( "Whatever2" );
+        initialObjectCreationPage.setTitle( RifEditorPlugin.INSTANCE.getString( "_UI_RifModelWizard_label" ) );
+        initialObjectCreationPage.setDescription( RifEditorPlugin.INSTANCE.getString( "_UI_Wizard_initial_object_description" ) );
+        addPage( initialObjectCreationPage );
+    }
 
-	/**
-	 * Get the file from the page.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public IFile getModelFile() {
-		return newFileCreationPage.getModelFile();
-	}
+    /**
+     * Get the file from the page.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public IFile getModelFile() {
+        return newFileCreationPage.getModelFile();
+    }
 
 }
