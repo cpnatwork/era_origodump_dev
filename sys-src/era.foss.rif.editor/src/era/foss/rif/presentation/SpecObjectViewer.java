@@ -151,9 +151,21 @@ public class SpecObjectViewer extends TableViewer {
         public void notifyChanged( Notification notification ) {
             super.notifyChanged( notification );
 
-            //handleInstanceLevel( notification );
-            //handleTypeLevel( notification );
+//            PopupFactory factory = PopupFactory.getSharedInstance();
+//            JTextArea jtext = new JTextArea();
+//            jtext.append( this.getClass().getCanonicalName()+ ": \n" );
+//            jtext.append( notification.toString() );
+//            Popup popup = factory.getPopup(null, jtext , 0, 0);
+//            popup.show();
+//            popup.hide();
+            
+            System.out.println("== " + this.getClass().getCanonicalName());
+            System.out.println(notification.toString() );
+//            
+//            handleInstanceLevel( notification );
+//            handleTypeLevel( notification );
         }
+
     }
 
     /**
@@ -169,10 +181,21 @@ public class SpecObjectViewer extends TableViewer {
         public void notifyChanged( Notification notification ) {
             super.notifyChanged( notification );
 
+            // We need the ViewerRefreshEContentAdapter (VRCA) because 
+            // the SpecObjectContentProvider (SOCP) will only be notified based on
+            // ViewerNotifications. These are wrappers around the original Notification.
+            // Yet, more important, they will only be fired if the EObject has already
+            // been selected in the Viewer once (the ItemProvider will only then be 
+            // adapted to the EObject. 
+            
+            System.out.println("== " + this.getClass().getCanonicalName());
+            System.out.println(notification.toString() );
+            
             handleInstanceLevel( notification );
             handleTypeLevel( notification );
         }
 
+        
         /**
          * Handle CUD (Create, Update, Delete) of model type level, like DatatypeDefinition or AttributeDefinition.
          * 
@@ -213,6 +236,7 @@ public class SpecObjectViewer extends TableViewer {
                 SpecObjectViewer.this.refresh();
             }
         }
+
     }
 
     /**

@@ -39,9 +39,6 @@ public abstract class AbstractErfTypesForm extends Composite {
     protected AdapterFactory adapterFactory = null;
     protected Activator typeEditorActivator = null;
     
-    protected SpectypeChangeWorker spectypeChangeWorker = null;
-    
-
     /**
      * Constructs a new instance of this class - defaulting the style to {@link SWT#NONE}.
      * 
@@ -85,8 +82,6 @@ public abstract class AbstractErfTypesForm extends Composite {
 
         this.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
         this.typeEditorActivator = era.foss.typeeditor.Activator.INSTANCE;
-        
-        this.spectypeChangeWorker = new SpectypeChangeWorker( editor );
     }
 
 }

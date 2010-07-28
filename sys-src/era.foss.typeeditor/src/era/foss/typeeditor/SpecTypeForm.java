@@ -158,13 +158,8 @@ public class SpecTypeForm extends AbstractErfTypesForm {
             // SYNCHRONIZE/LISTEN TO CHANGE FROM THE SpecTypeForm ITSELF !!
 
             // Viewer.refresh()s are triggered by the AddDeleteTableViewer class
-            
-            // FIXME : interaction with AddDeleteTableViewer must be reflected
-            if( (notification.getOldValue() instanceof AttributeDefinition)
-                && (notification.getEventType() == Notification.REMOVE) ) {
-                AttributeDefinition removedAttributeDefinition = (AttributeDefinition)notification.getOldValue();
-                SpecTypeForm.this.spectypeChangeWorker.removeAttributedefinition( removedAttributeDefinition );
-            }
+
+            // INFO: REMOVEs are handled by the AddDeleteTableViewer 
 
         }
     }
@@ -301,7 +296,8 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 break;
             case 1:
                 ComboBoxViewerCellEditor comboCellEditor = new ComboBoxViewerCellEditor(
-                    ((TableViewer)viewer).getTable(), SWT.READ_ONLY );
+                    ((TableViewer)viewer).getTable(),
+                    SWT.READ_ONLY );
                 comboCellEditor.setContenProvider( new DatatypesComboContentProvider(
                     adapterFactory,
                     comboCellEditor.getViewer() ) );
@@ -377,8 +373,12 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 break;
             case 1:
                 assert (value != null);
-                SpecTypeForm.this.spectypeChangeWorker.selfretypeAttributedefinition( attributeDefinition,
-                                                                          (DatatypeDefinition)value );
+                cmd = new SetCommand(
+                    editingDomain,
+                    attributeDefinition,
+                    attributeDefinition.eClass().getEStructuralFeature( RifPackage.ATTRIBUTE_DEFINITION__TYPE ),
+                    (DatatypeDefinition)value );
+                editingDomain.getCommandStack().execute( cmd );
                 super.getViewer().update( attributeDefinition, null );
                 break;
             case 2:

@@ -5,6 +5,7 @@
 package era.foss.typeeditor;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 
 import org.eclipse.emf.common.command.Command;
@@ -12,6 +13,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.edit.command.CommandParameter;
+import org.eclipse.emf.edit.command.ReplaceCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jface.layout.TableColumnLayout;
@@ -37,7 +39,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IEditorPart;
 
-import era.foss.rif.AttributeDefinition;
 import era.foss.rif.DatatypeDefinition;
 import era.foss.rif.RIFContent;
 import era.foss.rif.RifPackage;
@@ -185,7 +186,17 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
                 newDataType.setDesc( dataType.getDesc() );
 
                 // perform the REPLACE with any side-effects
-                DatatypeDefinitionsForm.this.spectypeChangeWorker.selfreplaceDatatypedefinition( dataType, newDataType );
+                Command replaceCommand = ReplaceCommand.create( editingDomain,
+                                                                rifModel.getCoreContent(),
+                                                                rifModel.getCoreContent().eClass()
+                                                                              .getEStructuralFeature( RifPackage.RIF_CONTENT__DATA_TYPES ),
+                                                                              dataType,
+                                                                Collections.singleton( newDataType ) );
+                // the ReplaceCommand will result in an REMOVE and ADD notification
+                editingDomain.getCommandStack().execute( replaceCommand );
+                
+                // FIXME tmpcpn
+                //DatatypeDefinitionsForm.this.spectypeChangeWorker.selfreplaceDatatypedefinition( dataType, newDataType );
 
                 // reset the cellEditor (remember: there is only one object, which handles all cell in its row)
                 // because the selected value must not propagate if another row is selected
@@ -230,12 +241,7 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
                 DatatypeDefinitionsForm.this.tableViewer.refresh();
             }
             
-            // FIXME : interaction with AddDeleteTableViewer must be reflected
-            if( (notification.getOldValue() instanceof DatatypeDefinition)
-                && (notification.getEventType() == Notification.REMOVE) ) {
-                DatatypeDefinition removedDatatypeDefinition = (DatatypeDefinition)notification.getOldValue();
-                DatatypeDefinitionsForm.this.spectypeChangeWorker.removeDatatypedefinition( removedDatatypeDefinition );
-            }
+            // INFO : REMOVEs are handled by AddDeleteTableViewer
         }
     }
 
