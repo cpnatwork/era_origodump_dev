@@ -14,6 +14,7 @@ import org.eclipse.ui.IEditorPart;
 
 import era.foss.rif.presentation.EraCommandStack;
 import era.foss.rif.presentation.RifEditor;
+import era.foss.rif.presentation.SpecObjectViewer;
 
 /**
  * The topmost UI class of the typeeditor plug-in: representing the overall dialog.
@@ -104,7 +105,10 @@ public class TypeDialog extends Dialog {
         super.okPressed();
         // the performed commands should not be available for undo after OK.
         eraCommandStack.inhibitUndos();
-        ((RifEditor) editor).getViewer().refresh();
+        
+        // redraw the SpecObject editor
+        SpecObjectViewer viewer = (SpecObjectViewer)((RifEditor)editor).getViewer();
+        viewer.recreate_columns();
     }
 
     /**

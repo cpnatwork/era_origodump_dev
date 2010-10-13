@@ -34,7 +34,6 @@ import era.foss.rif.AttributeDefinition;
 import era.foss.rif.AttributeDefinitionSimple;
 import era.foss.rif.AttributeValue;
 import era.foss.rif.AttributeValueSimple;
-import era.foss.rif.DatatypeDefinition;
 import era.foss.rif.RIF;
 import era.foss.rif.RifPackage;
 import era.foss.rif.SpecObject;
@@ -91,12 +90,23 @@ public class SpecObjectViewer extends TableViewer {
 
         this.setContentProvider( new SpecObjectContentProvider( rifEditor.getAdapterFactory() ) );
 
-        // FIXME: Is this really the right place to adapt ALL elements ???
+        // TODO: Is this really the right place to adapt ALL elements ???
         rifModel.getCoreContent().eAdapters().add( new ViewerRefreshEContentAdapter() );
 
         this.setInput( rifModel.getCoreContent().getSpecObjects() );
     }
 
+    /**
+     * Recreate columns for the spec Object viewer
+     */
+    public void recreate_columns() {
+        for( TableColumn column : this.getTable().getColumns() ) {
+            column.dispose();
+        }
+        this.create_columns();
+        this.refresh();
+    }
+    
     /**
      * Create columns for the spec Object viewer
      */
@@ -191,50 +201,6 @@ public class SpecObjectViewer extends TableViewer {
             System.out.println("== " + this.getClass().getCanonicalName());
             System.out.println(notification.toString() );
             
-            handleInstanceLevel( notification );
-            handleTypeLevel( notification );
-        }
-
-        
-        /**
-         * Handle CUD (Create, Update, Delete) of model type level, like DatatypeDefinition or AttributeDefinition.
-         * 
-         * @param notification
-         */
-        private void handleTypeLevel( Notification notification ) {
-            // FIXME: dispose&create_columns: Should this really be done here? ... ideally this should be done once after the Type Dialog has
-            // been closed BUT ONLY in case there are changes. We probably need to introduce a new interface for the
-            // editor here
-            if( (notification.getNotifier() instanceof DatatypeDefinition)
-                || (notification.getNewValue() instanceof DatatypeDefinition)
-                || (notification.getOldValue() instanceof DatatypeDefinition)
-                || (notification.getNotifier() instanceof AttributeDefinition)
-                || (notification.getNewValue() instanceof AttributeDefinition)
-                || (notification.getOldValue() instanceof AttributeDefinition) ) {
-                // any type change disposes the viewer and creates it anew
-                for( TableColumn column : SpecObjectViewer.this.getTable().getColumns() ) {
-                    column.dispose();
-                }
-                SpecObjectViewer.this.create_columns();
-            }
-        }
-
-        /**
-         * Handle CUD (Create, Update, Delete) of model instance level, like a SpecObject or an AttributeValue.
-         * 
-         * @param notification
-         */
-        private void handleInstanceLevel( Notification notification ) {
-            if( (notification.getNotifier() instanceof SpecObject)
-                || (notification.getNewValue() instanceof SpecObject)
-                || (notification.getOldValue() instanceof SpecObject)
-                || (notification.getNotifier() instanceof AttributeValue)
-                || (notification.getNewValue() instanceof AttributeValue)
-                || (notification.getOldValue() instanceof AttributeValue) ) {
-                // TODO: Be more clever and don't refresh the whole viewer
-                // if only a single element is changed
-                SpecObjectViewer.this.refresh();
-            }
         }
 
     }
