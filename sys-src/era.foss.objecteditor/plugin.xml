@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="era.foss.objecteditor.RifModelWizardID"
+            name="%_UI_RifModelWizard_label"
+            class="era.foss.objecteditor.RifModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/RifModelFile.gif">
+         <description>%_UI_RifModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+<!-- 
+	CPN reminder: the whole file has only been checked in
+	by Georg and me, because the editor extension point id
+	has to be set to "era.editor"!
+ -->
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            id="era.editor"
+            name="%_UI_RifEditor_label"
+            icon="icons/full/obj16/RifModelFile.gif"
+            class="era.foss.objecteditor.RifEditor">
+         <contentTypeBinding contentTypeId="era.foss.rif.ErfContentType"/>
+      </editor>
+   </extension>
+
+</plugin>

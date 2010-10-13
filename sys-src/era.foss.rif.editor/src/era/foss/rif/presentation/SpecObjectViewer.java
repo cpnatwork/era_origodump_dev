@@ -356,7 +356,7 @@ public class SpecObjectViewer extends TableViewer {
         }
     }
 
-    // Helper for using the SpecObjectViewer from a viewer pane
+    // Helper for using the SpecObjectViewer from its viewer pane
     // FIXME: Create our own editor (and then remove this) 
     public void setup() {
         setupTableViewer();
