@@ -23,6 +23,8 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -66,7 +68,7 @@ public class AddDeleteTableViewer extends TableViewer {
     protected Table table;
     protected EditingDomain editingDomain;
     protected Activator typeEditorActivator;
-    
+
     public void setEditingDomain( EditingDomain editingDomain ) {
         this.editingDomain = editingDomain;
     }
@@ -84,6 +86,8 @@ public class AddDeleteTableViewer extends TableViewer {
     private EObject addCommandOwner;
     private EClass addCommandValueDefaultType;
 
+    private int activeColumn;
+
     /**
      * @see TableViewer
      */
@@ -100,7 +104,6 @@ public class AddDeleteTableViewer extends TableViewer {
         composite = table.getParent();
     }
 
-    
     /**
      * @see TableViewer
      */
@@ -113,6 +116,7 @@ public class AddDeleteTableViewer extends TableViewer {
         createButtonBar();
         createDescriptionField();
         setupTable();
+        triggerColumnSelectedColumn();
     }
 
     /**
@@ -139,7 +143,7 @@ public class AddDeleteTableViewer extends TableViewer {
      * Create table
      */
     private void setupTable() {
-        
+
         // set table attributes
         table.setHeaderVisible( true );
         table.setLinesVisible( true );
@@ -161,7 +165,7 @@ public class AddDeleteTableViewer extends TableViewer {
         } );
 
         // prepare the activation strategy for setting the behavior when editing table cells
-        ColumnViewerEditorActivationStrategy actStrategy = new ColumnViewerEditorActivationStrategy(this) {
+        ColumnViewerEditorActivationStrategy actStrategy = new ColumnViewerEditorActivationStrategy( this ) {
             protected boolean isEditorActivationEvent( ColumnViewerEditorActivationEvent event ) {
                 return event.eventType == ColumnViewerEditorActivationEvent.TRAVERSAL
                     || event.eventType == ColumnViewerEditorActivationEvent.MOUSE_DOUBLE_CLICK_SELECTION
@@ -169,7 +173,7 @@ public class AddDeleteTableViewer extends TableViewer {
             }
         };
 
-        // create table viewer editor (*?*) 
+        // create table viewer editor (*?*)
         TableViewerEditor.create( this, actStrategy, ColumnViewerEditor.TABBING_HORIZONTAL
             | ColumnViewerEditor.TABBING_MOVE_TO_ROW_NEIGHBOR
             | ColumnViewerEditor.TABBING_VERTICAL
@@ -188,7 +192,7 @@ public class AddDeleteTableViewer extends TableViewer {
         descriptionLabel.setLayoutData( new GridData( SWT.LEFT, SWT.BOTTOM, false, false, 0, 0 ) );
 
         // Text widget for the general Description attribute of any RIF-Identifiable
-        descriptionText = new Text( composite, SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
+        descriptionText = new Text( composite, SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL );
         descriptionText.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true, 0, 0 ) );
         descriptionText.setEditable( false );
 
@@ -328,6 +332,37 @@ public class AddDeleteTableViewer extends TableViewer {
      */
     public TableColumnLayout getTableColumnLayout() {
         return tableColumnLayout;
+    }
+
+    /**
+     * Get position of column
+     * 
+     * @param v
+     */
+    private void triggerColumnSelectedColumn() {
+        AddDeleteTableViewer.this.getTable().addMouseListener( new MouseAdapter() {
+
+            public void mouseDown( MouseEvent e ) {
+                int x = 0;
+                for( int i = 0; i < AddDeleteTableViewer.this.getTable().getColumnCount(); i++ ) {
+                    x += AddDeleteTableViewer.this.getTable().getColumn( i ).getWidth();
+                    if( e.x <= x ) {
+                        activeColumn = i;
+                        break;
+                    }
+                }
+            }
+
+        } );
+    }
+
+    /**
+     * Get column where a mouse down event occured
+     * 
+     * @return number of active column
+     */
+    public int getActiveColumn() {
+        return activeColumn;
     }
 
 }

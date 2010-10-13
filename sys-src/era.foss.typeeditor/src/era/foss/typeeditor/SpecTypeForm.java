@@ -21,8 +21,10 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ComboBoxViewerCellEditor;
+import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -159,7 +161,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
 
             // Viewer.refresh()s are triggered by the AddDeleteTableViewer class
 
-            // INFO: REMOVEs are handled by the AddDeleteTableViewer 
+            // INFO: REMOVEs are handled by the AddDeleteTableViewer
 
         }
     }
@@ -437,6 +439,18 @@ public class SpecTypeForm extends AbstractErfTypesForm {
         tableViewer.setLabelProvider( new AttributeDefinitionLabelProvider() );
 
         tableViewer.setInput( editingDomain.getResourceSet() );
+        tableViewer.addDoubleClickListener( new IDoubleClickListener() {
+
+            @Override
+            public void doubleClick( DoubleClickEvent event ) {
+                // Check if an element is selected and if we are in the column
+                // for the default value
+                IStructuredSelection selection = (IStructuredSelection)event.getSelection();
+                AttributeDefinitionSimple attributeDef = getAttributeDefForColumn( selection,
+                                                                                   typeEditorActivator.getString( "_UI_AttributeDefinitionDefaultValue_label" ) );
+                addDefaultValue( attributeDef );
+            }
+        } );
 
     }
 
@@ -454,25 +468,15 @@ public class SpecTypeForm extends AbstractErfTypesForm {
 
             @Override
             public void run() {
-                BasicCommandStack basicCommandStack = (BasicCommandStack)editingDomain.getCommandStack();
-                Command cmd = null;
-
                 if( attribute.getDefaultValue() == null )
-                // act: add default value (-> empty string)
+                // add default value (-> empty string)
                 {
-                    AttributeValueSimple addCommandValue = RifFactoryImpl.eINSTANCE.createAttributeValueSimple();
-                    addCommandValue.setTheValue( "" );
-                    cmd = AddCommand.create( editingDomain,
-                                             attribute,
-                                             RifPackage.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE,
-                                             addCommandValue );
+                    addDefaultValue( attribute );
                 } else
-                // act: remove default value
+                // remove default value
                 {
-                    cmd = RemoveCommand.create( editingDomain, attribute.getDefaultValue() );
+                    removeDefaultValue( attribute );
                 }
-                basicCommandStack.execute( cmd );
-                tableViewer.refresh();
             }
 
             public void setAttribute( AttributeDefinitionSimple attribute ) {
@@ -499,18 +503,74 @@ public class SpecTypeForm extends AbstractErfTypesForm {
              */
             public void menuAboutToShow( IMenuManager manager ) {
                 IStructuredSelection selection = (IStructuredSelection)tableViewer.getSelection();
-                // after a delete there is no selection
-                if( selection.isEmpty() ) return;
-                // check if the row type is correct (at the moment this is implicitly always true)
-                if( !(selection.getFirstElement() instanceof AttributeDefinitionSimple) ) return;
                 // pass the first element of the row, the attribute definition, to the handler
-                AttributeDefinitionSimple attribute = (AttributeDefinitionSimple)selection.getFirstElement();
+                AttributeDefinitionSimple attribute = getAttributeDefForColumn( selection,
+                                                                                typeEditorActivator.getString( "_UI_AttributeDefinitionDefaultValue_label" ) );
                 defaultValueAction.setAttribute( attribute );
                 menuMgr.add( defaultValueAction );
             }
         } );
         // register menu at the table viewer
         tableViewer.getControl().setMenu( menuMgr.createContextMenu( tableViewer.getControl() ) );
+    }
+
+    /**
+     * Add a default value for a simple Attribute Definition
+     * 
+     * @param attribute Attribute definition for which the default value shall be added
+     */
+    private void addDefaultValue( AttributeDefinitionSimple attribute ) {
+        BasicCommandStack basicCommandStack = (BasicCommandStack)editingDomain.getCommandStack();
+        if( attribute.getDefaultValue() == null )
+        // add default value (-> empty string)
+        {
+            AttributeValueSimple addCommandValue = RifFactoryImpl.eINSTANCE.createAttributeValueSimple();
+            addCommandValue.setTheValue( "" );
+            Command cmd = AddCommand.create( editingDomain,
+                                             attribute,
+                                             RifPackage.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE,
+                                             addCommandValue );
+            basicCommandStack.execute( cmd );
+            tableViewer.refresh();
+        }
+
+    }
+
+    /**
+     * remove a default value from a simple attribute definition
+     * 
+     * @param attribute AttributeDefintion from which the default value shall be removed
+     */
+    private void removeDefaultValue( AttributeDefinitionSimple attribute ) {
+        BasicCommandStack basicCommandStack = (BasicCommandStack)editingDomain.getCommandStack();
+        Command cmd = RemoveCommand.create( editingDomain, attribute.getDefaultValue() );
+        basicCommandStack.execute( cmd );
+        tableViewer.refresh();
+    }
+
+    /**
+     * Get attribute definition in case the column for the default value is selected
+     * 
+     * @selection the selection of Attributes
+     * @param column name of column which has to be selected
+     */
+    private AttributeDefinitionSimple getAttributeDefForColumn( IStructuredSelection selection, String columnName ) {
+        // Check if an element is selected and if we are in the column
+        // for the default value
+        if( selection.isEmpty()
+            || !tableViewer.getTable().getColumn( tableViewer.getActiveColumn() ).getText().equals( columnName ) ) {
+            return null;
+        }
+
+        // get first attribute definition of selection
+        AttributeDefinitionSimple attributeDef = (AttributeDefinitionSimple)selection.getFirstElement();
+
+        // check if the row type is correct (at the moment this is implicitly always true)
+        if( !(selection.getFirstElement() instanceof AttributeDefinitionSimple) ) {
+            return null;
+        }
+
+        return attributeDef;
     }
 
 }
