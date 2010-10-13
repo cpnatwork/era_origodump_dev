@@ -83,7 +83,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
         super( parent, editor, SWT.NONE );
 
         // check for and eventually initialize the sole SpecType
-        // FIXME: we could remove this default spectype creation (the new filewizard handles it)
+        // TODO: we could remove this default spectype creation (the new filewizard handles it)
         if( rifModel.getCoreContent().getSpecTypes().size() == 0 ) {
             Command addCommand = AddCommand.create( editingDomain,
                                                     rifModel.getCoreContent(),

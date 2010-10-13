@@ -202,7 +202,7 @@ public class SpecObjectViewer extends TableViewer {
          * @param notification
          */
         private void handleTypeLevel( Notification notification ) {
-            // FIXME: Should this really be done here? ... ideally this should be done once after the Type Dialog has
+            // FIXME: dispose&create_columns: Should this really be done here? ... ideally this should be done once after the Type Dialog has
             // been closed BUT ONLY in case there are changes. We probably need to introduce a new interface for the
             // editor here
             if( (notification.getNotifier() instanceof DatatypeDefinition)
@@ -231,7 +231,7 @@ public class SpecObjectViewer extends TableViewer {
                 || (notification.getNotifier() instanceof AttributeValue)
                 || (notification.getNewValue() instanceof AttributeValue)
                 || (notification.getOldValue() instanceof AttributeValue) ) {
-                // FIXME: Be more clever and don't refresh the whole viewer
+                // TODO: Be more clever and don't refresh the whole viewer
                 // if only a single element is changed
                 SpecObjectViewer.this.refresh();
             }

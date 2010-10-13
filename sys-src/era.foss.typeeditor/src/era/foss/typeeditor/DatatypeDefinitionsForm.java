@@ -180,7 +180,6 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
 
                 // copy old data type attributes
                 // direct set can be used; no commands required here
-                // TODO : 
                 newDataType.setID( dataType.getID() );
                 newDataType.setLongName( dataType.getLongName() );
                 newDataType.setDesc( dataType.getDesc() );
@@ -195,9 +194,6 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
                 // the ReplaceCommand will result in an REMOVE and ADD notification
                 editingDomain.getCommandStack().execute( replaceCommand );
                 
-                // FIXME tmpcpn
-                //DatatypeDefinitionsForm.this.spectypeChangeWorker.selfreplaceDatatypedefinition( dataType, newDataType );
-
                 // reset the cellEditor (remember: there is only one object, which handles all cell in its row)
                 // because the selected value must not propagate if another row is selected
                 ((ComboBoxViewerCellEditor)this.cellEditor).setValue( null );
