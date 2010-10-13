@@ -105,10 +105,6 @@ public class TypeDialog extends Dialog {
         // the performed commands should not be available for undo after OK.
         eraCommandStack.inhibitUndos();
         ((RifEditor) editor).getViewer().refresh();
-        // FIXME: dispose spec editor at entering the type editor and create the spec editor new upon leaving the type editor
-        // e.g.:
-//        ((RifEditor) editor).getViewer().getControl().dispose();
-//        ((RifEditor) editor).setCurrentViewer(new SpecObjectViewer(parent, rifEditor))
     }
 
     /**
