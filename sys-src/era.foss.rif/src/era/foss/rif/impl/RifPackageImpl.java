@@ -22,6 +22,7 @@ import era.foss.rif.SpecElementWithUserDefinedAttributes;
 import era.foss.rif.SpecObject;
 import era.foss.rif.SpecType;
 
+import era.foss.rif.util.RifValidator;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -29,6 +30,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
+import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 /**
@@ -196,6 +198,13 @@ public class RifPackageImpl extends EPackageImpl implements RifPackage {
 
         // Initialize created meta-data
         theRifPackage.initializePackageContents();
+
+        // Register package validator
+        EValidator.Registry.INSTANCE.put( theRifPackage, new EValidator.Descriptor() {
+            public EValidator getEValidator() {
+                return RifValidator.INSTANCE;
+            }
+        } );
 
         // Mark meta-data to indicate it can't be changed
         theRifPackage.freeze();
@@ -990,6 +999,26 @@ public class RifPackageImpl extends EPackageImpl implements RifPackage {
 
         // Create resource
         createResource( eNS_URI );
+
+        // Create annotations
+        // http://www.eclipse.org/emf/2002/Ecore
+        createEcoreAnnotations();
+    }
+
+    /**
+     * Initializes the annotations for <b>http://www.eclipse.org/emf/2002/Ecore</b>.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void createEcoreAnnotations() {
+        String source = "http://www.eclipse.org/emf/2002/Ecore";
+        addAnnotation( attributeValueSimpleEClass, source, new String[]{
+            "constraints",
+            "DatatypeDefinitionConstraints"} );
+        addAnnotation( datatypeDefinitionIntegerEClass, source, new String[]{
+            "constraints",
+            "NonNegative MaxGreaterThenMin"} );
     }
 
 } //RifPackageImpl

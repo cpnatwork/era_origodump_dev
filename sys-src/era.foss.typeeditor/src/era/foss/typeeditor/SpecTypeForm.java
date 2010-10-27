@@ -24,6 +24,7 @@ import org.eclipse.jface.viewers.ComboBoxViewerCellEditor;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
+import org.eclipse.jface.viewers.ICellEditorValidator;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -277,6 +278,17 @@ public class SpecTypeForm extends AbstractErfTypesForm {
         }
     }
 
+    
+    public class CellEditorAttributeValueValidator implements ICellEditorValidator
+    {
+        @Override
+        public String isValid( Object value ) {
+            // TODO Auto-generated method stub
+            return null;
+        }
+    }
+    
+    
     /**
      * Editing support for Table holding the attribute definitions
      * 
@@ -310,6 +322,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 break;
             case 2:
                 this.cellEditor = new TextCellEditor( ((TableViewer)viewer).getTable() );
+                this.cellEditor.setValidator( new CellEditorAttributeValueValidator() );
                 break;
             default:
                 this.cellEditor = null;
@@ -386,7 +399,10 @@ public class SpecTypeForm extends AbstractErfTypesForm {
             case 2:
                 // only update data model in case the value has changed
                 AttributeValueSimple defaultValue = ((AttributeDefinitionSimple)attributeDefinition).getDefaultValue();
-                if( defaultValue.getTheValue().equals( value ) ) break;
+                if( defaultValue.getTheValue().equals( value ) ){
+                    break;
+                }
+                
                 // set TheValue of the attribute's DefaultValue to the new value (using a command)
                 cmd = new SetCommand(
                     editingDomain,
@@ -400,6 +416,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 break;
             }
         }
+       
     }
 
     /**
@@ -447,8 +464,12 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 // for the default value
                 IStructuredSelection selection = (IStructuredSelection)event.getSelection();
                 AttributeDefinitionSimple attributeDef = getAttributeDefForColumn( selection,
-                                                                                   typeEditorActivator.getString( "_UI_AttributeDefinitionDefaultValue_label" ) );
-                addDefaultValue( attributeDef );
+                
+                                                                                  typeEditorActivator.getString( "_UI_AttributeDefinitionDefaultValue_label" ) );
+                
+                if(attributeDef != null){
+                  addDefaultValue( attributeDef );
+                }
             }
         } );
 
@@ -526,6 +547,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
         {
             AttributeValueSimple addCommandValue = RifFactoryImpl.eINSTANCE.createAttributeValueSimple();
             addCommandValue.setTheValue( "" );
+            addCommandValue.setDefinition(attribute);
             Command cmd = AddCommand.create( editingDomain,
                                              attribute,
                                              RifPackage.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE,
