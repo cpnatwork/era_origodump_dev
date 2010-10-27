@@ -1,4 +1,4 @@
-package era.foss.rif.presentation;
+package era.foss.objecteditor;
 
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
+import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.jface.viewers.CellEditor;
@@ -29,6 +30,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.ui.IEditorPart;
 
 import era.foss.rif.AttributeDefinition;
 import era.foss.rif.AttributeDefinitionSimple;
@@ -44,24 +46,23 @@ public class SpecObjectViewer extends TableViewer {
 
     final static String SPEC_ATTRIBUTE_COLUMN_DATA = "Spec Attribute";
 
-    private RifEditor rifEditor = null;
     protected AdapterFactoryEditingDomain editingDomain = null;
     protected Resource rifResource = null;
     protected RIF rifModel = null;
     protected EraCommandStack eraCommandStack = null;
     protected AdapterFactory adapterFactory = null;
 
-    public SpecObjectViewer( Composite parent, RifEditor rifEditor ) {
+    public SpecObjectViewer( Composite parent, IEditorPart rifObjectEditor ) {
         super( parent, SWT.MULTI | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
-        this.rifEditor = rifEditor;
-        this.editingDomain = (AdapterFactoryEditingDomain)rifEditor.getEditingDomain();
-        this.adapterFactory = rifEditor.getAdapterFactory();
+        // CPN: use casts to avoid direct dependencies to the generated Rif*Editor class(es)
+        this.editingDomain = (AdapterFactoryEditingDomain) ((IEditingDomainProvider)rifObjectEditor).getEditingDomain();
+        this.adapterFactory = ((IAdapterFactoryProvider)rifObjectEditor).getAdapterFactory();
         this.rifResource = (XMIResource)editingDomain.getResourceSet()
-                                                     .getResource( EditUIUtil.getURI( rifEditor.getEditorInput() ),
+                                                     .getResource( EditUIUtil.getURI( rifObjectEditor.getEditorInput() ),
                                                                    true );
         this.rifModel = (RIF)(rifResource).getContents().get( 0 );
     }
-
+    
     private void setupTableViewer() {
 
         Table table = this.getTable();
@@ -88,7 +89,7 @@ public class SpecObjectViewer extends TableViewer {
         // create columns
         create_columns();
 
-        this.setContentProvider( new SpecObjectContentProvider( rifEditor.getAdapterFactory() ) );
+        this.setContentProvider( new SpecObjectContentProvider( this.adapterFactory ) );
 
         // TODO: Is this really the right place to adapt ALL elements ???
         rifModel.getCoreContent().eAdapters().add( new ViewerRefreshEContentAdapter() );
@@ -357,7 +358,6 @@ public class SpecObjectViewer extends TableViewer {
     }
 
     // Helper for using the SpecObjectViewer from its viewer pane
-    // FIXME: Create our own editor (and then remove this) 
     public void setup() {
         setupTableViewer();
     }

@@ -17,7 +17,7 @@
       <wizard
             id="era.foss.rif.presentation.RifModelWizardID"
             name="%_UI_RifModelWizard_label"
-            class="era.foss.rif.presentation.RifModelWizard"
+            class="era.foss.objecteditor.RifModelWizard"
             category="org.eclipse.emf.ecore.Wizard.category.ID"
             icon="icons/full/obj16/RifModelFile.gif">
          <description>%_UI_RifModelWizard_description</description>
@@ -32,7 +32,7 @@
  -->
    <extension point="org.eclipse.ui.editors">
       <editor
-            id="era.editor"
+            id="era.foss.rif.editor"
             name="%_UI_RifEditor_label"
             icon="icons/full/obj16/RifModelFile.gif"
             class="era.foss.rif.presentation.RifEditor"

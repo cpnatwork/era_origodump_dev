@@ -35,7 +35,7 @@
             id="era.editor"
             name="%_UI_RifEditor_label"
             icon="icons/full/obj16/RifModelFile.gif"
-            class="era.foss.objecteditor.RifEditor">
+            class="era.foss.objecteditor.RifObjectEditor">
          <contentTypeBinding contentTypeId="era.foss.rif.ErfContentType"/>
       </editor>
    </extension>

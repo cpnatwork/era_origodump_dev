@@ -15,11 +15,11 @@ import org.eclipse.emf.common.util.ResourceLocator;
 /**
  * This is the central singleton for the Rif editor plugin.
  */
-public final class RifEditorPlugin extends EMFPlugin {
+public final class RifObjectEditorPlugin extends EMFPlugin {
     /**
      * Keep track of the singleton.
      */
-    public static final RifEditorPlugin INSTANCE = new RifEditorPlugin();
+    public static final RifObjectEditorPlugin INSTANCE = new RifObjectEditorPlugin();
 
     /**
      * Keep track of the singleton.
@@ -29,7 +29,7 @@ public final class RifEditorPlugin extends EMFPlugin {
     /**
      * Create the instance.
      */
-    public RifEditorPlugin() {
+    public RifObjectEditorPlugin() {
         super( new ResourceLocator[]{} );
     }
 

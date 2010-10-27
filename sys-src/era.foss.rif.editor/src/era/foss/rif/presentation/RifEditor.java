@@ -121,6 +121,9 @@ import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 
+import era.foss.objecteditor.EraCommandStack;
+import era.foss.objecteditor.IAdapterFactoryProvider;
+import era.foss.objecteditor.SpecObjectViewerPane;
 import era.foss.rif.provider.RifItemProviderAdapterFactory;
 
 /**
@@ -129,7 +132,7 @@ import era.foss.rif.provider.RifItemProviderAdapterFactory;
  * @generated
  */
 public class RifEditor extends MultiPageEditorPart implements IEditingDomainProvider, ISelectionProvider,
-        IMenuListener, IViewerProvider, IGotoMarker {
+        IMenuListener, IViewerProvider, IGotoMarker, IAdapterFactoryProvider {
     /**
      * This keeps track of the editing domain that is used to track all changes to the model. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -916,6 +919,15 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
         // Only creates the other pages if there is something that can be edited
         //
         if( !getEditingDomain().getResourceSet().getResources().isEmpty() ) {
+            
+            // Create a page for the ERA SpecObjectViewerPane
+            //
+            {
+                ViewerPane viewerPane = new SpecObjectViewerPane( getSite().getPage(), RifEditor.this, getContainer() );
+                int pageIndex = addPage( viewerPane.getControl() );
+                setPageText( pageIndex, "Specification Objects" );
+            }
+            
             // Create a page for the selection tree view.
             //
             {
@@ -1119,14 +1131,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
                 int pageIndex = addPage( viewerPane.getControl() );
                 setPageText( pageIndex, getString( "_UI_TreeWithColumnsPage_label" ) );
             }
-
-            // This is the page for the table viewer.
-            //
-            {
-                ViewerPane viewerPane = new SpecObjectViewerPane( getSite().getPage(), RifEditor.this, getContainer() );
-                int pageIndex = addPage( viewerPane.getControl() );
-                setPageText( pageIndex, "Specification Objects" );
-            }
+            
 
         }
 
@@ -1341,9 +1346,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
                 } else {
                     // Set the input to the widget.
                     //
-                    // do not set input if it is a specobjectviewer
-                    if( !(currentViewerPane instanceof SpecObjectViewerPane)
-                        && currentViewerPane.getViewer().getInput() != selectedElement ) {
+                    if( currentViewerPane.getViewer().getInput() != selectedElement ) {
                         currentViewerPane.getViewer().setInput( selectedElement );
                         currentViewerPane.setTitle( selectedElement );
                     }
