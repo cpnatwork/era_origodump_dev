@@ -1,5 +1,6 @@
 package era.foss.typeeditor;
 
+import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.jface.dialogs.Dialog;
@@ -12,9 +13,8 @@ import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.ui.IEditorPart;
 
-import era.foss.rif.presentation.EraCommandStack;
-import era.foss.rif.presentation.RifEditor;
-import era.foss.rif.presentation.SpecObjectViewer;
+import era.foss.objecteditor.EraCommandStack;
+import era.foss.objecteditor.SpecObjectViewer;
 
 /**
  * The topmost UI class of the typeeditor plug-in: representing the overall dialog.
@@ -107,7 +107,7 @@ public class TypeDialog extends Dialog {
         eraCommandStack.inhibitUndos();
         
         // redraw the SpecObject editor
-        SpecObjectViewer viewer = (SpecObjectViewer)((RifEditor)editor).getViewer();
+        SpecObjectViewer viewer = (SpecObjectViewer)((IViewerProvider)editor).getViewer();
         viewer.recreate_columns();
     }
 

@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IEditorPart;
 
 import era.foss.rif.RIF;
-import era.foss.rif.presentation.EraCommandStack;
+import era.foss.objecteditor.EraCommandStack;
 
 /**
  * An abstract form, that contains members and constructor code that is common to all editing forms for ERA types.
