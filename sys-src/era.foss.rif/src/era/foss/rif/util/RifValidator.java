@@ -20,25 +20,24 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.EObjectValidator;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Validator</b> for the model.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> The <b>Validator</b> for the model. <!-- end-user-doc -->
+ * 
  * @see era.foss.rif.RifPackage
  * @generated
  */
 public class RifValidator extends EObjectValidator {
     /**
-     * The cached model package
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached model package <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public static final RifValidator INSTANCE = new RifValidator();
 
     /**
-     * A constant for the {@link org.eclipse.emf.common.util.Diagnostic#getSource() source} of diagnostic {@link org.eclipse.emf.common.util.Diagnostic#getCode() codes} from this package.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * A constant for the {@link org.eclipse.emf.common.util.Diagnostic#getSource() source} of diagnostic
+     * {@link org.eclipse.emf.common.util.Diagnostic#getCode() codes} from this package. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see org.eclipse.emf.common.util.Diagnostic#getSource()
      * @see org.eclipse.emf.common.util.Diagnostic#getCode()
      * @generated
@@ -46,25 +45,24 @@ public class RifValidator extends EObjectValidator {
     public static final String DIAGNOSTIC_SOURCE = "era.foss.rif";
 
     /**
-     * A constant with a fixed name that can be used as the base value for additional hand written constants.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * A constant with a fixed name that can be used as the base value for additional hand written constants. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     private static final int GENERATED_DIAGNOSTIC_CODE_COUNT = 0;
 
     /**
-     * A constant with a fixed name that can be used as the base value for additional hand written constants in a derived class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * A constant with a fixed name that can be used as the base value for additional hand written constants in a
+     * derived class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected static final int DIAGNOSTIC_CODE_COUNT = GENERATED_DIAGNOSTIC_CODE_COUNT;
 
     /**
-     * Creates an instance of the switch.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Creates an instance of the switch. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public RifValidator() {
@@ -72,9 +70,8 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * Returns the package of this validator switch.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the package of this validator switch. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -83,9 +80,9 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * Calls <code>validateXXX</code> for the corresponding classifier of the model.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Calls <code>validateXXX</code> for the corresponding classifier of the model. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -132,8 +129,8 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateRIF( RIF rif, DiagnosticChain diagnostics, Map<Object, Object> context ) {
@@ -141,8 +138,8 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateAttributeDefinition( AttributeDefinition attributeDefinition,
@@ -152,8 +149,8 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateAttributeValue( AttributeValue attributeValue,
@@ -163,8 +160,8 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateDatatypeDefinition( DatatypeDefinition datatypeDefinition,
@@ -174,8 +171,8 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateSpecElementWithUserDefinedAttributes( SpecElementWithUserDefinedAttributes specElementWithUserDefinedAttributes,
@@ -185,8 +182,8 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateSpecObject( SpecObject specObject, DiagnosticChain diagnostics, Map<Object, Object> context ) {
@@ -194,8 +191,8 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateSpecType( SpecType specType, DiagnosticChain diagnostics, Map<Object, Object> context ) {
@@ -203,8 +200,8 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateMap( Map<?, ?> map, DiagnosticChain diagnostics, Map<Object, Object> context ) {
@@ -212,8 +209,8 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateAttributeValueSimple( AttributeValueSimple attributeValueSimple,
@@ -243,101 +240,68 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * Validates the DatatypeDefinitionConstraints constraint of '<em>Attribute Value Simple</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Validates the DatatypeDefinitionConstraints constraint of '<em>Attribute Value Simple</em>'. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     * 
      * @NOT generated
      */
     public boolean validateAttributeValueSimple_DatatypeDefinitionConstraints( AttributeValueSimple attributeValueSimple,
                                                                                DiagnosticChain diagnostics,
                                                                                Map<Object, Object> context ) {
-        
-        
+        /* String holding the error message key in case an error is detected */
+        String errorMsgKey = null;
         DatatypeDefinition datatypeDefinition = attributeValueSimple.getDefinition().getType();
-        
-        
-        
+
         /* Check constraints if value is of DatatypedefinitionInteger */
-        if(datatypeDefinition instanceof DatatypeDefinitionInteger)
-        {
-            DatatypeDefinitionInteger datatypeDefinitionInteger = (DatatypeDefinitionInteger) datatypeDefinition;
-            
-            int integerValue;
+        if( datatypeDefinition instanceof DatatypeDefinitionInteger ) {
+
+            DatatypeDefinitionInteger datatypeDefinitionInteger = (DatatypeDefinitionInteger)datatypeDefinition;
+
+            int integerValue = 0;
             try {
-                integerValue = Integer.parseInt(attributeValueSimple.getTheValue() );
+                integerValue = Integer.parseInt( attributeValueSimple.getTheValue() );
             } catch( NumberFormatException e ) {
-                if( diagnostics != null ) {
-                    diagnostics.add( createDiagnostic( Diagnostic.ERROR,
-                                                       DIAGNOSTIC_SOURCE,
-                                                       0,
-                                                       "_UI_GenericConstraint_diagnostic",
-                                                       new Object[]{
-                                                           "DatatypeDefinitionConstraints",
-                                                           getObjectLabel( attributeValueSimple, context )},
-                                                       new Object[]{attributeValueSimple},
-                                                       context ) );
-                }
-                return false;
+                errorMsgKey = "_UI_GenericConstraint_diagnostic";
             }
-                     
-            
-            if( integerValue > datatypeDefinitionInteger.getMax()) {
-                if( diagnostics != null ) {
-                    diagnostics.add( createDiagnostic( Diagnostic.ERROR,
-                                                       DIAGNOSTIC_SOURCE,
-                                                       0,
-                                                       "_UI_GenericConstraint_diagnostic",
-                                                       new Object[]{
-                                                           "DatatypeDefinitionConstraints",
-                                                           getObjectLabel( attributeValueSimple, context )},
-                                                       new Object[]{attributeValueSimple},
-                                                       context ) );
+
+            if( errorMsgKey == null ) {
+                if( integerValue > datatypeDefinitionInteger.getMax() ) {
+
+                } else if( integerValue < datatypeDefinitionInteger.getMin() ) {
+                    errorMsgKey = "_UI_GenericConstraint_diagnostic";
                 }
-                return false;
             }
-            
-            if( integerValue < datatypeDefinitionInteger.getMin()) {
-                if( diagnostics != null ) {
-                    diagnostics.add( createDiagnostic( Diagnostic.ERROR,
-                                                       DIAGNOSTIC_SOURCE,
-                                                       0,
-                                                       "_UI_GenericConstraint_diagnostic",
-                                                       new Object[]{
-                                                           "DatatypeDefinitionConstraints",
-                                                           getObjectLabel( attributeValueSimple, context )},
-                                                       new Object[]{attributeValueSimple},
-                                                       context ) );
-                }
-                return false;
-            }
-            
-            
         }
+        
         /* Check constraints if value is of DatatypedefinitionString */
-        else if (datatypeDefinition instanceof DatatypeDefinitionInteger)
-        {
-            DatatypeDefinitionString datatypeDefinitionString = (DatatypeDefinitionString) datatypeDefinition;
+        else if( datatypeDefinition instanceof DatatypeDefinitionString) {
+            DatatypeDefinitionString datatypeDefinitionString = (DatatypeDefinitionString)datatypeDefinition;
             if( attributeValueSimple.getTheValue().length() > datatypeDefinitionString.getMaxLength() ) {
-                if( diagnostics != null ) {
-                    diagnostics.add( createDiagnostic( Diagnostic.ERROR,
-                                                       DIAGNOSTIC_SOURCE,
-                                                       0,
-                                                       "_UI_GenericConstraint_diagnostic",
-                                                       new Object[]{
-                                                           "DatatypeDefinitionConstraints",
-                                                           getObjectLabel( attributeValueSimple, context )},
-                                                       new Object[]{attributeValueSimple},
-                                                       context ) );
-                }
-                return false;
+                errorMsgKey = "_UI_GenericConstraint_diagnostic";
             }
+        }
+
+        /* check if an error has occurred */
+        if( errorMsgKey != null && diagnostics != null ) {
+            if( diagnostics != null ) {
+                diagnostics.add( createDiagnostic( Diagnostic.ERROR,
+                                                   DIAGNOSTIC_SOURCE,
+                                                   0,
+                                                   "_UI_GenericConstraint_diagnostic",
+                                                   new Object[]{
+                                                       "DatatypeDefinitionConstraints",
+                                                       getObjectLabel( attributeValueSimple, context )},
+                                                   new Object[]{attributeValueSimple},
+                                                   context ) );
+            }
+            return false;
         }
         return true;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateDatatypeDefinitionInteger( DatatypeDefinitionInteger datatypeDefinitionInteger,
@@ -372,9 +336,9 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * Validates the NonNegative constraint of '<em>Datatype Definition Integer</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Validates the NonNegative constraint of '<em>Datatype Definition Integer</em>'. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @NOT generated
      */
     public boolean validateDatatypeDefinitionInteger_NonNegative( DatatypeDefinitionInteger datatypeDefinitionInteger,
@@ -398,9 +362,9 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * Validates the MaxGreaterThenMin constraint of '<em>Datatype Definition Integer</em>'.
-     * <!-- begin-user-doc -->
+     * Validates the MaxGreaterThenMin constraint of '<em>Datatype Definition Integer</em>'. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * 
      * @NOT generated
      */
     public boolean validateDatatypeDefinitionInteger_MaxGreaterThanMin( DatatypeDefinitionInteger datatypeDefinitionInteger,
@@ -424,8 +388,8 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateDatatypeDefinitionSimple( DatatypeDefinitionSimple datatypeDefinitionSimple,
@@ -435,8 +399,8 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateDatatypeDefinitionString( DatatypeDefinitionString datatypeDefinitionString,
@@ -446,8 +410,8 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateRIFContent( RIFContent rifContent, DiagnosticChain diagnostics, Map<Object, Object> context ) {
@@ -455,8 +419,8 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateIdentifiable( Identifiable identifiable,
@@ -466,8 +430,8 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateAttributeDefinitionSimple( AttributeDefinitionSimple attributeDefinitionSimple,
@@ -477,9 +441,9 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * Returns the resource locator that will be used to fetch messages for this validator's diagnostics.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the resource locator that will be used to fetch messages for this validator's diagnostics. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -490,4 +454,4 @@ public class RifValidator extends EObjectValidator {
         return super.getResourceLocator();
     }
 
-} //RifValidator
+} // RifValidator

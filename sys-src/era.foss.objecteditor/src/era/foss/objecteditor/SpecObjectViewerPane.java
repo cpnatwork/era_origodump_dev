@@ -15,7 +15,7 @@ public class SpecObjectViewerPane extends ViewerPane {
         super( page, rifEditor );
         this.rifEditor = rifEditor;
         this.createControl( parent );
-        ((SpecObjectViewer) this.getViewer()).setup(); 
+        ((SpecObjectViewer) this.getViewer()).setup();
     }
 
     @Override

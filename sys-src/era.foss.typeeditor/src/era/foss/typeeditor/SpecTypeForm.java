@@ -8,6 +8,8 @@ import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.command.SetCommand;
@@ -39,6 +41,8 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
 
 import era.foss.rif.AttributeDefinition;
 import era.foss.rif.AttributeDefinitionSimple;
@@ -188,12 +192,15 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 retVal = type.getLongName();
                 break;
             case 2:
+                /* in case a default value is avaialble show the value of
+                 * the default value otherwise show 'n/a'
+                 */
                 retVal = "n/a";
                 assert (attribute instanceof AttributeDefinitionSimple);
                 AttributeValueSimple defaultValue = ((AttributeDefinitionSimple)attribute).getDefaultValue();
-                // special action for "undeclared": show nothing
-                if( defaultValue == null ) break;
-                // main action: show default value
+                if( defaultValue == null ){
+                    break;
+                }
                 retVal = defaultValue.getTheValue();
                 break;
 
@@ -205,9 +212,23 @@ public class SpecTypeForm extends AbstractErfTypesForm {
 
         @Override
         public Image getColumnImage( Object element, int columnIndex ) {
-            // no icons (yet)
-            return null;
+            Image image = null;
+            AttributeDefinition attribute = (AttributeDefinition)element;
+            if( columnIndex == 2 ) {
+                /* show error image in case validation of default value fails */
+                AttributeValueSimple value = ((AttributeDefinitionSimple)attribute).getDefaultValue();
+                if( value != null ) {
+                    Diagnostic diagnostic = Diagnostician.INSTANCE.validate( value );
+                    if( diagnostic.getSeverity() == Diagnostic.ERROR ) {
+                        image = PlatformUI.getWorkbench()
+                                          .getSharedImages()
+                                          .getImage( ISharedImages.IMG_OBJS_ERROR_TSK );
+                    }
+                }
+            }
+            return image;
         }
+        
     }
 
     /**

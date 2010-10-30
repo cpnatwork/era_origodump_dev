@@ -122,11 +122,6 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
     protected ViewerPane specObjectViewerPane;
     
     /**
-     * This is the SpecObjectViewer
-     */
-    protected Viewer specObjectViewer;
-    
-    /**
      * This is the content outline page's viewer. 
      */
     protected TreeViewer contentOutlineViewer;
@@ -571,6 +566,8 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
     public Viewer getViewer() {
         return currentViewer;
     }
+    
+    
 
     /**
      * This is the method called to load a resource into the editing domain's resource set based on the editor's input.
@@ -1049,8 +1046,8 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
             //
             {
                 specObjectViewerPane = new SpecObjectViewerPane( getSite().getPage(), RifObjectEditor.this, parent );
+                this.setCurrentViewer( specObjectViewerPane.getViewer() );
             }
-
         }
 
         getSite().getShell().getDisplay().asyncExec( new Runnable() {

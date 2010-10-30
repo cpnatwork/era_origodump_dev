@@ -4,16 +4,23 @@ import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.edit.command.AddCommand;
+import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ColumnViewer;
@@ -21,16 +28,24 @@ import org.eclipse.jface.viewers.ColumnViewerEditor;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationEvent;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationStrategy;
 import org.eclipse.jface.viewers.EditingSupport;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TableViewerEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
 
 import era.foss.rif.AttributeDefinition;
 import era.foss.rif.AttributeDefinitionSimple;
@@ -51,6 +66,9 @@ public class SpecObjectViewer extends TableViewer {
     protected RIF rifModel = null;
     protected EraCommandStack eraCommandStack = null;
     protected AdapterFactory adapterFactory = null;
+    private Color ColorDefaultValueBg;
+
+    protected int activeColumn;
 
     public SpecObjectViewer( Composite parent, IEditorPart rifObjectEditor ) {
         super( parent, SWT.MULTI | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
@@ -61,7 +79,10 @@ public class SpecObjectViewer extends TableViewer {
                                                      .getResource( EditUIUtil.getURI( rifObjectEditor.getEditorInput() ),
                                                                    true );
         this.rifModel = (RIF)(rifResource).getContents().get( 0 );
+        
+        ColorDefaultValueBg = new Color (Display.getCurrent (), 140, 170, 210);
     }
+    
     
     private void setupTableViewer() {
 
@@ -94,6 +115,13 @@ public class SpecObjectViewer extends TableViewer {
         // TODO: Is this really the right place to adapt ALL elements ???
         rifModel.getCoreContent().eAdapters().add( new ViewerRefreshEContentAdapter() );
 
+        // create context menu
+        createContextMenu();
+        
+        // save active column on mouse down event
+        triggerColumnSelectedColumn();
+        
+        
         this.setInput( rifModel.getCoreContent().getSpecObjects() );
     }
 
@@ -135,6 +163,69 @@ public class SpecObjectViewer extends TableViewer {
             column.setLabelProvider( new SpecObjectLabelProvider( attribute ) );
         }
 
+    }
+    
+    private void createContextMenu() {
+
+        final class RemoveValueAction extends Action {
+            
+            // data already computed before adding the action to the menu
+            private IStructuredSelection selection;
+            private AttributeDefinition attributeDefinition;
+
+            @Override
+            public void run() {
+                // remove attribute values of all spec object in selection
+                for( Object specObject : selection.toArray() ) {
+                    AttributeValue value = SpecObjectViewer.this.getSpecObjectValue( (SpecObject)specObject, attributeDefinition );
+                    if ( value != null){
+                        SpecObjectViewer.this.removeAttributeValue( value );
+                    }
+                }
+            }
+
+            public void setData( IStructuredSelection selection, AttributeDefinition attributeDefinition ) {
+                this.selection = selection;
+                this.attributeDefinition = attributeDefinition;
+            }
+        }
+
+        final RemoveValueAction removeValueAction = new RemoveValueAction();
+        removeValueAction.setText( "Set to default" );
+
+        final MenuManager menuMgr = new MenuManager();
+        menuMgr.setRemoveAllWhenShown( true );
+
+        menuMgr.addMenuListener( new IMenuListener() {
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.eclipse.jface.action.IMenuListener#menuAboutToShow(org.eclipse.jface.action.IMenuManager)
+             */
+            public void menuAboutToShow( IMenuManager manager ) {
+                // get current column
+                int columnIndex = getActiveColumn();
+                // get attribute definition shown in this column
+                AttributeDefinition attributeDefinition = (AttributeDefinition)SpecObjectViewer.this.getColumnViewerOwner( columnIndex ).getData( SPEC_ATTRIBUTE_COLUMN_DATA );
+                
+                // get selected elements
+                IStructuredSelection selection = (IStructuredSelection)SpecObjectViewer.this.getSelection();
+                if (selection.isEmpty()){
+                    return;
+                }
+                
+                // show menu only if first element of selection has a value
+                SpecObject specObject = (SpecObject) selection.getFirstElement();
+                AttributeValue value = SpecObjectViewer.this.getSpecObjectValue(specObject, attributeDefinition );
+                if (value != null){
+                    removeValueAction.setData(selection,attributeDefinition);
+                    menuMgr.add( removeValueAction );
+                }
+                
+            }
+        } );
+        // register menu at the table viewer
+        SpecObjectViewer.this.getControl().setMenu( menuMgr.createContextMenu( SpecObjectViewer.this.getControl() ) );
     }
 
     /**
@@ -223,11 +314,9 @@ public class SpecObjectViewer extends TableViewer {
 
         @Override
         public String getText( Object element ) {
-
             // current element is a spec object
             SpecObject specObject = (SpecObject)element;
-
-            return SpecObjectViewer.this.getSpecObjectAttributeValue( specObject, attributeDefinition );
+            return SpecObjectViewer.this.getSpecObjectValueString( specObject, attributeDefinition );
         }
 
         /**
@@ -238,6 +327,37 @@ public class SpecObjectViewer extends TableViewer {
         public AttributeDefinition getAttributeDefinition() {
             return attributeDefinition;
         }
+        
+        @Override
+        public Image getImage(Object element)
+        {
+            Image image = null;
+            
+            /* show error image in case validation of  value fails */
+            SpecObject specObject = (SpecObject)element;
+            AttributeValue value = SpecObjectViewer.this.getSpecObjectValue( specObject, attributeDefinition );
+            if( value != null ) {
+                Diagnostic diagnostic = Diagnostician.INSTANCE.validate( value );
+                if( diagnostic.getSeverity() == Diagnostic.ERROR ) {
+                    image = PlatformUI.getWorkbench().getSharedImages().getImage( ISharedImages.IMG_OBJS_ERROR_TSK );
+                }
+            }
+            return image;
+        }
+        
+        @Override
+        public Color getBackground(Object element)
+        {
+            Color backgroundColor = null;
+            SpecObject specObject = (SpecObject)element;
+            AttributeValue value = SpecObjectViewer.this.getSpecObjectValue( specObject, attributeDefinition );
+            if( value == null ) {
+                backgroundColor = ColorDefaultValueBg;
+            }
+            return backgroundColor;
+        }
+        
+        
 
     }
 
@@ -278,7 +398,7 @@ public class SpecObjectViewer extends TableViewer {
         @Override
         protected Object getValue( Object element ) {
             SpecObject specObject = (SpecObject)element;
-            return SpecObjectViewer.this.getSpecObjectAttributeValue( specObject, attributeDefinition );
+            return SpecObjectViewer.this.getSpecObjectValueString( specObject, attributeDefinition );
         }
 
         @Override
@@ -316,20 +436,16 @@ public class SpecObjectViewer extends TableViewer {
                     // create an Attribute Value
                     attributeValue = RifFactoryImpl.eINSTANCE.createAttributeValueSimple();
 
-                    // set reference to the respecitive Attrubute Definition
+                    // set reference to the respecitive Attribute Definition
                     attributeValue.setDefinition( attributeDefinition );
+                    // set value of attribute definition
+                    attributeValue.setTheValue( (String) editorValue);
 
-                    // set value to default in case the attribute definition provides a
-                    // default value
-                    if( attributeDefinition.getDefaultValue() != null ) {
-                        attributeValue.setTheValue( attributeDefinition.getDefaultValue().getTheValue() );
-                    }
                     // create new Attribute value in the model
                     Command cmd = AddCommand.create( editingDomain,
                                                      specObject,
                                                      RifPackage.SPEC_OBJECT__VALUES,
                                                      attributeValue );
-
                     basicCommandStack.execute( cmd );
                     SpecObjectViewer.this.update( specObject, null );
                 }
@@ -363,38 +479,103 @@ public class SpecObjectViewer extends TableViewer {
     }
 
     /**
-     * get the value show in a column of a spec object according to the attribute Definition
+     * get the string representation of a spec object for a certain attribute Definition
+     * 
+     * in case no attribute value has been set search for the default
+     * value given for the attribute definition
+     * 
+     * in case no default value is specified return the empty string 
      * 
      * @param specObject of which the attribute value is taken
      * @param attributeDefinition of which the value is taken
-     * @return
+     * @return String holding the value of spec object
      */
-    public String getSpecObjectAttributeValue( SpecObject specObject, AttributeDefinition attributeDefinition ) {
+    private String getSpecObjectValueString( SpecObject specObject, AttributeDefinition attributeDefinition ) {
 
-        // the value
         // return an empty string in case we find no value nor default value
         String valueString = "";
 
-        // check if the spec object provides a value for this column/attribute
-        for( AttributeValue value : specObject.getValues() ) {
-            if( value instanceof AttributeValueSimple ) {
-                if( attributeDefinition.equals( ((AttributeValueSimple)value).getDefinition() ) ) {
-                    valueString = ((AttributeValueSimple)value).getTheValue();
-                }
-            }
-        }
+        // Handle simple attribute values
+        if( attributeDefinition instanceof AttributeDefinitionSimple ) {
+            // get attribute value according to the attribute definition
+            AttributeValueSimple value = (AttributeValueSimple)getSpecObjectValue( specObject, attributeDefinition );
 
-        // if return value is not set try to show default value if it is defined
-        if( valueString == "" ) {
-            if( attributeDefinition instanceof AttributeDefinitionSimple ) {
-                AttributeValueSimple defaultValue = ((AttributeDefinitionSimple)attributeDefinition).getDefaultValue();
-                if( defaultValue != null ) {
-                    valueString = defaultValue.getTheValue();
-                }
+            // if value is not set try to use default value (if available)
+            if( value == null ) {
+                value = ((AttributeDefinitionSimple)attributeDefinition).getDefaultValue();
+            }
+
+            // get string if value object is defined
+            if( value != null ) {
+                valueString = value.getTheValue();
             }
         }
 
         return valueString;
+    }
+    
+    /**
+     * Find the attribte value object of SpecObject for a certain attribute definition
+     * 
+     * @param specObject
+     * @param attributeDefinition
+     * @return <ul><li>attribute value</li><li><code>null</code> in case on attribute value has been found</li>
+     */
+    private AttributeValue getSpecObjectValue( SpecObject specObject, AttributeDefinition attributeDefinition ) {
+
+        AttributeValue value = null;
+        // check if the spec object provides a value for this column/attribute
+        for( AttributeValue valueIter : specObject.getValues() ) {
+            if( valueIter instanceof AttributeValueSimple ) {
+                if( attributeDefinition.equals( ((AttributeValueSimple)valueIter).getDefinition() ) ) {
+                    value = valueIter;
+                }
+            }
+        }
+        return value;
+    }
+    
+    /**
+     * remove attribute value of spec object
+     * 
+     * @param value object to be removed
+     */
+    private void removeAttributeValue( AttributeValue value ) {
+        BasicCommandStack basicCommandStack = (BasicCommandStack)editingDomain.getCommandStack();
+        Command cmd = RemoveCommand.create( editingDomain, value );
+        basicCommandStack.execute( cmd );
+    }
+    
+    
+    /**
+     * Get position of column
+     * 
+     * @param v
+     */
+    private void triggerColumnSelectedColumn() {
+        SpecObjectViewer.this.getTable().addMouseListener( new MouseAdapter() {
+
+            public void mouseDown( MouseEvent e ) {
+                int x = 0;
+                for( int i = 0; i < SpecObjectViewer.this.getTable().getColumnCount(); i++ ) {
+                    x += SpecObjectViewer.this.getTable().getColumn( i ).getWidth();
+                    if( e.x <= x ) {
+                        SpecObjectViewer.this.activeColumn = i;
+                        break;
+                    }
+                }
+            }
+
+        } );
+    }
+    
+    /**
+     * Get column where a mouse down event occured
+     * 
+     * @return number of active column
+     */
+    public int getActiveColumn() {
+        return activeColumn;
     }
 
 }
