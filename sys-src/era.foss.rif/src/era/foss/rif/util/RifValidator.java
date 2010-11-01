@@ -8,6 +8,7 @@ package era.foss.rif.util;
 
 import era.foss.rif.*;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.Diagnostic;
@@ -251,6 +252,10 @@ public class RifValidator extends EObjectValidator {
         /* String holding the error message key in case an error is detected */
         String errorMsgKey = null;
         DatatypeDefinition datatypeDefinition = attributeValueSimple.getDefinition().getType();
+        ArrayList<Object> substitutions = new ArrayList<Object>();
+        substitutions.add( attributeValueSimple.getTheValue());
+        
+        
 
         /* Check constraints if value is of DatatypedefinitionInteger */
         if( datatypeDefinition instanceof DatatypeDefinitionInteger ) {
@@ -261,14 +266,14 @@ public class RifValidator extends EObjectValidator {
             try {
                 integerValue = Integer.parseInt( attributeValueSimple.getTheValue() );
             } catch( NumberFormatException e ) {
-                errorMsgKey = "_UI_GenericConstraint_diagnostic";
+                errorMsgKey = "_UI_DatatypeDefinitionConstraints_InvalidInteger";
             }
 
             if( errorMsgKey == null ) {
-                if( integerValue > datatypeDefinitionInteger.getMax() ) {
-
-                } else if( integerValue < datatypeDefinitionInteger.getMin() ) {
-                    errorMsgKey = "_UI_GenericConstraint_diagnostic";
+                if( integerValue > datatypeDefinitionInteger.getMax() || integerValue < datatypeDefinitionInteger.getMin()  ) {
+                    errorMsgKey = "_UI_DatatypeDefinitionConstraints_Range";
+                    substitutions.add(datatypeDefinitionInteger.getMin());
+                    substitutions.add(datatypeDefinitionInteger.getMax());
                 }
             }
         }
@@ -277,20 +282,19 @@ public class RifValidator extends EObjectValidator {
         else if( datatypeDefinition instanceof DatatypeDefinitionString) {
             DatatypeDefinitionString datatypeDefinitionString = (DatatypeDefinitionString)datatypeDefinition;
             if( attributeValueSimple.getTheValue().length() > datatypeDefinitionString.getMaxLength() ) {
-                errorMsgKey = "_UI_GenericConstraint_diagnostic";
+                errorMsgKey = "_UI_DatatypeDefinitionConstraints_StringLength";
+                substitutions.add(datatypeDefinitionString.getMaxLength());
             }
         }
 
         /* check if an error has occurred */
         if( errorMsgKey != null && diagnostics != null ) {
             if( diagnostics != null ) {
-                diagnostics.add( createDiagnostic( Diagnostic.ERROR,
+                diagnostics.add(createDiagnostic( Diagnostic.ERROR,
                                                    DIAGNOSTIC_SOURCE,
                                                    0,
-                                                   "_UI_GenericConstraint_diagnostic",
-                                                   new Object[]{
-                                                       "DatatypeDefinitionConstraints",
-                                                       getObjectLabel( attributeValueSimple, context )},
+                                                   errorMsgKey,
+                                                   substitutions.toArray(),
                                                    new Object[]{attributeValueSimple},
                                                    context ) );
             }
@@ -444,14 +448,11 @@ public class RifValidator extends EObjectValidator {
      * Returns the resource locator that will be used to fetch messages for this validator's diagnostics. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
-     * @generated
+     * @NOT generated
      */
     @Override
     public ResourceLocator getResourceLocator() {
-        // TODO
-        // Specialize this to return a resource locator for messages specific to this validator.
-        // Ensure that you remove @generated or mark it @generated NOT
-        return super.getResourceLocator();
+        return Activator.INSTANCE.getPluginResourceLocator();
     }
 
 } // RifValidator

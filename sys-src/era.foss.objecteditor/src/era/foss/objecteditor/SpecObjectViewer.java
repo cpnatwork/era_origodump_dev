@@ -21,12 +21,14 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.ColumnViewerEditor;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationEvent;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationStrategy;
+import org.eclipse.jface.viewers.ColumnViewerToolTipSupport;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableLayout;
@@ -34,11 +36,14 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TableViewerEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.jface.viewers.ViewerCell;
+import org.eclipse.jface.window.ToolTip;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Table;
@@ -56,8 +61,10 @@ import era.foss.rif.RifPackage;
 import era.foss.rif.SpecObject;
 import era.foss.rif.SpecType;
 import era.foss.rif.impl.RifFactoryImpl;
+import era.foss.ui.contrib.IActiveColumn;
+import era.foss.ui.contrib.TableViewerExtensions;
 
-public class SpecObjectViewer extends TableViewer {
+public class SpecObjectViewer extends TableViewer implements IActiveColumn {
 
     final static String SPEC_ATTRIBUTE_COLUMN_DATA = "Spec Attribute";
 
@@ -115,15 +122,23 @@ public class SpecObjectViewer extends TableViewer {
         // TODO: Is this really the right place to adapt ALL elements ???
         rifModel.getCoreContent().eAdapters().add( new ViewerRefreshEContentAdapter() );
 
+        //enable tooltips
+        ColumnViewerToolTipSupport.enableFor(this,ToolTip.NO_RECREATE);
+        
         // create context menu
         createContextMenu();
         
-        // save active column on mouse down event
-        triggerColumnSelectedColumn();
+        //add key press listeners
+        addKeyListerner();
         
-        
+        // add detection for active column
+        TableViewerExtensions.addActiveColumnDetection( this );
+            
         this.setInput( rifModel.getCoreContent().getSpecObjects() );
     }
+
+
+
 
     /**
      * Recreate columns for the spec Object viewer
@@ -167,11 +182,36 @@ public class SpecObjectViewer extends TableViewer {
     
     private void createContextMenu() {
 
+        
+        /**
+         * Action for removing a value from a spec object
+         * 
+         * From the point of the user this will be seen as
+         * setting a value to it respective default value 
+         */
         final class RemoveValueAction extends Action {
             
             // data already computed before adding the action to the menu
             private IStructuredSelection selection;
             private AttributeDefinition attributeDefinition;
+            
+            public RemoveValueAction(IStructuredSelection selection, AttributeDefinition attributeDefinition)
+            {
+               this.setText( "Set to default" );
+               this.setImageDescriptor( new ImageDescriptor() {
+
+                   @Override
+                   public ImageData getImageData() {
+                       return PlatformUI.getWorkbench()
+                                        .getSharedImages()
+                                        .getImage( ISharedImages.IMG_TOOL_UNDO )
+                                        .getImageData();
+                   }
+               } );
+               this.selection = selection;
+               this.attributeDefinition = attributeDefinition;
+
+            }
 
             @Override
             public void run() {
@@ -183,15 +223,63 @@ public class SpecObjectViewer extends TableViewer {
                     }
                 }
             }
+        }
+        
+        /**
+         * Action for creating a new specObject
+         */
+        final class AddElementAction extends Action {
+            
+            // data already computed before adding the action to the menu
+            private IStructuredSelection selection;
+ 
+            public AddElementAction( IStructuredSelection selection){
+               this.setText( "Add new object" );
+               this.selection = selection;
+                this.setImageDescriptor( new ImageDescriptor() {
 
-            public void setData( IStructuredSelection selection, AttributeDefinition attributeDefinition ) {
-                this.selection = selection;
-                this.attributeDefinition = attributeDefinition;
+                    @Override
+                    public ImageData getImageData() {
+                        return PlatformUI.getWorkbench()
+                                         .getSharedImages()
+                                         .getImage( ISharedImages.IMG_OBJ_ADD )
+                                         .getImageData();
+                    }
+                } );
+            }
+            @Override
+            public void run() {
+               SpecObjectViewer.this.addSpecObectElement(selection);
             }
         }
+        
+        /**
+         * Action for removing specObjects
+         */
+        final class RemoveElementAction extends Action {
+            
+            // data already computed before adding the action to the menu
+            private IStructuredSelection selection;
+            
+            public RemoveElementAction( IStructuredSelection selection){
+               this.setText( "Remove elements" );
+               this.setImageDescriptor( new ImageDescriptor() {
 
-        final RemoveValueAction removeValueAction = new RemoveValueAction();
-        removeValueAction.setText( "Set to default" );
+                   @Override
+                   public ImageData getImageData() {
+                       return PlatformUI.getWorkbench()
+                                        .getSharedImages()
+                                        .getImage( ISharedImages.IMG_TOOL_DELETE )
+                                        .getImageData();
+                   }
+               } );
+               this.selection = selection;
+            }
+            @Override
+            public void run() {
+               SpecObjectViewer.this.removeSpecObjectElements(selection);
+            }
+        }
 
         final MenuManager menuMgr = new MenuManager();
         menuMgr.setRemoveAllWhenShown( true );
@@ -203,29 +291,85 @@ public class SpecObjectViewer extends TableViewer {
              * @see org.eclipse.jface.action.IMenuListener#menuAboutToShow(org.eclipse.jface.action.IMenuManager)
              */
             public void menuAboutToShow( IMenuManager manager ) {
+               
+                // get selected elements
+                IStructuredSelection selection = (IStructuredSelection)SpecObjectViewer.this.getSelection();
+                
+                // action for adding new elements
+                // selection might be empty (element is appeneded then)
+                menuMgr.add( new AddElementAction(selection) );
+                
+                if (selection.isEmpty()){
+                    return;
+                }
+                
+                // remove element action
+                menuMgr.add( new RemoveElementAction(selection) );
+                
+                //
+                // Context menu entry for setting to default value
+                //
+                
                 // get current column
                 int columnIndex = getActiveColumn();
                 // get attribute definition shown in this column
                 AttributeDefinition attributeDefinition = (AttributeDefinition)SpecObjectViewer.this.getColumnViewerOwner( columnIndex ).getData( SPEC_ATTRIBUTE_COLUMN_DATA );
                 
-                // get selected elements
-                IStructuredSelection selection = (IStructuredSelection)SpecObjectViewer.this.getSelection();
-                if (selection.isEmpty()){
-                    return;
-                }
-                
-                // show menu only if first element of selection has a value
+                // remove show menu only if first element of selection has a value
                 SpecObject specObject = (SpecObject) selection.getFirstElement();
                 AttributeValue value = SpecObjectViewer.this.getSpecObjectValue(specObject, attributeDefinition );
                 if (value != null){
-                    removeValueAction.setData(selection,attributeDefinition);
-                    menuMgr.add( removeValueAction );
+                    menuMgr.add( new RemoveValueAction(selection,attributeDefinition) );
                 }
                 
             }
         } );
         // register menu at the table viewer
         SpecObjectViewer.this.getControl().setMenu( menuMgr.createContextMenu( SpecObjectViewer.this.getControl() ) );
+    }
+    
+    
+    private void addKeyListerner() {
+        // add key listener
+        this.getTable().addKeyListener( new KeyListener() {
+
+            public void keyPressed( KeyEvent e ) {
+                if( e.character == SWT.DEL ) {
+                    SpecObjectViewer.this.removeSpecObjectElements( (IStructuredSelection) SpecObjectViewer.this.getSelection());
+                }
+                else if( e.stateMask == SWT.CTRL  &&  (e.character == SWT.LF || e.character == SWT.CR)) {
+                    SpecObjectViewer.this.addSpecObectElement( (IStructuredSelection) SpecObjectViewer.this.getSelection() );
+                }
+            }
+
+            @Override
+            public void keyReleased( KeyEvent e ) {
+                /* do nothing */
+            }
+        } );
+
+    }
+
+    /**
+     * Remove selected spec objects
+     * @param selection 
+     */
+    private void removeSpecObjectElements( IStructuredSelection selection ) {
+        Command removeCommand = RemoveCommand.create( editingDomain, selection.toList() );
+        editingDomain.getCommandStack().execute( removeCommand );
+        this.refresh();
+    }
+
+
+    /**
+     * Add spec object
+     */
+    private void addSpecObectElement(IStructuredSelection selection) {
+        SpecObject newSpecObject = RifFactoryImpl.eINSTANCE.createSpecObject();
+        Command cmd = AddCommand.create( editingDomain, rifModel.getCoreContent(), null, newSpecObject );   
+        BasicCommandStack basicCommandStack = (BasicCommandStack)editingDomain.getCommandStack();
+        basicCommandStack.execute( cmd );
+        this.refresh();
     }
 
     /**
@@ -303,21 +447,15 @@ public class SpecObjectViewer extends TableViewer {
     public class SpecObjectLabelProvider extends ColumnLabelProvider {
 
         /**
-         * The attribute defintion for this label provider * Required for getting the defatult value in case no value is
+         * The attribute definition for this label provider * Required for getting the defatult value in case no value is
          * defined
          */
         private AttributeDefinition attributeDefinition;
-
+        
         public SpecObjectLabelProvider( AttributeDefinition attributeDefinition ) {
             this.attributeDefinition = attributeDefinition;
         }
 
-        @Override
-        public String getText( Object element ) {
-            // current element is a spec object
-            SpecObject specObject = (SpecObject)element;
-            return SpecObjectViewer.this.getSpecObjectValueString( specObject, attributeDefinition );
-        }
 
         /**
          * get the attribute definition for this column
@@ -328,36 +466,78 @@ public class SpecObjectViewer extends TableViewer {
             return attributeDefinition;
         }
         
-        @Override
-        public Image getImage(Object element)
+        public Image getImage(AttributeValue value, Diagnostic diagnostic)
         {
             Image image = null;
             
-            /* show error image in case validation of  value fails */
-            SpecObject specObject = (SpecObject)element;
-            AttributeValue value = SpecObjectViewer.this.getSpecObjectValue( specObject, attributeDefinition );
-            if( value != null ) {
+            /* show error image in case validation of value fails */
+            if( diagnostic != null && diagnostic.getSeverity() == Diagnostic.ERROR ) {
+                image = PlatformUI.getWorkbench().getSharedImages().getImage( ISharedImages.IMG_OBJS_ERROR_TSK );
+            }
+            return image;
+        }
+        
+        @Override
+        public String getToolTipText(Object element)
+        {
+            String text = null;
+            /* show */
+            AttributeValue value = SpecObjectViewer.this.getSpecObjectValue( (SpecObject) element, attributeDefinition );
+            if (value != null){
                 Diagnostic diagnostic = Diagnostician.INSTANCE.validate( value );
-                if( diagnostic.getSeverity() == Diagnostic.ERROR ) {
+                if(diagnostic.getSeverity() == Diagnostic.ERROR ) {
+                    text = diagnostic.getChildren().get(0).getMessage();
+                }
+            }
+            return text;
+        }
+
+        @Override
+        /**
+         * Show tooltip if validation fails
+         */
+        public Image getToolTipImage(Object element)
+        {
+            Image image = null;
+            
+            AttributeValue value = SpecObjectViewer.this.getSpecObjectValue( (SpecObject) element, attributeDefinition );
+            
+            /* show error image in case validation of value fails */
+            if (value != null){
+                Diagnostic diagnostic = Diagnostician.INSTANCE.validate( value );
+                if(diagnostic.getSeverity() == Diagnostic.ERROR ) {
                     image = PlatformUI.getWorkbench().getSharedImages().getImage( ISharedImages.IMG_OBJS_ERROR_TSK );
                 }
             }
             return image;
         }
         
-        @Override
-        public Color getBackground(Object element)
-        {
+        
+        /** show different background color if value is 
+         * has default value (i.e. it is not present)
+         */
+        public Color getBackground(AttributeValue value){
             Color backgroundColor = null;
-            SpecObject specObject = (SpecObject)element;
-            AttributeValue value = SpecObjectViewer.this.getSpecObjectValue( specObject, attributeDefinition );
             if( value == null ) {
                 backgroundColor = ColorDefaultValueBg;
             }
             return backgroundColor;
         }
         
-        
+        @Override
+        public void update(ViewerCell cell) {
+            SpecObject specObject = (SpecObject) cell.getElement();
+            AttributeValue value = SpecObjectViewer.this.getSpecObjectValue( specObject, attributeDefinition );
+            
+            Diagnostic diagnostic = null;
+            if (value != null){
+                diagnostic = Diagnostician.INSTANCE.validate( value );
+            }
+            
+            cell.setText(SpecObjectViewer.this.getSpecObjectValueString( value, attributeDefinition ));
+            cell.setImage(getImage(value,diagnostic));
+            cell.setBackground(getBackground(value));
+        }
 
     }
 
@@ -398,7 +578,8 @@ public class SpecObjectViewer extends TableViewer {
         @Override
         protected Object getValue( Object element ) {
             SpecObject specObject = (SpecObject)element;
-            return SpecObjectViewer.this.getSpecObjectValueString( specObject, attributeDefinition );
+            AttributeValue value = SpecObjectViewer.this.getSpecObjectValue( specObject, attributeDefinition );
+            return SpecObjectViewer.this.getSpecObjectValueString(value,attributeDefinition);
         }
 
         @Override
@@ -427,37 +608,33 @@ public class SpecObjectViewer extends TableViewer {
 
             // SpecObject has no Attribute Value for this Attribute Definition
             if( attributeValue == null ) {
-                if( editorValue == attributeDefinition.getDefaultValue()
-                    && editorValue == attributeDefinition.getDefaultValue().getTheValue() ) {
-                    // don't update the model
-                    // if the value is identical to the default value of the attribute definition
-                    return;
-                } else {
-                    // create an Attribute Value
-                    attributeValue = RifFactoryImpl.eINSTANCE.createAttributeValueSimple();
+                // create an Attribute Value
+                attributeValue = RifFactoryImpl.eINSTANCE.createAttributeValueSimple();
 
-                    // set reference to the respecitive Attribute Definition
-                    attributeValue.setDefinition( attributeDefinition );
-                    // set value of attribute definition
-                    attributeValue.setTheValue( (String) editorValue);
+                // set reference to the respecitive Attribute Definition
+                attributeValue.setDefinition( attributeDefinition );
+                // set value of attribute definition
+                attributeValue.setTheValue( (String)editorValue );
 
-                    // create new Attribute value in the model
-                    Command cmd = AddCommand.create( editingDomain,
-                                                     specObject,
-                                                     RifPackage.SPEC_OBJECT__VALUES,
-                                                     attributeValue );
-                    basicCommandStack.execute( cmd );
-                    SpecObjectViewer.this.update( specObject, null );
-                }
+                // create new Attribute value in the model
+                Command cmd = AddCommand.create( editingDomain,
+                                                 specObject,
+                                                 RifPackage.SPEC_OBJECT__VALUES,
+                                                 attributeValue );
+                basicCommandStack.execute( cmd );
+                SpecObjectViewer.this.update( specObject, null );
+
             }
 
-            // // don't update the model
-            // // if the value is identical to current value of the spec object
-            if( editorValue == attributeValue.getTheValue() ) {
+            // don't update the model
+            // if the value is identical to current value of the spec object
+            else if( editorValue == attributeValue.getTheValue() ) {
                 return;
-            } else {
-                // The value in the editor and the model differ: set value in the model
-
+            } 
+            
+            // The value in the editor and the model differ: set value in the model
+            else
+            {
                 // The set command does not work when the object is created via the
                 // create() method. Reason: Due to a bug the 'feature Id' is not passed
                 // to the command. Therefore the execution fails.
@@ -490,7 +667,7 @@ public class SpecObjectViewer extends TableViewer {
      * @param attributeDefinition of which the value is taken
      * @return String holding the value of spec object
      */
-    private String getSpecObjectValueString( SpecObject specObject, AttributeDefinition attributeDefinition ) {
+    private String getSpecObjectValueString( AttributeValue value, AttributeDefinition attributeDefinition ) {
 
         // return an empty string in case we find no value nor default value
         String valueString = "";
@@ -498,7 +675,6 @@ public class SpecObjectViewer extends TableViewer {
         // Handle simple attribute values
         if( attributeDefinition instanceof AttributeDefinitionSimple ) {
             // get attribute value according to the attribute definition
-            AttributeValueSimple value = (AttributeValueSimple)getSpecObjectValue( specObject, attributeDefinition );
 
             // if value is not set try to use default value (if available)
             if( value == null ) {
@@ -507,7 +683,7 @@ public class SpecObjectViewer extends TableViewer {
 
             // get string if value object is defined
             if( value != null ) {
-                valueString = value.getTheValue();
+                valueString = ((AttributeValueSimple)value).getTheValue();
             }
         }
 
@@ -547,27 +723,7 @@ public class SpecObjectViewer extends TableViewer {
     }
     
     
-    /**
-     * Get position of column
-     * 
-     * @param v
-     */
-    private void triggerColumnSelectedColumn() {
-        SpecObjectViewer.this.getTable().addMouseListener( new MouseAdapter() {
 
-            public void mouseDown( MouseEvent e ) {
-                int x = 0;
-                for( int i = 0; i < SpecObjectViewer.this.getTable().getColumnCount(); i++ ) {
-                    x += SpecObjectViewer.this.getTable().getColumn( i ).getWidth();
-                    if( e.x <= x ) {
-                        SpecObjectViewer.this.activeColumn = i;
-                        break;
-                    }
-                }
-            }
-
-        } );
-    }
     
     /**
      * Get column where a mouse down event occured
@@ -576,6 +732,13 @@ public class SpecObjectViewer extends TableViewer {
      */
     public int getActiveColumn() {
         return activeColumn;
+    }
+    
+    /**
+     * Set active column
+     */
+    public void setActiveColumn(int activeColumn) {
+       this.activeColumn = activeColumn;
     }
 
 }

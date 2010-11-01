@@ -10,6 +10,7 @@ Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: era.foss.objecteditor
 Require-Bundle: org.eclipse.core.runtime,
+ era.foss.ui.contrib,
  org.eclipse.core.resources;visibility:=reexport,
  era.foss.rif.edit;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
