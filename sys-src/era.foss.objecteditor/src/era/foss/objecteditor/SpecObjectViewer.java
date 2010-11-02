@@ -1,21 +1,35 @@
 package era.foss.objecteditor;
 
+import java.util.List;
+
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.ecore.util.EContentAdapter;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
+import org.eclipse.emf.edit.ui.EMFEditUIPlugin;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
@@ -73,7 +87,8 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
     protected RIF rifModel = null;
     protected EraCommandStack eraCommandStack = null;
     protected AdapterFactory adapterFactory = null;
-    private Color ColorDefaultValueBg;
+    
+
 
     protected int activeColumn;
 
@@ -86,10 +101,8 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
                                                      .getResource( EditUIUtil.getURI( rifObjectEditor.getEditorInput() ),
                                                                    true );
         this.rifModel = (RIF)(rifResource).getContents().get( 0 );
-        
-        ColorDefaultValueBg = new Color (Display.getCurrent (), 140, 170, 210);
     }
-    
+   
     
     private void setupTableViewer() {
 
@@ -422,6 +435,77 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
      * @author cpn
      */
     public class ViewerRefreshEContentAdapter extends EContentAdapter {
+        
+        public class ViewerRefreshMakerHelper extends EditUIMarkerHelper
+        {
+          
+          @Override
+          protected String getMarkerID()
+          {
+            return EValidator.MARKER;
+          }
+          
+          public void createMarkers(Diagnostic diagnostic)
+          {
+            try
+            {
+              super.createMarkers(diagnostic);
+            }
+            catch (CoreException e)
+            {
+              EMFEditUIPlugin.INSTANCE.log(e);
+            }
+          }
+
+
+          @Override
+          protected void adjustMarker(IMarker marker, Diagnostic diagnostic, Diagnostic parentDiagnostic) throws CoreException
+          {
+            List<?> data = diagnostic.getData();
+            StringBuilder relatedURIs = new StringBuilder();
+            boolean first = true;
+            for (Object object : data)
+            {
+              if (object instanceof EObject)
+              {
+                EObject eObject = (EObject)object;
+                if (first)
+                {
+                  first = false;
+                  marker.setAttribute(EValidator.URI_ATTRIBUTE, EcoreUtil.getURI(eObject).toString());
+                }
+                else
+                {
+                  if (relatedURIs.length() != 0)
+                  {
+                    relatedURIs.append(' ');
+                  }
+                  relatedURIs.append(URI.encodeFragment(EcoreUtil.getURI(eObject).toString(), false));
+                }
+              }
+            }
+
+            if (relatedURIs.length() > 0)
+            {
+              marker.setAttribute(EValidator.RELATED_URIS_ATTRIBUTE, relatedURIs.toString());
+            }
+
+            super.adjustMarker(marker, diagnostic, parentDiagnostic);      
+          }
+        }
+        
+        
+        Job myJob = new Job("Validation") {
+            ViewerRefreshMakerHelper markerHelper = new  ViewerRefreshMakerHelper();
+            
+            public IStatus run(IProgressMonitor monitor) {
+               markerHelper.deleteMarkers( rifResource );
+               Diagnostic diagnostic = Diagnostician.INSTANCE.validate( rifModel );
+               markerHelper.createMarkers(diagnostic);
+               return Status.OK_STATUS;
+            }
+         };
+         
 
         @Override
         public void notifyChanged( Notification notification ) {
@@ -436,7 +520,8 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
             
             System.out.println("== " + this.getClass().getCanonicalName());
             System.out.println(notification.toString() );
-            
+             myJob.cancel();
+             myJob.schedule();
         }
 
     }
@@ -446,6 +531,7 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
      */
     public class SpecObjectLabelProvider extends ColumnLabelProvider {
 
+        private Color ColorDefaultValueBg = null;
         /**
          * The attribute definition for this label provider * Required for getting the defatult value in case no value is
          * defined
@@ -454,9 +540,17 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
         
         public SpecObjectLabelProvider( AttributeDefinition attributeDefinition ) {
             this.attributeDefinition = attributeDefinition;
+            ColorDefaultValueBg = new Color (Display.getCurrent (), 140, 170, 210);
         }
 
 
+        @Override
+        public void dispose()
+        {
+            ColorDefaultValueBg.dispose();
+            super.dispose();
+        }
+        
         /**
          * get the attribute definition for this column
          * 
@@ -504,7 +598,7 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
             
             /* show error image in case validation of value fails */
             if (value != null){
-                Diagnostic diagnostic = Diagnostician.INSTANCE.validate( value );
+                Diagnostic diagnostic = Diagnostician.INSTANCE.validate(value );
                 if(diagnostic.getSeverity() == Diagnostic.ERROR ) {
                     image = PlatformUI.getWorkbench().getSharedImages().getImage( ISharedImages.IMG_OBJS_ERROR_TSK );
                 }
