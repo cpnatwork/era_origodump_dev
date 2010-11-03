@@ -129,10 +129,10 @@ import era.foss.rif.provider.RifItemProviderAdapterFactory;
 /**
  * This is an example of a Rif model editor.
  * <!-- begin-user-doc --> <!-- end-user-doc -->
- * @generated
+ * @NOT generated
  */
 public class RifEditor extends MultiPageEditorPart implements IEditingDomainProvider, ISelectionProvider,
-        IMenuListener, IViewerProvider, IGotoMarker {
+        IMenuListener, IViewerProvider, IGotoMarker, IAdapterFactoryProvider {
     /**
      * This keeps track of the editing domain that is used to track all changes to the model.
      * <!-- begin-user-doc -->
