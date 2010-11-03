@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-SymbolicName: era.foss.util
-Bundle-Version: 1.0.0.v200908040739
+Bundle-Version: 1.0.0
 Bundle-Activator: era.foss.util.plugin.Activator
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui;bundle-version="3.4.1",
