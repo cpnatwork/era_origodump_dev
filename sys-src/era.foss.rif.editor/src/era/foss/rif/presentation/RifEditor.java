@@ -132,7 +132,7 @@ import era.foss.rif.provider.RifItemProviderAdapterFactory;
  * @generated
  */
 public class RifEditor extends MultiPageEditorPart implements IEditingDomainProvider, ISelectionProvider,
-        IMenuListener, IViewerProvider, IGotoMarker, IAdapterFactoryProvider {
+        IMenuListener, IViewerProvider, IGotoMarker {
     /**
      * This keeps track of the editing domain that is used to track all changes to the model.
      * <!-- begin-user-doc -->
@@ -910,7 +910,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
         // Only creates the other pages if there is something that can be edited
         //
         if( !getEditingDomain().getResourceSet().getResources().isEmpty() ) {
-            
+
             // Create a page for the ERA SpecObjectViewerPane
             //
             {
@@ -918,7 +918,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
                 int pageIndex = addPage( viewerPane.getControl() );
                 setPageText( pageIndex, "Specification Objects" );
             }
-            
+
             // Create a page for the selection tree view.
             //
             {
@@ -1122,7 +1122,6 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
                 int pageIndex = addPage( viewerPane.getControl() );
                 setPageText( pageIndex, getString( "_UI_TreeWithColumnsPage_label" ) );
             }
-            
 
         }
 

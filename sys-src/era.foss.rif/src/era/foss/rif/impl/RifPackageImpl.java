@@ -1018,7 +1018,7 @@ public class RifPackageImpl extends EPackageImpl implements RifPackage {
             "DatatypeDefinitionConstraints"} );
         addAnnotation( datatypeDefinitionIntegerEClass, source, new String[]{
             "constraints",
-            "NonNegative MaxGreaterThenMin"} );
+            "NonNegative MaxGreaterThanMin"} );
     }
 
 } //RifPackageImpl

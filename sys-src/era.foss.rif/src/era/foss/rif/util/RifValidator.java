@@ -22,23 +22,21 @@ import org.eclipse.emf.ecore.util.EObjectValidator;
 
 /**
  * <!-- begin-user-doc --> The <b>Validator</b> for the model. <!-- end-user-doc -->
- * 
  * @see era.foss.rif.RifPackage
  * @generated
  */
 public class RifValidator extends EObjectValidator {
     /**
-     * The cached model package <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * The cached model package
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static final RifValidator INSTANCE = new RifValidator();
 
     /**
-     * A constant for the {@link org.eclipse.emf.common.util.Diagnostic#getSource() source} of diagnostic
-     * {@link org.eclipse.emf.common.util.Diagnostic#getCode() codes} from this package. <!-- begin-user-doc --> <!--
+     * A constant for the {@link org.eclipse.emf.common.util.Diagnostic#getSource() source} of diagnostic {@link org.eclipse.emf.common.util.Diagnostic#getCode() codes} from this package.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see org.eclipse.emf.common.util.Diagnostic#getSource()
      * @see org.eclipse.emf.common.util.Diagnostic#getCode()
      * @generated
@@ -54,16 +52,15 @@ public class RifValidator extends EObjectValidator {
     private static final int GENERATED_DIAGNOSTIC_CODE_COUNT = 0;
 
     /**
-     * A constant with a fixed name that can be used as the base value for additional hand written constants in a
-     * derived class. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * A constant with a fixed name that can be used as the base value for additional hand written constants in a derived class.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected static final int DIAGNOSTIC_CODE_COUNT = GENERATED_DIAGNOSTIC_CODE_COUNT;
 
     /**
-     * Creates an instance of the switch. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Creates an instance of the switch.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public RifValidator() {
@@ -71,8 +68,8 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * Returns the package of this validator switch. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Returns the package of this validator switch.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -81,9 +78,9 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * Calls <code>validateXXX</code> for the corresponding classifier of the model. <!-- begin-user-doc --> <!--
+     * Calls <code>validateXXX</code> for the corresponding classifier of the model.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -131,7 +128,6 @@ public class RifValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean validateRIF( RIF rif, DiagnosticChain diagnostics, Map<Object, Object> context ) {
@@ -140,7 +136,6 @@ public class RifValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean validateAttributeDefinition( AttributeDefinition attributeDefinition,
@@ -151,7 +146,6 @@ public class RifValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean validateAttributeValue( AttributeValue attributeValue,
@@ -162,7 +156,6 @@ public class RifValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean validateDatatypeDefinition( DatatypeDefinition datatypeDefinition,
@@ -173,7 +166,6 @@ public class RifValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean validateSpecElementWithUserDefinedAttributes( SpecElementWithUserDefinedAttributes specElementWithUserDefinedAttributes,
@@ -184,7 +176,6 @@ public class RifValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean validateSpecObject( SpecObject specObject, DiagnosticChain diagnostics, Map<Object, Object> context ) {
@@ -193,7 +184,6 @@ public class RifValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean validateSpecType( SpecType specType, DiagnosticChain diagnostics, Map<Object, Object> context ) {
@@ -202,7 +192,6 @@ public class RifValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean validateMap( Map<?, ?> map, DiagnosticChain diagnostics, Map<Object, Object> context ) {
@@ -211,7 +200,6 @@ public class RifValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean validateAttributeValueSimple( AttributeValueSimple attributeValueSimple,
@@ -253,9 +241,7 @@ public class RifValidator extends EObjectValidator {
         String errorMsgKey = null;
         DatatypeDefinition datatypeDefinition = attributeValueSimple.getDefinition().getType();
         ArrayList<Object> substitutions = new ArrayList<Object>();
-        substitutions.add( attributeValueSimple.getTheValue());
-        
-        
+        substitutions.add( attributeValueSimple.getTheValue() );
 
         /* Check constraints if value is of DatatypedefinitionInteger */
         if( datatypeDefinition instanceof DatatypeDefinitionInteger ) {
@@ -270,27 +256,28 @@ public class RifValidator extends EObjectValidator {
             }
 
             if( errorMsgKey == null ) {
-                if( integerValue > datatypeDefinitionInteger.getMax() || integerValue < datatypeDefinitionInteger.getMin()  ) {
+                if( integerValue > datatypeDefinitionInteger.getMax()
+                    || integerValue < datatypeDefinitionInteger.getMin() ) {
                     errorMsgKey = "_UI_DatatypeDefinitionConstraints_Range";
-                    substitutions.add(datatypeDefinitionInteger.getMin());
-                    substitutions.add(datatypeDefinitionInteger.getMax());
+                    substitutions.add( datatypeDefinitionInteger.getMin() );
+                    substitutions.add( datatypeDefinitionInteger.getMax() );
                 }
             }
         }
-        
+
         /* Check constraints if value is of DatatypedefinitionString */
-        else if( datatypeDefinition instanceof DatatypeDefinitionString) {
+        else if( datatypeDefinition instanceof DatatypeDefinitionString ) {
             DatatypeDefinitionString datatypeDefinitionString = (DatatypeDefinitionString)datatypeDefinition;
             if( attributeValueSimple.getTheValue().length() > datatypeDefinitionString.getMaxLength() ) {
                 errorMsgKey = "_UI_DatatypeDefinitionConstraints_StringLength";
-                substitutions.add(datatypeDefinitionString.getMaxLength());
+                substitutions.add( datatypeDefinitionString.getMaxLength() );
             }
         }
 
         /* check if an error has occurred */
         if( errorMsgKey != null && diagnostics != null ) {
             if( diagnostics != null ) {
-                diagnostics.add(createDiagnostic( Diagnostic.ERROR,
+                diagnostics.add( createDiagnostic( Diagnostic.ERROR,
                                                    DIAGNOSTIC_SOURCE,
                                                    0,
                                                    errorMsgKey,
@@ -305,7 +292,6 @@ public class RifValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean validateDatatypeDefinitionInteger( DatatypeDefinitionInteger datatypeDefinitionInteger,
@@ -366,7 +352,7 @@ public class RifValidator extends EObjectValidator {
     }
 
     /**
-     * Validates the MaxGreaterThenMin constraint of '<em>Datatype Definition Integer</em>'. <!-- begin-user-doc -->
+     * Validates the MaxGreaterThanMin constraint of '<em>Datatype Definition Integer</em>'. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * 
      * @NOT generated
@@ -381,7 +367,7 @@ public class RifValidator extends EObjectValidator {
                                                    0,
                                                    "_UI_GenericConstraint_diagnostic",
                                                    new Object[]{
-                                                       "MaxGreaterThenMin",
+                                                       "MaxGreaterThanMin",
                                                        getObjectLabel( datatypeDefinitionInteger, context )},
                                                    new Object[]{datatypeDefinitionInteger},
                                                    context ) );
@@ -393,7 +379,6 @@ public class RifValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean validateDatatypeDefinitionSimple( DatatypeDefinitionSimple datatypeDefinitionSimple,
@@ -404,7 +389,6 @@ public class RifValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean validateDatatypeDefinitionString( DatatypeDefinitionString datatypeDefinitionString,
@@ -415,7 +399,6 @@ public class RifValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean validateRIFContent( RIFContent rifContent, DiagnosticChain diagnostics, Map<Object, Object> context ) {
@@ -424,7 +407,6 @@ public class RifValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean validateIdentifiable( Identifiable identifiable,
@@ -435,7 +417,6 @@ public class RifValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean validateAttributeDefinitionSimple( AttributeDefinitionSimple attributeDefinitionSimple,

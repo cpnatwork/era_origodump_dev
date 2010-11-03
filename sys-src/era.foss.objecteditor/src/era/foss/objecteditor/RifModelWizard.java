@@ -178,7 +178,7 @@ public class RifModelWizard extends Wizard implements INewWizard {
         this.workbench = workbench;
         this.selection = selection;
         setWindowTitle( RifObjectEditorPlugin.INSTANCE.getString( "_UI_Wizard_label" ) );
-        setDefaultPageImageDescriptor( ExtendedImageRegistry.INSTANCE.getImageDescriptor( RifObjectEditorPlugin.INSTANCE.getImage( "full/wizban/NewRif" ) ) );
+        setDefaultPageImageDescriptor( ExtendedImageRegistry.INSTANCE.getImageDescriptor( RifObjectEditorPlugin.INSTANCE.getImage( "full/wizban/NewEraFile" ) ) );
     }
 
     /**
