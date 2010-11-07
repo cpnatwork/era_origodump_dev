@@ -86,6 +86,8 @@ import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 
+import era.foss.rif.AttributeValue;
+import era.foss.rif.SpecObject;
 import era.foss.rif.provider.RifItemProviderAdapterFactory;
 
 /**
@@ -93,7 +95,7 @@ import era.foss.rif.provider.RifItemProviderAdapterFactory;
  */
 public class RifObjectEditor extends EditorPart implements IEditorPart, IEditingDomainProvider, ISelectionProvider,
         IViewerProvider, IGotoMarker, IAdapterFactoryProvider {
-    
+
     /**
      * This keeps track of the editing domain that is used to track all changes to the model.
      */
@@ -105,29 +107,29 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
     protected ComposedAdapterFactory adapterFactory;
 
     /**
-     * This is the content outline page. 
+     * This is the content outline page.
      */
     protected IContentOutlinePage contentOutlinePage;
 
     /**
-     * This is a kludge... 
+     * This is a kludge...
      */
     protected IStatusLineManager contentOutlineStatusLineManager;
-    
+
     /**
      * This keeps track of the active viewer pane, in the book. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
      * @generated
      */
     protected ViewerPane specObjectViewerPane;
-    
+
     /**
-     * This is the content outline page's viewer. 
+     * This is the content outline page's viewer.
      */
     protected TreeViewer contentOutlineViewer;
 
     /**
-     * This is the property sheet page. 
+     * This is the property sheet page.
      */
     protected PropertySheetPage propertySheetPage;
 
@@ -159,17 +161,17 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
     protected MarkerHelper markerHelper = new EditUIMarkerHelper();
 
     /**
-     * Resources that have been removed since last activation. 
+     * Resources that have been removed since last activation.
      */
     protected Collection<Resource> removedResources = new ArrayList<Resource>();
 
     /**
-     * Resources that have been changed since last activation. 
+     * Resources that have been changed since last activation.
      */
     protected Collection<Resource> changedResources = new ArrayList<Resource>();
 
     /**
-     * Resources that have been saved. 
+     * Resources that have been saved.
      */
     protected Collection<Resource> savedResources = new ArrayList<Resource>();
 
@@ -229,7 +231,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
     };
 
     /**
-     * This listens for workspace changes. 
+     * This listens for workspace changes.
      */
     protected IResourceChangeListener resourceChangeListener = new IResourceChangeListener() {
         public void resourceChanged( IResourceChangeEvent event ) {
@@ -302,7 +304,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
     };
 
     /**
-     * Handles activation of the editor or it's associated views. 
+     * Handles activation of the editor or it's associated views.
      */
     protected void handleActivate() {
         // Recompute the read only state.
@@ -332,7 +334,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
     }
 
     /**
-     * Handles what to do with changed resources on activation. 
+     * Handles what to do with changed resources on activation.
      */
     protected void handleChangedResources() {
         if( !changedResources.isEmpty() && (!isDirty() || handleDirtyConflict()) ) {
@@ -382,25 +384,25 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
             }
 
             // TODO: CPN-deletion - Is ProblemEditorPart of any relevance?
-//            int lastEditorPage = getPageCount() - 1;
-//            if( lastEditorPage >= 0 && getEditor( lastEditorPage ) instanceof ProblemEditorPart ) {
-//                ((ProblemEditorPart)getEditor( lastEditorPage )).setDiagnostic( diagnostic );
-//                if( diagnostic.getSeverity() != Diagnostic.OK ) {
-//                    setActivePage( lastEditorPage );
-//                }
-//            } else if( diagnostic.getSeverity() != Diagnostic.OK ) {
-//                ProblemEditorPart problemEditorPart = new ProblemEditorPart();
-//                problemEditorPart.setDiagnostic( diagnostic );
-//                problemEditorPart.setMarkerHelper( markerHelper );
-//                try {
-//                    addPage( ++lastEditorPage, problemEditorPart, getEditorInput() );
-//                    setPageText( lastEditorPage, problemEditorPart.getPartName() );
-//                    setActivePage( lastEditorPage );
-//                    showTabs();
-//                } catch( PartInitException exception ) {
-//                    RifObjectEditorPlugin.INSTANCE.log( exception );
-//                }
-//            }
+            // int lastEditorPage = getPageCount() - 1;
+            // if( lastEditorPage >= 0 && getEditor( lastEditorPage ) instanceof ProblemEditorPart ) {
+            // ((ProblemEditorPart)getEditor( lastEditorPage )).setDiagnostic( diagnostic );
+            // if( diagnostic.getSeverity() != Diagnostic.OK ) {
+            // setActivePage( lastEditorPage );
+            // }
+            // } else if( diagnostic.getSeverity() != Diagnostic.OK ) {
+            // ProblemEditorPart problemEditorPart = new ProblemEditorPart();
+            // problemEditorPart.setDiagnostic( diagnostic );
+            // problemEditorPart.setMarkerHelper( markerHelper );
+            // try {
+            // addPage( ++lastEditorPage, problemEditorPart, getEditorInput() );
+            // setPageText( lastEditorPage, problemEditorPart.getPartName() );
+            // setActivePage( lastEditorPage );
+            // showTabs();
+            // } catch( PartInitException exception ) {
+            // RifObjectEditorPlugin.INSTANCE.log( exception );
+            // }
+            // }
 
             if( markerHelper.hasMarkers( editingDomain.getResourceSet() ) ) {
                 markerHelper.deleteMarkers( editingDomain.getResourceSet() );
@@ -425,7 +427,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
     }
 
     /**
-     * This creates a model editor. 
+     * This creates a model editor.
      */
     public RifObjectEditor() {
         super();
@@ -489,19 +491,23 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
     }
 
     /**
-     * This sets the selection into whichever viewer is active. 
+     * This sets the selection into whichever viewer is active.
      */
     public void setSelectionToViewer( Collection<?> collection ) {
         final Collection<?> theSelection = collection;
-        // Make sure it's okay.
-        //
         if( theSelection != null && !theSelection.isEmpty() ) {
             Runnable runnable = new Runnable() {
                 public void run() {
-                    // Try to select the items in the current content viewer of the editor.
-                    //
-                    if( currentViewer != null ) {
-                        currentViewer.setSelection( new StructuredSelection( theSelection.toArray() ), true );
+                    ArrayList<SpecObject> specObjectList = new ArrayList<SpecObject>();
+                    // Check all elements in selection and set to the spec object
+                    for( Object element : theSelection ) {
+                        if( element instanceof AttributeValue ) {
+                            specObjectList.add( (SpecObject)((AttributeValue)element).eContainer() );
+                        }
+                    }
+
+                    if( currentViewer != null && ! specObjectList.isEmpty()) {
+                        currentViewer.setSelection( new StructuredSelection( specObjectList.toArray() ), true );
                     }
                 }
             };
@@ -512,7 +518,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
     /**
      * This returns the editing domain as required by the {@link IEditingDomainProvider} interface. This is important
      * for implementing the static methods of {@link AdapterFactoryEditingDomain} and for supporting
-     * {@link org.eclipse.emf.edit.ui.action.CommandAction}. 
+     * {@link org.eclipse.emf.edit.ui.action.CommandAction}.
      */
     public EditingDomain getEditingDomain() {
         return editingDomain;
@@ -566,8 +572,6 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
     public Viewer getViewer() {
         return currentViewer;
     }
-    
-    
 
     /**
      * This is the method called to load a resource into the editing domain's resource set based on the editor's input.
@@ -629,7 +633,6 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
         } else if( key.equals( IPropertySheetPage.class ) ) {
             return getPropertySheetPage();
         } else if( key.equals( IGotoMarker.class ) ) {
-            // TODO: CPN-idea - Could we replace IGotoMarker with IEditorPart?
             return this;
         } else {
             return super.getAdapter( key );
@@ -637,7 +640,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
     }
 
     /**
-     * This accesses a cached version of the content outliner. 
+     * This accesses a cached version of the content outliner.
      */
     public IContentOutlinePage getContentOutlinePage() {
         if( contentOutlinePage == null ) {
@@ -683,8 +686,8 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
                 // This ensures that we handle selections correctly.
                 //
                 public void selectionChanged( SelectionChangedEvent event ) {
-                // TODO: CPN-wtf? - support the Outline
-//                    handleContentOutlineSelection( event.getSelection() );
+                    // TODO: CPN-wtf? - support the Outline
+                    // handleContentOutlineSelection( event.getSelection() );
                 }
             } );
         }
@@ -714,39 +717,39 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
      * This deals with how we want selection in the outliner to affect the other views.
      */
     // TODO: CPN-wtf? - support the Outline
-//    public void handleContentOutlineSelection( ISelection selection ) {
-//        if( currentViewerPane != null && !selection.isEmpty() && selection instanceof IStructuredSelection ) {
-//            Iterator<?> selectedElements = ((IStructuredSelection)selection).iterator();
-//            if( selectedElements.hasNext() ) {
-//                // Get the first selected element.
-//                //
-//                Object selectedElement = selectedElements.next();
-//
-//                // If it's the selection viewer, then we want it to select the same selection as this selection.
-//                //
-//                if( currentViewerPane.getViewer() == selectionViewer ) {
-//                    ArrayList<Object> selectionList = new ArrayList<Object>();
-//                    selectionList.add( selectedElement );
-//                    while (selectedElements.hasNext()) {
-//                        selectionList.add( selectedElements.next() );
-//                    }
-//
-//                    // Set the selection to the widget.
-//                    //
-//                    selectionViewer.setSelection( new StructuredSelection( selectionList ) );
-//                } else {
-//                    // Set the input to the widget.
-//                    //
-//                    // do not set input if it is a specobjectviewer
-//                    if( !(currentViewerPane instanceof SpecObjectViewerPane)
-//                        && currentViewerPane.getViewer().getInput() != selectedElement ) {
-//                        currentViewerPane.getViewer().setInput( selectedElement );
-//                        currentViewerPane.setTitle( selectedElement );
-//                    }
-//                }
-//            }
-//        }
-//    }
+    // public void handleContentOutlineSelection( ISelection selection ) {
+    // if( currentViewerPane != null && !selection.isEmpty() && selection instanceof IStructuredSelection ) {
+    // Iterator<?> selectedElements = ((IStructuredSelection)selection).iterator();
+    // if( selectedElements.hasNext() ) {
+    // // Get the first selected element.
+    // //
+    // Object selectedElement = selectedElements.next();
+    //
+    // // If it's the selection viewer, then we want it to select the same selection as this selection.
+    // //
+    // if( currentViewerPane.getViewer() == selectionViewer ) {
+    // ArrayList<Object> selectionList = new ArrayList<Object>();
+    // selectionList.add( selectedElement );
+    // while (selectedElements.hasNext()) {
+    // selectionList.add( selectedElements.next() );
+    // }
+    //
+    // // Set the selection to the widget.
+    // //
+    // selectionViewer.setSelection( new StructuredSelection( selectionList ) );
+    // } else {
+    // // Set the input to the widget.
+    // //
+    // // do not set input if it is a specobjectviewer
+    // if( !(currentViewerPane instanceof SpecObjectViewerPane)
+    // && currentViewerPane.getViewer().getInput() != selectedElement ) {
+    // currentViewerPane.getViewer().setInput( selectedElement );
+    // currentViewerPane.setTitle( selectedElement );
+    // }
+    // }
+    // }
+    // }
+    // }
 
     /**
      * This is for implementing {@link IEditorPart} and simply tests the command stack.
@@ -815,7 +818,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
 
     /**
      * This returns whether something has been persisted to the URI of the specified resource. The implementation uses
-     * the URI converter from the editor's resource set to try to open an input stream. 
+     * the URI converter from the editor's resource set to try to open an input stream.
      */
     protected boolean isPersisted( Resource resource ) {
         boolean result = false;
@@ -834,7 +837,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
     }
 
     /**
-     * This always returns true because it is not currently supported. 
+     * This always returns true because it is not currently supported.
      */
     @Override
     public boolean isSaveAsAllowed() {
@@ -842,7 +845,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
     }
 
     /**
-     * This also changes the editor's input. 
+     * This also changes the editor's input.
      */
     @Override
     public void doSaveAs() {
@@ -859,10 +862,9 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
     }
 
     /**
-     * (wtf? no comment)
+     * See {@link org.eclipse.ui.ide.IGotoMarker}
      */
     public void gotoMarker( IMarker marker ) {
-        // TODO: CPN-wtf? - gotoMarker(..) belongs to IGotoMarker which is used in this.getAdapter(..) as important self-switch!
         try {
             if( marker.getType().equals( EValidator.MARKER ) ) {
                 String uriAttribute = marker.getAttribute( EValidator.URI_ATTRIBUTE, null );
@@ -878,7 +880,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
             RifObjectEditorPlugin.INSTANCE.log( exception );
         }
     }
-    
+
     /**
      * (wtf? no comment)
      */
@@ -891,7 +893,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
     }
 
     /**
-     * This is called during startup. 
+     * This is called during startup.
      */
     @Override
     public void init( IEditorSite site, IEditorInput editorInput ) {
@@ -934,7 +936,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
 
     /**
      * This implements {@link org.eclipse.jface.viewers.ISelectionProvider} to set this editor's overall selection.
-     * Calling this result will notify the listeners. 
+     * Calling this result will notify the listeners.
      */
     public void setSelection( ISelection selection ) {
         editorSelection = selection;
@@ -993,8 +995,6 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
         return RifObjectEditorPlugin.INSTANCE.getString( key, new Object[]{s1} );
     }
 
-
-
     /**
      * @see era.foss.objecteditor.IAdapterFactoryProvider#getAdapterFactory()
      * @since Oct 28, 2010
@@ -1034,7 +1034,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
 
     @Override
     public void createPartControl( Composite parent ) {
-        
+
         // Creates the model from the editor input
         //
         createModel();
@@ -1045,7 +1045,13 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
             // This is the page for the table viewer.
             //
             {
-                specObjectViewerPane = new SpecObjectViewerPane( getSite().getPage(), RifObjectEditor.this, parent );
+                specObjectViewerPane = new SpecObjectViewerPane( getSite().getPage(), RifObjectEditor.this, parent ){
+                    @Override
+                    public void requestActivation() {
+                        super.requestActivation();
+                        setCurrentViewer( specObjectViewerPane.getViewer() );
+                    }
+                };
                 this.setCurrentViewer( specObjectViewerPane.getViewer() );
             }
         }

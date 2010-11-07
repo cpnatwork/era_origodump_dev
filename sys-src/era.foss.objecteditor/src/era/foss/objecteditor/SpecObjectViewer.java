@@ -454,6 +454,12 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
      */
     public class ViewerRefreshEContentAdapter extends EContentAdapter {
         
+        /* TODO: updating the markers for each model change leads to errors
+         *  in case a huge number of model changes is done in a single
+         *  action (e.g. delete)
+         *  
+         *  Try to use a command stack listener instead...
+         */
         public class ViewerRefreshMakerHelper extends EditUIMarkerHelper
         {
           
