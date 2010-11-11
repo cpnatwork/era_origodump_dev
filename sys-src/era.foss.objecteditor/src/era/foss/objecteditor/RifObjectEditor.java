@@ -54,14 +54,10 @@ import org.eclipse.emf.edit.provider.AdapterFactoryItemDelegator;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
-import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
-import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.viewers.ISelection;
@@ -81,7 +77,7 @@ import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.part.FileEditorInput;
-import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
+import org.eclipse.ui.part.WorkbenchPart;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheetPage;
@@ -643,56 +639,8 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
      * This accesses a cached version of the content outliner.
      */
     public IContentOutlinePage getContentOutlinePage() {
-        if( contentOutlinePage == null ) {
-            // The content outline is just a tree.
-            //
-            class MyContentOutlinePage extends ContentOutlinePage {
-                @Override
-                public void createControl( Composite parent ) {
-                    super.createControl( parent );
-                    contentOutlineViewer = getTreeViewer();
-                    contentOutlineViewer.addSelectionChangedListener( this );
-
-                    // Set up the tree viewer.
-                    //
-                    contentOutlineViewer.setContentProvider( new AdapterFactoryContentProvider( adapterFactory ) );
-                    contentOutlineViewer.setLabelProvider( new AdapterFactoryLabelProvider( adapterFactory ) );
-                    contentOutlineViewer.setInput( editingDomain.getResourceSet() );
-
-                    if( !editingDomain.getResourceSet().getResources().isEmpty() ) {
-                        // Select the root object in the view.
-                        //
-                        contentOutlineViewer.setSelection( new StructuredSelection( editingDomain.getResourceSet()
-                                                                                                 .getResources()
-                                                                                                 .get( 0 ) ), true );
-                    }
-                }
-
-                @Override
-                public void makeContributions( IMenuManager menuManager,
-                                               IToolBarManager toolBarManager,
-                                               IStatusLineManager statusLineManager ) {
-                    super.makeContributions( menuManager, toolBarManager, statusLineManager );
-                    contentOutlineStatusLineManager = statusLineManager;
-                }
-
-            }
-
-            contentOutlinePage = new MyContentOutlinePage();
-
-            // Listen to selection so that we can handle it is a special way.
-            //
-            contentOutlinePage.addSelectionChangedListener( new ISelectionChangedListener() {
-                // This ensures that we handle selections correctly.
-                //
-                public void selectionChanged( SelectionChangedEvent event ) {
-                    // TODO: CPN-wtf? - support the Outline
-                    // handleContentOutlineSelection( event.getSelection() );
-                }
-            } );
-        }
-
-        return contentOutlinePage;
+        //TODO: the outline shall display the hierarchy as soon as it is supported by ERA
+        return null;
     }
 
     /**
@@ -700,56 +648,21 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
      */
     public IPropertySheetPage getPropertySheetPage() {
         if( propertySheetPage == null ) {
+            
             propertySheetPage = new ExtendedPropertySheetPage( editingDomain ) {
                 @Override
                 public void setSelectionToViewer( List<?> selection ) {
                     RifObjectEditor.this.setSelectionToViewer( selection );
                     RifObjectEditor.this.setFocus();
                 }
+                
             };
-            propertySheetPage.setPropertySourceProvider( new AdapterFactoryContentProvider( adapterFactory ) );
+            
+            propertySheetPage.setPropertySourceProvider( new SpecObjectPropertySourceProvider());
         }
 
         return propertySheetPage;
     }
-
-    /**
-     * This deals with how we want selection in the outliner to affect the other views.
-     */
-    // TODO: CPN-wtf? - support the Outline
-    // public void handleContentOutlineSelection( ISelection selection ) {
-    // if( currentViewerPane != null && !selection.isEmpty() && selection instanceof IStructuredSelection ) {
-    // Iterator<?> selectedElements = ((IStructuredSelection)selection).iterator();
-    // if( selectedElements.hasNext() ) {
-    // // Get the first selected element.
-    // //
-    // Object selectedElement = selectedElements.next();
-    //
-    // // If it's the selection viewer, then we want it to select the same selection as this selection.
-    // //
-    // if( currentViewerPane.getViewer() == selectionViewer ) {
-    // ArrayList<Object> selectionList = new ArrayList<Object>();
-    // selectionList.add( selectedElement );
-    // while (selectedElements.hasNext()) {
-    // selectionList.add( selectedElements.next() );
-    // }
-    //
-    // // Set the selection to the widget.
-    // //
-    // selectionViewer.setSelection( new StructuredSelection( selectionList ) );
-    // } else {
-    // // Set the input to the widget.
-    // //
-    // // do not set input if it is a specobjectviewer
-    // if( !(currentViewerPane instanceof SpecObjectViewerPane)
-    // && currentViewerPane.getViewer().getInput() != selectedElement ) {
-    // currentViewerPane.getViewer().setInput( selectedElement );
-    // currentViewerPane.setTitle( selectedElement );
-    // }
-    // }
-    // }
-    // }
-    // }
 
     /**
      * This is for implementing {@link IEditorPart} and simply tests the command stack.
@@ -882,7 +795,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
     }
 
     /**
-     * (wtf? no comment)
+     * Handle save operation (Save As)
      */
     protected void doSaveAs( URI uri, IEditorInput editorInput ) {
         (editingDomain.getResourceSet().getResources().get( 0 )).setURI( uri );
@@ -893,6 +806,8 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
     }
 
     /**
+     * Initializes the editor part
+     * 
      * This is called during startup.
      */
     @Override
@@ -906,7 +821,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
     }
 
     /**
-     * (wtf? no comment)
+     * See {@link WorkbenchPart#setFocus()}
      */
     @Override
     public void setFocus() {
@@ -915,6 +830,8 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
 
     /**
      * This implements {@link org.eclipse.jface.viewers.ISelectionProvider}.
+     * 
+     * Also see {@link org.eclipse.jface.viewers.ISelectionProvider#addSelectionChangedListener(ISelectionChangedListener)}
      */
     public void addSelectionChangedListener( ISelectionChangedListener listener ) {
         selectionChangedListeners.add( listener );
@@ -948,9 +865,17 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
     }
 
     /**
-     * (wtf? no comment)
+     * Set text displayed in status line according to the element selcted in the 
+     * viewer
      */
     public void setStatusLineManager( ISelection selection ) {
+        
+        /* TODO: discuss if it make sense to show anything here. it would make sense to 
+        * show the object ID as soon we are able to define an attribute definition as 
+        * ID for an spec object. Then again, do we need to specify a certain attribute defintion
+        * as ID ? We certainly need some kind of unique attribute... Check if ReqIf does 
+        * specify a 'unique' attribute for Attribute definitions.
+        */
         IStatusLineManager statusLineManager = currentViewer != null && currentViewer == contentOutlineViewer
             ? contentOutlineStatusLineManager
             : null;
@@ -1004,7 +929,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
     }
 
     /**
-     * (wtf? no comment)
+     * Dispose this control and controls created by this one
      */
     @Override
     public void dispose() {

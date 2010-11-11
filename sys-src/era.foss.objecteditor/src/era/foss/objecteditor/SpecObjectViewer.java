@@ -83,6 +83,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.views.ViewsPlugin;
 
 import era.foss.rif.AttributeDefinition;
 import era.foss.rif.AttributeDefinitionSimple;
@@ -96,6 +97,8 @@ import era.foss.rif.impl.RifFactoryImpl;
 import era.foss.ui.contrib.IActiveColumn;
 import era.foss.ui.contrib.TableViewerExtensions;
 
+
+@SuppressWarnings("restriction")
 public class SpecObjectViewer extends TableViewer implements IActiveColumn {
 
     final static String SPEC_ATTRIBUTE_COLUMN_DATA = "Spec Attribute";
@@ -228,17 +231,9 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
             
             public RemoveValueAction(IStructuredSelection selection, AttributeDefinition attributeDefinition)
             {
-               this.setText( "Set to default" );
-               this.setImageDescriptor( new ImageDescriptor() {
-
-                   @Override
-                   public ImageData getImageData() {
-                       return PlatformUI.getWorkbench()
-                                        .getSharedImages()
-                                        .getImage( ISharedImages.IMG_TOOL_UNDO )
-                                        .getImageData();
-                   }
-               } );
+               this.setText( "Restore default value" );
+               //TODO: write own get image descriptor method tor remove warning 
+               this.setImageDescriptor( ViewsPlugin.getViewImageDescriptor("elcl16/defaults_ps.gif"));
                this.selection = selection;
                this.attributeDefinition = attributeDefinition;
 
@@ -397,6 +392,9 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
      */
     private void addSpecObectElement(IStructuredSelection selection) {
         SpecObject newSpecObject = RifFactoryImpl.eINSTANCE.createSpecObject();
+        
+        // Currently we only have one spec type
+        newSpecObject.setType( rifModel.getCoreContent().getSpecTypes().get( 0 ) );
         Command cmd = AddCommand.create( editingDomain, rifModel.getCoreContent(), null, newSpecObject );   
         BasicCommandStack basicCommandStack = (BasicCommandStack)editingDomain.getCommandStack();
         basicCommandStack.execute( cmd );
