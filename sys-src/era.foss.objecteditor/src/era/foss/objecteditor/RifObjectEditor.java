@@ -497,8 +497,15 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
                     ArrayList<SpecObject> specObjectList = new ArrayList<SpecObject>();
                     // Check all elements in selection and set to the spec object
                     for( Object element : theSelection ) {
-                        if( element instanceof AttributeValue ) {
-                            specObjectList.add( (SpecObject)((AttributeValue)element).eContainer() );
+                        if( element instanceof EObject ) {
+                            EObject eObject = (EObject)element;
+                            if( eObject instanceof SpecObject ) {
+                                specObjectList.add( (SpecObject)eObject );
+                            } else if( eObject.eContainer() instanceof SpecObject ) {
+                                specObjectList.add( (SpecObject)eObject.eContainer() );
+                            }
+                            // TODO: if element is part of the type editor, open type editor, 
+                            // navigate to correct tab and mark the respective element
                         }
                     }
 
