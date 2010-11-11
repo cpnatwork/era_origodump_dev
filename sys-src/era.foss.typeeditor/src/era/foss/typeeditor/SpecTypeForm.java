@@ -548,6 +548,10 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 // pass the first element of the row, the attribute definition, to the handler
                 AttributeDefinitionSimple attribute = getAttributeDefForColumn( selection,
                                                                                 typeEditorActivator.getString( "_UI_AttributeDefinitionDefaultValue_label" ) );
+                if (attribute == null){
+                    return;
+                }
+                    
                 defaultValueAction.setAttribute( attribute );
                 menuMgr.add( defaultValueAction );
             }
