@@ -18,36 +18,22 @@
  */
 package era.foss.objecteditor;
 
-import java.util.List;
-
-import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.ecore.util.EContentAdapter;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
-import org.eclipse.emf.edit.ui.EMFEditUIPlugin;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
-import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
@@ -452,81 +438,7 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
      */
     public class ViewerRefreshEContentAdapter extends EContentAdapter {
         
-        /* TODO: updating the markers for each model change leads to errors
-         *  in case a huge number of model changes is done in a single
-         *  action (e.g. delete)
-         *  
-         *  Try to use a command stack listener instead...
-         */
-        public class ViewerRefreshMakerHelper extends EditUIMarkerHelper
-        {
-          
-          @Override
-          protected String getMarkerID()
-          {
-            return EValidator.MARKER;
-          }
-          
-          public void createMarkers(Diagnostic diagnostic)
-          {
-            try
-            {
-              super.createMarkers(diagnostic);
-            }
-            catch (CoreException e)
-            {
-              EMFEditUIPlugin.INSTANCE.log(e);
-            }
-          }
-
-
-          @Override
-          protected void adjustMarker(IMarker marker, Diagnostic diagnostic, Diagnostic parentDiagnostic) throws CoreException
-          {
-            List<?> data = diagnostic.getData();
-            StringBuilder relatedURIs = new StringBuilder();
-            boolean first = true;
-            for (Object object : data)
-            {
-              if (object instanceof EObject)
-              {
-                EObject eObject = (EObject)object;
-                if (first)
-                {
-                  first = false;
-                  marker.setAttribute(EValidator.URI_ATTRIBUTE, EcoreUtil.getURI(eObject).toString());
-                }
-                else
-                {
-                  if (relatedURIs.length() != 0)
-                  {
-                    relatedURIs.append(' ');
-                  }
-                  relatedURIs.append(URI.encodeFragment(EcoreUtil.getURI(eObject).toString(), false));
-                }
-              }
-            }
-
-            if (relatedURIs.length() > 0)
-            {
-              marker.setAttribute(EValidator.RELATED_URIS_ATTRIBUTE, relatedURIs.toString());
-            }
-
-            super.adjustMarker(marker, diagnostic, parentDiagnostic);      
-          }
-        }
-        
-        
-        Job myJob = new Job("Validation") {
-            ViewerRefreshMakerHelper markerHelper = new  ViewerRefreshMakerHelper();
-            
-            public IStatus run(IProgressMonitor monitor) {
-               markerHelper.deleteMarkers( rifResource );
-               Diagnostic diagnostic = Diagnostician.INSTANCE.validate( rifModel );
-               markerHelper.createMarkers(diagnostic);
-               return Status.OK_STATUS;
-            }
-         };
+       
          
 
         @Override
@@ -542,11 +454,11 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
             
             System.out.println("== " + this.getClass().getCanonicalName());
             System.out.println(notification.toString() );
-             myJob.cancel();
-             myJob.schedule();
         }
-
     }
+    
+    
+    
 
     /**
      * Provide label for data of table containing SpecTypes

@@ -501,8 +501,6 @@ public class SpecTypeForm extends AbstractErfTypesForm {
      */
     private void createContextMenu() {
 
-        // FIXME: provide double click as legitimate insert trigger for adding default values
-        // (requires knowledge about which column is affected by click)
 
         final class DefaultValueAction extends Action {
             /** remove Default value instead of adding */

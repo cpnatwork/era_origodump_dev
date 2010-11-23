@@ -28,7 +28,10 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CommandStack;
@@ -45,8 +48,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
@@ -81,8 +86,7 @@ import org.eclipse.ui.part.WorkbenchPart;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheetPage;
-
-import era.foss.rif.AttributeValue;
+import era.foss.rif.RIF;
 import era.foss.rif.SpecObject;
 import era.foss.rif.provider.RifItemProviderAdapterFactory;
 
@@ -180,6 +184,8 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
      * Controls whether the problem indication should be updated.
      */
     protected boolean updateProblemIndication = true;
+    
+
 
     /**
      * Adapter used to update the problem indication when resources are demanded loaded.
@@ -450,22 +456,59 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
         // focus.
         //
         commandStack.addCommandStackListener( new CommandStackListener() {
+            
+            private Job validateJob = null;
+            
+            /**
+             * create a validate job if none is existing yet
+             * The validate job asynchronously checks if the rifModel is valid
+             * 
+             * @return the validate job 
+             */
+            private Job getValidateJob() {
+                if( validateJob == null ) {
+                    validateJob = new Job( "Validation" ) {
+                        RifMarkerHelper markerHelper = new RifMarkerHelper();
+                        Resource rifResource = (XMIResource)editingDomain.getResourceSet()
+                                                                         .getResource( EditUIUtil.getURI( RifObjectEditor.this.getEditorInput() ),
+                                                                                       true );
+                        RIF rifModel = (RIF)(rifResource).getContents().get( 0 );
+
+                        public IStatus run( IProgressMonitor monitor ) {
+                            markerHelper.deleteMarkers( rifResource );
+                            Diagnostic diagnostic = Diagnostician.INSTANCE. validate( rifModel);
+                            markerHelper.createMarkers( diagnostic );
+                            return Status.OK_STATUS;
+                        }
+                    };
+                }
+                return validateJob;
+            }
+             
+            
             public void commandStackChanged( final EventObject event ) {
                 RifObjectEditor.this.specObjectViewerPane.getControl().getDisplay().asyncExec( new Runnable() {
                     public void run() {
                         firePropertyChange( IEditorPart.PROP_DIRTY );
 
-                        // Try to select the affected objects.
-                        //
+                        // Try to select the affected objects. (e.g. skip to respective objects when perform ing an UNDO
+                        // operation)
                         Command mostRecentCommand = ((CommandStack)event.getSource()).getMostRecentCommand();
                         if( mostRecentCommand != null ) {
                             setSelectionToViewer( mostRecentCommand.getAffectedObjects() );
                         }
+                        
+                        // refresh property page
                         if( propertySheetPage != null && !propertySheetPage.getControl().isDisposed() ) {
                             propertySheetPage.refresh();
                         }
+                        
+                        // start model validation
+                        getValidateJob().cancel();
+                        getValidateJob().schedule();
                     }
                 } );
+                
             }
         } );
 
