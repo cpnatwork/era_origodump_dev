@@ -10,7 +10,5 @@ Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: era.foss.rif.contrib
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.core.resources;visibility:=reexport,
- org.eclipse.emf.edit.ui;visibility:=reexport,
- era.foss.rif.edit;visibility:=reexport
+ org.eclipse.emf.edit.ui
 Bundle-ActivationPolicy: lazy

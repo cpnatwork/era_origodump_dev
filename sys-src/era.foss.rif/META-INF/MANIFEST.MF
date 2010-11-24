@@ -4,6 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: era.foss.rif;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-ClassPath: .
+Bundle-Activator: era.foss.rif.util.Activator$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
@@ -11,7 +12,5 @@ Export-Package: era.foss.rif,
  era.foss.rif.impl,
  era.foss.rif.util
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.ecore;visibility:=reexport,
- org.eclipse.emf.ecore.xmi;visibility:=reexport
+ org.eclipse.emf.ecore.xmi
 Bundle-ActivationPolicy: lazy
-Bundle-Activator: era.foss.rif.util.Activator$Implementation

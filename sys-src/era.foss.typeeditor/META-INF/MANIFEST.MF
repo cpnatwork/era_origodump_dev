@@ -10,11 +10,9 @@ Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: era.foss.typeeditor
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.core.resources;visibility:=reexport,
- era.foss.rif.edit;visibility:=reexport,
- era.foss.objecteditor;visibility:=reexport,
- org.eclipse.emf.ecore.xmi;visibility:=reexport,
- org.eclipse.emf.edit.ui;visibility:=reexport,
- org.eclipse.ui.ide;visibility:=reexport,
- org.eclipse.ui
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.emf.edit.ui,
+ era.foss.rif,
+ era.foss.rif.edit,
+ era.foss.objecteditor
 Bundle-ActivationPolicy: lazy
