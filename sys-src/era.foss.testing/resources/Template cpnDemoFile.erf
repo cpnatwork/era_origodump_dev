@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <era.foss.rif:RIF xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:era.foss.rif="http:///era/foss/rif.ecore">
   <coreContent>
-    <specObjects iD="cbd9bde1-cbbd-4257-b97d-67bab95839ea">
-      <values xsi:type="era.foss.rif:AttributeValueSimple" iD="6015f1f1-32e8-4043-8f39-71b1881c5c8a" theValue="1" definition="//@coreContent/@specTypes.0/@specAttributes.0"/>
-      <values xsi:type="era.foss.rif:AttributeValueSimple" iD="3cb067e7-ecef-4874-8bdf-235ba8a68f23" theValue="Hierarchy" definition="//@coreContent/@specTypes.0/@specAttributes.1"/>
+    <specObjects iD="42b245b2-9355-4dc5-aaa2-ececbcc1217a">
+      <values xsi:type="era.foss.rif:AttributeValueSimple" iD="ba7976db-6e52-4af3-ae83-3bd84e44c10b" theValue="aoeu" definition="//@coreContent/@specTypes.0/@specAttributes.2"/>
     </specObjects>
-    <specObjects iD="76c9a16f-80ff-40dc-a0c8-523cf04dc74c">
-      <values xsi:type="era.foss.rif:AttributeValueSimple" iD="b4460bcf-bb3f-45ff-937c-381d02220431" theValue="2" definition="//@coreContent/@specTypes.0/@specAttributes.0"/>
-      <values xsi:type="era.foss.rif:AttributeValueSimple" iD="178130bf-31ae-47f7-af17-9da93187d039" theValue="Groups" definition="//@coreContent/@specTypes.0/@specAttributes.1"/>
-    </specObjects>
-    <specObjects iD="2b52664d-0c34-4e66-a6e4-8d2b92cc9996">
-      <values xsi:type="era.foss.rif:AttributeValueSimple" iD="809096b4-0fa7-440b-8fa1-63d90dfc4159" theValue="3" definition="//@coreContent/@specTypes.0/@specAttributes.0"/>
-      <values xsi:type="era.foss.rif:AttributeValueSimple" iD="9dc9568c-04d3-45a3-8646-b926344e9a5d" theValue="Complex Types" definition="//@coreContent/@specTypes.0/@specAttributes.1"/>
-    </specObjects>
+    <specObjects iD="b3de41a3-3da6-4218-92b7-b1f4223717dd"/>
     <specTypes iD="MyOneandonlySpecTypeId" desc="MyOneandonlySpecTypeDesc" longName="MyOneandonlySpecTypeLongname">
       <specAttributes xsi:type="era.foss.rif:AttributeDefinitionSimple" iD="65b3de65-17d2-40f7-8a67-1280553b7f2b" longName="Req-ID" type="//@coreContent/@dataTypes.0">
         <defaultValue iD="60e3c9c1-cba8-4b61-bc3e-646a1f98fec2" theValue="23"/>
@@ -34,7 +26,7 @@
         <defaultValue iD="fadbdb3c-5dc4-445a-9539-84f8cf831e52" theValue="0"/>
       </specAttributes>
     </specTypes>
-    <dataTypes xsi:type="era.foss.rif:DatatypeDefinitionInteger" iD="89a855d9-bbaf-4d69-86ef-0892253e759d" desc="A DataType based on Integer" longName="IntDT"/>
-    <dataTypes xsi:type="era.foss.rif:DatatypeDefinitionString" iD="9ed9fad0-b9c7-4fbd-ab0c-0f892edc132d" desc="A DataType based on String" longName="StringDT"/>
+    <dataTypes xsi:type="era.foss.rif:DatatypeDefinitionInteger" iD="89a855d9-bbaf-4d69-86ef-0892253e759d" desc="A DataType based on Integer" longName="IntDT" min="999"/>
+    <dataTypes xsi:type="era.foss.rif:DatatypeDefinitionString" iD="9ed9fad0-b9c7-4fbd-ab0c-0f892edc132d" desc="A DataType based on String" longName="StringDT" maxLength="100"/>
   </coreContent>
 </era.foss.rif:RIF>
