@@ -39,7 +39,6 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ColumnViewer;
@@ -61,7 +60,6 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Table;
@@ -69,7 +67,6 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.views.ViewsPlugin;
 
 import era.foss.rif.AttributeDefinition;
 import era.foss.rif.AttributeDefinitionSimple;
@@ -84,7 +81,7 @@ import era.foss.ui.contrib.IActiveColumn;
 import era.foss.ui.contrib.TableViewerExtensions;
 
 
-@SuppressWarnings("restriction")
+//SuppressWarnings("restriction")
 public class SpecObjectViewer extends TableViewer implements IActiveColumn {
 
     final static String SPEC_ATTRIBUTE_COLUMN_DATA = "Spec Attribute";
@@ -218,8 +215,7 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
             public RemoveValueAction(IStructuredSelection selection, AttributeDefinition attributeDefinition)
             {
                this.setText( "Restore default value" );
-               //TODO: write own get image descriptor method tor remove warning 
-               this.setImageDescriptor( ViewsPlugin.getViewImageDescriptor("elcl16/defaults_ps.gif"));
+               this.setImageDescriptor( era.foss.ui.contrib.Activator.getViewImageDescriptor("elcl16/defaults_ps.gif"));
                this.selection = selection;
                this.attributeDefinition = attributeDefinition;
 
@@ -245,20 +241,14 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
             // data already computed before adding the action to the menu
             private IStructuredSelection selection;
  
-            public AddElementAction( IStructuredSelection selection){
-               this.setText( "Add new object" );
-               this.selection = selection;
-                this.setImageDescriptor( new ImageDescriptor() {
-
-                    @Override
-                    public ImageData getImageData() {
-                        return PlatformUI.getWorkbench()
-                                         .getSharedImages()
-                                         .getImage( ISharedImages.IMG_OBJ_ADD )
-                                         .getImageData();
-                    }
-                } );
+            public AddElementAction( IStructuredSelection selection ) {
+                this.setText( "Add new object" );
+                this.selection = selection;
+                this.setImageDescriptor( PlatformUI.getWorkbench()
+                                                   .getSharedImages()
+                                                   .getImageDescriptor( ISharedImages.IMG_OBJ_ADD ) );
             }
+
             @Override
             public void run() {
                SpecObjectViewer.this.addSpecObectElement(selection);
@@ -275,16 +265,9 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
             
             public RemoveElementAction( IStructuredSelection selection){
                this.setText( "Remove elements" );
-               this.setImageDescriptor( new ImageDescriptor() {
-
-                   @Override
-                   public ImageData getImageData() {
-                       return PlatformUI.getWorkbench()
+               this.setImageDescriptor( PlatformUI.getWorkbench()
                                         .getSharedImages()
-                                        .getImage( ISharedImages.IMG_TOOL_DELETE )
-                                        .getImageData();
-                   }
-               } );
+                                        .getImageDescriptor( ISharedImages.IMG_TOOL_DELETE ) );
                this.selection = selection;
             }
             @Override
