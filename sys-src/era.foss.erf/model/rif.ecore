@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="erf"
-    nsURI="http:///era/foss/erf.ecore" nsPrefix="era.foss.erf">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="rif"
+    nsURI="http:///era/foss/rif.ecore" nsPrefix="era.foss.rif">
+  <eClassifiers xsi:type="ecore:EClass" name="RIF">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="coreContent" lowerBound="1"
+        eType="#//RIFContent" containment="true" resolveProxies="false"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AttributeDefinition" abstract="true"
       eSuperTypes="#//Identifiable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="#//DatatypeDefinition"/>
@@ -66,9 +70,5 @@
   <eClassifiers xsi:type="ecore:EClass" name="AttributeDefinitionSimple" eSuperTypes="#//AttributeDefinition">
     <eStructuralFeatures xsi:type="ecore:EReference" name="defaultValue" eType="#//AttributeValueSimple"
         containment="true" resolveProxies="false"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ERF">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="coreContent" lowerBound="1"
-        eType="#//RIFContent" containment="true" resolveProxies="false"/>
   </eClassifiers>
 </ecore:EPackage>
