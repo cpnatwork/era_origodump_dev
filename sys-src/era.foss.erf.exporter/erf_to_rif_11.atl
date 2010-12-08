@@ -1,0 +1,9 @@
+module era2rif;
+create OUT: Rif from IN: Erf;
+rule test{
+	from
+		s: Erf!RIF
+    to
+	    t: Rif!RIF
+		
+}
