@@ -1,7 +1,7 @@
 package era.foss.rif;
 
 /**
- * @model
+ * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='DatatypeDefinitionConstraints'"
  * @author poldi
  *
  */
