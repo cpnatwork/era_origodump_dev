@@ -1,0 +1,84 @@
+module erf2rif11;
+
+-- @path erf=/era.foss.rif/model/rif.ecore
+-- @path rif11=/era.foss.erf.exporter/model/rif_11.ecore
+
+create OUT: rif11 from IN: erf;
+
+-- ATL Manual
+-- http://www.eclipse.org/m2m/atl/doc/ATL_User_Manual[v0.7].pdf
+
+-- ATL Tutorials
+-- http://wiki.eclipse.org/ATL/Tutorials_-_Create_a_simple_ATL_transformation
+-- http://www.modelbased.net/mdi/transformations/tutorials.html
+
+-- ATL Patterns
+-- http://www.eclipse.org/m2m/atl/basicExamples_Patterns/
+
+-- ATL Transformations Zoo
+-- http://www.eclipse.org/m2m/atl/atlTransformations/
+
+-- Start from Java
+-- http://dev.eclipse.org/viewcvs/viewvc.cgi/org.eclipse.m2m/org.eclipse.m2m.atl/plugins/org.eclipse.m2m.atl.engine/src/org/eclipse/m2m/atl/engine/AtlLauncher.java?root=Modeling_Project&view=markup
+
+rule erfavs2rifavs {
+	from
+		erfclass : erf!AttributeValueSimple
+    to
+	    rifelem : rif11!ATTRIBUTEVALUESIMPLE
+}
+
+rule erfads2rifads {
+	from
+		erfclass : erf!AttributeDefinitionSimple
+    to
+	    rifelem : rif11!ATTRIBUTEDEFINITIONSIMPLE
+}
+
+rule erfddi2rifddi {
+	from
+		erfclass : erf!DatatypeDefinitionInteger
+    to
+	    rifelem : rif11!DATATYPEDEFINITIONINTEGER
+}
+
+rule erfdds2rifdds {
+	from
+		erfclass : erf!DatatypeDefinitionString
+    to
+	    rifelem : rif11!DATATYPEDEFINITIONSTRING
+}
+
+rule erfst2rifst {
+	from
+		erfclass : erf!SpecType
+    to
+	    rifelem : rif11!SPECTYPE
+}
+
+rule erfso2rifso {
+	from
+		erfclass : erf!SpecObject
+    to
+	    rifelem : rif11!SPECOBJECT
+}
+
+rule erfroot2rifroot {
+	from
+		erfclass : erf!RIF
+    to
+	    rifelem : rif11!RIF (
+			-- whenever ERF supports the RifHeader then the rif11!RIF must be fill with the erf!RIF.RifHeader.* attributes
+			aUTHOR <- 'CPN',
+			cOMMENT <- 'no comment',
+			cOUNTRYCODE <- 'DE',
+			-- CREATIONTIME <- 'NOW',
+			iDENTIFIER <- 'THEID',
+			sOURCETOOLID <- 'ERA RIF Editor',
+			tITLE <- 'no title',
+			vERSION <- '1'
+			--dATATYPES <- new DATATYPESType
+		)
+}
+
+

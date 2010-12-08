@@ -1,5 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Exporter
-Bundle-SymbolicName: era.foss.erf.exporter
-Bundle-Version: 1.0.0.qualifier
+Bundle-Name: %pluginName
+Bundle-SymbolicName: era.foss.erf.exporter;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
