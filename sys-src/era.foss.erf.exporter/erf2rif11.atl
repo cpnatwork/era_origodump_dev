@@ -8,9 +8,12 @@ create OUT: rif11 from IN: erf;
 -- ATL Manual
 -- http://www.eclipse.org/m2m/atl/doc/ATL_User_Manual[v0.7].pdf
 
--- ATL Tutorials
+-- ATL Basic Tutorials
 -- http://wiki.eclipse.org/ATL/Tutorials_-_Create_a_simple_ATL_transformation
 -- http://www.modelbased.net/mdi/transformations/tutorials.html
+
+-- ATL Slightly More Complex Tutorial
+-- http://www.eclipse.org/m2m/atl/basicExamples_Patterns/article.php?file=Port/index.html
 
 -- ATL Patterns
 -- http://www.eclipse.org/m2m/atl/basicExamples_Patterns/
@@ -76,8 +79,8 @@ rule erfroot2rifroot {
 			iDENTIFIER <- 'THEID',
 			sOURCETOOLID <- 'ERA RIF Editor',
 			tITLE <- 'no title',
-			vERSION <- '1'
-			--dATATYPES <- new DATATYPESType
+			vERSION <- '1',
+			sPECTYPES <- erfclass.coreContent.specTypes
 		)
 }
 
