@@ -75,6 +75,7 @@ public abstract class AbstractErfTypesForm extends Composite {
         this.editingDomain = (AdapterFactoryEditingDomain)((IEditingDomainProvider)editor).getEditingDomain();
         this.erfResource = (XMIResource)editingDomain.getResourceSet()
                                                      .getResource( EditUIUtil.getURI( editor.getEditorInput() ), true );
+        this.erfModel = (ERF)(erfResource).getContents().get( 0 );
 
         this.eraCommandStack = (EraCommandStack)editingDomain.getCommandStack();
         this.adapterFactory = ((AdapterFactoryEditingDomain)editingDomain).getAdapterFactory();
