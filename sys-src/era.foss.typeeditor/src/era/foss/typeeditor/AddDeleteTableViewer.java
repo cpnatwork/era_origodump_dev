@@ -37,9 +37,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
-import era.foss.rif.Identifiable;
-import era.foss.rif.RifPackage;
-import era.foss.rif.impl.RifFactoryImpl;
+import era.foss.erf.Identifiable;
+import era.foss.erf.ErfPackage;
+import era.foss.erf.impl.ErfFactoryImpl;
 
 /**
  * A TableViewer with Add and Delete buttons.
@@ -47,7 +47,7 @@ import era.foss.rif.impl.RifFactoryImpl;
  * Integrates layout and a Composite for the button bar.
  * <p>
  * Actually, this should be a generic UI widget. But now it is not any more. A description field was added, which is
- * bound to the basic {@link Identifiable} element from the RIF model.
+ * bound to the basic {@link Identifiable} element from the ERF model.
  * 
  * @author schorsch
  */
@@ -191,7 +191,7 @@ public class AddDeleteTableViewer extends TableViewer {
         descriptionLabel.setText( typeEditorActivator.getString( "_UI_Description_label" ) + ":" );
         descriptionLabel.setLayoutData( new GridData( SWT.LEFT, SWT.BOTTOM, false, false, 0, 0 ) );
 
-        // Text widget for the general Description attribute of any RIF-Identifiable
+        // Text widget for the general Description attribute of any ERF-Identifiable
         descriptionText = new Text( composite, SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL );
         descriptionText.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true, 0, 0 ) );
         descriptionText.setEditable( false );
@@ -205,7 +205,7 @@ public class AddDeleteTableViewer extends TableViewer {
                     Identifiable identifiable = (Identifiable)selection.getFirstElement();
                     Command command = SetCommand.create( editingDomain,
                                                          identifiable,
-                                                         RifPackage.eINSTANCE.getIdentifiable_Desc(),
+                                                         ErfPackage.eINSTANCE.getIdentifiable_Desc(),
                                                          descriptionText.getText() );
                     editingDomain.getCommandStack().execute( command );
                 }
@@ -213,7 +213,7 @@ public class AddDeleteTableViewer extends TableViewer {
 
         } );
 
-        // Listener: selection change (left side => update Text widget for newly focused RIF-Identifiable's description)
+        // Listener: selection change (left side => update Text widget for newly focused ERF-Identifiable's description)
         this.addSelectionChangedListener( new ISelectionChangedListener() {
             public void selectionChanged( SelectionChangedEvent event ) {
 
@@ -307,7 +307,7 @@ public class AddDeleteTableViewer extends TableViewer {
      * specified by calling {@link #setAddCommandParameter(EObject, EReference, EClass)}
      */
     public void addElement() {
-        EObject addCommandValue = RifFactoryImpl.eINSTANCE.create( addCommandValueDefaultType );
+        EObject addCommandValue = ErfFactoryImpl.eINSTANCE.create( addCommandValueDefaultType );
         Command cmd = AddCommand.create( editingDomain, addCommandOwner, null, addCommandValue );
         BasicCommandStack basicCommandStack = (BasicCommandStack)editingDomain.getCommandStack();
         basicCommandStack.execute( cmd );

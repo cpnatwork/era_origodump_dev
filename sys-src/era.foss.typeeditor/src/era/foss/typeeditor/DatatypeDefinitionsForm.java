@@ -39,11 +39,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IEditorPart;
 
-import era.foss.rif.DatatypeDefinition;
-import era.foss.rif.RIFContent;
-import era.foss.rif.RifPackage;
-import era.foss.rif.impl.RifFactoryImpl;
-import era.foss.rif.provider.RifEditPlugin;
+import era.foss.erf.DatatypeDefinition;
+import era.foss.erf.Content;
+import era.foss.erf.ErfPackage;
+import era.foss.erf.impl.ErfFactoryImpl;
+import era.foss.erf.provider.ErfEditPlugin;
 
 /**
  * A form for editing {@link DatatypeDefinition}s.
@@ -55,7 +55,7 @@ import era.foss.rif.provider.RifEditPlugin;
  * A properties viewer for any additional {@link DatatypeDefinition} attributes is instantiated.
  * <p>
  * The inner class {@link .DatatypeDefinitionContentProvider} is registered to the {@link AddDeleteTableViewer} and
- * extracts all {@link DatatypeDefinition} elements from the RIF model -- by the model reference named "dataTypes".
+ * extracts all {@link DatatypeDefinition} elements from the ERF model -- by the model reference named "dataTypes".
  * <p>
  * The inner class {@link .DatatypeDefinitionLabelProvider} is registered to the {@link AddDeleteTableViewer} and
  * provides the cell values from the {@link DatatypeDefinition} element.
@@ -159,7 +159,7 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
                 Command cmd = new SetCommand(
                     editingDomain,
                     dataType,
-                    dataType.eClass().getEStructuralFeature( RifPackage.DATATYPE_DEFINITION__LONG_NAME ),
+                    dataType.eClass().getEStructuralFeature( ErfPackage.DATATYPE_DEFINITION__LONG_NAME ),
                     (String)value );
                 eraCommandStack.execute( cmd );
                 super.getViewer().update( dataType, null );
@@ -176,7 +176,7 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
                 }
 
                 // create new a datatypeDefinition based on the value
-                DatatypeDefinition newDataType = (DatatypeDefinition)RifFactoryImpl.eINSTANCE.create( (EClass)value );
+                DatatypeDefinition newDataType = (DatatypeDefinition)ErfFactoryImpl.eINSTANCE.create( (EClass)value );
 
                 // copy old data type attributes
                 // direct set can be used; no commands required here
@@ -186,9 +186,9 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
 
                 // perform the REPLACE with any side-effects
                 Command replaceCommand = ReplaceCommand.create( editingDomain,
-                                                                rifModel.getCoreContent(),
-                                                                rifModel.getCoreContent().eClass()
-                                                                              .getEStructuralFeature( RifPackage.RIF_CONTENT__DATA_TYPES ),
+                                                                erfModel.getCoreContent(),
+                                                                erfModel.getCoreContent().eClass()
+                                                                              .getEStructuralFeature( ErfPackage.CONTENT__DATA_TYPES ),
                                                                               dataType,
                                                                 Collections.singleton( newDataType ) );
                 // the ReplaceCommand will result in an REMOVE and ADD notification
@@ -218,7 +218,7 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
 
             DatatypeDefinition[] objects;
             try {
-                objects = (DatatypeDefinition[])rifModel.getCoreContent().getDataTypes().toArray();
+                objects = (DatatypeDefinition[])erfModel.getCoreContent().getDataTypes().toArray();
             } catch( NullPointerException e ) {
                 objects = new DatatypeDefinition[0];
             }
@@ -286,7 +286,7 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
             assert (object instanceof DatatypeDefinition);
 
             // The editing domain provides functionality to extract allowed children
-            RIFContent toplevel = rifModel.getCoreContent();
+            Content toplevel = erfModel.getCoreContent();
             Collection<CommandParameter> allAllowedDescriptors = (Collection<CommandParameter>)editingDomain.getNewChildDescriptors( toplevel,
                                                                                                                                      null );
             // filter the child descriptors by the base type of DatatypeDefinition
@@ -322,8 +322,8 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
         tableViewer = new AddDeleteTableViewer( this, SWT.MULTI | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
         tableViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
         tableViewer.setEditingDomain( editingDomain );
-        tableViewer.setAddCommandParameter( rifModel.getCoreContent(),
-                                            RifFactoryImpl.eINSTANCE.createDatatypeDefinitionInteger().eClass() );
+        tableViewer.setAddCommandParameter( erfModel.getCoreContent(),
+                                            ErfFactoryImpl.eINSTANCE.createDatatypeDefinitionInteger().eClass() );
         TableColumnLayout columnLayout = tableViewer.getTableColumnLayout();
         String[] colTitles = {
             typeEditorActivator.getString( "_UI_DataTypeDefinitionName_label" ),
@@ -361,7 +361,7 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
      * @return its type name
      */
     private String getTypenameForDatatypeDefinition( EClass eClass ) {
-        String nameFromResource = RifEditPlugin.INSTANCE.getString( "_UI_" + eClass.getName() + "_type" );
+        String nameFromResource = ErfEditPlugin.INSTANCE.getString( "_UI_" + eClass.getName() + "_type" );
         return (nameFromResource == null) ? eClass.getName() : nameFromResource;
     }
 

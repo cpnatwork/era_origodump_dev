@@ -246,21 +246,21 @@ litigation.
          unpack="false"/>
 
    <plugin
-         id="era.foss.rif"
+         id="era.foss.erf"
          download-size="52"
          install-size="52"
          version="1.0.0"
          unpack="false"/>
 
    <plugin
-         id="era.foss.rif.contrib"
+         id="era.foss.erf.contrib"
          download-size="3"
          install-size="3"
          version="1.0.0"
          unpack="false"/>
 
    <plugin
-         id="era.foss.rif.edit"
+         id="era.foss.erf.edit"
          download-size="43"
          install-size="43"
          version="1.0.0"

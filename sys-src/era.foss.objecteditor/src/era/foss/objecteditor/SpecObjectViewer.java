@@ -68,15 +68,15 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
-import era.foss.rif.AttributeDefinition;
-import era.foss.rif.AttributeDefinitionSimple;
-import era.foss.rif.AttributeValue;
-import era.foss.rif.AttributeValueSimple;
-import era.foss.rif.RIF;
-import era.foss.rif.RifPackage;
-import era.foss.rif.SpecObject;
-import era.foss.rif.SpecType;
-import era.foss.rif.impl.RifFactoryImpl;
+import era.foss.erf.AttributeDefinition;
+import era.foss.erf.AttributeDefinitionSimple;
+import era.foss.erf.AttributeValue;
+import era.foss.erf.AttributeValueSimple;
+import era.foss.erf.ERF;
+import era.foss.erf.ErfPackage;
+import era.foss.erf.SpecObject;
+import era.foss.erf.SpecType;
+import era.foss.erf.impl.ErfFactoryImpl;
 import era.foss.ui.contrib.IActiveColumn;
 import era.foss.ui.contrib.TableViewerExtensions;
 
@@ -87,8 +87,8 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
     final static String SPEC_ATTRIBUTE_COLUMN_DATA = "Spec Attribute";
 
     protected AdapterFactoryEditingDomain editingDomain = null;
-    protected Resource rifResource = null;
-    protected RIF rifModel = null;
+    protected Resource erfResource = null;
+    protected ERF erfModel = null;
     protected EraCommandStack eraCommandStack = null;
     protected AdapterFactory adapterFactory = null;
     
@@ -96,15 +96,15 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
 
     protected int activeColumn;
 
-    public SpecObjectViewer( Composite parent, IEditorPart rifObjectEditor ) {
+    public SpecObjectViewer( Composite parent, IEditorPart erfObjectEditor ) {
         super( parent, SWT.MULTI | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
-        // CPN: use casts to avoid direct dependencies to the generated Rif*Editor class(es)
-        this.editingDomain = (AdapterFactoryEditingDomain) ((IEditingDomainProvider)rifObjectEditor).getEditingDomain();
-        this.adapterFactory = ((IAdapterFactoryProvider)rifObjectEditor).getAdapterFactory();
-        this.rifResource = (XMIResource)editingDomain.getResourceSet()
-                                                     .getResource( EditUIUtil.getURI( rifObjectEditor.getEditorInput() ),
+        // CPN: use casts to avoid direct dependencies to the generated Erf*Editor class(es)
+        this.editingDomain = (AdapterFactoryEditingDomain) ((IEditingDomainProvider)erfObjectEditor).getEditingDomain();
+        this.adapterFactory = ((IAdapterFactoryProvider)erfObjectEditor).getAdapterFactory();
+        this.erfResource = (XMIResource)editingDomain.getResourceSet()
+                                                     .getResource( EditUIUtil.getURI( erfObjectEditor.getEditorInput() ),
                                                                    true );
-        this.rifModel = (RIF)(rifResource).getContents().get( 0 );
+        this.erfModel = (ERF)(erfResource).getContents().get( 0 );
     }
    
     
@@ -137,7 +137,7 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
         this.setContentProvider( new SpecObjectContentProvider( this.adapterFactory ) );
 
         // TODO: Is this really the right place to adapt ALL elements ???
-        rifModel.getCoreContent().eAdapters().add( new ViewerRefreshEContentAdapter() );
+        erfModel.getCoreContent().eAdapters().add( new ViewerRefreshEContentAdapter() );
 
         //enable tooltips
         ColumnViewerToolTipSupport.enableFor(this,ToolTip.NO_RECREATE);
@@ -151,7 +151,7 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
         // add detection for active column
         TableViewerExtensions.addActiveColumnDetection( this );
             
-        this.setInput( rifModel.getCoreContent().getSpecObjects() );
+        this.setInput( erfModel.getCoreContent().getSpecObjects() );
     }
 
 
@@ -174,14 +174,14 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
     private void create_columns() {
         
     	// in case we don't have a spec type don't create columns
-    	if (rifModel.getCoreContent().getSpecTypes().isEmpty())
+    	if (erfModel.getCoreContent().getSpecTypes().isEmpty())
     	{
     		return;
     	}
     	
     	// get attributes for the spec object
         // Remark: currently we only have one specType
-        SpecType specType = rifModel.getCoreContent().getSpecTypes().get( 0 );
+        SpecType specType = erfModel.getCoreContent().getSpecTypes().get( 0 );
         EList<AttributeDefinition> specAttributeList = specType.getSpecAttributes();
 
         for( AttributeDefinition attribute : specAttributeList ) {
@@ -360,11 +360,11 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
      * Add spec object
      */
     private void addSpecObectElement(IStructuredSelection selection) {
-        SpecObject newSpecObject = RifFactoryImpl.eINSTANCE.createSpecObject();
+        SpecObject newSpecObject = ErfFactoryImpl.eINSTANCE.createSpecObject();
         
         // Currently we only have one spec type
-        newSpecObject.setType( rifModel.getCoreContent().getSpecTypes().get( 0 ) );
-        Command cmd = AddCommand.create( editingDomain, rifModel.getCoreContent(), null, newSpecObject );   
+        newSpecObject.setType( erfModel.getCoreContent().getSpecTypes().get( 0 ) );
+        Command cmd = AddCommand.create( editingDomain, erfModel.getCoreContent(), null, newSpecObject );   
         BasicCommandStack basicCommandStack = (BasicCommandStack)editingDomain.getCommandStack();
         basicCommandStack.execute( cmd );
         this.refresh();
@@ -384,7 +384,7 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
 
             SpecObject[] objects;
             try {
-                objects = (SpecObject[])rifModel.getCoreContent().getSpecObjects().toArray();
+                objects = (SpecObject[])erfModel.getCoreContent().getSpecObjects().toArray();
             } catch( NullPointerException e ) {
                 objects = new SpecObject[0];
             }
@@ -620,7 +620,7 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
             // SpecObject has no Attribute Value for this Attribute Definition
             if( attributeValue == null ) {
                 // create an Attribute Value
-                attributeValue = RifFactoryImpl.eINSTANCE.createAttributeValueSimple();
+                attributeValue = ErfFactoryImpl.eINSTANCE.createAttributeValueSimple();
 
                 // set reference to the respecitive Attribute Definition
                 attributeValue.setDefinition( attributeDefinition );
@@ -630,7 +630,7 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
                 // create new Attribute value in the model
                 Command cmd = AddCommand.create( editingDomain,
                                                  specObject,
-                                                 RifPackage.SPEC_OBJECT__VALUES,
+                                                 ErfPackage.SPEC_OBJECT__VALUES,
                                                  attributeValue );
                 basicCommandStack.execute( cmd );
                 SpecObjectViewer.this.update( specObject, null );
@@ -652,7 +652,7 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
                 Command cmd = new SetCommand(
                     editingDomain,
                     attributeValue,
-                    attributeValue.eClass().getEStructuralFeature( RifPackage.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE ),
+                    attributeValue.eClass().getEStructuralFeature( ErfPackage.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE ),
                     editorValue );
 
                 basicCommandStack.execute( cmd );

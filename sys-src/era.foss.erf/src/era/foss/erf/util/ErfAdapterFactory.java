@@ -131,11 +131,6 @@ public class ErfAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseRIFContent(RIFContent object) {
-			return createRIFContentAdapter();
-		}
-
-		@Override
 		public Adapter caseIdentifiable(Identifiable object) {
 			return createIdentifiableAdapter();
 		}
@@ -149,6 +144,11 @@ public class ErfAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseERF(ERF object) {
 			return createERFAdapter();
+		}
+
+		@Override
+		public Adapter caseContent(Content object) {
+			return createContentAdapter();
 		}
 
 		@Override
@@ -325,20 +325,6 @@ public class ErfAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link era.foss.erf.RIFContent <em>RIF Content</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see era.foss.erf.RIFContent
-	 * @generated
-	 */
-	public Adapter createRIFContentAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link era.foss.erf.Identifiable <em>Identifiable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -377,6 +363,20 @@ public class ErfAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createERFAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link era.foss.erf.Content <em>Content</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see era.foss.erf.Content
+	 * @generated
+	 */
+	public Adapter createContentAdapter() {
 		return null;
 	}
 

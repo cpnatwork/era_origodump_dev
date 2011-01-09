@@ -13,13 +13,13 @@ import org.eclipse.emf.common.ui.EclipseUIPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
 
 /**
- * This is the central singleton for the Rif editor plugin.
+ * This is the central singleton for the Erf editor plugin.
  */
-public final class RifObjectEditorPlugin extends EMFPlugin {
+public final class ErfObjectEditorPlugin extends EMFPlugin {
     /**
      * Keep track of the singleton.
      */
-    public static final RifObjectEditorPlugin INSTANCE = new RifObjectEditorPlugin();
+    public static final ErfObjectEditorPlugin INSTANCE = new ErfObjectEditorPlugin();
 
     /**
      * Keep track of the singleton.
@@ -29,7 +29,7 @@ public final class RifObjectEditorPlugin extends EMFPlugin {
     /**
      * Create the instance.
      */
-    public RifObjectEditorPlugin() {
+    public ErfObjectEditorPlugin() {
         super( new ResourceLocator[]{} );
     }
 

@@ -17,13 +17,13 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IEditorPart;
 
-import era.foss.rif.RIF;
+import era.foss.erf.ERF;
 import era.foss.objecteditor.EraCommandStack;
 
 /**
  * An abstract form, that contains members and constructor code that is common to all editing forms for ERA types.
  * <p>
- * Contains a reference to the {@link RIF} model.
+ * Contains a reference to the {@link ERF} model.
  * <p>
  * Contains a reference to the {@link EraCommandStack}.
  * 
@@ -33,8 +33,8 @@ public abstract class AbstractErfTypesForm extends Composite {
 
     protected IEditorPart editor = null;
     protected AdapterFactoryEditingDomain editingDomain = null;
-    protected Resource rifResource = null;
-    protected RIF rifModel = null;
+    protected Resource erfResource = null;
+    protected ERF erfModel = null;
     protected EraCommandStack eraCommandStack = null;
     protected AdapterFactory adapterFactory = null;
     protected Activator typeEditorActivator = null;
@@ -73,9 +73,8 @@ public abstract class AbstractErfTypesForm extends Composite {
 
         this.editor = editor;
         this.editingDomain = (AdapterFactoryEditingDomain)((IEditingDomainProvider)editor).getEditingDomain();
-        this.rifResource = (XMIResource)editingDomain.getResourceSet()
+        this.erfResource = (XMIResource)editingDomain.getResourceSet()
                                                      .getResource( EditUIUtil.getURI( editor.getEditorInput() ), true );
-        this.rifModel = (RIF)(rifResource).getContents().get( 0 );
 
         this.eraCommandStack = (EraCommandStack)editingDomain.getCommandStack();
         this.adapterFactory = ((AdapterFactoryEditingDomain)editingDomain).getAdapterFactory();

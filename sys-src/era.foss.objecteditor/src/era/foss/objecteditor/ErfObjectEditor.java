@@ -86,14 +86,14 @@ import org.eclipse.ui.part.WorkbenchPart;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheetPage;
-import era.foss.rif.RIF;
-import era.foss.rif.SpecObject;
-import era.foss.rif.provider.RifItemProviderAdapterFactory;
+import era.foss.erf.ERF;
+import era.foss.erf.SpecObject;
+import era.foss.erf.provider.ErfItemProviderAdapterFactory;
 
 /**
- * This is an example of a Rif model editor.
+ * This is an example of a Erf model editor.
  */
-public class RifObjectEditor extends EditorPart implements IEditorPart, IEditingDomainProvider, ISelectionProvider,
+public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditingDomainProvider, ISelectionProvider,
         IViewerProvider, IGotoMarker, IAdapterFactoryProvider {
 
     /**
@@ -283,7 +283,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
                         public void run() {
                             removedResources.addAll( visitor.getRemovedResources() );
                             if( !isDirty() ) {
-                                getSite().getPage().closeEditor( RifObjectEditor.this, false );
+                                getSite().getPage().closeEditor( ErfObjectEditor.this, false );
                             }
                         }
                     } );
@@ -293,14 +293,14 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
                     getSite().getShell().getDisplay().asyncExec( new Runnable() {
                         public void run() {
                             changedResources.addAll( visitor.getChangedResources() );
-                            if( getSite().getPage().getActiveEditor() == RifObjectEditor.this ) {
+                            if( getSite().getPage().getActiveEditor() == ErfObjectEditor.this ) {
                                 handleActivate();
                             }
                         }
                     } );
                 }
             } catch( CoreException exception ) {
-                RifObjectEditorPlugin.INSTANCE.log( exception );
+                ErfObjectEditorPlugin.INSTANCE.log( exception );
             }
         }
     };
@@ -321,7 +321,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
 
         if( !removedResources.isEmpty() ) {
             if( handleDirtyConflict() ) {
-                getSite().getPage().closeEditor( RifObjectEditor.this, false );
+                getSite().getPage().closeEditor( ErfObjectEditor.this, false );
             } else {
                 removedResources.clear();
                 changedResources.clear();
@@ -402,7 +402,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
             // setActivePage( lastEditorPage );
             // showTabs();
             // } catch( PartInitException exception ) {
-            // RifObjectEditorPlugin.INSTANCE.log( exception );
+            // ErfObjectEditorPlugin.INSTANCE.log( exception );
             // }
             // }
 
@@ -412,7 +412,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
                     try {
                         markerHelper.createMarkers( diagnostic );
                     } catch( CoreException exception ) {
-                        RifObjectEditorPlugin.INSTANCE.log( exception );
+                        ErfObjectEditorPlugin.INSTANCE.log( exception );
                     }
                 }
             }
@@ -431,7 +431,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
     /**
      * This creates a model editor.
      */
-    public RifObjectEditor() {
+    public ErfObjectEditor() {
         super();
         initializeEditingDomain();
     }
@@ -445,7 +445,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
         adapterFactory = new ComposedAdapterFactory( ComposedAdapterFactory.Descriptor.Registry.INSTANCE );
 
         adapterFactory.addAdapterFactory( new ResourceItemProviderAdapterFactory() );
-        adapterFactory.addAdapterFactory( new RifItemProviderAdapterFactory() );
+        adapterFactory.addAdapterFactory( new ErfItemProviderAdapterFactory() );
         adapterFactory.addAdapterFactory( new ReflectiveItemProviderAdapterFactory() );
 
         // Create the command stack that will notify this editor as commands are executed.
@@ -461,22 +461,22 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
             
             /**
              * create a validate job if none is existing yet
-             * The validate job asynchronously checks if the rifModel is valid
+             * The validate job asynchronously checks if the erfModel is valid
              * 
              * @return the validate job 
              */
             private Job getValidateJob() {
                 if( validateJob == null ) {
                     validateJob = new Job( "Validation" ) {
-                        RifMarkerHelper markerHelper = new RifMarkerHelper();
-                        Resource rifResource = (XMIResource)editingDomain.getResourceSet()
-                                                                         .getResource( EditUIUtil.getURI( RifObjectEditor.this.getEditorInput() ),
+                        ErfMarkerHelper markerHelper = new ErfMarkerHelper();
+                        Resource erfResource = (XMIResource)editingDomain.getResourceSet()
+                                                                         .getResource( EditUIUtil.getURI( ErfObjectEditor.this.getEditorInput() ),
                                                                                        true );
-                        RIF rifModel = (RIF)(rifResource).getContents().get( 0 );
+                        ERF erfModel = (ERF)(erfResource).getContents().get( 0 );
 
                         public IStatus run( IProgressMonitor monitor ) {
-                            markerHelper.deleteMarkers( rifResource );
-                            Diagnostic diagnostic = Diagnostician.INSTANCE. validate( rifModel);
+                            markerHelper.deleteMarkers( erfResource );
+                            Diagnostic diagnostic = Diagnostician.INSTANCE. validate( erfModel);
                             markerHelper.createMarkers( diagnostic );
                             return Status.OK_STATUS;
                         }
@@ -487,7 +487,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
              
             
             public void commandStackChanged( final EventObject event ) {
-                RifObjectEditor.this.specObjectViewerPane.getControl().getDisplay().asyncExec( new Runnable() {
+                ErfObjectEditor.this.specObjectViewerPane.getControl().getDisplay().asyncExec( new Runnable() {
                     public void run() {
                         firePropertyChange( IEditorPart.PROP_DIRTY );
 
@@ -702,8 +702,8 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
             propertySheetPage = new ExtendedPropertySheetPage( editingDomain ) {
                 @Override
                 public void setSelectionToViewer( List<?> selection ) {
-                    RifObjectEditor.this.setSelectionToViewer( selection );
-                    RifObjectEditor.this.setFocus();
+                    ErfObjectEditor.this.setSelectionToViewer( selection );
+                    ErfObjectEditor.this.setFocus();
                 }
                 
             };
@@ -773,7 +773,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
         } catch( Exception exception ) {
             // Something went wrong that shouldn't.
             //
-            RifObjectEditorPlugin.INSTANCE.log( exception );
+            ErfObjectEditorPlugin.INSTANCE.log( exception );
         }
         updateProblemIndication = true;
         updateProblemIndication();
@@ -840,7 +840,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
                 }
             }
         } catch( CoreException exception ) {
-            RifObjectEditorPlugin.INSTANCE.log( exception );
+            ErfObjectEditorPlugin.INSTANCE.log( exception );
         }
     }
 
@@ -960,14 +960,14 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
      * This looks up a string in the plugin's plugin.properties file.
      */
     private static String getString( String key ) {
-        return RifObjectEditorPlugin.INSTANCE.getString( key );
+        return ErfObjectEditorPlugin.INSTANCE.getString( key );
     }
 
     /**
      * This looks up a string in plugin.properties, making a substitution.
      */
     private static String getString( String key, Object s1 ) {
-        return RifObjectEditorPlugin.INSTANCE.getString( key, new Object[]{s1} );
+        return ErfObjectEditorPlugin.INSTANCE.getString( key, new Object[]{s1} );
     }
 
     /**
@@ -1020,7 +1020,7 @@ public class RifObjectEditor extends EditorPart implements IEditorPart, IEditing
             // This is the page for the table viewer.
             //
             {
-                specObjectViewerPane = new SpecObjectViewerPane( getSite().getPage(), RifObjectEditor.this, parent ){
+                specObjectViewerPane = new SpecObjectViewerPane( getSite().getPage(), ErfObjectEditor.this, parent ){
                     @Override
                     public void requestActivation() {
                         super.requestActivation();

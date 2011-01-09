@@ -1,7 +1,3 @@
-/*
- * NAME: era.foss.typeeditor.SpecTypeForm
- */
-
 package era.foss.typeeditor;
 
 import org.eclipse.emf.common.command.BasicCommandStack;
@@ -44,18 +40,18 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
-import era.foss.rif.AttributeDefinition;
-import era.foss.rif.AttributeDefinitionSimple;
-import era.foss.rif.AttributeValueSimple;
-import era.foss.rif.DatatypeDefinition;
-import era.foss.rif.RifPackage;
-import era.foss.rif.SpecType;
-import era.foss.rif.impl.RifFactoryImpl;
+import era.foss.erf.AttributeDefinition;
+import era.foss.erf.AttributeDefinitionSimple;
+import era.foss.erf.AttributeValueSimple;
+import era.foss.erf.DatatypeDefinition;
+import era.foss.erf.ErfPackage;
+import era.foss.erf.SpecType;
+import era.foss.erf.impl.ErfFactoryImpl;
 
 /**
  * A form for editing the {@link SpecType}.
  * <p>
- * At the moment there exists exactly one {@link SpecType} in an ERA RIF model. The form holds a reference to this
+ * At the moment there exists exactly one {@link SpecType} in an ERA ERF model. The form holds a reference to this
  * single {@link SpecType}.
  * <p>
  * Each {@link SpecType} essentially consists of list of {@link AttributeDefinition}s which have a
@@ -64,7 +60,7 @@ import era.foss.rif.impl.RifFactoryImpl;
  * From the perspective of presentation & editing, the three classes are visually merged into a three-column table.
  * <p>
  * The inner class {@link .AttributesAdapterFactoryContentProvider} is registered to the {@link AddDeleteTableViewer}
- * and extracts all {@link AttributeDefinition}s for a {@link SpecType} from the RIF model -- by the {@link SpecType}'s
+ * and extracts all {@link AttributeDefinition}s for a {@link SpecType} from the ERF model -- by the {@link SpecType}'s
  * reference named "specAttributes".
  * <p>
  * The inner class {@link .AttributesLabelProvider} is registered to the {@link AddDeleteTableViewer} and provides the
@@ -91,14 +87,14 @@ public class SpecTypeForm extends AbstractErfTypesForm {
 
         // check for and eventually initialize the sole SpecType
         // TODO: we could remove this default spectype creation (the new filewizard handles it)
-        if( rifModel.getCoreContent().getSpecTypes().size() == 0 ) {
+        if( erfModel.getCoreContent().getSpecTypes().size() == 0 ) {
             Command addCommand = AddCommand.create( editingDomain,
-                                                    rifModel.getCoreContent(),
+                                                    erfModel.getCoreContent(),
                                                     null,
-                                                    RifFactoryImpl.eINSTANCE.createSpecType() );
+                                                    ErfFactoryImpl.eINSTANCE.createSpecType() );
             eraCommandStack.execute( addCommand );
         }
-        theOneAndOnlySpecType = (SpecType)rifModel.getCoreContent().getSpecTypes().get( 0 );
+        theOneAndOnlySpecType = (SpecType)erfModel.getCoreContent().getSpecTypes().get( 0 );
 
         // set-up layout
         GridLayout gridLayout = new GridLayout( 1, true );
@@ -246,7 +242,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
 
             DatatypeDefinition[] dataTypes;
             try {
-                dataTypes = (DatatypeDefinition[])rifModel.getCoreContent().getDataTypes().toArray();
+                dataTypes = (DatatypeDefinition[])erfModel.getCoreContent().getDataTypes().toArray();
             } catch( NullPointerException e ) {
                 dataTypes = new DatatypeDefinition[0];
             }
@@ -402,7 +398,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 cmd = new SetCommand(
                     editingDomain,
                     attributeDefinition,
-                    attributeDefinition.eClass().getEStructuralFeature( RifPackage.ATTRIBUTE_DEFINITION__LONG_NAME ),
+                    attributeDefinition.eClass().getEStructuralFeature( ErfPackage.ATTRIBUTE_DEFINITION__LONG_NAME ),
                     (String)value );
                 eraCommandStack.execute( cmd );
                 super.getViewer().update( attributeDefinition, null );
@@ -412,7 +408,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 cmd = new SetCommand(
                     editingDomain,
                     attributeDefinition,
-                    attributeDefinition.eClass().getEStructuralFeature( RifPackage.ATTRIBUTE_DEFINITION__TYPE ),
+                    attributeDefinition.eClass().getEStructuralFeature( ErfPackage.ATTRIBUTE_DEFINITION__TYPE ),
                     (DatatypeDefinition)value );
                 editingDomain.getCommandStack().execute( cmd );
                 super.getViewer().update( attributeDefinition, null );
@@ -428,7 +424,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 cmd = new SetCommand(
                     editingDomain,
                     defaultValue,
-                    defaultValue.eClass().getEStructuralFeature( RifPackage.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE ),
+                    defaultValue.eClass().getEStructuralFeature( ErfPackage.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE ),
                     (String)value );
                 eraCommandStack.execute( cmd );
                 super.getViewer().update( attributeDefinition, null );
@@ -450,7 +446,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
 
         tableViewer.setEditingDomain( editingDomain );
         tableViewer.setAddCommandParameter( theOneAndOnlySpecType,
-                                            RifFactoryImpl.eINSTANCE.createAttributeDefinitionSimple().eClass() );
+                                            ErfFactoryImpl.eINSTANCE.createAttributeDefinitionSimple().eClass() );
         TableColumnLayout columnLayout = tableViewer.getTableColumnLayout();
         String[] colTitles = {
             typeEditorActivator.getString( "_UI_AttributeDefinitionName_label" ),
@@ -568,12 +564,12 @@ public class SpecTypeForm extends AbstractErfTypesForm {
         if( attribute.getDefaultValue() == null )
         // add default value (-> empty string)
         {
-            AttributeValueSimple addCommandValue = RifFactoryImpl.eINSTANCE.createAttributeValueSimple();
+            AttributeValueSimple addCommandValue = ErfFactoryImpl.eINSTANCE.createAttributeValueSimple();
             addCommandValue.setTheValue( "" );
             addCommandValue.setDefinition(attribute);
             Command cmd = AddCommand.create( editingDomain,
                                              attribute,
-                                             RifPackage.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE,
+                                             ErfPackage.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE,
                                              addCommandValue );
             basicCommandStack.execute( cmd );
             tableViewer.refresh();

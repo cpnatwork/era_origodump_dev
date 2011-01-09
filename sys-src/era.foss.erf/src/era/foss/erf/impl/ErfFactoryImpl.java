@@ -70,12 +70,12 @@ public class ErfFactoryImpl extends EFactoryImpl implements ErfFactory {
 			return createDatatypeDefinitionInteger();
 		case ErfPackage.DATATYPE_DEFINITION_STRING:
 			return createDatatypeDefinitionString();
-		case ErfPackage.RIF_CONTENT:
-			return createRIFContent();
 		case ErfPackage.ATTRIBUTE_DEFINITION_SIMPLE:
 			return createAttributeDefinitionSimple();
 		case ErfPackage.ERF:
 			return createERF();
+		case ErfPackage.CONTENT:
+			return createContent();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName()
 					+ "' is not a valid classifier");
@@ -137,16 +137,6 @@ public class ErfFactoryImpl extends EFactoryImpl implements ErfFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RIFContent createRIFContent() {
-		RIFContentImpl rifContent = new RIFContentImpl();
-		return rifContent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public AttributeDefinitionSimple createAttributeDefinitionSimple() {
 		AttributeDefinitionSimpleImpl attributeDefinitionSimple = new AttributeDefinitionSimpleImpl();
 		return attributeDefinitionSimple;
@@ -160,6 +150,16 @@ public class ErfFactoryImpl extends EFactoryImpl implements ErfFactory {
 	public ERF createERF() {
 		ERFImpl erf = new ERFImpl();
 		return erf;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Content createContent() {
+		ContentImpl content = new ContentImpl();
+		return content;
 	}
 
 	/**

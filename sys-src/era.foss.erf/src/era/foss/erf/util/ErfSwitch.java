@@ -189,13 +189,6 @@ public class ErfSwitch<T2> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case ErfPackage.RIF_CONTENT: {
-			RIFContent rifContent = (RIFContent) theEObject;
-			T2 result = caseRIFContent(rifContent);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case ErfPackage.IDENTIFIABLE: {
 			Identifiable identifiable = (Identifiable) theEObject;
 			T2 result = caseIdentifiable(identifiable);
@@ -217,6 +210,13 @@ public class ErfSwitch<T2> {
 		case ErfPackage.ERF: {
 			ERF erf = (ERF) theEObject;
 			T2 result = caseERF(erf);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case ErfPackage.CONTENT: {
+			Content content = (Content) theEObject;
+			T2 result = caseContent(content);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -393,21 +393,6 @@ public class ErfSwitch<T2> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>RIF Content</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>RIF Content</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T2 caseRIFContent(RIFContent object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Identifiable</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -449,6 +434,21 @@ public class ErfSwitch<T2> {
 	 * @generated
 	 */
 	public T2 caseERF(ERF object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Content</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Content</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T2 caseContent(Content object) {
 		return null;
 	}
 

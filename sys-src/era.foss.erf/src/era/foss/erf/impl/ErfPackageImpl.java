@@ -15,7 +15,7 @@ import era.foss.erf.DatatypeDefinitionInteger;
 import era.foss.erf.DatatypeDefinitionSimple;
 import era.foss.erf.DatatypeDefinitionString;
 import era.foss.erf.Identifiable;
-import era.foss.erf.RIFContent;
+import era.foss.erf.Content;
 import era.foss.erf.ErfFactory;
 import era.foss.erf.ErfPackage;
 import era.foss.erf.SpecElementWithUserDefinedAttributes;
@@ -122,13 +122,6 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass rifContentEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass identifiableEClass = null;
 
 	/**
@@ -144,6 +137,13 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
 	 * @generated
 	 */
 	private EClass erfEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass contentEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -411,42 +411,6 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getRIFContent() {
-		return rifContentEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getRIFContent_SpecObjects() {
-		return (EReference) rifContentEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getRIFContent_SpecTypes() {
-		return (EReference) rifContentEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getRIFContent_DataTypes() {
-		return (EReference) rifContentEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getIdentifiable() {
 		return identifiableEClass;
 	}
@@ -520,6 +484,42 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getContent() {
+		return contentEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getContent_SpecObjects() {
+		return (EReference) contentEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getContent_SpecTypes() {
+		return (EReference) contentEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getContent_DataTypes() {
+		return (EReference) contentEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ErfFactory getErfFactory() {
 		return (ErfFactory) getEFactoryInstance();
 	}
@@ -582,11 +582,6 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
 		createEAttribute(datatypeDefinitionStringEClass,
 				DATATYPE_DEFINITION_STRING__MAX_LENGTH);
 
-		rifContentEClass = createEClass(RIF_CONTENT);
-		createEReference(rifContentEClass, RIF_CONTENT__SPEC_OBJECTS);
-		createEReference(rifContentEClass, RIF_CONTENT__SPEC_TYPES);
-		createEReference(rifContentEClass, RIF_CONTENT__DATA_TYPES);
-
 		identifiableEClass = createEClass(IDENTIFIABLE);
 		createEAttribute(identifiableEClass, IDENTIFIABLE__ID);
 		createEAttribute(identifiableEClass, IDENTIFIABLE__DESC);
@@ -598,6 +593,11 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
 
 		erfEClass = createEClass(ERF);
 		createEReference(erfEClass, ERF__CORE_CONTENT);
+
+		contentEClass = createEClass(CONTENT);
+		createEReference(contentEClass, CONTENT__SPEC_OBJECTS);
+		createEReference(contentEClass, CONTENT__SPEC_TYPES);
+		createEReference(contentEClass, CONTENT__DATA_TYPES);
 	}
 
 	/**
@@ -736,22 +736,6 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
 				IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
 
-		initEClass(rifContentEClass, RIFContent.class, "RIFContent",
-				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getRIFContent_SpecObjects(), this.getSpecObject(), null,
-				"specObjects", null, 0, -1, RIFContent.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getRIFContent_SpecTypes(), this.getSpecType(), null,
-				"specTypes", null, 0, -1, RIFContent.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getRIFContent_DataTypes(), this.getDatatypeDefinition(),
-				null, "dataTypes", null, 0, -1, RIFContent.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
-				IS_ORDERED);
-
 		initEClass(identifiableEClass, Identifiable.class, "Identifiable",
 				IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getIdentifiable_ID(), ecorePackage.getEString(), "iD",
@@ -778,11 +762,26 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
 
 		initEClass(erfEClass, era.foss.erf.ERF.class, "ERF", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getERF_CoreContent(), this.getRIFContent(), null,
+		initEReference(getERF_CoreContent(), this.getContent(), null,
 				"coreContent", null, 1, 1, era.foss.erf.ERF.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
+
+		initEClass(contentEClass, Content.class, "Content", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getContent_SpecObjects(), this.getSpecObject(), null,
+				"specObjects", null, 0, -1, Content.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getContent_SpecTypes(), this.getSpecType(), null,
+				"specTypes", null, 0, -1, Content.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getContent_DataTypes(), this.getDatatypeDefinition(),
+				null, "dataTypes", null, 0, -1, Content.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

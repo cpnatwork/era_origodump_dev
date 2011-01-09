@@ -17,13 +17,13 @@
       <wizard
             canFinishEarly="true"
             category="era.foss.objecteditor.category.ID"
-            class="era.foss.objecteditor.RifModelWizard"
+            class="era.foss.objecteditor.ErfModelWizard"
             descriptionImage="icons/full/wizban/NewEraFile.gif"
             hasPages="true"
             icon="icons/full/obj16/EraFile.gif"
-            id="era.foss.objecteditor.RifModelWizardID"
-            name="%_UI_RifModelWizard_label">
-         <description>%_UI_RifModelWizard_description</description>
+            id="era.foss.objecteditor.ErfModelWizardID"
+            name="%_UI_ErfModelWizard_label">
+         <description>%_UI_ErfModelWizard_description</description>
          <selection class="org.eclipse.core.resources.IResource"/>
       </wizard>
    </extension>
@@ -36,10 +36,10 @@
    <extension point="org.eclipse.ui.editors">
       <editor
             id="era.editor"
-            name="%_UI_RifEditor_label"
+            name="%_UI_ErfEditor_label"
             icon="icons/full/obj16/EraFile.gif"
-            class="era.foss.objecteditor.RifObjectEditor">
-         <contentTypeBinding contentTypeId="era.foss.rif.ErfContentType"/>
+            class="era.foss.objecteditor.ErfObjectEditor">
+         <contentTypeBinding contentTypeId="era.foss.erf.ErfContentType"/>
       </editor>
    </extension>
 

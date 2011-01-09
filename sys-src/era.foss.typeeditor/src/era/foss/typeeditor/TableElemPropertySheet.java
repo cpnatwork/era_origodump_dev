@@ -20,7 +20,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 
 /**
- * The properties viewer for the ERA RIF types.
+ * The properties viewer for the ERA ERF types.
  * <p>
  * The ID, description and long name are filtered from the initially shown property list: in the genmodel all of
  * Identifiable:[ID, desc, long name] and DatatypeDefinitionSimple:[ID, desc, long name] there is an entry in their

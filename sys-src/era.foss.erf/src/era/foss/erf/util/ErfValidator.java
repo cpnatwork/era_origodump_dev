@@ -118,8 +118,6 @@ public class ErfValidator extends EObjectValidator {
 		case ErfPackage.DATATYPE_DEFINITION_STRING:
 			return validateDatatypeDefinitionString(
 					(DatatypeDefinitionString) value, diagnostics, context);
-		case ErfPackage.RIF_CONTENT:
-			return validateRIFContent((RIFContent) value, diagnostics, context);
 		case ErfPackage.IDENTIFIABLE:
 			return validateIdentifiable((Identifiable) value, diagnostics,
 					context);
@@ -128,6 +126,8 @@ public class ErfValidator extends EObjectValidator {
 					(AttributeDefinitionSimple) value, diagnostics, context);
 		case ErfPackage.ERF:
 			return validateERF((ERF) value, diagnostics, context);
+		case ErfPackage.CONTENT:
+			return validateContent((Content) value, diagnostics, context);
 		default:
 			return true;
 		}
@@ -411,15 +411,6 @@ public class ErfValidator extends EObjectValidator {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateRIFContent(RIFContent rifContent,
-			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint(rifContent, diagnostics, context);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean validateIdentifiable(Identifiable identifiable,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint(identifiable, diagnostics,
@@ -445,6 +436,16 @@ public class ErfValidator extends EObjectValidator {
 	public boolean validateERF(ERF erf, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint(erf, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateContent(Content content,
+			DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(content, diagnostics, context);
 	}
 
 	/**

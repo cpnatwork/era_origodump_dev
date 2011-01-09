@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="rif"
-    nsURI="http:///era/foss/rif.ecore" nsPrefix="era.foss.rif">
-  <eClassifiers xsi:type="ecore:EClass" name="RIF">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="coreContent" lowerBound="1"
-        eType="#//RIFContent" containment="true" resolveProxies="false"/>
-  </eClassifiers>
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="erf"
+    nsURI="http:///era/foss/erf.ecore" nsPrefix="era.foss.erf">
   <eClassifiers xsi:type="ecore:EClass" name="AttributeDefinition" abstract="true"
       eSuperTypes="#//Identifiable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="#//DatatypeDefinition"/>
@@ -51,14 +47,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="DatatypeDefinitionString" eSuperTypes="#//DatatypeDefinitionSimple">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxLength" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RIFContent">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="specObjects" upperBound="-1"
-        eType="#//SpecObject" containment="true" resolveProxies="false"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="specTypes" upperBound="-1"
-        eType="#//SpecType" containment="true" resolveProxies="false"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="dataTypes" upperBound="-1"
-        eType="#//DatatypeDefinition" containment="true" resolveProxies="false"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Identifiable" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="iD" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         unsettable="true"/>
@@ -70,5 +58,17 @@
   <eClassifiers xsi:type="ecore:EClass" name="AttributeDefinitionSimple" eSuperTypes="#//AttributeDefinition">
     <eStructuralFeatures xsi:type="ecore:EReference" name="defaultValue" eType="#//AttributeValueSimple"
         containment="true" resolveProxies="false"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ERF">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="coreContent" lowerBound="1"
+        eType="#//Content" containment="true" resolveProxies="false"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Content">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="specObjects" upperBound="-1"
+        eType="#//SpecObject" containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="specTypes" upperBound="-1"
+        eType="#//SpecType" containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataTypes" upperBound="-1"
+        eType="#//DatatypeDefinition" containment="true" resolveProxies="false"/>
   </eClassifiers>
 </ecore:EPackage>

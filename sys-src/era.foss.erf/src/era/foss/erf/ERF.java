@@ -4,15 +4,13 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * @model
- * @author poldi
- *
  */
 public interface ERF extends EObject {
 
 	/**
 	 * @model containment="true" lowerBound="1"
 	 */
-	public RIFContent getCoreContent();
+	public Content getCoreContent();
 
 	/**
 	 * Sets the value of the '{@link era.foss.erf.ERF#getCoreContent <em>Core Content</em>}' containment reference.
@@ -22,6 +20,6 @@ public interface ERF extends EObject {
 	 * @see #getCoreContent()
 	 * @generated
 	 */
-	void setCoreContent(RIFContent value);
+	void setCoreContent(Content value);
 
 }

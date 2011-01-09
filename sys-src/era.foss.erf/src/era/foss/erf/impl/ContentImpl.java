@@ -7,7 +7,7 @@
 package era.foss.erf.impl;
 
 import era.foss.erf.DatatypeDefinition;
-import era.foss.erf.RIFContent;
+import era.foss.erf.Content;
 import era.foss.erf.ErfPackage;
 import era.foss.erf.SpecObject;
 import era.foss.erf.SpecType;
@@ -33,15 +33,15 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link era.foss.erf.impl.RIFContentImpl#getSpecObjects <em>Spec Objects</em>}</li>
- *   <li>{@link era.foss.erf.impl.RIFContentImpl#getSpecTypes <em>Spec Types</em>}</li>
- *   <li>{@link era.foss.erf.impl.RIFContentImpl#getDataTypes <em>Data Types</em>}</li>
+ *   <li>{@link era.foss.erf.impl.ContentImpl#getSpecObjects <em>Spec Objects</em>}</li>
+ *   <li>{@link era.foss.erf.impl.ContentImpl#getSpecTypes <em>Spec Types</em>}</li>
+ *   <li>{@link era.foss.erf.impl.ContentImpl#getDataTypes <em>Data Types</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class RIFContentImpl extends EObjectImpl implements RIFContent {
+public class ContentImpl extends EObjectImpl implements Content {
 	/**
 	 * The cached value of the '{@link #getSpecObjects() <em>Spec Objects</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -77,7 +77,7 @@ public class RIFContentImpl extends EObjectImpl implements RIFContent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected RIFContentImpl() {
+	protected ContentImpl() {
 		super();
 	}
 
@@ -88,7 +88,7 @@ public class RIFContentImpl extends EObjectImpl implements RIFContent {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ErfPackage.Literals.RIF_CONTENT;
+		return ErfPackage.Literals.CONTENT;
 	}
 
 	/**
@@ -99,8 +99,7 @@ public class RIFContentImpl extends EObjectImpl implements RIFContent {
 	public EList<SpecObject> getSpecObjects() {
 		if (specObjects == null) {
 			specObjects = new EObjectContainmentEList<SpecObject>(
-					SpecObject.class, this,
-					ErfPackage.RIF_CONTENT__SPEC_OBJECTS);
+					SpecObject.class, this, ErfPackage.CONTENT__SPEC_OBJECTS);
 		}
 		return specObjects;
 	}
@@ -113,7 +112,7 @@ public class RIFContentImpl extends EObjectImpl implements RIFContent {
 	public EList<SpecType> getSpecTypes() {
 		if (specTypes == null) {
 			specTypes = new EObjectContainmentEList<SpecType>(SpecType.class,
-					this, ErfPackage.RIF_CONTENT__SPEC_TYPES);
+					this, ErfPackage.CONTENT__SPEC_TYPES);
 		}
 		return specTypes;
 	}
@@ -127,7 +126,7 @@ public class RIFContentImpl extends EObjectImpl implements RIFContent {
 		if (dataTypes == null) {
 			dataTypes = new EObjectContainmentEList<DatatypeDefinition>(
 					DatatypeDefinition.class, this,
-					ErfPackage.RIF_CONTENT__DATA_TYPES);
+					ErfPackage.CONTENT__DATA_TYPES);
 		}
 		return dataTypes;
 	}
@@ -141,13 +140,13 @@ public class RIFContentImpl extends EObjectImpl implements RIFContent {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd,
 			int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case ErfPackage.RIF_CONTENT__SPEC_OBJECTS:
+		case ErfPackage.CONTENT__SPEC_OBJECTS:
 			return ((InternalEList<?>) getSpecObjects()).basicRemove(otherEnd,
 					msgs);
-		case ErfPackage.RIF_CONTENT__SPEC_TYPES:
+		case ErfPackage.CONTENT__SPEC_TYPES:
 			return ((InternalEList<?>) getSpecTypes()).basicRemove(otherEnd,
 					msgs);
-		case ErfPackage.RIF_CONTENT__DATA_TYPES:
+		case ErfPackage.CONTENT__DATA_TYPES:
 			return ((InternalEList<?>) getDataTypes()).basicRemove(otherEnd,
 					msgs);
 		}
@@ -162,11 +161,11 @@ public class RIFContentImpl extends EObjectImpl implements RIFContent {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case ErfPackage.RIF_CONTENT__SPEC_OBJECTS:
+		case ErfPackage.CONTENT__SPEC_OBJECTS:
 			return getSpecObjects();
-		case ErfPackage.RIF_CONTENT__SPEC_TYPES:
+		case ErfPackage.CONTENT__SPEC_TYPES:
 			return getSpecTypes();
-		case ErfPackage.RIF_CONTENT__DATA_TYPES:
+		case ErfPackage.CONTENT__DATA_TYPES:
 			return getDataTypes();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -181,16 +180,16 @@ public class RIFContentImpl extends EObjectImpl implements RIFContent {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case ErfPackage.RIF_CONTENT__SPEC_OBJECTS:
+		case ErfPackage.CONTENT__SPEC_OBJECTS:
 			getSpecObjects().clear();
 			getSpecObjects()
 					.addAll((Collection<? extends SpecObject>) newValue);
 			return;
-		case ErfPackage.RIF_CONTENT__SPEC_TYPES:
+		case ErfPackage.CONTENT__SPEC_TYPES:
 			getSpecTypes().clear();
 			getSpecTypes().addAll((Collection<? extends SpecType>) newValue);
 			return;
-		case ErfPackage.RIF_CONTENT__DATA_TYPES:
+		case ErfPackage.CONTENT__DATA_TYPES:
 			getDataTypes().clear();
 			getDataTypes().addAll(
 					(Collection<? extends DatatypeDefinition>) newValue);
@@ -207,13 +206,13 @@ public class RIFContentImpl extends EObjectImpl implements RIFContent {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case ErfPackage.RIF_CONTENT__SPEC_OBJECTS:
+		case ErfPackage.CONTENT__SPEC_OBJECTS:
 			getSpecObjects().clear();
 			return;
-		case ErfPackage.RIF_CONTENT__SPEC_TYPES:
+		case ErfPackage.CONTENT__SPEC_TYPES:
 			getSpecTypes().clear();
 			return;
-		case ErfPackage.RIF_CONTENT__DATA_TYPES:
+		case ErfPackage.CONTENT__DATA_TYPES:
 			getDataTypes().clear();
 			return;
 		}
@@ -228,14 +227,14 @@ public class RIFContentImpl extends EObjectImpl implements RIFContent {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case ErfPackage.RIF_CONTENT__SPEC_OBJECTS:
+		case ErfPackage.CONTENT__SPEC_OBJECTS:
 			return specObjects != null && !specObjects.isEmpty();
-		case ErfPackage.RIF_CONTENT__SPEC_TYPES:
+		case ErfPackage.CONTENT__SPEC_TYPES:
 			return specTypes != null && !specTypes.isEmpty();
-		case ErfPackage.RIF_CONTENT__DATA_TYPES:
+		case ErfPackage.CONTENT__DATA_TYPES:
 			return dataTypes != null && !dataTypes.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //RIFContentImpl
+} //ContentImpl

@@ -71,15 +71,6 @@ public interface ErfFactory extends EFactory {
 	DatatypeDefinitionString createDatatypeDefinitionString();
 
 	/**
-	 * Returns a new object of class '<em>RIF Content</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>RIF Content</em>'.
-	 * @generated
-	 */
-	RIFContent createRIFContent();
-
-	/**
 	 * Returns a new object of class '<em>Attribute Definition Simple</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -96,6 +87,15 @@ public interface ErfFactory extends EFactory {
 	 * @generated
 	 */
 	ERF createERF();
+
+	/**
+	 * Returns a new object of class '<em>Content</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Content</em>'.
+	 * @generated
+	 */
+	Content createContent();
 
 	/**
 	 * Returns the package supported by this factory.

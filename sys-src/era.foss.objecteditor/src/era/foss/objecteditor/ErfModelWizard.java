@@ -72,10 +72,10 @@ import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
 
-import era.foss.rif.RIF;
-import era.foss.rif.RifFactory;
-import era.foss.rif.RifPackage;
-import era.foss.rif.provider.RifEditPlugin;
+import era.foss.erf.ERF;
+import era.foss.erf.ErfFactory;
+import era.foss.erf.ErfPackage;
+import era.foss.erf.provider.ErfEditPlugin;
 
 import org.eclipse.core.runtime.Path;
 
@@ -93,14 +93,14 @@ import org.eclipse.ui.PartInitException;
  * <!-- end-user-doc -->
  * @not generated
  */
-public class RifModelWizard extends Wizard implements INewWizard {
+public class ErfModelWizard extends Wizard implements INewWizard {
     /**
      * The supported extensions for created files.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    public static final List<String> FILE_EXTENSIONS = Collections.unmodifiableList( Arrays.asList( RifObjectEditorPlugin.INSTANCE.getString( "_UI_RifEditorFilenameExtensions" )
+    public static final List<String> FILE_EXTENSIONS = Collections.unmodifiableList( Arrays.asList( ErfObjectEditorPlugin.INSTANCE.getString( "_UI_ErfEditorFilenameExtensions" )
                                                                                                                             .split( "\\s*,\\s*" ) ) );
 
     /**
@@ -109,7 +109,7 @@ public class RifModelWizard extends Wizard implements INewWizard {
      * <!-- end-user-doc -->
      * @generated
      */
-    public static final String FORMATTED_FILE_EXTENSIONS = RifObjectEditorPlugin.INSTANCE.getString( "_UI_RifEditorFilenameExtensions" )
+    public static final String FORMATTED_FILE_EXTENSIONS = ErfObjectEditorPlugin.INSTANCE.getString( "_UI_ErfEditorFilenameExtensions" )
                                                                                    .replaceAll( "\\s*,\\s*", ", " );
 
     /**
@@ -118,7 +118,7 @@ public class RifModelWizard extends Wizard implements INewWizard {
      * <!-- end-user-doc -->
      * @generated
      */
-    protected RifPackage rifPackage = RifPackage.eINSTANCE;
+    protected ErfPackage erfPackage = ErfPackage.eINSTANCE;
 
     /**
      * This caches an instance of the model factory.
@@ -126,7 +126,7 @@ public class RifModelWizard extends Wizard implements INewWizard {
      * <!-- end-user-doc -->
      * @generated
      */
-    protected RifFactory rifFactory = rifPackage.getRifFactory();
+    protected ErfFactory erfFactory = erfPackage.getErfFactory();
 
     /**
      * This is the file creation page.
@@ -134,7 +134,7 @@ public class RifModelWizard extends Wizard implements INewWizard {
      * <!-- end-user-doc -->
      * @generated
      */
-    protected RifModelWizardNewFileCreationPage newFileCreationPage;
+    protected ErfModelWizardNewFileCreationPage newFileCreationPage;
 
     /**
      * This is the initial object creation page.
@@ -142,7 +142,7 @@ public class RifModelWizard extends Wizard implements INewWizard {
      * <!-- end-user-doc -->
      * @generated
      */
-    protected RifModelWizardInitialObjectCreationPage initialObjectCreationPage;
+    protected ErfModelWizardInitialObjectCreationPage initialObjectCreationPage;
 
     /**
      * Remember the selection during initialization for populating the default container.
@@ -177,8 +177,8 @@ public class RifModelWizard extends Wizard implements INewWizard {
     public void init( IWorkbench workbench, IStructuredSelection selection ) {
         this.workbench = workbench;
         this.selection = selection;
-        setWindowTitle( RifObjectEditorPlugin.INSTANCE.getString( "_UI_Wizard_label" ) );
-        setDefaultPageImageDescriptor( ExtendedImageRegistry.INSTANCE.getImageDescriptor( RifObjectEditorPlugin.INSTANCE.getImage( "full/wizban/NewEraFile" ) ) );
+        setWindowTitle( ErfObjectEditorPlugin.INSTANCE.getString( "_UI_Wizard_label" ) );
+        setDefaultPageImageDescriptor( ExtendedImageRegistry.INSTANCE.getImageDescriptor( ErfObjectEditorPlugin.INSTANCE.getImage( "full/wizban/NewEraFile" ) ) );
     }
 
     /**
@@ -190,7 +190,7 @@ public class RifModelWizard extends Wizard implements INewWizard {
     protected Collection<String> getInitialObjectNames() {
         if( initialObjectNames == null ) {
             initialObjectNames = new ArrayList<String>();
-            for( EClassifier eClassifier : rifPackage.getEClassifiers() ) {
+            for( EClassifier eClassifier : erfPackage.getEClassifiers() ) {
                 if( eClassifier instanceof EClass ) {
                     EClass eClass = (EClass)eClassifier;
                     if( !eClass.isAbstract() ) {
@@ -210,14 +210,14 @@ public class RifModelWizard extends Wizard implements INewWizard {
      * @not generated
      */
     protected EObject createInitialModel() {
-        RIF rifModel = rifFactory.createRIF();
+        ERF erfModel = erfFactory.createERF();
 
         // The core content has to be created in any case
-        rifModel.setCoreContent( rifFactory.createRIFContent() );
+        erfModel.setCoreContent( erfFactory.createContent() );
 
         // Right now we support only one spec type for a single document
-        rifModel.getCoreContent().getSpecTypes().add( rifFactory.createSpecType() );
-        return rifModel;
+        erfModel.getCoreContent().getSpecTypes().add( erfFactory.createSpecType() );
+        return erfModel;
     }
 
     /**
@@ -264,7 +264,7 @@ public class RifModelWizard extends Wizard implements INewWizard {
                         options.put( XMLResource.OPTION_ENCODING, initialObjectCreationPage.getEncoding() );
                         resource.save( options );
                     } catch( Exception exception ) {
-                        RifObjectEditorPlugin.INSTANCE.log( exception );
+                        ErfObjectEditorPlugin.INSTANCE.log( exception );
                     } finally {
                         progressMonitor.done();
                     }
@@ -296,14 +296,14 @@ public class RifModelWizard extends Wizard implements INewWizard {
                                           .getId() );
             } catch( PartInitException exception ) {
                 MessageDialog.openError( workbenchWindow.getShell(),
-                                         RifObjectEditorPlugin.INSTANCE.getString( "_UI_OpenEditorError_label" ),
+                                         ErfObjectEditorPlugin.INSTANCE.getString( "_UI_OpenEditorError_label" ),
                                          exception.getMessage() );
                 return false;
             }
 
             return true;
         } catch( Exception exception ) {
-            RifObjectEditorPlugin.INSTANCE.log( exception );
+            ErfObjectEditorPlugin.INSTANCE.log( exception );
             return false;
         }
     }
@@ -314,14 +314,14 @@ public class RifModelWizard extends Wizard implements INewWizard {
      * <!-- end-user-doc -->
      * @generated
      */
-    public class RifModelWizardNewFileCreationPage extends WizardNewFileCreationPage {
+    public class ErfModelWizardNewFileCreationPage extends WizardNewFileCreationPage {
         /**
          * Pass in the selection.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        public RifModelWizardNewFileCreationPage( String pageId, IStructuredSelection selection ) {
+        public ErfModelWizardNewFileCreationPage( String pageId, IStructuredSelection selection ) {
             super( pageId, selection );
         }
 
@@ -337,7 +337,7 @@ public class RifModelWizard extends Wizard implements INewWizard {
                 String extension = new Path( getFileName() ).getFileExtension();
                 if( extension == null || !FILE_EXTENSIONS.contains( extension ) ) {
                     String key = FILE_EXTENSIONS.size() > 1 ? "_WARN_FilenameExtensions" : "_WARN_FilenameExtension";
-                    setErrorMessage( RifObjectEditorPlugin.INSTANCE.getString( key, new Object[]{FORMATTED_FILE_EXTENSIONS} ) );
+                    setErrorMessage( ErfObjectEditorPlugin.INSTANCE.getString( key, new Object[]{FORMATTED_FILE_EXTENSIONS} ) );
                     return false;
                 }
                 return true;
@@ -361,7 +361,7 @@ public class RifModelWizard extends Wizard implements INewWizard {
      * <!-- end-user-doc -->
      * @not generated
      */
-    public class RifModelWizardInitialObjectCreationPage extends WizardPage {
+    public class ErfModelWizardInitialObjectCreationPage extends WizardPage {
 
         /**
          * <!-- begin-user-doc -->
@@ -390,7 +390,7 @@ public class RifModelWizard extends Wizard implements INewWizard {
          * <!-- end-user-doc -->
          * @generated
          */
-        public RifModelWizardInitialObjectCreationPage( String pageId ) {
+        public ErfModelWizardInitialObjectCreationPage( String pageId ) {
             super( pageId );
         }
 
@@ -416,7 +416,7 @@ public class RifModelWizard extends Wizard implements INewWizard {
 
             Label encodingLabel = new Label( composite, SWT.LEFT );
             {
-                encodingLabel.setText( RifObjectEditorPlugin.INSTANCE.getString( "_UI_XMLEncoding" ) );
+                encodingLabel.setText( ErfObjectEditorPlugin.INSTANCE.getString( "_UI_XMLEncoding" ) );
 
                 GridData data = new GridData();
                 data.horizontalAlignment = GridData.FILL;
@@ -476,7 +476,7 @@ public class RifModelWizard extends Wizard implements INewWizard {
          * @not generated
          */
         public String getInitialObjectName() {
-            return "RIF";
+            return "ERF";
         }
 
         /**
@@ -496,9 +496,9 @@ public class RifModelWizard extends Wizard implements INewWizard {
          */
         protected String getLabel( String typeName ) {
             try {
-                return RifEditPlugin.INSTANCE.getString( "_UI_" + typeName + "_type" );
+                return ErfEditPlugin.INSTANCE.getString( "_UI_" + typeName + "_type" );
             } catch( MissingResourceException mre ) {
-                RifObjectEditorPlugin.INSTANCE.log( mre );
+                ErfObjectEditorPlugin.INSTANCE.log( mre );
             }
             return typeName;
         }
@@ -512,7 +512,7 @@ public class RifModelWizard extends Wizard implements INewWizard {
             if( encodings == null ) {
                 encodings = new ArrayList<String>();
                 for( StringTokenizer stringTokenizer = new StringTokenizer(
-                    RifObjectEditorPlugin.INSTANCE.getString( "_UI_XMLEncodingChoices" ) ); stringTokenizer.hasMoreTokens(); ) {
+                    ErfObjectEditorPlugin.INSTANCE.getString( "_UI_XMLEncodingChoices" ) ); stringTokenizer.hasMoreTokens(); ) {
                     encodings.add( stringTokenizer.nextToken() );
                 }
             }
@@ -530,10 +530,10 @@ public class RifModelWizard extends Wizard implements INewWizard {
     public void addPages() {
         // Create a page, set the title, and the initial model file name.
         //
-        newFileCreationPage = new RifModelWizardNewFileCreationPage( "Whatever", selection );
-        newFileCreationPage.setTitle( RifObjectEditorPlugin.INSTANCE.getString( "_UI_RifModelWizard_label" ) );
-        newFileCreationPage.setDescription( RifObjectEditorPlugin.INSTANCE.getString( "_UI_RifModelWizard_description" ) );
-        newFileCreationPage.setFileName( RifObjectEditorPlugin.INSTANCE.getString( "_UI_RifEditorFilenameDefaultBase" )
+        newFileCreationPage = new ErfModelWizardNewFileCreationPage( "Whatever", selection );
+        newFileCreationPage.setTitle( ErfObjectEditorPlugin.INSTANCE.getString( "_UI_ErfModelWizard_label" ) );
+        newFileCreationPage.setDescription( ErfObjectEditorPlugin.INSTANCE.getString( "_UI_ErfModelWizard_description" ) );
+        newFileCreationPage.setFileName( ErfObjectEditorPlugin.INSTANCE.getString( "_UI_ErfEditorFilenameDefaultBase" )
             + "."
             + FILE_EXTENSIONS.get( 0 ) );
         addPage( newFileCreationPage );
@@ -561,7 +561,7 @@ public class RifModelWizard extends Wizard implements INewWizard {
 
                     // Make up a unique new name here.
                     //
-                    String defaultModelBaseFilename = RifObjectEditorPlugin.INSTANCE.getString( "_UI_RifEditorFilenameDefaultBase" );
+                    String defaultModelBaseFilename = ErfObjectEditorPlugin.INSTANCE.getString( "_UI_ErfEditorFilenameDefaultBase" );
                     String defaultModelFilenameExtension = FILE_EXTENSIONS.get( 0 );
                     String modelFilename = defaultModelBaseFilename + "." + defaultModelFilenameExtension;
                     for( int i = 1; ((IContainer)selectedResource).findMember( modelFilename ) != null; ++i ) {
@@ -571,9 +571,9 @@ public class RifModelWizard extends Wizard implements INewWizard {
                 }
             }
         }
-        initialObjectCreationPage = new RifModelWizardInitialObjectCreationPage( "Whatever2" );
-        initialObjectCreationPage.setTitle( RifObjectEditorPlugin.INSTANCE.getString( "_UI_RifModelWizard_label" ) );
-        initialObjectCreationPage.setDescription( RifObjectEditorPlugin.INSTANCE.getString( "_UI_Wizard_initial_object_description" ) );
+        initialObjectCreationPage = new ErfModelWizardInitialObjectCreationPage( "Whatever2" );
+        initialObjectCreationPage.setTitle( ErfObjectEditorPlugin.INSTANCE.getString( "_UI_ErfModelWizard_label" ) );
+        initialObjectCreationPage.setDescription( ErfObjectEditorPlugin.INSTANCE.getString( "_UI_Wizard_initial_object_description" ) );
         addPage( initialObjectCreationPage );
     }
 

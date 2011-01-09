@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: era.foss.objecteditor;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-ClassPath: .
-Bundle-Activator: era.foss.objecteditor.RifObjectEditorPlugin$Implementation
+Bundle-Activator: era.foss.objecteditor.ErfObjectEditorPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
@@ -15,6 +15,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.edit.ui,
  org.eclipse.ui.ide,
  era.foss.ui.contrib,
- era.foss.rif,
- era.foss.rif.edit
+ era.foss.erf,
+ era.foss.erf.edit
 Bundle-ActivationPolicy: lazy

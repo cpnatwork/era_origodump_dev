@@ -13,7 +13,7 @@ import org.eclipse.emf.edit.ui.EMFEditUIPlugin;
 import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
 
 
-public class RifMarkerHelper extends EditUIMarkerHelper
+public class ErfMarkerHelper extends EditUIMarkerHelper
 {
 
   /**

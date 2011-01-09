@@ -170,16 +170,6 @@ public interface ErfPackage extends EPackage {
 	int DATATYPE_DEFINITION_STRING = 10;
 
 	/**
-	 * The meta object id for the '{@link era.foss.erf.impl.RIFContentImpl <em>RIF Content</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see era.foss.erf.impl.RIFContentImpl
-	 * @see era.foss.erf.impl.ErfPackageImpl#getRIFContent()
-	 * @generated
-	 */
-	int RIF_CONTENT = 11;
-
-	/**
 	 * The meta object id for the '{@link era.foss.erf.impl.IdentifiableImpl <em>Identifiable</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -187,7 +177,7 @@ public interface ErfPackage extends EPackage {
 	 * @see era.foss.erf.impl.ErfPackageImpl#getIdentifiable()
 	 * @generated
 	 */
-	int IDENTIFIABLE = 12;
+	int IDENTIFIABLE = 11;
 
 	/**
 	 * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -694,42 +684,6 @@ public interface ErfPackage extends EPackage {
 	int DATATYPE_DEFINITION_STRING_FEATURE_COUNT = DATATYPE_DEFINITION_SIMPLE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Spec Objects</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RIF_CONTENT__SPEC_OBJECTS = 0;
-
-	/**
-	 * The feature id for the '<em><b>Spec Types</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RIF_CONTENT__SPEC_TYPES = 1;
-
-	/**
-	 * The feature id for the '<em><b>Data Types</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RIF_CONTENT__DATA_TYPES = 2;
-
-	/**
-	 * The number of structural features of the '<em>RIF Content</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RIF_CONTENT_FEATURE_COUNT = 3;
-
-	/**
 	 * The meta object id for the '{@link era.foss.erf.impl.AttributeDefinitionSimpleImpl <em>Attribute Definition Simple</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -737,7 +691,7 @@ public interface ErfPackage extends EPackage {
 	 * @see era.foss.erf.impl.ErfPackageImpl#getAttributeDefinitionSimple()
 	 * @generated
 	 */
-	int ATTRIBUTE_DEFINITION_SIMPLE = 13;
+	int ATTRIBUTE_DEFINITION_SIMPLE = 12;
 
 	/**
 	 * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -801,7 +755,7 @@ public interface ErfPackage extends EPackage {
 	 * @see era.foss.erf.impl.ErfPackageImpl#getERF()
 	 * @generated
 	 */
-	int ERF = 14;
+	int ERF = 13;
 
 	/**
 	 * The feature id for the '<em><b>Core Content</b></em>' containment reference.
@@ -820,6 +774,52 @@ public interface ErfPackage extends EPackage {
 	 * @ordered
 	 */
 	int ERF_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link era.foss.erf.impl.ContentImpl <em>Content</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see era.foss.erf.impl.ContentImpl
+	 * @see era.foss.erf.impl.ErfPackageImpl#getContent()
+	 * @generated
+	 */
+	int CONTENT = 14;
+
+	/**
+	 * The feature id for the '<em><b>Spec Objects</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTENT__SPEC_OBJECTS = 0;
+
+	/**
+	 * The feature id for the '<em><b>Spec Types</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTENT__SPEC_TYPES = 1;
+
+	/**
+	 * The feature id for the '<em><b>Data Types</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTENT__DATA_TYPES = 2;
+
+	/**
+	 * The number of structural features of the '<em>Content</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTENT_FEATURE_COUNT = 3;
 
 	/**
 	 * Returns the meta object for class '{@link era.foss.erf.AttributeDefinition <em>Attribute Definition</em>}'.
@@ -1032,49 +1032,6 @@ public interface ErfPackage extends EPackage {
 	EAttribute getDatatypeDefinitionString_MaxLength();
 
 	/**
-	 * Returns the meta object for class '{@link era.foss.erf.RIFContent <em>RIF Content</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>RIF Content</em>'.
-	 * @see era.foss.erf.RIFContent
-	 * @generated
-	 */
-	EClass getRIFContent();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link era.foss.erf.RIFContent#getSpecObjects <em>Spec Objects</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Spec Objects</em>'.
-	 * @see era.foss.erf.RIFContent#getSpecObjects()
-	 * @see #getRIFContent()
-	 * @generated
-	 */
-	EReference getRIFContent_SpecObjects();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link era.foss.erf.RIFContent#getSpecTypes <em>Spec Types</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Spec Types</em>'.
-	 * @see era.foss.erf.RIFContent#getSpecTypes()
-	 * @see #getRIFContent()
-	 * @generated
-	 */
-	EReference getRIFContent_SpecTypes();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link era.foss.erf.RIFContent#getDataTypes <em>Data Types</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Data Types</em>'.
-	 * @see era.foss.erf.RIFContent#getDataTypes()
-	 * @see #getRIFContent()
-	 * @generated
-	 */
-	EReference getRIFContent_DataTypes();
-
-	/**
 	 * Returns the meta object for class '{@link era.foss.erf.Identifiable <em>Identifiable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1158,6 +1115,49 @@ public interface ErfPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getERF_CoreContent();
+
+	/**
+	 * Returns the meta object for class '{@link era.foss.erf.Content <em>Content</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Content</em>'.
+	 * @see era.foss.erf.Content
+	 * @generated
+	 */
+	EClass getContent();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link era.foss.erf.Content#getSpecObjects <em>Spec Objects</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Spec Objects</em>'.
+	 * @see era.foss.erf.Content#getSpecObjects()
+	 * @see #getContent()
+	 * @generated
+	 */
+	EReference getContent_SpecObjects();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link era.foss.erf.Content#getSpecTypes <em>Spec Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Spec Types</em>'.
+	 * @see era.foss.erf.Content#getSpecTypes()
+	 * @see #getContent()
+	 * @generated
+	 */
+	EReference getContent_SpecTypes();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link era.foss.erf.Content#getDataTypes <em>Data Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Data Types</em>'.
+	 * @see era.foss.erf.Content#getDataTypes()
+	 * @see #getContent()
+	 * @generated
+	 */
+	EReference getContent_DataTypes();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1357,39 +1357,6 @@ public interface ErfPackage extends EPackage {
 		EAttribute DATATYPE_DEFINITION_STRING__MAX_LENGTH = eINSTANCE
 				.getDatatypeDefinitionString_MaxLength();
 		/**
-		 * The meta object literal for the '{@link era.foss.erf.impl.RIFContentImpl <em>RIF Content</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see era.foss.erf.impl.RIFContentImpl
-		 * @see era.foss.erf.impl.ErfPackageImpl#getRIFContent()
-		 * @generated
-		 */
-		EClass RIF_CONTENT = eINSTANCE.getRIFContent();
-		/**
-		 * The meta object literal for the '<em><b>Spec Objects</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference RIF_CONTENT__SPEC_OBJECTS = eINSTANCE
-				.getRIFContent_SpecObjects();
-		/**
-		 * The meta object literal for the '<em><b>Spec Types</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference RIF_CONTENT__SPEC_TYPES = eINSTANCE
-				.getRIFContent_SpecTypes();
-		/**
-		 * The meta object literal for the '<em><b>Data Types</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference RIF_CONTENT__DATA_TYPES = eINSTANCE
-				.getRIFContent_DataTypes();
-		/**
 		 * The meta object literal for the '{@link era.foss.erf.impl.IdentifiableImpl <em>Identifiable</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1454,6 +1421,36 @@ public interface ErfPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ERF__CORE_CONTENT = eINSTANCE.getERF_CoreContent();
+		/**
+		 * The meta object literal for the '{@link era.foss.erf.impl.ContentImpl <em>Content</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see era.foss.erf.impl.ContentImpl
+		 * @see era.foss.erf.impl.ErfPackageImpl#getContent()
+		 * @generated
+		 */
+		EClass CONTENT = eINSTANCE.getContent();
+		/**
+		 * The meta object literal for the '<em><b>Spec Objects</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONTENT__SPEC_OBJECTS = eINSTANCE.getContent_SpecObjects();
+		/**
+		 * The meta object literal for the '<em><b>Spec Types</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONTENT__SPEC_TYPES = eINSTANCE.getContent_SpecTypes();
+		/**
+		 * The meta object literal for the '<em><b>Data Types</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONTENT__DATA_TYPES = eINSTANCE.getContent_DataTypes();
 
 	}
 

@@ -7,7 +7,7 @@
 package era.foss.erf.impl;
 
 import era.foss.erf.ERF;
-import era.foss.erf.RIFContent;
+import era.foss.erf.Content;
 import era.foss.erf.ErfPackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -41,7 +41,7 @@ public class ERFImpl extends EObjectImpl implements ERF {
 	 * @generated
 	 * @ordered
 	 */
-	protected RIFContent coreContent;
+	protected Content coreContent;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -67,7 +67,7 @@ public class ERFImpl extends EObjectImpl implements ERF {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RIFContent getCoreContent() {
+	public Content getCoreContent() {
 		return coreContent;
 	}
 
@@ -76,9 +76,9 @@ public class ERFImpl extends EObjectImpl implements ERF {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetCoreContent(RIFContent newCoreContent,
+	public NotificationChain basicSetCoreContent(Content newCoreContent,
 			NotificationChain msgs) {
-		RIFContent oldCoreContent = coreContent;
+		Content oldCoreContent = coreContent;
 		coreContent = newCoreContent;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this,
@@ -97,7 +97,7 @@ public class ERFImpl extends EObjectImpl implements ERF {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setCoreContent(RIFContent newCoreContent) {
+	public void setCoreContent(Content newCoreContent) {
 		if (newCoreContent != coreContent) {
 			NotificationChain msgs = null;
 			if (coreContent != null)
@@ -155,7 +155,7 @@ public class ERFImpl extends EObjectImpl implements ERF {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case ErfPackage.ERF__CORE_CONTENT:
-			setCoreContent((RIFContent) newValue);
+			setCoreContent((Content) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -170,7 +170,7 @@ public class ERFImpl extends EObjectImpl implements ERF {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case ErfPackage.ERF__CORE_CONTENT:
-			setCoreContent((RIFContent) null);
+			setCoreContent((Content) null);
 			return;
 		}
 		super.eUnset(featureID);

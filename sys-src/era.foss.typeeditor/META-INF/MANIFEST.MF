@@ -12,7 +12,7 @@ Export-Package: era.foss.typeeditor
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.emf.edit.ui,
- era.foss.rif,
- era.foss.rif.edit,
+ era.foss.erf,
+ era.foss.erf.edit,
  era.foss.objecteditor
 Bundle-ActivationPolicy: lazy

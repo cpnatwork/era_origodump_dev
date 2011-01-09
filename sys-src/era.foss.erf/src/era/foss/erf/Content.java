@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.EObject;
  * @author schorsch
  *
  */
-public interface RIFContent extends EObject {
+public interface Content extends EObject {
 
 	/**
 	 * @model containment="true"

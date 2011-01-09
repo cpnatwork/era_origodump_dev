@@ -9,7 +9,7 @@ import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
 
 /**
- * This is the central singleton for the Rif edit plugin.
+ * This is the central singleton for the Erf edit plugin.
  */
 public final class Activator extends EMFPlugin {
     /**

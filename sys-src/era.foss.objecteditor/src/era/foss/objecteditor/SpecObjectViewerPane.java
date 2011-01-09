@@ -27,18 +27,18 @@ import org.eclipse.ui.IWorkbenchPage;
 public class SpecObjectViewerPane extends ViewerPane {
 
     /** editor where this viewer pane is part of */
-    IEditorPart rifEditor;
+    IEditorPart erfEditor;
 
-    public SpecObjectViewerPane( IWorkbenchPage page, IEditorPart rifEditor , Composite parent) {
-        super( page, rifEditor );
-        this.rifEditor = rifEditor;
+    public SpecObjectViewerPane( IWorkbenchPage page, IEditorPart erfEditor , Composite parent) {
+        super( page, erfEditor );
+        this.erfEditor = erfEditor;
         this.createControl( parent );
         ((SpecObjectViewer) this.getViewer()).setup();
     }
 
     @Override
     public Viewer createViewer( Composite composite ) {
-        return new SpecObjectViewer( composite,rifEditor);
+        return new SpecObjectViewer( composite,erfEditor);
     }
 
 }

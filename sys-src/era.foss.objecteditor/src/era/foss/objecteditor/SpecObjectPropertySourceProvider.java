@@ -5,11 +5,11 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.IPropertySourceProvider;
 import org.eclipse.ui.views.properties.PropertyDescriptor;
-import era.foss.rif.AttributeDefinition;
-import era.foss.rif.AttributeDefinitionSimple;
-import era.foss.rif.AttributeValue;
-import era.foss.rif.AttributeValueSimple;
-import era.foss.rif.SpecObject;
+import era.foss.erf.AttributeDefinition;
+import era.foss.erf.AttributeDefinitionSimple;
+import era.foss.erf.AttributeValue;
+import era.foss.erf.AttributeValueSimple;
+import era.foss.erf.SpecObject;
 
 public class SpecObjectPropertySourceProvider implements IPropertySourceProvider {
 

@@ -1,7 +1,3 @@
-/*
- * NAME: era.foss.rif.presentation.RifCommandStack
- */
-
 package era.foss.objecteditor;
 
 import org.eclipse.emf.common.command.BasicCommandStack;
