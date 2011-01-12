@@ -33,7 +33,7 @@ rule erfso2rifso {
 			,iDENTIFIER <- erfclass.iD
 			-- ,lASTCHANGE <- 'THEN'
 			,lONGNAME <- erfclass.longName
-			,tYPE <- erfclass.type
+			--,tYPE <- erfclass.type -- todo@cpn: replace w/ reference
 			,vALUES <- rifemptyvalues
 	    ),
 		rifemptyvalues : rif11!VALUESType2 (aTTRIBUTEVALUESIMPLE <- erfclass.values->select(v | v.oclIsTypeOf(erf!AttributeValueSimple)))
@@ -48,7 +48,7 @@ rule erfavs2rifavs {
 			,iDENTIFIER <- erfclass.iD
 			-- ,lASTCHANGE <- 'THEN'
 			,lONGNAME <- erfclass.longName
-			,dEFINITION <- erfclass.definition
+			--,dEFINITION <- erfclass.definition -- todo@cpn: replace w/ reference
 			,tHEVALUE <- erfclass.theValue
 	    )
 }
@@ -63,7 +63,7 @@ rule erfads2rifads {
 			-- ,lASTCHANGE <- 'THEN'
 			,lONGNAME <- erfclass.longName
 			,dEFAULTVALUE <- erfclass.defaultValue
-			,tYPE <- erfclass.type
+			--,tYPE <- erfclass.type -- todo@cpn: replace w/ reference
 	    )
 }
 
@@ -113,7 +113,7 @@ rule erfroot2rifroot {
 			,vERSION <- '1'
 			,dATATYPES <- rifemptydatatypes
 			,sPECTYPES <- rifemptyspectypes
-			-- ,sPECOBJECTS <- rifemptyspecobjects
+			,sPECOBJECTS <- rifemptyspecobjects
 		)
 		,rifemptydatatypes : rif11!DATATYPESType(
             dATATYPEDEFINITIONINTEGER <- erfclass.coreContent.dataTypes->select(v | v.oclIsTypeOf(erf!DatatypeDefinitionInteger))
