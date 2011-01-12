@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<era.foss.erf:ERF xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:era.foss.erf="http:///era/foss/erf.ecore">
+  <coreContent>
+    <specObjects iD="a3e6d153-2ec2-45d9-8eb5-3f2ac51f18a1" type="//@coreContent/@specTypes.0">
+      <values xsi:type="era.foss.erf:AttributeValueSimple" iD="0fe7b2b1-98b8-467c-9f5a-53ce64ec8953" theValue="5" definition="//@coreContent/@specTypes.0/@specAttributes.0"/>
+      <values xsi:type="era.foss.erf:AttributeValueSimple" iD="b6ad6112-2c81-4358-aa3d-b546b1b9a514" theValue="Hierarchy" definition="//@coreContent/@specTypes.0/@specAttributes.1"/>
+    </specObjects>
+    <specObjects iD="26348088-e744-4f1e-abb8-f658899b9b24" type="//@coreContent/@specTypes.0">
+      <values xsi:type="era.foss.erf:AttributeValueSimple" iD="60dad037-a182-463e-9e77-3dcdbba94ca0" theValue="23" definition="//@coreContent/@specTypes.0/@specAttributes.0"/>
+      <values xsi:type="era.foss.erf:AttributeValueSimple" iD="d26071cf-d497-4b9c-b346-692a867f0f79" theValue="Groups" definition="//@coreContent/@specTypes.0/@specAttributes.1"/>
+      <values xsi:type="era.foss.erf:AttributeValueSimple" iD="67a6ca75-772d-411e-b59e-e42fe49529b6" theValue="2" definition="//@coreContent/@specTypes.0/@specAttributes.4"/>
+      <values xsi:type="era.foss.erf:AttributeValueSimple" iD="2944b7d9-9ccd-4278-8aa8-81a8195a15ef" theValue="3" definition="//@coreContent/@specTypes.0/@specAttributes.5"/>
+    </specObjects>
+    <specObjects iD="a9edda10-9585-444f-ada0-2f8472b1a3ba" type="//@coreContent/@specTypes.0">
+      <values xsi:type="era.foss.erf:AttributeValueSimple" iD="32e87b57-37be-4c5a-a130-bcaace7bacc5" theValue="42" definition="//@coreContent/@specTypes.0/@specAttributes.0"/>
+      <values xsi:type="era.foss.erf:AttributeValueSimple" iD="1ef9896d-caaf-4b13-b74b-79fd0448962d" theValue="Complex Types" definition="//@coreContent/@specTypes.0/@specAttributes.1"/>
+      <values xsi:type="era.foss.erf:AttributeValueSimple" iD="420a63c4-c3d1-4d00-a50f-107f9706cb34" theValue="5" definition="//@coreContent/@specTypes.0/@specAttributes.3"/>
+    </specObjects>
+    <specTypes iD="c9ab1c66-273a-4521-94da-fb6edef7a056">
+      <specAttributes xsi:type="era.foss.erf:AttributeDefinitionSimple" iD="ae74bb37-5ec0-451e-a7a8-de456ce59954" longName="Req-ID" type="//@coreContent/@dataTypes.0"/>
+      <specAttributes xsi:type="era.foss.erf:AttributeDefinitionSimple" iD="9ee30436-90be-451e-b5ec-c16f8ca8c373" longName="Name" type="//@coreContent/@dataTypes.1"/>
+      <specAttributes xsi:type="era.foss.erf:AttributeDefinitionSimple" iD="6d62282c-3f3e-444d-bb95-913dca38a28d" longName="Description" type="//@coreContent/@dataTypes.1">
+        <defaultValue iD="e225e228-6704-4e2f-b5d4-4d1f1bf17bea" theValue="N/A" definition="//@coreContent/@specTypes.0/@specAttributes.2"/>
+      </specAttributes>
+      <specAttributes xsi:type="era.foss.erf:AttributeDefinitionSimple" iD="f469e9e4-2304-4832-8eaf-acfb9f2bfaae" longName="Availability" type="//@coreContent/@dataTypes.0">
+        <defaultValue iD="7d26a4f6-9f01-465b-af4b-932d402ba084" theValue="0" definition="//@coreContent/@specTypes.0/@specAttributes.3"/>
+      </specAttributes>
+      <specAttributes xsi:type="era.foss.erf:AttributeDefinitionSimple" iD="7b092393-32fc-43d7-bd89-a2ae5ed6f035" longName="Reliability" type="//@coreContent/@dataTypes.0">
+        <defaultValue iD="f7660830-56c9-4e2b-a3eb-e6099a9637d0" theValue="0" definition="//@coreContent/@specTypes.0/@specAttributes.4"/>
+      </specAttributes>
+      <specAttributes xsi:type="era.foss.erf:AttributeDefinitionSimple" iD="88eaed6b-513a-4acd-bc56-ffe54fc9ef0b" longName="Stability" type="//@coreContent/@dataTypes.0">
+        <defaultValue iD="53802b1b-860e-4f3e-8db6-4acdb24ea148" theValue="0" definition="//@coreContent/@specTypes.0/@specAttributes.5"/>
+      </specAttributes>
+      <specAttributes xsi:type="era.foss.erf:AttributeDefinitionSimple" iD="0234ce0e-e825-4d23-8bcd-477bb3b5ee35" longName="Accessibility" type="//@coreContent/@dataTypes.0">
+        <defaultValue iD="ed747f5f-4a90-4ea7-920c-052f4aa38e83" theValue="0" definition="//@coreContent/@specTypes.0/@specAttributes.6"/>
+      </specAttributes>
+    </specTypes>
+    <dataTypes xsi:type="era.foss.erf:DatatypeDefinitionInteger" iD="2580b0f4-c493-49a0-8cab-a640e027a40f" longName="VanillaInteger" max="666"/>
+    <dataTypes xsi:type="era.foss.erf:DatatypeDefinitionString" iD="077862a4-069e-442d-acd6-da0e71f1bc29" longName="VanillaString" maxLength="666"/>
+  </coreContent>
+</era.foss.erf:ERF>
