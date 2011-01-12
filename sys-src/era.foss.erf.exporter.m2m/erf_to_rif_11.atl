@@ -1,0 +1,15 @@
+module erf_to_rif_11;
+
+-- @path erf=/era.foss.rif/model/rif.ecore
+-- @path rif11=/era.foss.erf.exporter/model/rif_11.ecore
+
+create OUT: rif11 from IN: erf;
+
+rule erfroot2rifroot {
+	from
+		erfroot : erf!RIF
+    to
+	    rifroot : rif11!RIF
+}
+
+
