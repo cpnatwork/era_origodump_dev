@@ -63,8 +63,12 @@ rule erfads2rifads {
 			-- ,lASTCHANGE <- 'THEN'
 			,lONGNAME <- erfclass.longName
 			,dEFAULTVALUE <- erfclass.defaultValue
-			--,tYPE <- erfclass.type -- todo@cpn: replace w/ reference
+			,tYPE <- riftyperef
 	    )
+		,riftyperef : rif11!TYPEType3 (
+			dATATYPEDEFINITIONINTEGERREF <- erfclass.type.toString() --.oclIsTypeOf(erf!DatatypeDefinitionInteger)
+			,dATATYPEDEFINITIONSTRINGREF <- erfclass.type.toString() --.oclIsTypeOf(erf!DatatypeDefinitionString)
+		)
 }
 
 rule erfst2rifst {
