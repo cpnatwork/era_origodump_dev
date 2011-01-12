@@ -1,6 +1,6 @@
 module erf2rif11;
 
--- @path erf=/era.foss.rif/model/rif.ecore
+-- @path erf=/era.foss.rif/model/erf.ecore
 -- @path rif11=/era.foss.erf.exporter/model/rif_11.ecore
 
 create OUT: rif11 from IN: erf;
@@ -68,7 +68,7 @@ rule erfso2rifso {
 
 rule erfroot2rifroot {
 	from
-		erfclass : erf!RIF
+		erfclass : erf!ERF
     to
 	    rifelem : rif11!RIF (
 			-- whenever ERF supports the RifHeader then the rif11!RIF must be fill with the erf!RIF.RifHeader.* attributes
