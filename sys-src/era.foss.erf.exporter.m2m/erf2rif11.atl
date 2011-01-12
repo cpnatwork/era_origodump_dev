@@ -28,30 +28,42 @@ rule erfso2rifso {
 	from
 		erfclass : erf!SpecObject
     to
-	    rifelem : rif11!SPECOBJECT
+	    rifelem : rif11!SPECOBJECT (
+	    	dESC <- erfclass.desc
+			,iDENTIFIER <- erfclass.iD
+			-- ,lASTCHANGE <- 'THEN'
+			,lONGNAME <- erfclass.longName
+			,tYPE <- erfclass.type
+			,vALUES <- rifemptyvalues
+	    ),
+		rifemptyvalues : rif11!VALUESType2 (aTTRIBUTEVALUESIMPLE <- erfclass.values->select(v | v.oclIsTypeOf(erf!AttributeValueSimple)))
 }
 		
 rule erfavs2rifavs {
 	from
 		erfclass : erf!AttributeValueSimple
     to
-	    rifelem : rif11!ATTRIBUTEVALUESIMPLE
+	    rifelem : rif11!ATTRIBUTEVALUESIMPLE (
+	    	dESC <- erfclass.desc
+			,iDENTIFIER <- erfclass.iD
+			-- ,lASTCHANGE <- 'THEN'
+			,lONGNAME <- erfclass.longName
+			,dEFINITION <- erfclass.definition
+			,tHEVALUE <- erfclass.theValue
+	    )
 }
-
-
-
 
 rule erfads2rifads {
 	from
 		erfclass : erf!AttributeDefinitionSimple
     to
 	    rifelem : rif11!ATTRIBUTEDEFINITIONSIMPLE (
-	    	dESC <- erfclass.desc,
-			iDENTIFIER <- erfclass.iD,
-			-- lASTCHANGE <- 'THEN',
-			lONGNAME <- erfclass.longName,
-			dEFAULTVALUE <- erfclass.defaultValue,
-			tYPE <- erfclass.type
+	    	dESC <- erfclass.desc
+			,iDENTIFIER <- erfclass.iD
+			-- ,lASTCHANGE <- 'THEN'
+			,lONGNAME <- erfclass.longName
+			,dEFAULTVALUE <- erfclass.defaultValue
+			,tYPE <- erfclass.type
 	    )
 }
 
@@ -60,11 +72,11 @@ rule erfst2rifst {
 		erfclass : erf!SpecType
     to
 	    rifelem : rif11!SPECTYPE (
-	    	dESC <- erfclass.desc,
-			iDENTIFIER <- erfclass.iD,
-			-- lASTCHANGE <- 'THEN',
-			lONGNAME <- erfclass.longName,
-			sPECATTRIBUTES <- rifemptyspecattributes
+	    	dESC <- erfclass.desc
+			,iDENTIFIER <- erfclass.iD
+			-- ,lASTCHANGE <- 'THEN'
+			,lONGNAME <- erfclass.longName
+			,sPECATTRIBUTES <- rifemptyspecattributes
 	    ),
 		rifemptyspecattributes : rif11!SPECATTRIBUTESType (
 			aTTRIBUTEDEFINITIONSIMPLE <- erfclass.specAttributes->select(v | v.oclIsTypeOf(erf!AttributeDefinitionSimple))
@@ -91,21 +103,23 @@ rule erfroot2rifroot {
     to
 	    rifelem : rif11!RIF (
 			-- whenever ERF supports the RifHeader then the rif11!RIF must be fill with the erf!RIF.RifHeader.* attributes
-			aUTHOR <- 'CPN',
-			cOMMENT <- 'no comment',
-			cOUNTRYCODE <- 'DE',
-			-- CREATIONTIME <- 'NOW',
-			iDENTIFIER <- 'THE ID',
-			sOURCETOOLID <- 'ERA RIF Editor',
-			tITLE <- 'no title',
-			vERSION <- '1',
-			dATATYPES <- dataTypesType,
-			sPECTYPES <- rifemptyspectypes
-		),
-		dataTypesType : rif11!DATATYPESType(
-            dATATYPEDEFINITIONINTEGER <- erfclass.coreContent.dataTypes->select(v | v.oclIsTypeOf(erf!DatatypeDefinitionInteger)),
-            dATATYPEDEFINITIONSTRING <- erfclass.coreContent.dataTypes->select(v | v.oclIsTypeOf(erf!DatatypeDefinitionString))
-        ),
-		rifemptyspectypes : rif11!SPECTYPESType (sPECTYPE <- erfclass.coreContent.specTypes)
+			aUTHOR <- 'CPN'
+			,cOMMENT <- 'no comment'
+			,cOUNTRYCODE <- 'DE'
+			-- ,CREATIONTIME <- 'NOW'
+			,iDENTIFIER <- 'THE ID'
+			,sOURCETOOLID <- 'ERA RIF Editor'
+			,tITLE <- 'no title'
+			,vERSION <- '1'
+			,dATATYPES <- rifemptydatatypes
+			,sPECTYPES <- rifemptyspectypes
+			-- ,sPECOBJECTS <- rifemptyspecobjects
+		)
+		,rifemptydatatypes : rif11!DATATYPESType(
+            dATATYPEDEFINITIONINTEGER <- erfclass.coreContent.dataTypes->select(v | v.oclIsTypeOf(erf!DatatypeDefinitionInteger))
+            ,dATATYPEDEFINITIONSTRING <- erfclass.coreContent.dataTypes->select(v | v.oclIsTypeOf(erf!DatatypeDefinitionString))
+        )
+		,rifemptyspectypes : rif11!SPECTYPESType (sPECTYPE <- erfclass.coreContent.specTypes)
+		,rifemptyspecobjects : rif11!SPECOBJECTSType1 (sPECOBJECT <- erfclass.coreContent.specObjects)
 }
 
