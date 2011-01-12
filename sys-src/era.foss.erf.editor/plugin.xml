@@ -34,7 +34,6 @@
       <editor
             id="era.foss.erf.editor"
             name="%_UI_ErfEditor_label"
-            icon="icons/full/obj16/ErfModelFile.gif"
             class="era.foss.erf.presentation.ErfEditor"
             contributorClass="era.foss.erf.presentation.ErfActionBarContributor">
          <contentTypeBinding contentTypeId="era.foss.erf.ErfContentType"/>
