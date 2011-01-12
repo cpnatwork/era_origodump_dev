@@ -4,7 +4,7 @@
  *
  * $Id$
  */
-package era.foss.rif.provider;
+package era.foss.erf.provider;
 
 import java.util.Collection;
 import java.util.List;
@@ -23,12 +23,12 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
-import era.foss.rif.RifFactory;
-import era.foss.rif.RifPackage;
-import era.foss.rif.SpecType;
+import era.foss.erf.ErfFactory;
+import era.foss.erf.ErfPackage;
+import era.foss.erf.SpecType;
 
 /**
- * This is the item provider adapter for a {@link era.foss.rif.SpecType} object.
+ * This is the item provider adapter for a {@link era.foss.erf.SpecType} object.
  * <!-- begin-user-doc --> <!--
  * end-user-doc -->
  * @generated
@@ -70,7 +70,7 @@ public class SpecTypeItemProvider extends IdentifiableItemProvider implements IE
     public Collection<? extends EStructuralFeature> getChildrenFeatures( Object object ) {
         if( childrenFeatures == null ) {
             super.getChildrenFeatures( object );
-            childrenFeatures.add( RifPackage.Literals.SPEC_TYPE__SPEC_ATTRIBUTES );
+            childrenFeatures.add( ErfPackage.Literals.SPEC_TYPE__SPEC_ATTRIBUTES );
         }
         return childrenFeatures;
     }
@@ -122,7 +122,7 @@ public class SpecTypeItemProvider extends IdentifiableItemProvider implements IE
         updateChildren( notification );
 
         switch (notification.getFeatureID( SpecType.class )) {
-        case RifPackage.SPEC_TYPE__SPEC_ATTRIBUTES:
+        case ErfPackage.SPEC_TYPE__SPEC_ATTRIBUTES:
             fireNotifyChanged( new ViewerNotification( notification, notification.getNotifier(), true, false ) );
             return;
         }
@@ -139,8 +139,8 @@ public class SpecTypeItemProvider extends IdentifiableItemProvider implements IE
     protected void collectNewChildDescriptors( Collection<Object> newChildDescriptors, Object object ) {
         super.collectNewChildDescriptors( newChildDescriptors, object );
 
-        newChildDescriptors.add( createChildParameter( RifPackage.Literals.SPEC_TYPE__SPEC_ATTRIBUTES,
-                                                       RifFactory.eINSTANCE.createAttributeDefinitionSimple() ) );
+        newChildDescriptors.add( createChildParameter( ErfPackage.Literals.SPEC_TYPE__SPEC_ATTRIBUTES,
+                                                       ErfFactory.eINSTANCE.createAttributeDefinitionSimple() ) );
     }
 
     protected Command createRemoveCommand( EditingDomain domain,

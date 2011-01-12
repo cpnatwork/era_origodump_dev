@@ -1,8 +1,8 @@
 /*
- * NAME: era.foss.rif.provider.ReplaceDatatypeDefinitionCommand
+ * NAME: era.foss.erf.provider.ReplaceDatatypeDefinitionCommand
  */
 
-package era.foss.rif.provider;
+package era.foss.erf.provider;
 
 import java.util.Collection;
 
@@ -13,11 +13,11 @@ import org.eclipse.emf.edit.command.ReplaceCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 
-import era.foss.rif.AttributeDefinition;
-import era.foss.rif.DatatypeDefinition;
-import era.foss.rif.RIFContent;
-import era.foss.rif.RifPackage;
-import era.foss.rif.SpecType;
+import era.foss.erf.AttributeDefinition;
+import era.foss.erf.DatatypeDefinition;
+import era.foss.erf.Content;
+import era.foss.erf.ErfPackage;
+import era.foss.erf.SpecType;
 
 /**
  * 
@@ -47,7 +47,7 @@ public class ReplaceDatatypeDefinitionCommand extends ReplaceCommand {
     {
       super.doExecute();
       
-      SpecType theOneAndOnlySpecType = ((RIFContent) this.owner).getSpecTypes().get( 0 );
+      SpecType theOneAndOnlySpecType = ((Content) this.owner).getSpecTypes().get( 0 );
       
       Collection<AttributeDefinition> affectedAttributeDefinitions = FinderUtil.helper_findAttributedefinitionsInSpectypeBasedonDatatypedefinition( (DatatypeDefinition)value, theOneAndOnlySpecType );
       // replace the old TYPE (=DataDefinition) with the new one, in each affected AttributeDefinition
@@ -55,7 +55,7 @@ public class ReplaceDatatypeDefinitionCommand extends ReplaceCommand {
           Command cmd = new SetCommand(
               this.domain,
               attributeDefinition,
-              attributeDefinition.eClass().getEStructuralFeature( RifPackage.ATTRIBUTE_DEFINITION__TYPE ),
+              attributeDefinition.eClass().getEStructuralFeature( ErfPackage.ATTRIBUTE_DEFINITION__TYPE ),
               this.collection.toArray()[0] );
           this.domain.getCommandStack().execute( cmd );
       }

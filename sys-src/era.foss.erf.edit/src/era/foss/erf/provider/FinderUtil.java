@@ -1,22 +1,22 @@
-package era.foss.rif.provider;
+package era.foss.erf.provider;
 
 import java.util.Collection;
 import java.util.LinkedList;
 
-import era.foss.rif.AttributeDefinition;
-import era.foss.rif.AttributeValue;
-import era.foss.rif.AttributeValueSimple;
-import era.foss.rif.DatatypeDefinition;
-import era.foss.rif.RIFContent;
-import era.foss.rif.SpecObject;
-import era.foss.rif.SpecType;
+import era.foss.erf.AttributeDefinition;
+import era.foss.erf.AttributeValue;
+import era.foss.erf.AttributeValueSimple;
+import era.foss.erf.DatatypeDefinition;
+import era.foss.erf.Content;
+import era.foss.erf.SpecObject;
+import era.foss.erf.SpecType;
 
 public class FinderUtil {
 
-    public static LinkedList<AttributeValue> helper_findAttributevaluesInAllSpecobjectsBasedonAttributedefinition( AttributeDefinition attributeDefinition, RIFContent rifCoreContent ) {
+    public static LinkedList<AttributeValue> helper_findAttributevaluesInAllSpecobjectsBasedonAttributedefinition( AttributeDefinition attributeDefinition, Content erfCoreContent ) {
         LinkedList<AttributeValue> retList = new LinkedList<AttributeValue>();
         // look at every SpecObject
-        for( SpecObject specObject : rifCoreContent.getSpecObjects() ) {
+        for( SpecObject specObject : erfCoreContent.getSpecObjects() ) {
             // look at every AttributeValue
             for( AttributeValue attributeValue : specObject.getValues() ) {
                 assert (attributeValue instanceof AttributeValueSimple);

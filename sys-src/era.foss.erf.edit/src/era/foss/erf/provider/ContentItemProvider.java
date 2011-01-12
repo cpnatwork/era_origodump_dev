@@ -4,7 +4,7 @@
  *
  * $Id$
  */
-package era.foss.rif.provider;
+package era.foss.erf.provider;
 
 import java.util.Collection;
 import java.util.List;
@@ -26,24 +26,24 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
-import era.foss.rif.RIFContent;
-import era.foss.rif.RifFactory;
-import era.foss.rif.RifPackage;
+import era.foss.erf.Content;
+import era.foss.erf.ErfFactory;
+import era.foss.erf.ErfPackage;
 
 /**
- * This is the item provider adapter for a {@link era.foss.rif.RIFContent} object.
+ * This is the item provider adapter for a {@link era.foss.erf.Content} object.
  * <!-- begin-user-doc --> <!--
  * end-user-doc -->
  * @generated
  */
-public class RIFContentItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+public class ContentItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
         IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
     /**
      * This constructs an instance from a factory and a notifier.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public RIFContentItemProvider( AdapterFactory adapterFactory ) {
+    public ContentItemProvider( AdapterFactory adapterFactory ) {
         super( adapterFactory );
     }
 
@@ -73,9 +73,9 @@ public class RIFContentItemProvider extends ItemProviderAdapter implements IEdit
     public Collection<? extends EStructuralFeature> getChildrenFeatures( Object object ) {
         if( childrenFeatures == null ) {
             super.getChildrenFeatures( object );
-            childrenFeatures.add( RifPackage.Literals.RIF_CONTENT__SPEC_OBJECTS );
-            childrenFeatures.add( RifPackage.Literals.RIF_CONTENT__SPEC_TYPES );
-            childrenFeatures.add( RifPackage.Literals.RIF_CONTENT__DATA_TYPES );
+            childrenFeatures.add( ErfPackage.Literals.CONTENT__SPEC_OBJECTS );
+            childrenFeatures.add( ErfPackage.Literals.CONTENT__SPEC_TYPES );
+            childrenFeatures.add( ErfPackage.Literals.CONTENT__DATA_TYPES );
         }
         return childrenFeatures;
     }
@@ -93,13 +93,13 @@ public class RIFContentItemProvider extends ItemProviderAdapter implements IEdit
     }
 
     /**
-     * This returns RIFContent.gif.
+     * This returns Content.gif.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object getImage( Object object ) {
-        return overlayImage( object, getResourceLocator().getImage( "full/obj16/RIFContent" ) );
+        return overlayImage( object, getResourceLocator().getImage( "full/obj16/Content" ) );
     }
 
     /**
@@ -109,7 +109,7 @@ public class RIFContentItemProvider extends ItemProviderAdapter implements IEdit
      */
     @Override
     public String getText( Object object ) {
-        return getString( "_UI_RIFContent_type" );
+        return getString( "_UI_Content_type" );
     }
 
     /**
@@ -123,10 +123,10 @@ public class RIFContentItemProvider extends ItemProviderAdapter implements IEdit
     public void notifyChanged( Notification notification ) {
         updateChildren( notification );
 
-        switch (notification.getFeatureID( RIFContent.class )) {
-        case RifPackage.RIF_CONTENT__SPEC_OBJECTS:
-        case RifPackage.RIF_CONTENT__SPEC_TYPES:
-        case RifPackage.RIF_CONTENT__DATA_TYPES:
+        switch (notification.getFeatureID( Content.class )) {
+        case ErfPackage.CONTENT__SPEC_OBJECTS:
+        case ErfPackage.CONTENT__SPEC_TYPES:
+        case ErfPackage.CONTENT__DATA_TYPES:
             fireNotifyChanged( new ViewerNotification( notification, notification.getNotifier(), true, false ) );
             return;
         }
@@ -143,17 +143,17 @@ public class RIFContentItemProvider extends ItemProviderAdapter implements IEdit
     protected void collectNewChildDescriptors( Collection<Object> newChildDescriptors, Object object ) {
         super.collectNewChildDescriptors( newChildDescriptors, object );
 
-        newChildDescriptors.add( createChildParameter( RifPackage.Literals.RIF_CONTENT__SPEC_OBJECTS,
-                                                       RifFactory.eINSTANCE.createSpecObject() ) );
+        newChildDescriptors.add( createChildParameter( ErfPackage.Literals.CONTENT__SPEC_OBJECTS,
+                                                       ErfFactory.eINSTANCE.createSpecObject() ) );
 
-        newChildDescriptors.add( createChildParameter( RifPackage.Literals.RIF_CONTENT__SPEC_TYPES,
-                                                       RifFactory.eINSTANCE.createSpecType() ) );
+        newChildDescriptors.add( createChildParameter( ErfPackage.Literals.CONTENT__SPEC_TYPES,
+                                                       ErfFactory.eINSTANCE.createSpecType() ) );
 
-        newChildDescriptors.add( createChildParameter( RifPackage.Literals.RIF_CONTENT__DATA_TYPES,
-                                                       RifFactory.eINSTANCE.createDatatypeDefinitionInteger() ) );
+        newChildDescriptors.add( createChildParameter( ErfPackage.Literals.CONTENT__DATA_TYPES,
+                                                       ErfFactory.eINSTANCE.createDatatypeDefinitionInteger() ) );
 
-        newChildDescriptors.add( createChildParameter( RifPackage.Literals.RIF_CONTENT__DATA_TYPES,
-                                                       RifFactory.eINSTANCE.createDatatypeDefinitionString() ) );
+        newChildDescriptors.add( createChildParameter( ErfPackage.Literals.CONTENT__DATA_TYPES,
+                                                       ErfFactory.eINSTANCE.createDatatypeDefinitionString() ) );
     }
 
     /**
@@ -163,7 +163,7 @@ public class RIFContentItemProvider extends ItemProviderAdapter implements IEdit
      */
     @Override
     public ResourceLocator getResourceLocator() {
-        return RifEditPlugin.INSTANCE;
+        return ErfEditPlugin.INSTANCE;
     }
 
     protected Command createReplaceCommand( EditingDomain domain,
@@ -171,7 +171,7 @@ public class RIFContentItemProvider extends ItemProviderAdapter implements IEdit
                                             EStructuralFeature feature,
                                             EObject value,
                                             Collection<?> collection ) {
-        if( feature.getFeatureID() == RifPackage.RIF_CONTENT__DATA_TYPES ) {
+        if( feature.getFeatureID() == ErfPackage.CONTENT__DATA_TYPES ) {
             return new ReplaceDatatypeDefinitionCommand( domain, owner, feature, value, collection );
         }
         return new ReplaceCommand( domain, owner, feature, value, collection );

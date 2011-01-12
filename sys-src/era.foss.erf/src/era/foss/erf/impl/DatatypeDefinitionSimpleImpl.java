@@ -20,25 +20,24 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public abstract class DatatypeDefinitionSimpleImpl extends
-		DatatypeDefinitionImpl implements DatatypeDefinitionSimple {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected DatatypeDefinitionSimpleImpl() {
-		super();
-	}
+public abstract class DatatypeDefinitionSimpleImpl extends DatatypeDefinitionImpl implements DatatypeDefinitionSimple {
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected DatatypeDefinitionSimpleImpl() {
+        super();
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return ErfPackage.Literals.DATATYPE_DEFINITION_SIMPLE;
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    protected EClass eStaticClass() {
+        return ErfPackage.Literals.DATATYPE_DEFINITION_SIMPLE;
+    }
 
 } //DatatypeDefinitionSimpleImpl

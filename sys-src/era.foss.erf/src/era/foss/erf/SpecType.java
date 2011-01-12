@@ -9,9 +9,9 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface SpecType extends Identifiable {
 
-	/**
-	 * @model containment="true"
-	 */
-	public EList<AttributeDefinition> getSpecAttributes();
+    /**
+     * @model containment="true"
+     */
+    public EList<AttributeDefinition> getSpecAttributes();
 
 }

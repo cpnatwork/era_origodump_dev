@@ -15,12 +15,12 @@
             id="org.eclipse.emf.ecore.Wizard.category.ID"
             name="%_UI_Wizard_category"/>
       <wizard
-            id="era.foss.rif.presentation.RifModelWizardID"
-            name="%_UI_RifModelWizard_label"
-            class="era.foss.objecteditor.RifModelWizard"
+            id="era.foss.erf.presentation.ErfModelWizardID"
+            name="%_UI_ErfModelWizard_label"
+            class="era.foss.objecteditor.ErfModelWizard"
             category="org.eclipse.emf.ecore.Wizard.category.ID"
-            icon="icons/full/obj16/RifModelFile.gif">
-         <description>%_UI_RifModelWizard_description</description>
+            icon="icons/full/obj16/ErfModelFile.gif">
+         <description>%_UI_ErfModelWizard_description</description>
          <selection class="org.eclipse.core.resources.IResource"/>
       </wizard>
    </extension>
@@ -32,12 +32,12 @@
  -->
    <extension point="org.eclipse.ui.editors">
       <editor
-            id="era.foss.rif.editor"
-            name="%_UI_RifEditor_label"
-            icon="icons/full/obj16/RifModelFile.gif"
-            class="era.foss.rif.presentation.RifEditor"
-            contributorClass="era.foss.rif.presentation.RifActionBarContributor">
-         <contentTypeBinding contentTypeId="era.foss.rif.ErfContentType"/>
+            id="era.foss.erf.editor"
+            name="%_UI_ErfEditor_label"
+            icon="icons/full/obj16/ErfModelFile.gif"
+            class="era.foss.erf.presentation.ErfEditor"
+            contributorClass="era.foss.erf.presentation.ErfActionBarContributor">
+         <contentTypeBinding contentTypeId="era.foss.erf.ErfContentType"/>
       </editor>
    </extension>
 

@@ -6,20 +6,20 @@ package era.foss.erf;
  *
  */
 public interface AttributeDefinitionSimple extends AttributeDefinition {
-	/**
-	 * @model containment="true"
-	 * @return
-	 */
-	public AttributeValueSimple getDefaultValue();
+    /**
+     * @model containment="true"
+     * @return
+     */
+    public AttributeValueSimple getDefaultValue();
 
-	/**
-	 * Sets the value of the '{@link era.foss.erf.AttributeDefinitionSimple#getDefaultValue <em>Default Value</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Default Value</em>' containment reference.
-	 * @see #getDefaultValue()
-	 * @generated
-	 */
-	void setDefaultValue(AttributeValueSimple value);
+    /**
+     * Sets the value of the '{@link era.foss.erf.AttributeDefinitionSimple#getDefaultValue <em>Default Value</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Default Value</em>' containment reference.
+     * @see #getDefaultValue()
+     * @generated
+     */
+    void setDefaultValue( AttributeValueSimple value );
 
 }

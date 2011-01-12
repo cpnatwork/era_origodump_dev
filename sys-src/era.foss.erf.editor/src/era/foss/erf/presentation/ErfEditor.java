@@ -4,7 +4,7 @@
  *
  * $Id$
  */
-package era.foss.rif.presentation;
+package era.foss.erf.presentation;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -124,14 +124,14 @@ import org.eclipse.ui.views.properties.PropertySheetPage;
 import era.foss.objecteditor.EraCommandStack;
 import era.foss.objecteditor.IAdapterFactoryProvider;
 import era.foss.objecteditor.SpecObjectViewerPane;
-import era.foss.rif.provider.RifItemProviderAdapterFactory;
+import era.foss.erf.provider.ErfItemProviderAdapterFactory;
 
 /**
- * This is an example of a Rif model editor.
+ * This is an example of a Erf model editor.
  * <!-- begin-user-doc --> <!-- end-user-doc -->
  * @NOT generated
  */
-public class RifEditor extends MultiPageEditorPart implements IEditingDomainProvider, ISelectionProvider,
+public class ErfEditor extends MultiPageEditorPart implements IEditingDomainProvider, ISelectionProvider,
         IMenuListener, IViewerProvider, IGotoMarker, IAdapterFactoryProvider {
     /**
      * This keeps track of the editing domain that is used to track all changes to the model.
@@ -276,16 +276,16 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
         public void partActivated( IWorkbenchPart p ) {
             if( p instanceof ContentOutline ) {
                 if( ((ContentOutline)p).getCurrentPage() == contentOutlinePage ) {
-                    getActionBarContributor().setActiveEditor( RifEditor.this );
+                    getActionBarContributor().setActiveEditor( ErfEditor.this );
 
                     setCurrentViewer( contentOutlineViewer );
                 }
             } else if( p instanceof PropertySheet ) {
                 if( ((PropertySheet)p).getCurrentPage() == propertySheetPage ) {
-                    getActionBarContributor().setActiveEditor( RifEditor.this );
+                    getActionBarContributor().setActiveEditor( ErfEditor.this );
                     handleActivate();
                 }
-            } else if( p == RifEditor.this ) {
+            } else if( p == ErfEditor.this ) {
                 handleActivate();
             }
         }
@@ -443,7 +443,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
                         public void run() {
                             removedResources.addAll( visitor.getRemovedResources() );
                             if( !isDirty() ) {
-                                getSite().getPage().closeEditor( RifEditor.this, false );
+                                getSite().getPage().closeEditor( ErfEditor.this, false );
                             }
                         }
                     } );
@@ -453,14 +453,14 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
                     getSite().getShell().getDisplay().asyncExec( new Runnable() {
                         public void run() {
                             changedResources.addAll( visitor.getChangedResources() );
-                            if( getSite().getPage().getActiveEditor() == RifEditor.this ) {
+                            if( getSite().getPage().getActiveEditor() == ErfEditor.this ) {
                                 handleActivate();
                             }
                         }
                     } );
                 }
             } catch( CoreException exception ) {
-                RifEditorPlugin.INSTANCE.log( exception );
+                ErfEditorPlugin.INSTANCE.log( exception );
             }
         }
     };
@@ -483,7 +483,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
 
         if( !removedResources.isEmpty() ) {
             if( handleDirtyConflict() ) {
-                getSite().getPage().closeEditor( RifEditor.this, false );
+                getSite().getPage().closeEditor( ErfEditor.this, false );
             } else {
                 removedResources.clear();
                 changedResources.clear();
@@ -542,7 +542,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
         if( updateProblemIndication ) {
             BasicDiagnostic diagnostic = new BasicDiagnostic(
                 Diagnostic.OK,
-                "era.foss.rif.editor",
+                "era.foss.erf.editor",
                 0,
                 null,
                 new Object[]{editingDomain.getResourceSet()} );
@@ -568,7 +568,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
                     setActivePage( lastEditorPage );
                     showTabs();
                 } catch( PartInitException exception ) {
-                    RifEditorPlugin.INSTANCE.log( exception );
+                    ErfEditorPlugin.INSTANCE.log( exception );
                 }
             }
 
@@ -578,7 +578,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
                     try {
                         markerHelper.createMarkers( diagnostic );
                     } catch( CoreException exception ) {
-                        RifEditorPlugin.INSTANCE.log( exception );
+                        ErfEditorPlugin.INSTANCE.log( exception );
                     }
                 }
             }
@@ -602,7 +602,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public RifEditor() {
+    public ErfEditor() {
         super();
         initializeEditingDomain();
     }
@@ -618,7 +618,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
         adapterFactory = new ComposedAdapterFactory( ComposedAdapterFactory.Descriptor.Registry.INSTANCE );
 
         adapterFactory.addAdapterFactory( new ResourceItemProviderAdapterFactory() );
-        adapterFactory.addAdapterFactory( new RifItemProviderAdapterFactory() );
+        adapterFactory.addAdapterFactory( new ErfItemProviderAdapterFactory() );
         adapterFactory.addAdapterFactory( new ReflectiveItemProviderAdapterFactory() );
 
         // Create the command stack that will notify this editor as commands are executed.
@@ -877,7 +877,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
         if( !resource.getErrors().isEmpty() || !resource.getWarnings().isEmpty() ) {
             BasicDiagnostic basicDiagnostic = new BasicDiagnostic(
                 Diagnostic.ERROR,
-                "era.foss.rif.editor",
+                "era.foss.erf.editor",
                 0,
                 getString( "_UI_CreateModelError_message", resource.getURI() ),
                 new Object[]{exception == null ? (Object)resource : exception} );
@@ -886,7 +886,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
         } else if( exception != null ) {
             return new BasicDiagnostic(
                 Diagnostic.ERROR,
-                "era.foss.rif.editor",
+                "era.foss.erf.editor",
                 0,
                 getString( "_UI_CreateModelError_message", resource.getURI() ),
                 new Object[]{exception} );
@@ -914,7 +914,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
             // Create a page for the ERA SpecObjectViewerPane
             //
             {
-                ViewerPane viewerPane = new SpecObjectViewerPane( getSite().getPage(), RifEditor.this, getContainer() );
+                ViewerPane viewerPane = new SpecObjectViewerPane( getSite().getPage(), ErfEditor.this, getContainer() );
                 int pageIndex = addPage( viewerPane.getControl() );
                 setPageText( pageIndex, "Specification Objects" );
             }
@@ -922,7 +922,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
             // Create a page for the selection tree view.
             //
             {
-                ViewerPane viewerPane = new ViewerPane( getSite().getPage(), RifEditor.this ) {
+                ViewerPane viewerPane = new ViewerPane( getSite().getPage(), ErfEditor.this ) {
                     @Override
                     public Viewer createViewer( Composite composite ) {
                         Tree tree = new Tree( composite, SWT.MULTI );
@@ -958,7 +958,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
             // Create a page for the parent tree view.
             //
             {
-                ViewerPane viewerPane = new ViewerPane( getSite().getPage(), RifEditor.this ) {
+                ViewerPane viewerPane = new ViewerPane( getSite().getPage(), ErfEditor.this ) {
                     @Override
                     public Viewer createViewer( Composite composite ) {
                         Tree tree = new Tree( composite, SWT.MULTI );
@@ -987,7 +987,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
             // This is the page for the list viewer
             //
             {
-                ViewerPane viewerPane = new ViewerPane( getSite().getPage(), RifEditor.this ) {
+                ViewerPane viewerPane = new ViewerPane( getSite().getPage(), ErfEditor.this ) {
                     @Override
                     public Viewer createViewer( Composite composite ) {
                         return new ListViewer( composite );
@@ -1012,7 +1012,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
             // This is the page for the tree viewer
             //
             {
-                ViewerPane viewerPane = new ViewerPane( getSite().getPage(), RifEditor.this ) {
+                ViewerPane viewerPane = new ViewerPane( getSite().getPage(), ErfEditor.this ) {
                     @Override
                     public Viewer createViewer( Composite composite ) {
                         return new TreeViewer( composite );
@@ -1039,7 +1039,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
             // This is the page for the table viewer.
             //
             {
-                ViewerPane viewerPane = new ViewerPane( getSite().getPage(), RifEditor.this ) {
+                ViewerPane viewerPane = new ViewerPane( getSite().getPage(), ErfEditor.this ) {
                     @Override
                     public Viewer createViewer( Composite composite ) {
                         return new TableViewer( composite );
@@ -1082,7 +1082,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
             // This is the page for the table tree viewer.
             //
             {
-                ViewerPane viewerPane = new ViewerPane( getSite().getPage(), RifEditor.this ) {
+                ViewerPane viewerPane = new ViewerPane( getSite().getPage(), ErfEditor.this ) {
                     @Override
                     public Viewer createViewer( Composite composite ) {
                         return new TreeViewer( composite );
@@ -1291,8 +1291,8 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
             propertySheetPage = new ExtendedPropertySheetPage( editingDomain ) {
                 @Override
                 public void setSelectionToViewer( List<?> selection ) {
-                    RifEditor.this.setSelectionToViewer( selection );
-                    RifEditor.this.setFocus();
+                    ErfEditor.this.setSelectionToViewer( selection );
+                    ErfEditor.this.setFocus();
                 }
 
                 @Override
@@ -1410,7 +1410,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
         } catch( Exception exception ) {
             // Something went wrong that shouldn't.
             //
-            RifEditorPlugin.INSTANCE.log( exception );
+            ErfEditorPlugin.INSTANCE.log( exception );
         }
         updateProblemIndication = true;
         updateProblemIndication();
@@ -1499,7 +1499,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
                 }
             }
         } catch( CoreException exception ) {
-            RifEditorPlugin.INSTANCE.log( exception );
+            ErfEditorPlugin.INSTANCE.log( exception );
         }
     }
 
@@ -1617,7 +1617,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
      * @generated
      */
     private static String getString( String key ) {
-        return RifEditorPlugin.INSTANCE.getString( key );
+        return ErfEditorPlugin.INSTANCE.getString( key );
     }
 
     /**
@@ -1626,7 +1626,7 @@ public class RifEditor extends MultiPageEditorPart implements IEditingDomainProv
      * @generated
      */
     private static String getString( String key, Object s1 ) {
-        return RifEditorPlugin.INSTANCE.getString( key, new Object[]{s1} );
+        return ErfEditorPlugin.INSTANCE.getString( key, new Object[]{s1} );
     }
 
     /**
