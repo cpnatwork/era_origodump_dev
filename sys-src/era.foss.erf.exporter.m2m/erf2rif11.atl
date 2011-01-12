@@ -24,6 +24,13 @@ create OUT: rif11 from IN: erf;
 -- Start from Java
 -- http://dev.eclipse.org/viewcvs/viewvc.cgi/org.eclipse.m2m/org.eclipse.m2m.atl/plugins/org.eclipse.m2m.atl.engine/src/org/eclipse/m2m/atl/engine/AtlLauncher.java?root=Modeling_Project&view=markup
 
+rule erfso2rifso {
+	from
+		erfclass : erf!SpecObject
+    to
+	    rifelem : rif11!SPECOBJECT
+}
+		
 rule erfavs2rifavs {
 	from
 		erfclass : erf!AttributeValueSimple
@@ -31,11 +38,37 @@ rule erfavs2rifavs {
 	    rifelem : rif11!ATTRIBUTEVALUESIMPLE
 }
 
+
+
+
 rule erfads2rifads {
 	from
 		erfclass : erf!AttributeDefinitionSimple
     to
-	    rifelem : rif11!ATTRIBUTEDEFINITIONSIMPLE
+	    rifelem : rif11!ATTRIBUTEDEFINITIONSIMPLE (
+	    	dESC <- erfclass.desc,
+			iDENTIFIER <- erfclass.iD,
+			-- lASTCHANGE <- 'THEN',
+			lONGNAME <- erfclass.longName,
+			dEFAULTVALUE <- erfclass.defaultValue,
+			tYPE <- erfclass.type
+	    )
+}
+
+rule erfst2rifst {
+	from
+		erfclass : erf!SpecType
+    to
+	    rifelem : rif11!SPECTYPE (
+	    	dESC <- erfclass.desc,
+			iDENTIFIER <- erfclass.iD,
+			-- lASTCHANGE <- 'THEN',
+			lONGNAME <- erfclass.longName,
+			sPECATTRIBUTES <- rifemptyspecattributes
+	    ),
+		rifemptyspecattributes : rif11!SPECATTRIBUTESType (
+			aTTRIBUTEDEFINITIONSIMPLE <- erfclass.specAttributes->select(v | v.oclIsTypeOf(erf!AttributeDefinitionSimple))
+		)
 }
 
 rule erfddi2rifddi {
@@ -52,20 +85,6 @@ rule erfdds2rifdds {
 	    rifelem : rif11!DATATYPEDEFINITIONSTRING
 }
 
-rule erfst2rifst {
-	from
-		erfclass : erf!SpecType
-    to
-	    rifelem : rif11!SPECTYPE
-}
-
-rule erfso2rifso {
-	from
-		erfclass : erf!SpecObject
-    to
-	    rifelem : rif11!SPECOBJECT
-}
-
 rule erfroot2rifroot {
 	from
 		erfclass : erf!ERF
@@ -76,12 +95,17 @@ rule erfroot2rifroot {
 			cOMMENT <- 'no comment',
 			cOUNTRYCODE <- 'DE',
 			-- CREATIONTIME <- 'NOW',
-			iDENTIFIER <- 'THEID',
+			iDENTIFIER <- 'THE ID',
 			sOURCETOOLID <- 'ERA RIF Editor',
 			tITLE <- 'no title',
 			vERSION <- '1',
-			sPECTYPES <- erfclass.coreContent.specTypes
-		)
+			dATATYPES <- dataTypesType,
+			sPECTYPES <- rifemptyspectypes
+		),
+		dataTypesType : rif11!DATATYPESType(
+            dATATYPEDEFINITIONINTEGER <- erfclass.coreContent.dataTypes->select(v | v.oclIsTypeOf(erf!DatatypeDefinitionInteger)),
+            dATATYPEDEFINITIONSTRING <- erfclass.coreContent.dataTypes->select(v | v.oclIsTypeOf(erf!DatatypeDefinitionString))
+        ),
+		rifemptyspectypes : rif11!SPECTYPESType (sPECTYPE <- erfclass.coreContent.specTypes)
 }
-
 
