@@ -1,12 +1,19 @@
+-- @path rif11=/era.foss.erf.exporter.m2m/model/rif_11.ecore
+-- @path erf=/era.foss.erf/model/erf.ecore
 module erf2rif11;
-
--- @path erf=/era.foss.rif/model/erf.ecore
--- @path rif11=/era.foss.erf.exporter/model/rif_11.ecore
-
 create OUT: rif11 from IN: erf;
 
 -- ATL Language Spec
 -- http://wiki.eclipse.org/ATL/User_Guide_-_The_ATL_Language
+
+-- 
+-- HowTo: Use in EMF the Option OPTION_EXTENDED_META_DATA
+-- http://java.dzone.com/articles/emf-tips-accessing-model-meta
+--   Map<String, Object> saveOptions = new HashMap<String, Object>();
+--   saveOptions.put(XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);
+
+-- HowTo: Use in ATL the EMF-Option OPTION_EXTENDED_META_DATA
+-- http://dev.eclipse.org/newslists/news.eclipse.modeling.m2m/msg02937.html
 
 -- ATL Manual
 -- http://www.eclipse.org/m2m/atl/doc/ATL_User_Manual[v0.7].pdf
@@ -125,7 +132,7 @@ rule erfddi2rifddi {
     to
 	    rifelem : rif11!DATATYPEDEFINITIONINTEGER (
 	        mIN <- erfclass.min,
-		    mAX <- erfclass.max	        
+		    mAX <- erfclass.max
         )	        
 }
 
