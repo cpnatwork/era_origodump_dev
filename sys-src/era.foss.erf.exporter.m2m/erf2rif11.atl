@@ -5,6 +5,9 @@ module erf2rif11;
 
 create OUT: rif11 from IN: erf;
 
+-- ATL Language Spec
+-- http://wiki.eclipse.org/ATL/User_Guide_-_The_ATL_Language
+
 -- ATL Manual
 -- http://www.eclipse.org/m2m/atl/doc/ATL_User_Manual[v0.7].pdf
 
@@ -33,10 +36,13 @@ rule erfso2rifso {
 			,iDENTIFIER <- erfclass.iD
 			-- ,lASTCHANGE <- 'THEN'
 			,lONGNAME <- erfclass.longName
-			--,tYPE <- erfclass.type -- todo@cpn: replace w/ reference
-			,vALUES <- rifemptyvalues
-	    ),
-		rifemptyvalues : rif11!VALUESType2 (aTTRIBUTEVALUESIMPLE <- erfclass.values->select(v | v.oclIsTypeOf(erf!AttributeValueSimple)))
+			,tYPE <- rifspectyperef
+			,vALUES <- rifvalues
+	    )
+		,rifvalues : rif11!VALUESType2 (aTTRIBUTEVALUESIMPLE <- erfclass.values->select(v | v.oclIsTypeOf(erf!AttributeValueSimple)))
+		,rifspectyperef : rif11!TYPEType4 (
+			sPECTYPEREF <- erfclass.type.iD
+		)
 }
 		
 rule erfavs2rifavs {
@@ -48,9 +54,12 @@ rule erfavs2rifavs {
 			,iDENTIFIER <- erfclass.iD
 			-- ,lASTCHANGE <- 'THEN'
 			,lONGNAME <- erfclass.longName
-			--,dEFINITION <- erfclass.definition -- todo@cpn: replace w/ reference
+			,dEFINITION <- rifattributedefinitionsimpleref
 			,tHEVALUE <- erfclass.theValue
 	    )
+		,rifattributedefinitionsimpleref : rif11!DEFINITIONType4 (
+			aTTRIBUTEDEFINITIONSIMPLEREF <- erfclass.definition.iD
+		)
 }
 
 rule erfads2rifads {
@@ -63,11 +72,11 @@ rule erfads2rifads {
 			-- ,lASTCHANGE <- 'THEN'
 			,lONGNAME <- erfclass.longName
 			,dEFAULTVALUE <- erfclass.defaultValue
-			,tYPE <- riftyperef
+			,tYPE <- rifdatatypedefinitionref
 	    )
-		,riftyperef : rif11!TYPEType3 (
-			dATATYPEDEFINITIONINTEGERREF <- erfclass.type.toString() --.oclIsTypeOf(erf!DatatypeDefinitionInteger)
-			,dATATYPEDEFINITIONSTRINGREF <- erfclass.type.toString() --.oclIsTypeOf(erf!DatatypeDefinitionString)
+		,rifdatatypedefinitionref : rif11!TYPEType3 (
+			dATATYPEDEFINITIONINTEGERREF <- erfclass.type.iD --.oclIsTypeOf(erf!DatatypeDefinitionInteger)
+			,dATATYPEDEFINITIONSTRINGREF <- erfclass.type.iD --.oclIsTypeOf(erf!DatatypeDefinitionString)
 		)
 }
 
@@ -80,9 +89,9 @@ rule erfst2rifst {
 			,iDENTIFIER <- erfclass.iD
 			-- ,lASTCHANGE <- 'THEN'
 			,lONGNAME <- erfclass.longName
-			,sPECATTRIBUTES <- rifemptyspecattributes
+			,sPECATTRIBUTES <- rifspecattributes
 	    ),
-		rifemptyspecattributes : rif11!SPECATTRIBUTESType (
+		rifspecattributes : rif11!SPECATTRIBUTESType (
 			aTTRIBUTEDEFINITIONSIMPLE <- erfclass.specAttributes->select(v | v.oclIsTypeOf(erf!AttributeDefinitionSimple))
 		)
 }
@@ -115,15 +124,15 @@ rule erfroot2rifroot {
 			,sOURCETOOLID <- 'ERA RIF Editor'
 			,tITLE <- 'no title'
 			,vERSION <- '1'
-			,dATATYPES <- rifemptydatatypes
-			,sPECTYPES <- rifemptyspectypes
-			,sPECOBJECTS <- rifemptyspecobjects
+			,dATATYPES <- rifdatatypes
+			,sPECTYPES <- rifspectypes
+			,sPECOBJECTS <- rifspecobjects
 		)
-		,rifemptydatatypes : rif11!DATATYPESType(
+		,rifdatatypes : rif11!DATATYPESType(
             dATATYPEDEFINITIONINTEGER <- erfclass.coreContent.dataTypes->select(v | v.oclIsTypeOf(erf!DatatypeDefinitionInteger))
             ,dATATYPEDEFINITIONSTRING <- erfclass.coreContent.dataTypes->select(v | v.oclIsTypeOf(erf!DatatypeDefinitionString))
         )
-		,rifemptyspectypes : rif11!SPECTYPESType (sPECTYPE <- erfclass.coreContent.specTypes)
-		,rifemptyspecobjects : rif11!SPECOBJECTSType1 (sPECOBJECT <- erfclass.coreContent.specObjects)
+		,rifspectypes : rif11!SPECTYPESType (sPECTYPE <- erfclass.coreContent.specTypes)
+		,rifspecobjects : rif11!SPECOBJECTSType1 (sPECOBJECT <- erfclass.coreContent.specObjects)
 }
 
