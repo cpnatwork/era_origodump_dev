@@ -14,5 +14,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.edit.ui,
  era.foss.erf,
  era.foss.erf.edit,
- era.foss.objecteditor
+ era.foss.objecteditor,
+ org.eclipse.core.resources
 Bundle-ActivationPolicy: lazy
