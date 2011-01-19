@@ -62,9 +62,9 @@ rule erfavs2rifavs {
 		)
 }
 
-rule erfads2rifads {
-	from
-		erfclass : erf!AttributeDefinitionSimple
+abstract rule erfads2rifadsAbstract {
+    from 
+    	erfclass : erf!AttributeDefinitionSimple
     to
 	    rifelem : rif11!ATTRIBUTEDEFINITIONSIMPLE (
 	    	dESC <- erfclass.desc
@@ -72,12 +72,35 @@ rule erfads2rifads {
 			-- ,lASTCHANGE <- 'THEN'
 			,lONGNAME <- erfclass.longName
 			,dEFAULTVALUE <- erfclass.defaultValue
-			,tYPE <- rifdatatypedefinitionref
 	    )
-		,rifdatatypedefinitionref : rif11!TYPEType3 (
-			dATATYPEDEFINITIONINTEGERREF <- erfclass.type.iD --.oclIsTypeOf(erf!DatatypeDefinitionInteger)
-			,dATATYPEDEFINITIONSTRINGREF <- erfclass.type.iD --.oclIsTypeOf(erf!DatatypeDefinitionString)
-		)
+}
+
+rule erfads2rifadsInt extends erfads2rifadsAbstract {
+	from
+		erfclass : erf!AttributeDefinitionSimple (
+		    erfclass.type->oclIsTypeOf( erf!DatatypeDefinitionInteger )
+    )
+	to 
+		rifelem : rif11!ATTRIBUTEDEFINITIONSIMPLE (
+			tYPE <- rifdatatypedefinitionref
+	    )    
+    	, rifdatatypedefinitionref : rif11!TYPEType3 (
+    	    dATATYPEDEFINITIONINTEGERREF<- erfclass.type.iD
+    	)    	    
+}
+
+rule erfads2rifadsString extends erfads2rifadsAbstract {
+	from
+		erfclass : erf!AttributeDefinitionSimple (
+		    erfclass.type->oclIsTypeOf( erf!DatatypeDefinitionString )
+    )
+    to
+	    rifelem : rif11!ATTRIBUTEDEFINITIONSIMPLE (
+			tYPE <- rifdatatypedefinitionref
+	    )
+    	, rifdatatypedefinitionref : rif11!TYPEType3 (
+    	    dATATYPEDEFINITIONSTRINGREF<- erfclass.type.iD
+    	)    	
 }
 
 rule erfst2rifst {
@@ -100,14 +123,19 @@ rule erfddi2rifddi {
 	from
 		erfclass : erf!DatatypeDefinitionInteger
     to
-	    rifelem : rif11!DATATYPEDEFINITIONINTEGER
+	    rifelem : rif11!DATATYPEDEFINITIONINTEGER (
+	        mIN <- erfclass.min,
+		    mAX <- erfclass.max	        
+        )	        
 }
 
 rule erfdds2rifdds {
 	from
 		erfclass : erf!DatatypeDefinitionString
     to
-	    rifelem : rif11!DATATYPEDEFINITIONSTRING
+	    rifelem : rif11!DATATYPEDEFINITIONSTRING (
+	        mAXLENGTH <- erfclass.maxLength
+        )
 }
 
 rule erfroot2rifroot {
