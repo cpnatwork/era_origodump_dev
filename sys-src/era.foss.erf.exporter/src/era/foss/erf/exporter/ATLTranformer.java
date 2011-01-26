@@ -187,7 +187,7 @@ public class ATLTranformer {
      *            the path to a workspace file
      */
     private void saveModel( String outputModelId, URI outputPath ) throws IOException {
-        ASMModel outputModel = models.get( outputPath );
+        ASMModel outputModel = models.get( outputModelId );
         getModelLoader().save( outputModel, outputPath.toString() );
     }
 
