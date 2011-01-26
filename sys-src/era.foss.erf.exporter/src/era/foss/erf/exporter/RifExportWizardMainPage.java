@@ -56,7 +56,8 @@ public class RifExportWizardMainPage extends WizardPage {
         composite.setLayout( gl );
 
         /*
-         * Create Label, text field and button for selecting the output directory
+         * Create Label, text field and button for selecting the output
+         * directory
          */
         new Label( composite, SWT.NONE ).setText( "Directory" );
 
@@ -73,6 +74,7 @@ public class RifExportWizardMainPage extends WizardPage {
         Button buttonSelectFile = new Button( composite, SWT.PUSH );
         buttonSelectFile.setText( "Browse..." );
         buttonSelectFile.addListener( SWT.Selection, new Listener() {
+
             public void handleEvent( Event event ) {
                 DirectoryDialog dirDialog = new DirectoryDialog( Display.getCurrent().getActiveShell(), SWT.MULTI );
                 dirDialog.setFilterPath( DirName.getText() );
@@ -85,7 +87,7 @@ public class RifExportWizardMainPage extends WizardPage {
                 } else {
                     DirName.setText( "" );
                     RifExportWizardMainPage.this.setErrorMessage( Activator.getPlugin()
-                                                                           .getString( "export.wizard.rif.error.selectDir" ) );
+                            .getString( "export.wizard.rif.error.selectDir" ) );
                     RifExportWizardMainPage.this.setComplete( false );
                 }
                 RifExportWizardMainPage.this.getWizard().getContainer().updateButtons();
@@ -106,8 +108,9 @@ public class RifExportWizardMainPage extends WizardPage {
     }
 
     /**
-     * The Finish button was pressed. Try to do the required work now and answer a boolean indicating success. If false
-     * is returned then the wizard will not close.
+     * The Finish button was pressed. Try to do the required work now and answer
+     * a boolean indicating success. If false is returned then the wizard will
+     * not close.
      * 
      * @return boolean
      * @throws IOException
@@ -121,29 +124,32 @@ public class RifExportWizardMainPage extends WizardPage {
         // create rif11 EPackage from .ecore file:
         EPackage rif11Package = null;
         try {
-            rif11Package = loadRIF11EPackage( URI.createURI( FileLocator.find( Platform.getBundle( "era.foss.erf.exporter.m2m" ),
-                                                                               new Path( "model/rif_11.ecore" ),
-                                                                               null )
-                                                                        .toExternalForm() ) );
+            rif11Package = loadRIF11EPackage( URI.createURI( FileLocator
+                    .find( Platform.getBundle( "era.foss.erf.exporter.m2m" ), new Path( "model/rif_11.ecore" ), null )
+                    .toExternalForm() ) );
         } catch( IOException e ) {
             throw new IOException( e );
         }
-        // rif11Package = loadRIF11EPackage( URI.createURI( METAMODELFILE_RIF_11_ECORE, false ) );
+        // rif11Package = loadRIF11EPackage( URI.createURI(
+        // METAMODELFILE_RIF_11_ECORE, false ) );
         EPackage.Registry.INSTANCE.put( rif11Package.getNsURI(), rif11Package );
 
-        // prepare ResourceSet for the Resource (for registering EXT-to-Factory differently according to load and store)
+        // prepare ResourceSet for the Resource (for registering EXT-to-Factory
+        // differently according to load and store)
         ResourceSet resourceSet = new ResourceSetImpl();
 
         for( IFile workspaceResource : erfWorkspaceResourceList ) {
 
-            URI sourceErfURI = URI.createURI( workspaceResource.getFullPath().toOSString(), false );
+            URI sourceErfURI = URI.createURI( workspaceResource.getLocationURI().toString(), true );
             URI targetRifURI = sourceErfURI.trimFileExtension().appendFileExtension( "rif" );
             Resource resource = null;
 
             // load resource (later based on ATL)
             try {
-                resource = loadRifResourceFromRifXmi( resourceSet, targetRifURI );
-            } catch( IOException e ) {
+                resource = transform( sourceErfURI, targetRifURI );
+                // resource = loadRifResourceFromRifXmi( resourceSet,
+                // targetRifURI );
+            } catch( Exception e ) {
                 throw new IOException( e );
             }
             // serialize resource
@@ -156,6 +162,25 @@ public class RifExportWizardMainPage extends WizardPage {
         return true;
     }
 
+    private Resource transform( URI in, URI out ) throws IOException {
+        ATLTranformer transformer = new ATLTranformer();
+        transformer.loadModel( "erf", null, getBundleURI( "era.foss.erf", "model/erf.ecore" ) );
+        transformer.loadModel( "rif11", null, getBundleURI( "era.foss.erf.exporter.m2m", "model/rif_11.ecore" ) );
+        transformer.loadModel( "IN", "erf", in );
+        return transformer.transform( getBundleURI( "era.foss.erf.exporter.m2m", "erf2rif11.asm" ).toString(),
+                                      "OUT",
+                                      out,
+                                      "rif11", false );
+    }
+
+    public URI getWorkspaceURI( String path ) {
+        return URI.createPlatformResourceURI( path, true );
+    }
+
+    public URI getBundleURI( String bundle, String path ) {
+        return URI.createPlatformPluginURI( bundle + "/" + path, true );
+    }
+
     /**
      * @param rif11MetamodelURI
      * @return
@@ -164,8 +189,7 @@ public class RifExportWizardMainPage extends WizardPage {
     private static EPackage loadRIF11EPackage( URI rif11MetamodelURI ) throws IOException {
         EPackage rif11Package = null;
         ResourceSet resourceSet = new ResourceSetImpl();
-        resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put( "ecore",
-                                                                                 new XMIResourceFactoryImpl() );
+        resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put( "ecore", new XMIResourceFactoryImpl() );
         Resource rif11MetamodelResource = resourceSet.createResource( rif11MetamodelURI );
         rif11MetamodelResource.load( null );
         rif11Package = (EPackage)rif11MetamodelResource.getContents().get( 0 );

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.m2m.atl.drivers.emf4atl.ASMEMFModel;
 import org.eclipse.m2m.atl.drivers.emf4atl.EMFModelLoader;
 import org.eclipse.m2m.atl.engine.vm.AtlLauncher;
@@ -80,8 +81,9 @@ public class ATLTranformer {
      *            path to output file
      * @param outputMetaModelId
      *            id of a previously loaded meta model or null for MOF
+     *            @param saveModel true to save the model 
      */
-    public void transform( String asmPath, String outputId, URI outputPath, String outputMetaModelId )
+    public Resource transform( String asmPath, String outputId, URI outputPath, String outputMetaModelId, boolean saveModel )
             throws IOException {
         createModel( outputId, outputMetaModelId, outputPath );
 
@@ -92,8 +94,9 @@ public class ATLTranformer {
                            Collections.EMPTY_MAP,
                            Collections.EMPTY_LIST,
                            Collections.EMPTY_MAP );
-        saveModel( outputId, outputPath );
-        models.remove( outputPath );
+        if( saveModel ) saveModel( outputId, outputPath );        
+        ASMModel outModel = models.remove( outputId );
+        return ((ASMEMFModel)outModel).getExtent();
     }
 
     //
