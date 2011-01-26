@@ -1,5 +1,6 @@
 package era.foss.erf.exporter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -14,12 +15,20 @@ import org.eclipse.ui.IWorkbench;
 public class RifExportWizard extends Wizard implements IExportWizard {
 
     // List of files to process
-    private List<IFile> ErfFileList;
+    private RifExportWizardMainPage mainPage;
+    private IStructuredSelection selection;
 
-    @SuppressWarnings("unchecked")
     @Override
     public void init( IWorkbench workbench, IStructuredSelection selection ) {
-        ErfFileList = new ArrayList<IFile>();
+        this.selection = selection;
+    }
+
+    /**
+     * @param selection
+     */
+    @SuppressWarnings("unchecked")
+    private List<IFile> getWhiteCheckedInputResources( IStructuredSelection selection ) {
+        List<IFile> erfFileList = new ArrayList<IFile>();
         Iterator fileIter = selection.iterator();
         while (fileIter.hasNext()) {
             // check if selected element is a file
@@ -30,26 +39,33 @@ public class RifExportWizard extends Wizard implements IExportWizard {
                                      .getContentType()
                                      .getId()
                                      .equals( "era.foss.erf.ErfContentType" ) ) {
-                        ErfFileList.add( (IFile)file );
+                        erfFileList.add( (IFile)file );
                     }
                 } catch( CoreException e ) {
                 }
             }
         }
+        return erfFileList;
+    }
 
-        if( !ErfFileList.isEmpty() ) {
-            this.addPage( new RifExportWizardMainPage( "Rif" ) );
-        }
-
+    /*
+     * (non-Javadoc) Method declared on IWizard.
+     */
+    public void addPages() {
+        super.addPages();
+        mainPage = new RifExportWizardMainPage( "Rif", getWhiteCheckedInputResources( selection ) );
+        addPage( mainPage );
     }
 
     @Override
     public boolean performFinish() {
-        for (IFile file : ErfFileList)
-        {
-            //do export here
+        try {
+            // delegate to main page
+            return mainPage.finish();
+        } catch( IOException e ) {
+            e.printStackTrace();
+            return false;
         }
-        return true;
     }
 
 }
