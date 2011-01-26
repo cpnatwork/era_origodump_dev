@@ -65,6 +65,9 @@ public class RifExportWizardMainPage extends WizardPage {
 
         if( erfWorkspaceResourceList.size() > 0 ) {
             DirName.setText( erfWorkspaceResourceList.get( 0 ).getParent().getLocation().toOSString() );
+            RifExportWizardMainPage.this.setErrorMessage( null );
+            RifExportWizardMainPage.this.setComplete( true );
+            RifExportWizardMainPage.this.getWizard().canFinish();
         }
 
         Button buttonSelectFile = new Button( composite, SWT.PUSH );
