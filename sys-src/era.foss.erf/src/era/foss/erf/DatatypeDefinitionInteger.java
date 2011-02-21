@@ -8,34 +8,84 @@ package era.foss.erf;
 public interface DatatypeDefinitionInteger extends DatatypeDefinitionSimple {
 
     /**
-     * @model 
+     * @model unsettable="true" unique="false" ordered="false"
      * @return
      */
-    public int getMax();
+    public Integer getMax();
 
     /**
      * Sets the value of the '{@link era.foss.erf.DatatypeDefinitionInteger#getMax <em>Max</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @param value the new value of the '<em>Max</em>' attribute.
+     * @see #isSetMax()
+     * @see #unsetMax()
      * @see #getMax()
      * @generated
      */
-    void setMax( int value );
+    void setMax( Integer value );
 
     /**
-     * @model
-     * @return
+     * Unsets the value of the '{@link era.foss.erf.DatatypeDefinitionInteger#getMax <em>Max</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetMax()
+     * @see #getMax()
+     * @see #setMax(Integer)
+     * @generated
      */
-    public int getMin();
+    void unsetMax();
+
+    /**
+     * Returns whether the value of the '{@link era.foss.erf.DatatypeDefinitionInteger#getMax <em>Max</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>Max</em>' attribute is set.
+     * @see #unsetMax()
+     * @see #getMax()
+     * @see #setMax(Integer)
+     * @generated
+     */
+    boolean isSetMax();
+
+    /**
+     * @model unsettable="true" unique="false" ordered="false"
+     * @return 
+     */
+    public Integer getMin();
 
     /**
      * Sets the value of the '{@link era.foss.erf.DatatypeDefinitionInteger#getMin <em>Min</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @param value the new value of the '<em>Min</em>' attribute.
+     * @see #isSetMin()
+     * @see #unsetMin()
      * @see #getMin()
      * @generated
      */
-    void setMin( int value );
+    void setMin( Integer value );
+
+    /**
+     * Unsets the value of the '{@link era.foss.erf.DatatypeDefinitionInteger#getMin <em>Min</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetMin()
+     * @see #getMin()
+     * @see #setMin(Integer)
+     * @generated
+     */
+    void unsetMin();
+
+    /**
+     * Returns whether the value of the '{@link era.foss.erf.DatatypeDefinitionInteger#getMin <em>Min</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>Min</em>' attribute is set.
+     * @see #unsetMin()
+     * @see #getMin()
+     * @see #setMin(Integer)
+     * @generated
+     */
+    boolean isSetMin();
 }

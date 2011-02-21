@@ -31,7 +31,7 @@ public class ErfFactoryImpl extends EFactoryImpl implements ErfFactory {
      */
     public static ErfFactory init() {
         try {
-            ErfFactory theErfFactory = (ErfFactory)EPackage.Registry.INSTANCE.getEFactory( "http:///era/foss/erf.ecore" );
+            ErfFactory theErfFactory = (ErfFactory)EPackage.Registry.INSTANCE.getEFactory( "http://era/foss/erf" );
             if( theErfFactory != null ) {
                 return theErfFactory;
             }

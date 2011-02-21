@@ -38,7 +38,7 @@ public class DatatypeDefinitionIntegerImpl extends DatatypeDefinitionSimpleImpl 
      * @generated
      * @ordered
      */
-    protected static final int MAX_EDEFAULT = 0;
+    protected static final Integer MAX_EDEFAULT = null;
 
     /**
      * The cached value of the '{@link #getMax() <em>Max</em>}' attribute.
@@ -48,7 +48,16 @@ public class DatatypeDefinitionIntegerImpl extends DatatypeDefinitionSimpleImpl 
      * @generated
      * @ordered
      */
-    protected int max = MAX_EDEFAULT;
+    protected Integer max = MAX_EDEFAULT;
+
+    /**
+     * This is true if the Max attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean maxESet;
 
     /**
      * The default value of the '{@link #getMin() <em>Min</em>}' attribute.
@@ -58,7 +67,7 @@ public class DatatypeDefinitionIntegerImpl extends DatatypeDefinitionSimpleImpl 
      * @generated
      * @ordered
      */
-    protected static final int MIN_EDEFAULT = 0;
+    protected static final Integer MIN_EDEFAULT = null;
 
     /**
      * The cached value of the '{@link #getMin() <em>Min</em>}' attribute.
@@ -68,7 +77,16 @@ public class DatatypeDefinitionIntegerImpl extends DatatypeDefinitionSimpleImpl 
      * @generated
      * @ordered
      */
-    protected int min = MIN_EDEFAULT;
+    protected Integer min = MIN_EDEFAULT;
+
+    /**
+     * This is true if the Min attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean minESet;
 
     /**
      * <!-- begin-user-doc -->
@@ -94,7 +112,7 @@ public class DatatypeDefinitionIntegerImpl extends DatatypeDefinitionSimpleImpl 
      * <!-- end-user-doc -->
      * @generated
      */
-    public int getMax() {
+    public Integer getMax() {
         return max;
     }
 
@@ -103,15 +121,18 @@ public class DatatypeDefinitionIntegerImpl extends DatatypeDefinitionSimpleImpl 
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setMax( int newMax ) {
-        int oldMax = max;
+    public void setMax( Integer newMax ) {
+        Integer oldMax = max;
         max = newMax;
+        boolean oldMaxESet = maxESet;
+        maxESet = true;
         if( eNotificationRequired() ) eNotify( new ENotificationImpl(
             this,
             Notification.SET,
             ErfPackage.DATATYPE_DEFINITION_INTEGER__MAX,
             oldMax,
-            max ) );
+            max,
+            !oldMaxESet ) );
     }
 
     /**
@@ -119,7 +140,35 @@ public class DatatypeDefinitionIntegerImpl extends DatatypeDefinitionSimpleImpl 
      * <!-- end-user-doc -->
      * @generated
      */
-    public int getMin() {
+    public void unsetMax() {
+        Integer oldMax = max;
+        boolean oldMaxESet = maxESet;
+        max = MAX_EDEFAULT;
+        maxESet = false;
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.UNSET,
+            ErfPackage.DATATYPE_DEFINITION_INTEGER__MAX,
+            oldMax,
+            MAX_EDEFAULT,
+            oldMaxESet ) );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetMax() {
+        return maxESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Integer getMin() {
         return min;
     }
 
@@ -128,15 +177,46 @@ public class DatatypeDefinitionIntegerImpl extends DatatypeDefinitionSimpleImpl 
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setMin( int newMin ) {
-        int oldMin = min;
+    public void setMin( Integer newMin ) {
+        Integer oldMin = min;
         min = newMin;
+        boolean oldMinESet = minESet;
+        minESet = true;
         if( eNotificationRequired() ) eNotify( new ENotificationImpl(
             this,
             Notification.SET,
             ErfPackage.DATATYPE_DEFINITION_INTEGER__MIN,
             oldMin,
-            min ) );
+            min,
+            !oldMinESet ) );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetMin() {
+        Integer oldMin = min;
+        boolean oldMinESet = minESet;
+        min = MIN_EDEFAULT;
+        minESet = false;
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.UNSET,
+            ErfPackage.DATATYPE_DEFINITION_INTEGER__MIN,
+            oldMin,
+            MIN_EDEFAULT,
+            oldMinESet ) );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetMin() {
+        return minESet;
     }
 
     /**
@@ -182,10 +262,10 @@ public class DatatypeDefinitionIntegerImpl extends DatatypeDefinitionSimpleImpl 
     public void eUnset( int featureID ) {
         switch (featureID) {
         case ErfPackage.DATATYPE_DEFINITION_INTEGER__MAX:
-            setMax( MAX_EDEFAULT );
+            unsetMax();
             return;
         case ErfPackage.DATATYPE_DEFINITION_INTEGER__MIN:
-            setMin( MIN_EDEFAULT );
+            unsetMin();
             return;
         }
         super.eUnset( featureID );
@@ -200,9 +280,9 @@ public class DatatypeDefinitionIntegerImpl extends DatatypeDefinitionSimpleImpl 
     public boolean eIsSet( int featureID ) {
         switch (featureID) {
         case ErfPackage.DATATYPE_DEFINITION_INTEGER__MAX:
-            return max != MAX_EDEFAULT;
+            return isSetMax();
         case ErfPackage.DATATYPE_DEFINITION_INTEGER__MIN:
-            return min != MIN_EDEFAULT;
+            return isSetMin();
         }
         return super.eIsSet( featureID );
     }
@@ -218,9 +298,11 @@ public class DatatypeDefinitionIntegerImpl extends DatatypeDefinitionSimpleImpl 
 
         StringBuffer result = new StringBuffer( super.toString() );
         result.append( " (max: " );
-        result.append( max );
+        if( maxESet ) result.append( max );
+        else result.append( "<unset>" );
         result.append( ", min: " );
-        result.append( min );
+        if( minESet ) result.append( min );
+        else result.append( "<unset>" );
         result.append( ')' );
         return result.toString();
     }

@@ -88,13 +88,11 @@ public class SpecObjectPropertySourceProvider implements IPropertySourceProvider
         @Override
         public void resetPropertyValue( Object id ) {
             // TODO Auto-generated method stub
-
         }
 
         @Override
         public void setPropertyValue( Object id, Object value ) {
             // TODO Auto-generated method stub
-
         }
 
     }

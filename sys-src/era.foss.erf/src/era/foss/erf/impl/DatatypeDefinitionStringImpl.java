@@ -37,7 +37,7 @@ public class DatatypeDefinitionStringImpl extends DatatypeDefinitionSimpleImpl i
      * @generated
      * @ordered
      */
-    protected static final int MAX_LENGTH_EDEFAULT = 0;
+    protected static final Integer MAX_LENGTH_EDEFAULT = null;
 
     /**
      * The cached value of the '{@link #getMaxLength() <em>Max Length</em>}' attribute.
@@ -47,7 +47,16 @@ public class DatatypeDefinitionStringImpl extends DatatypeDefinitionSimpleImpl i
      * @generated
      * @ordered
      */
-    protected int maxLength = MAX_LENGTH_EDEFAULT;
+    protected Integer maxLength = MAX_LENGTH_EDEFAULT;
+
+    /**
+     * This is true if the Max Length attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean maxLengthESet;
 
     /**
      * <!-- begin-user-doc -->
@@ -73,7 +82,7 @@ public class DatatypeDefinitionStringImpl extends DatatypeDefinitionSimpleImpl i
      * <!-- end-user-doc -->
      * @generated
      */
-    public int getMaxLength() {
+    public Integer getMaxLength() {
         return maxLength;
     }
 
@@ -82,15 +91,46 @@ public class DatatypeDefinitionStringImpl extends DatatypeDefinitionSimpleImpl i
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setMaxLength( int newMaxLength ) {
-        int oldMaxLength = maxLength;
+    public void setMaxLength( Integer newMaxLength ) {
+        Integer oldMaxLength = maxLength;
         maxLength = newMaxLength;
+        boolean oldMaxLengthESet = maxLengthESet;
+        maxLengthESet = true;
         if( eNotificationRequired() ) eNotify( new ENotificationImpl(
             this,
             Notification.SET,
             ErfPackage.DATATYPE_DEFINITION_STRING__MAX_LENGTH,
             oldMaxLength,
-            maxLength ) );
+            maxLength,
+            !oldMaxLengthESet ) );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetMaxLength() {
+        Integer oldMaxLength = maxLength;
+        boolean oldMaxLengthESet = maxLengthESet;
+        maxLength = MAX_LENGTH_EDEFAULT;
+        maxLengthESet = false;
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.UNSET,
+            ErfPackage.DATATYPE_DEFINITION_STRING__MAX_LENGTH,
+            oldMaxLength,
+            MAX_LENGTH_EDEFAULT,
+            oldMaxLengthESet ) );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetMaxLength() {
+        return maxLengthESet;
     }
 
     /**
@@ -131,7 +171,7 @@ public class DatatypeDefinitionStringImpl extends DatatypeDefinitionSimpleImpl i
     public void eUnset( int featureID ) {
         switch (featureID) {
         case ErfPackage.DATATYPE_DEFINITION_STRING__MAX_LENGTH:
-            setMaxLength( MAX_LENGTH_EDEFAULT );
+            unsetMaxLength();
             return;
         }
         super.eUnset( featureID );
@@ -146,7 +186,7 @@ public class DatatypeDefinitionStringImpl extends DatatypeDefinitionSimpleImpl i
     public boolean eIsSet( int featureID ) {
         switch (featureID) {
         case ErfPackage.DATATYPE_DEFINITION_STRING__MAX_LENGTH:
-            return maxLength != MAX_LENGTH_EDEFAULT;
+            return isSetMaxLength();
         }
         return super.eIsSet( featureID );
     }
@@ -162,7 +202,8 @@ public class DatatypeDefinitionStringImpl extends DatatypeDefinitionSimpleImpl i
 
         StringBuffer result = new StringBuffer( super.toString() );
         result.append( " (maxLength: " );
-        result.append( maxLength );
+        if( maxLengthESet ) result.append( maxLength );
+        else result.append( "<unset>" );
         result.append( ')' );
         return result.toString();
     }

@@ -780,7 +780,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                     !IS_INTERFACE,
                     IS_GENERATED_INSTANCE_CLASS );
         initEAttribute( getDatatypeDefinitionInteger_Max(),
-                        ecorePackage.getEInt(),
+                        ecorePackage.getEIntegerObject(),
                         "max",
                         null,
                         0,
@@ -789,13 +789,13 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         !IS_TRANSIENT,
                         !IS_VOLATILE,
                         IS_CHANGEABLE,
-                        !IS_UNSETTABLE,
+                        IS_UNSETTABLE,
                         !IS_ID,
-                        IS_UNIQUE,
+                        !IS_UNIQUE,
                         !IS_DERIVED,
-                        IS_ORDERED );
+                        !IS_ORDERED );
         initEAttribute( getDatatypeDefinitionInteger_Min(),
-                        ecorePackage.getEInt(),
+                        ecorePackage.getEIntegerObject(),
                         "min",
                         null,
                         0,
@@ -804,11 +804,11 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         !IS_TRANSIENT,
                         !IS_VOLATILE,
                         IS_CHANGEABLE,
-                        !IS_UNSETTABLE,
+                        IS_UNSETTABLE,
                         !IS_ID,
-                        IS_UNIQUE,
+                        !IS_UNIQUE,
                         !IS_DERIVED,
-                        IS_ORDERED );
+                        !IS_ORDERED );
 
         initEClass( datatypeDefinitionSimpleEClass,
                     DatatypeDefinitionSimple.class,
@@ -824,7 +824,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                     !IS_INTERFACE,
                     IS_GENERATED_INSTANCE_CLASS );
         initEAttribute( getDatatypeDefinitionString_MaxLength(),
-                        ecorePackage.getEInt(),
+                        ecorePackage.getEIntegerObject(),
                         "maxLength",
                         null,
                         0,
@@ -833,11 +833,11 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         !IS_TRANSIENT,
                         !IS_VOLATILE,
                         IS_CHANGEABLE,
-                        !IS_UNSETTABLE,
+                        IS_UNSETTABLE,
                         !IS_ID,
-                        IS_UNIQUE,
+                        !IS_UNIQUE,
                         !IS_DERIVED,
-                        IS_ORDERED );
+                        !IS_ORDERED );
 
         initEClass( identifiableEClass,
                     Identifiable.class,

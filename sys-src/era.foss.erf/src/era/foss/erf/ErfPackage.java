@@ -41,7 +41,7 @@ public interface ErfPackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNS_URI = "http:///era/foss/erf.ecore";
+    String eNS_URI = "http://era/foss/erf";
 
     /**
      * The package namespace name.

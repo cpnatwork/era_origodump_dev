@@ -185,9 +185,10 @@ public class RifExportWizardMainPage extends WizardPage {
                                       false );
     }
 
-    private URI getWorkspaceURI( String path ) {
-        return URI.createPlatformResourceURI( path, true );
-    }
+//    FIXME (gb):  Why do we need this method ?
+//    private URI getWorkspaceURI( String path ) {
+//        return URI.createPlatformResourceURI( path, true );
+//    }
 
     private URI getBundleURI( String bundle, String path ) {
         return URI.createPlatformPluginURI( bundle + "/" + path, true );

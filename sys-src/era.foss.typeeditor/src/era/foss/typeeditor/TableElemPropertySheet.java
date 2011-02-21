@@ -78,7 +78,8 @@ public class TableElemPropertySheet extends Composite {
         propertySheetPage = new PropertySheetPage();
         propertySheetPage.setPropertySourceProvider( new AdapterFactoryContentProvider( adapterFactory ) );
         // create the PropertySheetViewer and its control (which is a Tree)
-        propertySheetPage.createControl( this );
+        propertySheetPage.createControl(this);
+
 
         modelTableViewer.addSelectionChangedListener( new ISelectionChangedListener() {
             public void selectionChanged( SelectionChangedEvent event ) {
