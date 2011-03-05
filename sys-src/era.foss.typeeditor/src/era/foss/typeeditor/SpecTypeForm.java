@@ -14,6 +14,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.databinding.viewers.ViewerProperties;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnViewer;
@@ -86,26 +87,23 @@ public class SpecTypeForm extends AbstractErfTypesForm {
         super( parent, editor, SWT.NONE );
 
         // check for and eventually initialize the sole SpecType
-        // TODO: we could remove this default spectype creation (the new filewizard handles it)
-        if( erfModel.getCoreContent().getSpecTypes().size() == 0 ) {
-            Command addCommand = AddCommand.create( editingDomain,
-                                                    erfModel.getCoreContent(),
-                                                    null,
-                                                    ErfFactoryImpl.eINSTANCE.createSpecType() );
-            eraCommandStack.execute( addCommand );
-        }
         theOneAndOnlySpecType = (SpecType)erfModel.getCoreContent().getSpecTypes().get( 0 );
 
         // set-up layout
-        GridLayout gridLayout = new GridLayout( 1, true );
+        GridLayout gridLayout = new GridLayout( 2, true );
         this.setLayout( gridLayout );
 
         // set up table viewer for attribute definitions
         createTableViewer();
+        
+        // set up viewer for details
+        createDetailViewer();
 
         // Context menu for creating Elements of default values
         createContextMenu();
     }
+
+
 
     /**
      * Provide data for table which contains {@link AttributeDefinition} elements of the {@link SpecType}.
@@ -157,12 +155,6 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 // refresh the table (probably this is not necessary)
                 super.viewer.refresh();
             }
-
-            // SYNCHRONIZE/LISTEN TO CHANGE FROM THE SpecTypeForm ITSELF !!
-
-            // Viewer.refresh()s are triggered by the AddDeleteTableViewer class
-
-            // INFO: REMOVEs are handled by the AddDeleteTableViewer
 
         }
     }
@@ -489,6 +481,20 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 }
             }
         } );
+
+    }
+    
+    /**
+     * create detailed viewer for selected element
+     */
+    private void createDetailViewer() {
+        // setup Data type properties viewer
+        DetailViewer detailViewer = new DetailViewer(
+            this,
+            SWT.BORDER,
+            editingDomain,
+            ViewerProperties.singleSelection().observe( tableViewer ) );
+        detailViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
 
     }
 

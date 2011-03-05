@@ -11,6 +11,8 @@
       ecorePackage="erf.ecore#/">
     <genClasses image="false" ecoreClass="erf.ecore#//AttributeDefinition">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference erf.ecore#//AttributeDefinition/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute erf.ecore#//AttributeDefinition/ident"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute erf.ecore#//AttributeDefinition/unique"/>
     </genClasses>
     <genClasses image="false" ecoreClass="erf.ecore#//AttributeValue"/>
     <genClasses image="false" ecoreClass="erf.ecore#//DatatypeDefinition"/>

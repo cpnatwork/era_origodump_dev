@@ -405,9 +405,8 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
             // ErfObjectEditorPlugin.INSTANCE.log( exception );
             // }
             // }
-
+            markerHelper.deleteMarkers( editingDomain.getResourceSet() );
             if( markerHelper.hasMarkers( editingDomain.getResourceSet() ) ) {
-                markerHelper.deleteMarkers( editingDomain.getResourceSet() );
                 if( diagnostic.getSeverity() != Diagnostic.OK ) {
                     try {
                         markerHelper.createMarkers( diagnostic );
@@ -978,13 +977,14 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
         return adapterFactory;
     }
 
+    
     /**
      * Dispose this control and controls created by this one
      */
     @Override
     public void dispose() {
         updateProblemIndication = false;
-
+        
         ResourcesPlugin.getWorkspace().removeResourceChangeListener( resourceChangeListener );
 
         adapterFactory.dispose();

@@ -6,6 +6,20 @@
   <eClassifiers xsi:type="ecore:EClass" name="AttributeDefinition" abstract="true"
       eSuperTypes="#//Identifiable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="#//DatatypeDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ident" ordered="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false">
+      <eAnnotations source="UI">
+        <details key="Detail" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unique" ordered="false"
+        unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false">
+      <eAnnotations source="UI">
+        <details key="Detail" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AttributeValue" abstract="true" eSuperTypes="#//Identifiable"/>
   <eClassifiers xsi:type="ecore:EClass" name="DatatypeDefinition" abstract="true"
@@ -39,19 +53,29 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="constraints" value="NonNegative MaxGreaterThanMin"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="max" ordered="false" unique="false"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="min" ordered="false" unique="false"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="max" ordered="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="UI">
+        <details key="Detail" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="min" ordered="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="UI">
+        <details key="Detail" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DatatypeDefinitionSimple" abstract="true"
       eSuperTypes="#//DatatypeDefinition"/>
   <eClassifiers xsi:type="ecore:EClass" name="DatatypeDefinitionString" eSuperTypes="#//DatatypeDefinitionSimple">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxLength" ordered="false"
-        unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-        unsettable="true"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        unsettable="true">
+      <eAnnotations source="UI">
+        <details key="Detail" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Identifiable" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="iD" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"

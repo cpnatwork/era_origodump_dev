@@ -16,6 +16,7 @@ import org.eclipse.emf.edit.command.CommandParameter;
 import org.eclipse.emf.edit.command.ReplaceCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.eclipse.jface.databinding.viewers.ViewerProperties;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnViewer;
@@ -32,11 +33,9 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IEditorPart;
 
 import era.foss.erf.DatatypeDefinition;
@@ -80,13 +79,15 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
 
         createTableViewer();
 
-        // setup property viewer
-        TableElemPropertySheet tableElemPropertySheet = new TableElemPropertySheet(
+        // setup Data type properties viewer
+        DetailViewer dataTypeDefinitionDetail = new DetailViewer(
             this,
-            this.editor,
-            tableViewer,
-            SWT.MULTI | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER );
-        tableElemPropertySheet.setLayout( new FillLayout() );
+            SWT.BORDER,
+            editingDomain,
+            ViewerProperties.singleSelection().observe(tableViewer)
+            );
+        dataTypeDefinitionDetail.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
+        
     }
 
     public class DatatypeDefinitionEditingSupport extends EditingSupport {
@@ -315,9 +316,9 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
     private void createTableViewer() {
 
         // Label for table
-        Label descriptionLabel = new Label( this, SWT.NONE );
-        descriptionLabel.setText( typeEditorActivator.getString( "_UI_DataTypeDefinitionTable_label" ) + ":" );
-        descriptionLabel.setLayoutData( new GridData( SWT.LEFT, SWT.BOTTOM, true, false, 2, 0 ) );
+        //Label descriptionLabel = new Label( this, SWT.NONE );
+        //descriptionLabel.setText( typeEditorActivator.getString( "_UI_DataTypeDefinitionTable_label" ) + ":" );
+        //descriptionLabel.setLayoutData( new GridData( SWT.LEFT, SWT.BOTTOM, true, false, 2, 0 ) );
 
         tableViewer = new AddDeleteTableViewer( this, SWT.MULTI | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
         tableViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
@@ -357,13 +358,14 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
      * <p>
      * Gets the text specified in the resource file of the edit plug-in.
      * 
-     * @param dataType the DatatypeDefinition object in question
+     * @param dataTypeDefObsv the DatatypeDefinition object in question
      * @return its type name
      */
     private String getTypenameForDatatypeDefinition( EClass eClass ) {
         String nameFromResource = ErfEditPlugin.INSTANCE.getString( "_UI_" + eClass.getName() + "_type" );
         return (nameFromResource == null) ? eClass.getName() : nameFromResource;
     }
+    
 
     private String getTypenameForDatatypeDefinition( DatatypeDefinition dataType ) {
         return getTypenameForDatatypeDefinition( dataType.eClass() );

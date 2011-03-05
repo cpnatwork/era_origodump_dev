@@ -25,6 +25,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#getType <em>Type</em>}</li>
+ *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#isIdent <em>Ident</em>}</li>
+ *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#isUnique <em>Unique</em>}</li>
  * </ul>
  * </p>
  *
@@ -40,6 +42,46 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
      * @ordered
      */
     protected DatatypeDefinition type;
+
+    /**
+     * The default value of the '{@link #isIdent() <em>Ident</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isIdent()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean IDENT_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isIdent() <em>Ident</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isIdent()
+     * @generated
+     * @ordered
+     */
+    protected boolean ident = IDENT_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isUnique() <em>Unique</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isUnique()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean UNIQUE_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isUnique() <em>Unique</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isUnique()
+     * @generated
+     * @ordered
+     */
+    protected boolean unique = UNIQUE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -111,12 +153,66 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isIdent() {
+        return ident;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setIdent( boolean newIdent ) {
+        boolean oldIdent = ident;
+        ident = newIdent;
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            ErfPackage.ATTRIBUTE_DEFINITION__IDENT,
+            oldIdent,
+            ident ) );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isUnique() {
+        return unique;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setUnique( boolean newUnique ) {
+        boolean oldUnique = unique;
+        unique = newUnique;
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE,
+            oldUnique,
+            unique ) );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public Object eGet( int featureID, boolean resolve, boolean coreType ) {
         switch (featureID) {
         case ErfPackage.ATTRIBUTE_DEFINITION__TYPE:
             if( resolve ) return getType();
             return basicGetType();
+        case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
+            return isIdent();
+        case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
+            return isUnique();
         }
         return super.eGet( featureID, resolve, coreType );
     }
@@ -131,6 +227,12 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
         switch (featureID) {
         case ErfPackage.ATTRIBUTE_DEFINITION__TYPE:
             setType( (DatatypeDefinition)newValue );
+            return;
+        case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
+            setIdent( (Boolean)newValue );
+            return;
+        case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
+            setUnique( (Boolean)newValue );
             return;
         }
         super.eSet( featureID, newValue );
@@ -147,6 +249,12 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
         case ErfPackage.ATTRIBUTE_DEFINITION__TYPE:
             setType( (DatatypeDefinition)null );
             return;
+        case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
+            setIdent( IDENT_EDEFAULT );
+            return;
+        case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
+            setUnique( UNIQUE_EDEFAULT );
+            return;
         }
         super.eUnset( featureID );
     }
@@ -161,8 +269,30 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
         switch (featureID) {
         case ErfPackage.ATTRIBUTE_DEFINITION__TYPE:
             return type != null;
+        case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
+            return ident != IDENT_EDEFAULT;
+        case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
+            return unique != UNIQUE_EDEFAULT;
         }
         return super.eIsSet( featureID );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public String toString() {
+        if( eIsProxy() ) return super.toString();
+
+        StringBuffer result = new StringBuffer( super.toString() );
+        result.append( " (ident: " );
+        result.append( ident );
+        result.append( ", unique: " );
+        result.append( unique );
+        result.append( ')' );
+        return result.toString();
     }
 
 } //AttributeDefinitionImpl

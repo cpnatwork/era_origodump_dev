@@ -252,13 +252,31 @@ public interface ErfPackage extends EPackage {
     int ATTRIBUTE_DEFINITION__TYPE = IDENTIFIABLE_FEATURE_COUNT + 0;
 
     /**
+     * The feature id for the '<em><b>Ident</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION__IDENT = IDENTIFIABLE_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Unique</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION__UNIQUE = IDENTIFIABLE_FEATURE_COUNT + 2;
+
+    /**
      * The number of structural features of the '<em>Attribute Definition</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ATTRIBUTE_DEFINITION_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 1;
+    int ATTRIBUTE_DEFINITION_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 3;
 
     /**
      * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -730,6 +748,24 @@ public interface ErfPackage extends EPackage {
     int ATTRIBUTE_DEFINITION_SIMPLE__TYPE = ATTRIBUTE_DEFINITION__TYPE;
 
     /**
+     * The feature id for the '<em><b>Ident</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_SIMPLE__IDENT = ATTRIBUTE_DEFINITION__IDENT;
+
+    /**
+     * The feature id for the '<em><b>Unique</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_SIMPLE__UNIQUE = ATTRIBUTE_DEFINITION__UNIQUE;
+
+    /**
      * The feature id for the '<em><b>Default Value</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -841,6 +877,28 @@ public interface ErfPackage extends EPackage {
      * @generated
      */
     EReference getAttributeDefinition_Type();
+
+    /**
+     * Returns the meta object for the attribute '{@link era.foss.erf.AttributeDefinition#isIdent <em>Ident</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Ident</em>'.
+     * @see era.foss.erf.AttributeDefinition#isIdent()
+     * @see #getAttributeDefinition()
+     * @generated
+     */
+    EAttribute getAttributeDefinition_Ident();
+
+    /**
+     * Returns the meta object for the attribute '{@link era.foss.erf.AttributeDefinition#isUnique <em>Unique</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Unique</em>'.
+     * @see era.foss.erf.AttributeDefinition#isUnique()
+     * @see #getAttributeDefinition()
+     * @generated
+     */
+    EAttribute getAttributeDefinition_Unique();
 
     /**
      * Returns the meta object for class '{@link era.foss.erf.AttributeValue <em>Attribute Value</em>}'.
@@ -1197,6 +1255,20 @@ public interface ErfPackage extends EPackage {
          * @generated
          */
         EReference ATTRIBUTE_DEFINITION__TYPE = eINSTANCE.getAttributeDefinition_Type();
+        /**
+         * The meta object literal for the '<em><b>Ident</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ATTRIBUTE_DEFINITION__IDENT = eINSTANCE.getAttributeDefinition_Ident();
+        /**
+         * The meta object literal for the '<em><b>Unique</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ATTRIBUTE_DEFINITION__UNIQUE = eINSTANCE.getAttributeDefinition_Unique();
         /**
          * The meta object literal for the '{@link era.foss.erf.impl.AttributeValueImpl <em>Attribute Value</em>}' class.
          * <!-- begin-user-doc -->

@@ -7,7 +7,7 @@ package era.foss.erf;
  */
 public interface DatatypeDefinitionString extends DatatypeDefinitionSimple {
     /**
-     * @model unsettable="true" unique="false" ordered="false"
+     * @model unsettable="true" ordered="false" annotation="UI Detail='true'"
      */
     public Integer getMaxLength();
 

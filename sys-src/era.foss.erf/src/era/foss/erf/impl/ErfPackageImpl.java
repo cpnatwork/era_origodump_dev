@@ -237,6 +237,24 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getAttributeDefinition_Ident() {
+        return (EAttribute)attributeDefinitionEClass.getEStructuralFeatures().get( 1 );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAttributeDefinition_Unique() {
+        return (EAttribute)attributeDefinitionEClass.getEStructuralFeatures().get( 2 );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getAttributeValue() {
         return attributeValueEClass;
     }
@@ -532,6 +550,8 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         // Create classes and their features
         attributeDefinitionEClass = createEClass( ATTRIBUTE_DEFINITION );
         createEReference( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__TYPE );
+        createEAttribute( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__IDENT );
+        createEAttribute( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__UNIQUE );
 
         attributeValueEClass = createEClass( ATTRIBUTE_VALUE );
 
@@ -645,6 +665,36 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         IS_UNIQUE,
                         !IS_DERIVED,
                         IS_ORDERED );
+        initEAttribute( getAttributeDefinition_Ident(),
+                        ecorePackage.getEBoolean(),
+                        "ident",
+                        "false",
+                        1,
+                        1,
+                        AttributeDefinition.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_UNSETTABLE,
+                        !IS_ID,
+                        IS_UNIQUE,
+                        !IS_DERIVED,
+                        !IS_ORDERED );
+        initEAttribute( getAttributeDefinition_Unique(),
+                        ecorePackage.getEBoolean(),
+                        "unique",
+                        "false",
+                        1,
+                        1,
+                        AttributeDefinition.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_UNSETTABLE,
+                        !IS_ID,
+                        !IS_UNIQUE,
+                        !IS_DERIVED,
+                        !IS_ORDERED );
 
         initEClass( attributeValueEClass,
                     AttributeValue.class,
@@ -791,7 +841,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         IS_CHANGEABLE,
                         IS_UNSETTABLE,
                         !IS_ID,
-                        !IS_UNIQUE,
+                        IS_UNIQUE,
                         !IS_DERIVED,
                         !IS_ORDERED );
         initEAttribute( getDatatypeDefinitionInteger_Min(),
@@ -806,7 +856,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         IS_CHANGEABLE,
                         IS_UNSETTABLE,
                         !IS_ID,
-                        !IS_UNIQUE,
+                        IS_UNIQUE,
                         !IS_DERIVED,
                         !IS_ORDERED );
 
@@ -835,7 +885,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         IS_CHANGEABLE,
                         IS_UNSETTABLE,
                         !IS_ID,
-                        !IS_UNIQUE,
+                        IS_UNIQUE,
                         !IS_DERIVED,
                         !IS_ORDERED );
 
@@ -996,8 +1046,25 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         createResource( eNS_URI );
 
         // Create annotations
+        // UI
+        createUIAnnotations();
         // http://www.eclipse.org/emf/2002/Ecore
         createEcoreAnnotations();
+    }
+
+    /**
+     * Initializes the annotations for <b>UI</b>.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void createUIAnnotations() {
+        String source = "UI";
+        addAnnotation( getAttributeDefinition_Ident(), source, new String[]{"Detail", "true"} );
+        addAnnotation( getAttributeDefinition_Unique(), source, new String[]{"Detail", "true"} );
+        addAnnotation( getDatatypeDefinitionInteger_Max(), source, new String[]{"Detail", "true"} );
+        addAnnotation( getDatatypeDefinitionInteger_Min(), source, new String[]{"Detail", "true"} );
+        addAnnotation( getDatatypeDefinitionString_MaxLength(), source, new String[]{"Detail", "true"} );
     }
 
     /**

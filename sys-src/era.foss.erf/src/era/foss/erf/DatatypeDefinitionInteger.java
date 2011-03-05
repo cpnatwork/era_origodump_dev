@@ -8,7 +8,7 @@ package era.foss.erf;
 public interface DatatypeDefinitionInteger extends DatatypeDefinitionSimple {
 
     /**
-     * @model unsettable="true" unique="false" ordered="false"
+     * @model unsettable="true" ordered="false" annotation="UI Detail='true'"
      * @return
      */
     public Integer getMax();
@@ -49,7 +49,7 @@ public interface DatatypeDefinitionInteger extends DatatypeDefinitionSimple {
     boolean isSetMax();
 
     /**
-     * @model unsettable="true" unique="false" ordered="false"
+     * @model unsettable="true" ordered="false" annotation="UI Detail='true'"
      * @return 
      */
     public Integer getMin();

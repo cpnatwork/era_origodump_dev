@@ -65,5 +65,7 @@ public final class Activator extends EMFPlugin {
             plugin = this;
         }
     }
+    
+
 
 }

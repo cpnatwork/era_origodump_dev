@@ -22,6 +22,8 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
  * This is the item provider adapter for a {@link era.foss.erf.AttributeDefinition} object.
@@ -53,6 +55,8 @@ public class AttributeDefinitionItemProvider extends IdentifiableItemProvider im
             super.getPropertyDescriptors( object );
 
             addTypePropertyDescriptor( object );
+            addIdentPropertyDescriptor( object );
+            addUniquePropertyDescriptor( object );
         }
         return itemPropertyDescriptors;
     }
@@ -75,6 +79,50 @@ public class AttributeDefinitionItemProvider extends IdentifiableItemProvider im
                                                                    false,
                                                                    true,
                                                                    null,
+                                                                   null,
+                                                                   null ) );
+    }
+
+    /**
+     * This adds a property descriptor for the Ident feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addIdentPropertyDescriptor( Object object ) {
+        itemPropertyDescriptors.add( createItemPropertyDescriptor( ((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                                                                   getResourceLocator(),
+                                                                   getString( "_UI_AttributeDefinition_ident_feature" ),
+                                                                   getString( "_UI_PropertyDescriptor_description",
+                                                                              "_UI_AttributeDefinition_ident_feature",
+                                                                              "_UI_AttributeDefinition_type" ),
+                                                                   ErfPackage.Literals.ATTRIBUTE_DEFINITION__IDENT,
+                                                                   true,
+                                                                   false,
+                                                                   false,
+                                                                   ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+                                                                   null,
+                                                                   null ) );
+    }
+
+    /**
+     * This adds a property descriptor for the Unique feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addUniquePropertyDescriptor( Object object ) {
+        itemPropertyDescriptors.add( createItemPropertyDescriptor( ((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                                                                   getResourceLocator(),
+                                                                   getString( "_UI_AttributeDefinition_unique_feature" ),
+                                                                   getString( "_UI_PropertyDescriptor_description",
+                                                                              "_UI_AttributeDefinition_unique_feature",
+                                                                              "_UI_AttributeDefinition_type" ),
+                                                                   ErfPackage.Literals.ATTRIBUTE_DEFINITION__UNIQUE,
+                                                                   true,
+                                                                   false,
+                                                                   false,
+                                                                   ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
                                                                    null,
                                                                    null ) );
     }
@@ -103,6 +151,13 @@ public class AttributeDefinitionItemProvider extends IdentifiableItemProvider im
     @Override
     public void notifyChanged( Notification notification ) {
         updateChildren( notification );
+
+        switch (notification.getFeatureID( AttributeDefinition.class )) {
+        case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
+        case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
+            fireNotifyChanged( new ViewerNotification( notification, notification.getNotifier(), false, true ) );
+            return;
+        }
         super.notifyChanged( notification );
     }
 
