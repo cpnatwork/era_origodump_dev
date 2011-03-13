@@ -26,10 +26,9 @@ public class RifExportWizard extends Wizard implements IExportWizard {
     /**
      * @param selection
      */
-    @SuppressWarnings("unchecked")
     private List<IFile> getWhiteCheckedInputResources( IStructuredSelection selection ) {
         List<IFile> erfFileList = new ArrayList<IFile>();
-        Iterator fileIter = selection.iterator();
+        Iterator<?> fileIter = selection.iterator();
         while (fileIter.hasNext()) {
             // check if selected element is a file
             Object file = fileIter.next();

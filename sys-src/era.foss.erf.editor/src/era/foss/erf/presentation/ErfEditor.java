@@ -1201,7 +1201,7 @@ public class ErfEditor extends MultiPageEditorPart implements IEditingDomainProv
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     @Override
     public Object getAdapter( Class key ) {
         if( key.equals( IContentOutlinePage.class ) ) {

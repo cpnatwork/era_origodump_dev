@@ -670,9 +670,8 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
     /**
      * This is how the framework determines which interfaces we implement.
      */
-    @SuppressWarnings("unchecked")
     @Override
-    public Object getAdapter( Class key ) {
+    public Object getAdapter( @SuppressWarnings("rawtypes") Class key ) {
         if( key.equals( IContentOutlinePage.class ) ) {
             return showOutlineView() ? getContentOutlinePage() : null;
         } else if( key.equals( IPropertySheetPage.class ) ) {
