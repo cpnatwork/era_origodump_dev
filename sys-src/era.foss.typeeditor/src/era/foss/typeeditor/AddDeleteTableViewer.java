@@ -1,28 +1,32 @@
 package era.foss.typeeditor;
 
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.observable.ChangeEvent;
+import org.eclipse.core.databinding.observable.IChangeListener;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.databinding.edit.EMFEditProperties;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
-import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.jface.databinding.swt.WidgetProperties;
+import org.eclipse.jface.databinding.viewers.ViewerProperties;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.ColumnViewerEditor;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationEvent;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationStrategy;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerEditor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -37,8 +41,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 
-import era.foss.erf.Identifiable;
 import era.foss.erf.ErfPackage;
+import era.foss.erf.Identifiable;
 import era.foss.erf.impl.ErfFactoryImpl;
 
 /**
@@ -88,6 +92,10 @@ public class AddDeleteTableViewer extends TableViewer {
 
     private int activeColumn;
 
+    //
+    private DataBindingContext dataBindContext;
+    private IObservableValue master;
+
     /**
      * @see TableViewer
      */
@@ -111,12 +119,27 @@ public class AddDeleteTableViewer extends TableViewer {
         super( new Composite( new Composite( parent, SWT.NONE ), SWT.NONE ), style );
         table = this.getTable();
         this.typeEditorActivator = era.foss.typeeditor.Activator.INSTANCE;
-
         layoutComposite();
         createButtonBar();
-        createDescriptionField();
         setupTable();
+        createDescriptionField();
         triggerColumnSelectedColumn();
+        
+        parent.addDisposeListener( new DisposeListener() {
+            
+            @Override
+            public void widgetDisposed( DisposeEvent e ) {
+                AddDeleteTableViewer.this.dispose();
+            }
+        });
+    }
+
+    /**
+     * Dispose observable to avoid listener leaking
+     */
+    protected void dispose() {
+        master.dispose();
+        dataBindContext.dispose();
     }
 
     /**
@@ -192,46 +215,57 @@ public class AddDeleteTableViewer extends TableViewer {
         descriptionLabel.setLayoutData( new GridData( SWT.LEFT, SWT.BOTTOM, false, false, 0, 0 ) );
 
         // Text widget for the general Description attribute of any ERF-Identifiable
-        descriptionText = new Text( composite, SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL );
+        // descriptionText = new Text( composite, SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL );
+        descriptionText = new Text( composite, SWT.BORDER );
         descriptionText.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true, 0, 0 ) );
-        descriptionText.setEditable( false );
-
-        // Listener: absorb Text modification into model
-        descriptionText.addModifyListener( new ModifyListener() {
-            public void modifyText( ModifyEvent e ) {
-                if( descriptionText.isEnabled() ) {
-                    IStructuredSelection selection = (IStructuredSelection)AddDeleteTableViewer.this.getSelection();
-                    assert (selection != null);
-                    Identifiable identifiable = (Identifiable)selection.getFirstElement();
-                    Command command = SetCommand.create( editingDomain,
-                                                         identifiable,
-                                                         ErfPackage.eINSTANCE.getIdentifiable_Desc(),
-                                                         descriptionText.getText() );
-                    editingDomain.getCommandStack().execute( command );
+        descriptionText.setEnabled( false );
+        // bind values
+        master=ViewerProperties.singleSelection().observe( this );
+        
+        dataBindContext = new DataBindingContext();
+        dataBindContext.bindValue( WidgetProperties.text( SWT.Modify ).observeDelayed( 400,
+                                                                                     descriptionText ),
+                                 EMFEditProperties.value( editingDomain,
+                                                          ErfPackage.Literals.IDENTIFIABLE__DESC )
+                                                  .observeDetail( master ) );
+        
+        /* We only need the listener as the F****** data binding  can't handle null
+         * pointer as value of the master object at the time the various
+         * listeners are created.
+         * Maybe this has something to do with the fact that the data binding stuff
+         * automatically creates common converters (e.g.  int -> string,...)
+         * but on the other hand... EMF knows everything and especially the 
+         * type... 
+         * 
+         * However a null pointer is OK once a data binding has been created where
+         * the value of the master object is not null.
+         * 
+         * This is major crap...
+         */
+        master.addChangeListener( new IChangeListener() {
+            @Override
+            public void handleChange( ChangeEvent event ) {
+                /*
+                 * create data binding as soon the master observable points to an object
+                 */
+                if( master.getValue() == null ) {
+                    descriptionText.setEnabled( false );
+                } else {
+                    descriptionText.setEnabled( true );
+                    if( dataBindContext == null ) {
+                        dataBindContext = new DataBindingContext();
+                        dataBindContext.bindValue( WidgetProperties.text( SWT.Modify )
+                                                                   .observeDelayed( 400, descriptionText ),
+                                                   EMFEditProperties.value( editingDomain,
+                                                                            ErfPackage.Literals.IDENTIFIABLE__DESC )
+                                                                    .observeDetail( master ) );
+                    }
                 }
-            }
-
-        } );
-
-        // Listener: selection change (left side => update Text widget for newly focused ERF-Identifiable's description)
-        this.addSelectionChangedListener( new ISelectionChangedListener() {
-            public void selectionChanged( SelectionChangedEvent event ) {
-
-                descriptionText.setEnabled( false );
-                descriptionText.setEditable( false );
-                IStructuredSelection selection = (IStructuredSelection)event.getSelection();
-                if( selection.isEmpty() ) {
-                    descriptionText.setText( "" );
-                    return;
-                }
-                Identifiable identifiable = (Identifiable)selection.getFirstElement();
-                descriptionText.setText( identifiable.getDesc() );
-                descriptionText.setEnabled( true );
-                descriptionText.setEditable( true );
-                descriptionText.redraw();
             }
         } );
     }
+
+
 
     /**
      * Create a button bar holding the Add and Remove Button

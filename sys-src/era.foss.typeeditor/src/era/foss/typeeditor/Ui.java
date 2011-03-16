@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.databinding.swt.SWTObservables;
+import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
@@ -57,8 +58,7 @@ public class Ui {
         text.setLayoutData( new GridData( SWT.FILL, SWT.DEFAULT, true, false ) );  
         
         // bind values
-        dataBindContext.bindValue( SWTObservables.observeText( text ),
-                                   //WidgetProperties.text( SWT.Modify ).observeDelayed( 400, text ),
+        dataBindContext.bindValue(WidgetProperties.text( SWT.Modify ).observeDelayed( 400, text ),
                                    EMFEditProperties.value( editingDomain,eAttribute ).observeDetail( master ) );
     }
 

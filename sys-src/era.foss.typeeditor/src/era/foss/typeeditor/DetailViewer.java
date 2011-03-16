@@ -1,8 +1,8 @@
 package era.foss.typeeditor;
 
-import org.eclipse.core.databinding.observable.ChangeEvent;
-import org.eclipse.core.databinding.observable.IChangeListener;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.core.databinding.observable.value.IValueChangeListener;
+import org.eclipse.core.databinding.observable.value.ValueChangeEvent;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
@@ -26,8 +26,6 @@ public class DetailViewer extends Composite {
     // Ui provides methods for creating Ui elements
     protected Ui ui;
 
-    int masterClassId;
-
     /**
      * Create Composite holding detailed information of a datatype definition
      * 
@@ -48,32 +46,31 @@ public class DetailViewer extends Composite {
         // create UI elements
         this.createControls();
 
-        masterClassId = -1;
-
-        master.addChangeListener( new IChangeListener() {
+        master.addValueChangeListener( new IValueChangeListener() {
 
             @Override
-            public void handleChange( ChangeEvent event ) {
-                // Redraw if the class of the master object is different 
+            public void handleValueChange( ValueChangeEvent event ) {
+                // Redraw if the class of the master object is different
                 // then we have different information
-                Object masterValue = DetailViewer.this.master.getValue();
-                if( masterValue != null
-                    && masterValue instanceof EObject
-                    && ((EObject)masterValue).eClass().getClassifierID() != DetailViewer.this.masterClassId ) {
+                Object newValue = event.diff.getNewValue();
+                Object oldValue = event.diff.getOldValue();
+                if( newValue != null
+                    && newValue instanceof EObject
+                    && ( oldValue == null 
+                         || ( oldValue instanceof EObject 
+                              && ((EObject)newValue).eClass().getClassifierID() != ((EObject)oldValue).eClass().getClassifierID())) ) {
 
-                    // set new Eclass of master object 
-                    DetailViewer.this.masterClassId = ((EObject)masterValue).eClass().getClassifierID();
                     if( ui != null ) {
                         ui.dispose();
                     }
-                    
-                    // Dispose all old UI elements 
+
+                    // Dispose all old UI elements
                     for( Control control : DetailViewer.this.getChildren() ) {
                         control.dispose();
                     }
                     // create new ui elements
                     DetailViewer.this.createControls();
-                    
+
                     // redraw this composite
                     DetailViewer.this.redraw();
                     DetailViewer.this.layout();
@@ -82,7 +79,6 @@ public class DetailViewer extends Composite {
         } );
     }
 
-    
     /**
      * create UI elements according to the attributes of the master element
      */
@@ -116,18 +112,18 @@ public class DetailViewer extends Composite {
             }
         }
     }
-    
 
     /**
-     * Dispose the ui instance
+     * Dispose the ui instance and master observable
      * 
      * @see org.eclipse.swt.widgets.Widget#dispose()
      * @see era.foss.typeeditor.Ui#dispose()
      */
     @Override
     public void dispose() {
-        ui.dispose();
         super.dispose();
+        ui.dispose();
+        master.dispose();
     }
 
 }
