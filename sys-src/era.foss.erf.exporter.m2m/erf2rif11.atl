@@ -51,6 +51,26 @@ rule erfso2rifso {
 			sPECTYPEREF <- erfclass.type.iD
 		)
 }
+
+rule erfsr2rifsr {
+	from 
+		erfclass : erf!SpecRelation
+	to
+		rifelem : rif11!SPECRELATION (
+	    	dESC <- erfclass.desc
+			,iDENTIFIER <- erfclass.iD
+			-- ,lASTCHANGE <- 'THEN'
+			,lONGNAME <- erfclass.longName
+			,tYPE <- rifspectyperef
+			,vALUES <- rifvalues
+			,sOURCE <- rifsource
+			,tARGET <- riftarget
+	    )
+		,rifvalues : rif11!VALUESType2 (aTTRIBUTEVALUESIMPLE <- erfclass.values->select(v | v.oclIsTypeOf(erf!AttributeValueSimple)))
+		,rifspectyperef : rif11!TYPEType4 ( sPECTYPEREF <- erfclass.type.iD )
+		,rifsource : rif11!SOURCEType ( sPECOBJECTREF <- erfclass.source.iD )
+		,riftarget : rif11!TARGETType ( sPECOBJECTREF <- erfclass.target.iD )
+}
 		
 rule erfavs2rifavs {
 	from
@@ -162,6 +182,7 @@ rule erfroot2rifroot {
 			,dATATYPES <- rifdatatypes
 			,sPECTYPES <- rifspectypes
 			,sPECOBJECTS <- rifspecobjects
+			,sPECRELATIONS <- rifspecrelations
 		)
 		,rifdatatypes : rif11!DATATYPESType(
             dATATYPEDEFINITIONINTEGER <- erfclass.coreContent.dataTypes->select(v | v.oclIsTypeOf(erf!DatatypeDefinitionInteger))
@@ -169,5 +190,7 @@ rule erfroot2rifroot {
         )
 		,rifspectypes : rif11!SPECTYPESType (sPECTYPE <- erfclass.coreContent.specTypes)
 		,rifspecobjects : rif11!SPECOBJECTSType1 (sPECOBJECT <- erfclass.coreContent.specObjects)
+		,rifspecrelations : rif11!SPECRELATIONSType1 (sPECRELATION <- erfclass.coreContent.specRelations)
+		
 }
 
