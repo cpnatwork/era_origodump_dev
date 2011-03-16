@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public class ErfAdapterFactory extends AdapterFactoryImpl {
+
     /**
      * The cached model package.
      * <!-- begin-user-doc -->
@@ -59,7 +60,7 @@ public class ErfAdapterFactory extends AdapterFactoryImpl {
             return true;
         }
         if( object instanceof EObject ) {
-            return ((EObject)object).eClass().getEPackage() == modelPackage;
+            return ( (EObject)object ).eClass().getEPackage() == modelPackage;
         }
         return false;
     }
@@ -71,6 +72,7 @@ public class ErfAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     protected ErfSwitch<Adapter> modelSwitch = new ErfSwitch<Adapter>() {
+
         @Override
         public Adapter caseAttributeDefinition( AttributeDefinition object ) {
             return createAttributeDefinitionAdapter();
@@ -144,6 +146,11 @@ public class ErfAdapterFactory extends AdapterFactoryImpl {
         @Override
         public Adapter caseContent( Content object ) {
             return createContentAdapter();
+        }
+
+        @Override
+        public Adapter caseSpecRelation( SpecRelation object ) {
+            return createSpecRelationAdapter();
         }
 
         @Override
@@ -372,6 +379,20 @@ public class ErfAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createContentAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link era.foss.erf.SpecRelation <em>Spec Relation</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see era.foss.erf.SpecRelation
+     * @generated
+     */
+    public Adapter createSpecRelationAdapter() {
         return null;
     }
 

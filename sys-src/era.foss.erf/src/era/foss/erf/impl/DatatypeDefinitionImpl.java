@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EClass;
  * @generated
  */
 public abstract class DatatypeDefinitionImpl extends IdentifiableImpl implements DatatypeDefinition {
+
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

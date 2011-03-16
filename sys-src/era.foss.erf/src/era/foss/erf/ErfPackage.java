@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EReference;
  * @generated
  */
 public interface ErfPackage extends EPackage {
+
     /**
      * The package name.
      * <!-- begin-user-doc -->
@@ -450,13 +451,31 @@ public interface ErfPackage extends EPackage {
     int SPEC_OBJECT__TYPE = SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE;
 
     /**
+     * The feature id for the '<em><b>Sources</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPEC_OBJECT__SOURCES = SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Targets</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPEC_OBJECT__TARGETS = SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES_FEATURE_COUNT + 1;
+
+    /**
      * The number of structural features of the '<em>Spec Object</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SPEC_OBJECT_FEATURE_COUNT = SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES_FEATURE_COUNT + 0;
+    int SPEC_OBJECT_FEATURE_COUNT = SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES_FEATURE_COUNT + 2;
 
     /**
      * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -849,13 +868,104 @@ public interface ErfPackage extends EPackage {
     int CONTENT__DATA_TYPES = 2;
 
     /**
+     * The feature id for the '<em><b>Spec Relations</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTENT__SPEC_RELATIONS = 3;
+
+    /**
      * The number of structural features of the '<em>Content</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CONTENT_FEATURE_COUNT = 3;
+    int CONTENT_FEATURE_COUNT = 4;
+
+    /**
+     * The meta object id for the '{@link era.foss.erf.impl.SpecRelationImpl <em>Spec Relation</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see era.foss.erf.impl.SpecRelationImpl
+     * @see era.foss.erf.impl.ErfPackageImpl#getSpecRelation()
+     * @generated
+     */
+    int SPEC_RELATION = 15;
+
+    /**
+     * The feature id for the '<em><b>ID</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPEC_RELATION__ID = SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__ID;
+
+    /**
+     * The feature id for the '<em><b>Desc</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPEC_RELATION__DESC = SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__DESC;
+
+    /**
+     * The feature id for the '<em><b>Long Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPEC_RELATION__LONG_NAME = SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__LONG_NAME;
+
+    /**
+     * The feature id for the '<em><b>Values</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPEC_RELATION__VALUES = SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES;
+
+    /**
+     * The feature id for the '<em><b>Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPEC_RELATION__TYPE = SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE;
+
+    /**
+     * The feature id for the '<em><b>Source</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPEC_RELATION__SOURCE = SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Target</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPEC_RELATION__TARGET = SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES_FEATURE_COUNT + 1;
+
+    /**
+     * The number of structural features of the '<em>Spec Relation</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPEC_RELATION_FEATURE_COUNT = SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES_FEATURE_COUNT + 2;
 
     /**
      * Returns the meta object for class '{@link era.foss.erf.AttributeDefinition <em>Attribute Definition</em>}'.
@@ -961,6 +1071,28 @@ public interface ErfPackage extends EPackage {
      * @generated
      */
     EClass getSpecObject();
+
+    /**
+     * Returns the meta object for the reference list '{@link era.foss.erf.SpecObject#getSources <em>Sources</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference list '<em>Sources</em>'.
+     * @see era.foss.erf.SpecObject#getSources()
+     * @see #getSpecObject()
+     * @generated
+     */
+    EReference getSpecObject_Sources();
+
+    /**
+     * Returns the meta object for the reference list '{@link era.foss.erf.SpecObject#getTargets <em>Targets</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference list '<em>Targets</em>'.
+     * @see era.foss.erf.SpecObject#getTargets()
+     * @see #getSpecObject()
+     * @generated
+     */
+    EReference getSpecObject_Targets();
 
     /**
      * Returns the meta object for class '{@link era.foss.erf.SpecType <em>Spec Type</em>}'.
@@ -1218,6 +1350,49 @@ public interface ErfPackage extends EPackage {
     EReference getContent_DataTypes();
 
     /**
+     * Returns the meta object for the containment reference list '{@link era.foss.erf.Content#getSpecRelations <em>Spec Relations</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Spec Relations</em>'.
+     * @see era.foss.erf.Content#getSpecRelations()
+     * @see #getContent()
+     * @generated
+     */
+    EReference getContent_SpecRelations();
+
+    /**
+     * Returns the meta object for class '{@link era.foss.erf.SpecRelation <em>Spec Relation</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Spec Relation</em>'.
+     * @see era.foss.erf.SpecRelation
+     * @generated
+     */
+    EClass getSpecRelation();
+
+    /**
+     * Returns the meta object for the reference '{@link era.foss.erf.SpecRelation#getSource <em>Source</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Source</em>'.
+     * @see era.foss.erf.SpecRelation#getSource()
+     * @see #getSpecRelation()
+     * @generated
+     */
+    EReference getSpecRelation_Source();
+
+    /**
+     * Returns the meta object for the reference '{@link era.foss.erf.SpecRelation#getTarget <em>Target</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Target</em>'.
+     * @see era.foss.erf.SpecRelation#getTarget()
+     * @see #getSpecRelation()
+     * @generated
+     */
+    EReference getSpecRelation_Target();
+
+    /**
      * Returns the factory that creates the instances of the model.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1239,6 +1414,7 @@ public interface ErfPackage extends EPackage {
      * @generated
      */
     interface Literals {
+
         /**
          * The meta object literal for the '{@link era.foss.erf.impl.AttributeDefinitionImpl <em>Attribute Definition</em>}' class.
          * <!-- begin-user-doc -->
@@ -1302,14 +1478,16 @@ public interface ErfPackage extends EPackage {
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES = eINSTANCE.getSpecElementWithUserDefinedAttributes_Values();
+        EReference SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES = eINSTANCE
+                .getSpecElementWithUserDefinedAttributes_Values();
         /**
          * The meta object literal for the '<em><b>Type</b></em>' reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE = eINSTANCE.getSpecElementWithUserDefinedAttributes_Type();
+        EReference SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE = eINSTANCE
+                .getSpecElementWithUserDefinedAttributes_Type();
         /**
          * The meta object literal for the '{@link era.foss.erf.impl.SpecObjectImpl <em>Spec Object</em>}' class.
          * <!-- begin-user-doc -->
@@ -1319,6 +1497,20 @@ public interface ErfPackage extends EPackage {
          * @generated
          */
         EClass SPEC_OBJECT = eINSTANCE.getSpecObject();
+        /**
+         * The meta object literal for the '<em><b>Sources</b></em>' reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SPEC_OBJECT__SOURCES = eINSTANCE.getSpecObject_Sources();
+        /**
+         * The meta object literal for the '<em><b>Targets</b></em>' reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SPEC_OBJECT__TARGETS = eINSTANCE.getSpecObject_Targets();
         /**
          * The meta object literal for the '{@link era.foss.erf.impl.SpecTypeImpl <em>Spec Type</em>}' class.
          * <!-- begin-user-doc -->
@@ -1507,6 +1699,36 @@ public interface ErfPackage extends EPackage {
          * @generated
          */
         EReference CONTENT__DATA_TYPES = eINSTANCE.getContent_DataTypes();
+        /**
+         * The meta object literal for the '<em><b>Spec Relations</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference CONTENT__SPEC_RELATIONS = eINSTANCE.getContent_SpecRelations();
+        /**
+         * The meta object literal for the '{@link era.foss.erf.impl.SpecRelationImpl <em>Spec Relation</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see era.foss.erf.impl.SpecRelationImpl
+         * @see era.foss.erf.impl.ErfPackageImpl#getSpecRelation()
+         * @generated
+         */
+        EClass SPEC_RELATION = eINSTANCE.getSpecRelation();
+        /**
+         * The meta object literal for the '<em><b>Source</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SPEC_RELATION__SOURCE = eINSTANCE.getSpecRelation_Source();
+        /**
+         * The meta object literal for the '<em><b>Target</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SPEC_RELATION__TARGET = eINSTANCE.getSpecRelation_Target();
 
     }
 

@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * @generated
  */
 public class ErfFactoryImpl extends EFactoryImpl implements ErfFactory {
+
     /**
      * Creates the default factory implementation.
      * <!-- begin-user-doc -->
@@ -58,25 +59,27 @@ public class ErfFactoryImpl extends EFactoryImpl implements ErfFactory {
      */
     @Override
     public EObject create( EClass eClass ) {
-        switch (eClass.getClassifierID()) {
-        case ErfPackage.SPEC_OBJECT:
-            return createSpecObject();
-        case ErfPackage.SPEC_TYPE:
-            return createSpecType();
-        case ErfPackage.ATTRIBUTE_VALUE_SIMPLE:
-            return createAttributeValueSimple();
-        case ErfPackage.DATATYPE_DEFINITION_INTEGER:
-            return createDatatypeDefinitionInteger();
-        case ErfPackage.DATATYPE_DEFINITION_STRING:
-            return createDatatypeDefinitionString();
-        case ErfPackage.ATTRIBUTE_DEFINITION_SIMPLE:
-            return createAttributeDefinitionSimple();
-        case ErfPackage.ERF:
-            return createERF();
-        case ErfPackage.CONTENT:
-            return createContent();
-        default:
-            throw new IllegalArgumentException( "The class '" + eClass.getName() + "' is not a valid classifier" );
+        switch( eClass.getClassifierID() ) {
+            case ErfPackage.SPEC_OBJECT:
+                return createSpecObject();
+            case ErfPackage.SPEC_TYPE:
+                return createSpecType();
+            case ErfPackage.ATTRIBUTE_VALUE_SIMPLE:
+                return createAttributeValueSimple();
+            case ErfPackage.DATATYPE_DEFINITION_INTEGER:
+                return createDatatypeDefinitionInteger();
+            case ErfPackage.DATATYPE_DEFINITION_STRING:
+                return createDatatypeDefinitionString();
+            case ErfPackage.ATTRIBUTE_DEFINITION_SIMPLE:
+                return createAttributeDefinitionSimple();
+            case ErfPackage.ERF:
+                return createERF();
+            case ErfPackage.CONTENT:
+                return createContent();
+            case ErfPackage.SPEC_RELATION:
+                return createSpecRelation();
+            default:
+                throw new IllegalArgumentException( "The class '" + eClass.getName() + "' is not a valid classifier" );
         }
     }
 
@@ -158,6 +161,16 @@ public class ErfFactoryImpl extends EFactoryImpl implements ErfFactory {
     public Content createContent() {
         ContentImpl content = new ContentImpl();
         return content;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SpecRelation createSpecRelation() {
+        SpecRelationImpl specRelation = new SpecRelationImpl();
+        return specRelation;
     }
 
     /**

@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EClass;
  * @generated
  */
 public abstract class AttributeValueImpl extends IdentifiableImpl implements AttributeValue {
+
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

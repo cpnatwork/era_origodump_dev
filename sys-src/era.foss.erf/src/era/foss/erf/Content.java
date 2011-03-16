@@ -24,4 +24,10 @@ public interface Content extends EObject {
      * @model containment="true"
      */
     public EList<DatatypeDefinition> getDataTypes();
+
+    /**
+     * @model containment="true"
+     */
+    public EList<SpecRelation> getSpecRelations();
+
 }

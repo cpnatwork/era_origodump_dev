@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EClass;
  * @generated
  */
 public abstract class DatatypeDefinitionSimpleImpl extends DatatypeDefinitionImpl implements DatatypeDefinitionSimple {
+
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

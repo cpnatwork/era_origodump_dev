@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * @generated
  */
 public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
+
     /**
      * The cached value of the '{@link #getSpecAttributes() <em>Spec Attributes</em>}' containment reference list.
      * <!-- begin-user-doc -->
@@ -72,10 +73,9 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
      */
     public EList<AttributeDefinition> getSpecAttributes() {
         if( specAttributes == null ) {
-            specAttributes = new EObjectContainmentEList<AttributeDefinition>(
-                AttributeDefinition.class,
-                this,
-                ErfPackage.SPEC_TYPE__SPEC_ATTRIBUTES );
+            specAttributes = new EObjectContainmentEList<AttributeDefinition>( AttributeDefinition.class,
+                                                                               this,
+                                                                               ErfPackage.SPEC_TYPE__SPEC_ATTRIBUTES );
         }
         return specAttributes;
     }
@@ -87,9 +87,9 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
      */
     @Override
     public NotificationChain eInverseRemove( InternalEObject otherEnd, int featureID, NotificationChain msgs ) {
-        switch (featureID) {
-        case ErfPackage.SPEC_TYPE__SPEC_ATTRIBUTES:
-            return ((InternalEList<?>)getSpecAttributes()).basicRemove( otherEnd, msgs );
+        switch( featureID ) {
+            case ErfPackage.SPEC_TYPE__SPEC_ATTRIBUTES:
+                return ( (InternalEList<?>)getSpecAttributes() ).basicRemove( otherEnd, msgs );
         }
         return super.eInverseRemove( otherEnd, featureID, msgs );
     }
@@ -101,9 +101,9 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
      */
     @Override
     public Object eGet( int featureID, boolean resolve, boolean coreType ) {
-        switch (featureID) {
-        case ErfPackage.SPEC_TYPE__SPEC_ATTRIBUTES:
-            return getSpecAttributes();
+        switch( featureID ) {
+            case ErfPackage.SPEC_TYPE__SPEC_ATTRIBUTES:
+                return getSpecAttributes();
         }
         return super.eGet( featureID, resolve, coreType );
     }
@@ -113,14 +113,14 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings( "unchecked" )
     @Override
     public void eSet( int featureID, Object newValue ) {
-        switch (featureID) {
-        case ErfPackage.SPEC_TYPE__SPEC_ATTRIBUTES:
-            getSpecAttributes().clear();
-            getSpecAttributes().addAll( (Collection<? extends AttributeDefinition>)newValue );
-            return;
+        switch( featureID ) {
+            case ErfPackage.SPEC_TYPE__SPEC_ATTRIBUTES:
+                getSpecAttributes().clear();
+                getSpecAttributes().addAll( (Collection<? extends AttributeDefinition>)newValue );
+                return;
         }
         super.eSet( featureID, newValue );
     }
@@ -132,10 +132,10 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
      */
     @Override
     public void eUnset( int featureID ) {
-        switch (featureID) {
-        case ErfPackage.SPEC_TYPE__SPEC_ATTRIBUTES:
-            getSpecAttributes().clear();
-            return;
+        switch( featureID ) {
+            case ErfPackage.SPEC_TYPE__SPEC_ATTRIBUTES:
+                getSpecAttributes().clear();
+                return;
         }
         super.eUnset( featureID );
     }
@@ -147,9 +147,9 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
      */
     @Override
     public boolean eIsSet( int featureID ) {
-        switch (featureID) {
-        case ErfPackage.SPEC_TYPE__SPEC_ATTRIBUTES:
-            return specAttributes != null && !specAttributes.isEmpty();
+        switch( featureID ) {
+            case ErfPackage.SPEC_TYPE__SPEC_ATTRIBUTES:
+                return specAttributes != null && !specAttributes.isEmpty();
         }
         return super.eIsSet( featureID );
     }

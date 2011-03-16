@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public class ErfSwitch<T2> {
+
     /**
      * The cached model package
      * <!-- begin-user-doc -->
@@ -83,112 +84,120 @@ public class ErfSwitch<T2> {
      * @generated
      */
     protected T2 doSwitch( int classifierID, EObject theEObject ) {
-        switch (classifierID) {
-        case ErfPackage.ATTRIBUTE_DEFINITION: {
-            AttributeDefinition attributeDefinition = (AttributeDefinition)theEObject;
-            T2 result = caseAttributeDefinition( attributeDefinition );
-            if( result == null ) result = caseIdentifiable( attributeDefinition );
-            if( result == null ) result = defaultCase( theEObject );
-            return result;
-        }
-        case ErfPackage.ATTRIBUTE_VALUE: {
-            AttributeValue attributeValue = (AttributeValue)theEObject;
-            T2 result = caseAttributeValue( attributeValue );
-            if( result == null ) result = caseIdentifiable( attributeValue );
-            if( result == null ) result = defaultCase( theEObject );
-            return result;
-        }
-        case ErfPackage.DATATYPE_DEFINITION: {
-            DatatypeDefinition datatypeDefinition = (DatatypeDefinition)theEObject;
-            T2 result = caseDatatypeDefinition( datatypeDefinition );
-            if( result == null ) result = caseIdentifiable( datatypeDefinition );
-            if( result == null ) result = defaultCase( theEObject );
-            return result;
-        }
-        case ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES: {
-            SpecElementWithUserDefinedAttributes specElementWithUserDefinedAttributes = (SpecElementWithUserDefinedAttributes)theEObject;
-            T2 result = caseSpecElementWithUserDefinedAttributes( specElementWithUserDefinedAttributes );
-            if( result == null ) result = caseIdentifiable( specElementWithUserDefinedAttributes );
-            if( result == null ) result = defaultCase( theEObject );
-            return result;
-        }
-        case ErfPackage.SPEC_OBJECT: {
-            SpecObject specObject = (SpecObject)theEObject;
-            T2 result = caseSpecObject( specObject );
-            if( result == null ) result = caseSpecElementWithUserDefinedAttributes( specObject );
-            if( result == null ) result = caseIdentifiable( specObject );
-            if( result == null ) result = defaultCase( theEObject );
-            return result;
-        }
-        case ErfPackage.SPEC_TYPE: {
-            SpecType specType = (SpecType)theEObject;
-            T2 result = caseSpecType( specType );
-            if( result == null ) result = caseIdentifiable( specType );
-            if( result == null ) result = defaultCase( theEObject );
-            return result;
-        }
-        case ErfPackage.ATTRIBUTE_VALUE_SIMPLE: {
-            AttributeValueSimple attributeValueSimple = (AttributeValueSimple)theEObject;
-            T2 result = caseAttributeValueSimple( attributeValueSimple );
-            if( result == null ) result = caseAttributeValue( attributeValueSimple );
-            if( result == null ) result = caseIdentifiable( attributeValueSimple );
-            if( result == null ) result = defaultCase( theEObject );
-            return result;
-        }
-        case ErfPackage.DATATYPE_DEFINITION_INTEGER: {
-            DatatypeDefinitionInteger datatypeDefinitionInteger = (DatatypeDefinitionInteger)theEObject;
-            T2 result = caseDatatypeDefinitionInteger( datatypeDefinitionInteger );
-            if( result == null ) result = caseDatatypeDefinitionSimple( datatypeDefinitionInteger );
-            if( result == null ) result = caseDatatypeDefinition( datatypeDefinitionInteger );
-            if( result == null ) result = caseIdentifiable( datatypeDefinitionInteger );
-            if( result == null ) result = defaultCase( theEObject );
-            return result;
-        }
-        case ErfPackage.DATATYPE_DEFINITION_SIMPLE: {
-            DatatypeDefinitionSimple datatypeDefinitionSimple = (DatatypeDefinitionSimple)theEObject;
-            T2 result = caseDatatypeDefinitionSimple( datatypeDefinitionSimple );
-            if( result == null ) result = caseDatatypeDefinition( datatypeDefinitionSimple );
-            if( result == null ) result = caseIdentifiable( datatypeDefinitionSimple );
-            if( result == null ) result = defaultCase( theEObject );
-            return result;
-        }
-        case ErfPackage.DATATYPE_DEFINITION_STRING: {
-            DatatypeDefinitionString datatypeDefinitionString = (DatatypeDefinitionString)theEObject;
-            T2 result = caseDatatypeDefinitionString( datatypeDefinitionString );
-            if( result == null ) result = caseDatatypeDefinitionSimple( datatypeDefinitionString );
-            if( result == null ) result = caseDatatypeDefinition( datatypeDefinitionString );
-            if( result == null ) result = caseIdentifiable( datatypeDefinitionString );
-            if( result == null ) result = defaultCase( theEObject );
-            return result;
-        }
-        case ErfPackage.IDENTIFIABLE: {
-            Identifiable identifiable = (Identifiable)theEObject;
-            T2 result = caseIdentifiable( identifiable );
-            if( result == null ) result = defaultCase( theEObject );
-            return result;
-        }
-        case ErfPackage.ATTRIBUTE_DEFINITION_SIMPLE: {
-            AttributeDefinitionSimple attributeDefinitionSimple = (AttributeDefinitionSimple)theEObject;
-            T2 result = caseAttributeDefinitionSimple( attributeDefinitionSimple );
-            if( result == null ) result = caseAttributeDefinition( attributeDefinitionSimple );
-            if( result == null ) result = caseIdentifiable( attributeDefinitionSimple );
-            if( result == null ) result = defaultCase( theEObject );
-            return result;
-        }
-        case ErfPackage.ERF: {
-            ERF erf = (ERF)theEObject;
-            T2 result = caseERF( erf );
-            if( result == null ) result = defaultCase( theEObject );
-            return result;
-        }
-        case ErfPackage.CONTENT: {
-            Content content = (Content)theEObject;
-            T2 result = caseContent( content );
-            if( result == null ) result = defaultCase( theEObject );
-            return result;
-        }
-        default:
-            return defaultCase( theEObject );
+        switch( classifierID ) {
+            case ErfPackage.ATTRIBUTE_DEFINITION: {
+                AttributeDefinition attributeDefinition = (AttributeDefinition)theEObject;
+                T2 result = caseAttributeDefinition( attributeDefinition );
+                if( result == null ) result = caseIdentifiable( attributeDefinition );
+                if( result == null ) result = defaultCase( theEObject );
+                return result;
+            }
+            case ErfPackage.ATTRIBUTE_VALUE: {
+                AttributeValue attributeValue = (AttributeValue)theEObject;
+                T2 result = caseAttributeValue( attributeValue );
+                if( result == null ) result = caseIdentifiable( attributeValue );
+                if( result == null ) result = defaultCase( theEObject );
+                return result;
+            }
+            case ErfPackage.DATATYPE_DEFINITION: {
+                DatatypeDefinition datatypeDefinition = (DatatypeDefinition)theEObject;
+                T2 result = caseDatatypeDefinition( datatypeDefinition );
+                if( result == null ) result = caseIdentifiable( datatypeDefinition );
+                if( result == null ) result = defaultCase( theEObject );
+                return result;
+            }
+            case ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES: {
+                SpecElementWithUserDefinedAttributes specElementWithUserDefinedAttributes = (SpecElementWithUserDefinedAttributes)theEObject;
+                T2 result = caseSpecElementWithUserDefinedAttributes( specElementWithUserDefinedAttributes );
+                if( result == null ) result = caseIdentifiable( specElementWithUserDefinedAttributes );
+                if( result == null ) result = defaultCase( theEObject );
+                return result;
+            }
+            case ErfPackage.SPEC_OBJECT: {
+                SpecObject specObject = (SpecObject)theEObject;
+                T2 result = caseSpecObject( specObject );
+                if( result == null ) result = caseSpecElementWithUserDefinedAttributes( specObject );
+                if( result == null ) result = caseIdentifiable( specObject );
+                if( result == null ) result = defaultCase( theEObject );
+                return result;
+            }
+            case ErfPackage.SPEC_TYPE: {
+                SpecType specType = (SpecType)theEObject;
+                T2 result = caseSpecType( specType );
+                if( result == null ) result = caseIdentifiable( specType );
+                if( result == null ) result = defaultCase( theEObject );
+                return result;
+            }
+            case ErfPackage.ATTRIBUTE_VALUE_SIMPLE: {
+                AttributeValueSimple attributeValueSimple = (AttributeValueSimple)theEObject;
+                T2 result = caseAttributeValueSimple( attributeValueSimple );
+                if( result == null ) result = caseAttributeValue( attributeValueSimple );
+                if( result == null ) result = caseIdentifiable( attributeValueSimple );
+                if( result == null ) result = defaultCase( theEObject );
+                return result;
+            }
+            case ErfPackage.DATATYPE_DEFINITION_INTEGER: {
+                DatatypeDefinitionInteger datatypeDefinitionInteger = (DatatypeDefinitionInteger)theEObject;
+                T2 result = caseDatatypeDefinitionInteger( datatypeDefinitionInteger );
+                if( result == null ) result = caseDatatypeDefinitionSimple( datatypeDefinitionInteger );
+                if( result == null ) result = caseDatatypeDefinition( datatypeDefinitionInteger );
+                if( result == null ) result = caseIdentifiable( datatypeDefinitionInteger );
+                if( result == null ) result = defaultCase( theEObject );
+                return result;
+            }
+            case ErfPackage.DATATYPE_DEFINITION_SIMPLE: {
+                DatatypeDefinitionSimple datatypeDefinitionSimple = (DatatypeDefinitionSimple)theEObject;
+                T2 result = caseDatatypeDefinitionSimple( datatypeDefinitionSimple );
+                if( result == null ) result = caseDatatypeDefinition( datatypeDefinitionSimple );
+                if( result == null ) result = caseIdentifiable( datatypeDefinitionSimple );
+                if( result == null ) result = defaultCase( theEObject );
+                return result;
+            }
+            case ErfPackage.DATATYPE_DEFINITION_STRING: {
+                DatatypeDefinitionString datatypeDefinitionString = (DatatypeDefinitionString)theEObject;
+                T2 result = caseDatatypeDefinitionString( datatypeDefinitionString );
+                if( result == null ) result = caseDatatypeDefinitionSimple( datatypeDefinitionString );
+                if( result == null ) result = caseDatatypeDefinition( datatypeDefinitionString );
+                if( result == null ) result = caseIdentifiable( datatypeDefinitionString );
+                if( result == null ) result = defaultCase( theEObject );
+                return result;
+            }
+            case ErfPackage.IDENTIFIABLE: {
+                Identifiable identifiable = (Identifiable)theEObject;
+                T2 result = caseIdentifiable( identifiable );
+                if( result == null ) result = defaultCase( theEObject );
+                return result;
+            }
+            case ErfPackage.ATTRIBUTE_DEFINITION_SIMPLE: {
+                AttributeDefinitionSimple attributeDefinitionSimple = (AttributeDefinitionSimple)theEObject;
+                T2 result = caseAttributeDefinitionSimple( attributeDefinitionSimple );
+                if( result == null ) result = caseAttributeDefinition( attributeDefinitionSimple );
+                if( result == null ) result = caseIdentifiable( attributeDefinitionSimple );
+                if( result == null ) result = defaultCase( theEObject );
+                return result;
+            }
+            case ErfPackage.ERF: {
+                ERF erf = (ERF)theEObject;
+                T2 result = caseERF( erf );
+                if( result == null ) result = defaultCase( theEObject );
+                return result;
+            }
+            case ErfPackage.CONTENT: {
+                Content content = (Content)theEObject;
+                T2 result = caseContent( content );
+                if( result == null ) result = defaultCase( theEObject );
+                return result;
+            }
+            case ErfPackage.SPEC_RELATION: {
+                SpecRelation specRelation = (SpecRelation)theEObject;
+                T2 result = caseSpecRelation( specRelation );
+                if( result == null ) result = caseSpecElementWithUserDefinedAttributes( specRelation );
+                if( result == null ) result = caseIdentifiable( specRelation );
+                if( result == null ) result = defaultCase( theEObject );
+                return result;
+            }
+            default:
+                return defaultCase( theEObject );
         }
     }
 
@@ -414,6 +423,21 @@ public class ErfSwitch<T2> {
      * @generated
      */
     public T2 caseContent( Content object ) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Spec Relation</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Spec Relation</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T2 caseSpecRelation( SpecRelation object ) {
         return null;
     }
 

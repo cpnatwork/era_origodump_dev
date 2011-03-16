@@ -20,7 +20,10 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference erf.ecore#//SpecElementWithUserDefinedAttributes/values"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference erf.ecore#//SpecElementWithUserDefinedAttributes/type"/>
     </genClasses>
-    <genClasses ecoreClass="erf.ecore#//SpecObject"/>
+    <genClasses ecoreClass="erf.ecore#//SpecObject">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference erf.ecore#//SpecObject/sources"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference erf.ecore#//SpecObject/targets"/>
+    </genClasses>
     <genClasses ecoreClass="erf.ecore#//SpecType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference erf.ecore#//SpecType/specAttributes"/>
     </genClasses>
@@ -55,6 +58,11 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference erf.ecore#//Content/specObjects"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference erf.ecore#//Content/specTypes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference erf.ecore#//Content/dataTypes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference erf.ecore#//Content/specRelations"/>
+    </genClasses>
+    <genClasses ecoreClass="erf.ecore#//SpecRelation">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference erf.ecore#//SpecRelation/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference erf.ecore#//SpecRelation/target"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

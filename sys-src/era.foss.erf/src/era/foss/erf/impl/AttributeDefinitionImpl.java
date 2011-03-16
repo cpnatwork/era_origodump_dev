@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * @generated
  */
 public abstract class AttributeDefinitionImpl extends IdentifiableImpl implements AttributeDefinition {
+
     /**
      * The cached value of the '{@link #getType() <em>Type</em>}' reference.
      * <!-- begin-user-doc -->
@@ -112,12 +113,12 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
             InternalEObject oldType = (InternalEObject)type;
             type = (DatatypeDefinition)eResolveProxy( oldType );
             if( type != oldType ) {
-                if( eNotificationRequired() ) eNotify( new ENotificationImpl(
-                    this,
-                    Notification.RESOLVE,
-                    ErfPackage.ATTRIBUTE_DEFINITION__TYPE,
-                    oldType,
-                    type ) );
+                if( eNotificationRequired() )
+                    eNotify( new ENotificationImpl( this,
+                                                    Notification.RESOLVE,
+                                                    ErfPackage.ATTRIBUTE_DEFINITION__TYPE,
+                                                    oldType,
+                                                    type ) );
             }
         }
         return type;
@@ -140,12 +141,12 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     public void setType( DatatypeDefinition newType ) {
         DatatypeDefinition oldType = type;
         type = newType;
-        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
-            this,
-            Notification.SET,
-            ErfPackage.ATTRIBUTE_DEFINITION__TYPE,
-            oldType,
-            type ) );
+        if( eNotificationRequired() )
+            eNotify( new ENotificationImpl( this,
+                                            Notification.SET,
+                                            ErfPackage.ATTRIBUTE_DEFINITION__TYPE,
+                                            oldType,
+                                            type ) );
     }
 
     /**
@@ -165,12 +166,12 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     public void setIdent( boolean newIdent ) {
         boolean oldIdent = ident;
         ident = newIdent;
-        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
-            this,
-            Notification.SET,
-            ErfPackage.ATTRIBUTE_DEFINITION__IDENT,
-            oldIdent,
-            ident ) );
+        if( eNotificationRequired() )
+            eNotify( new ENotificationImpl( this,
+                                            Notification.SET,
+                                            ErfPackage.ATTRIBUTE_DEFINITION__IDENT,
+                                            oldIdent,
+                                            ident ) );
     }
 
     /**
@@ -190,12 +191,12 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     public void setUnique( boolean newUnique ) {
         boolean oldUnique = unique;
         unique = newUnique;
-        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
-            this,
-            Notification.SET,
-            ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE,
-            oldUnique,
-            unique ) );
+        if( eNotificationRequired() )
+            eNotify( new ENotificationImpl( this,
+                                            Notification.SET,
+                                            ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE,
+                                            oldUnique,
+                                            unique ) );
     }
 
     /**
@@ -205,14 +206,14 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
      */
     @Override
     public Object eGet( int featureID, boolean resolve, boolean coreType ) {
-        switch (featureID) {
-        case ErfPackage.ATTRIBUTE_DEFINITION__TYPE:
-            if( resolve ) return getType();
-            return basicGetType();
-        case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
-            return isIdent();
-        case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
-            return isUnique();
+        switch( featureID ) {
+            case ErfPackage.ATTRIBUTE_DEFINITION__TYPE:
+                if( resolve ) return getType();
+                return basicGetType();
+            case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
+                return isIdent();
+            case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
+                return isUnique();
         }
         return super.eGet( featureID, resolve, coreType );
     }
@@ -224,16 +225,16 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
      */
     @Override
     public void eSet( int featureID, Object newValue ) {
-        switch (featureID) {
-        case ErfPackage.ATTRIBUTE_DEFINITION__TYPE:
-            setType( (DatatypeDefinition)newValue );
-            return;
-        case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
-            setIdent( (Boolean)newValue );
-            return;
-        case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
-            setUnique( (Boolean)newValue );
-            return;
+        switch( featureID ) {
+            case ErfPackage.ATTRIBUTE_DEFINITION__TYPE:
+                setType( (DatatypeDefinition)newValue );
+                return;
+            case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
+                setIdent( (Boolean)newValue );
+                return;
+            case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
+                setUnique( (Boolean)newValue );
+                return;
         }
         super.eSet( featureID, newValue );
     }
@@ -245,16 +246,16 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
      */
     @Override
     public void eUnset( int featureID ) {
-        switch (featureID) {
-        case ErfPackage.ATTRIBUTE_DEFINITION__TYPE:
-            setType( (DatatypeDefinition)null );
-            return;
-        case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
-            setIdent( IDENT_EDEFAULT );
-            return;
-        case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
-            setUnique( UNIQUE_EDEFAULT );
-            return;
+        switch( featureID ) {
+            case ErfPackage.ATTRIBUTE_DEFINITION__TYPE:
+                setType( (DatatypeDefinition)null );
+                return;
+            case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
+                setIdent( IDENT_EDEFAULT );
+                return;
+            case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
+                setUnique( UNIQUE_EDEFAULT );
+                return;
         }
         super.eUnset( featureID );
     }
@@ -266,13 +267,13 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
      */
     @Override
     public boolean eIsSet( int featureID ) {
-        switch (featureID) {
-        case ErfPackage.ATTRIBUTE_DEFINITION__TYPE:
-            return type != null;
-        case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
-            return ident != IDENT_EDEFAULT;
-        case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
-            return unique != UNIQUE_EDEFAULT;
+        switch( featureID ) {
+            case ErfPackage.ATTRIBUTE_DEFINITION__TYPE:
+                return type != null;
+            case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
+                return ident != IDENT_EDEFAULT;
+            case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
+                return unique != UNIQUE_EDEFAULT;
         }
         return super.eIsSet( featureID );
     }

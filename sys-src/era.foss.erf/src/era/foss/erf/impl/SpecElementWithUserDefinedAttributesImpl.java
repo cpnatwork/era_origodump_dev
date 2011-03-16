@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public abstract class SpecElementWithUserDefinedAttributesImpl extends IdentifiableImpl implements
         SpecElementWithUserDefinedAttributes {
+
     /**
      * The cached value of the '{@link #getValues() <em>Values</em>}' containment reference list.
      * <!-- begin-user-doc -->
@@ -87,10 +88,9 @@ public abstract class SpecElementWithUserDefinedAttributesImpl extends Identifia
      */
     public EList<AttributeValue> getValues() {
         if( values == null ) {
-            values = new EObjectContainmentEList<AttributeValue>(
-                AttributeValue.class,
-                this,
-                ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES );
+            values = new EObjectContainmentEList<AttributeValue>( AttributeValue.class,
+                                                                  this,
+                                                                  ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES );
         }
         return values;
     }
@@ -105,12 +105,12 @@ public abstract class SpecElementWithUserDefinedAttributesImpl extends Identifia
             InternalEObject oldType = (InternalEObject)type;
             type = (SpecType)eResolveProxy( oldType );
             if( type != oldType ) {
-                if( eNotificationRequired() ) eNotify( new ENotificationImpl(
-                    this,
-                    Notification.RESOLVE,
-                    ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE,
-                    oldType,
-                    type ) );
+                if( eNotificationRequired() )
+                    eNotify( new ENotificationImpl( this,
+                                                    Notification.RESOLVE,
+                                                    ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE,
+                                                    oldType,
+                                                    type ) );
             }
         }
         return type;
@@ -133,12 +133,12 @@ public abstract class SpecElementWithUserDefinedAttributesImpl extends Identifia
     public void setType( SpecType newType ) {
         SpecType oldType = type;
         type = newType;
-        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
-            this,
-            Notification.SET,
-            ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE,
-            oldType,
-            type ) );
+        if( eNotificationRequired() )
+            eNotify( new ENotificationImpl( this,
+                                            Notification.SET,
+                                            ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE,
+                                            oldType,
+                                            type ) );
     }
 
     /**
@@ -148,9 +148,9 @@ public abstract class SpecElementWithUserDefinedAttributesImpl extends Identifia
      */
     @Override
     public NotificationChain eInverseRemove( InternalEObject otherEnd, int featureID, NotificationChain msgs ) {
-        switch (featureID) {
-        case ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES:
-            return ((InternalEList<?>)getValues()).basicRemove( otherEnd, msgs );
+        switch( featureID ) {
+            case ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES:
+                return ( (InternalEList<?>)getValues() ).basicRemove( otherEnd, msgs );
         }
         return super.eInverseRemove( otherEnd, featureID, msgs );
     }
@@ -162,12 +162,12 @@ public abstract class SpecElementWithUserDefinedAttributesImpl extends Identifia
      */
     @Override
     public Object eGet( int featureID, boolean resolve, boolean coreType ) {
-        switch (featureID) {
-        case ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES:
-            return getValues();
-        case ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE:
-            if( resolve ) return getType();
-            return basicGetType();
+        switch( featureID ) {
+            case ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES:
+                return getValues();
+            case ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE:
+                if( resolve ) return getType();
+                return basicGetType();
         }
         return super.eGet( featureID, resolve, coreType );
     }
@@ -177,17 +177,17 @@ public abstract class SpecElementWithUserDefinedAttributesImpl extends Identifia
      * <!-- end-user-doc -->
      * @generated
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings( "unchecked" )
     @Override
     public void eSet( int featureID, Object newValue ) {
-        switch (featureID) {
-        case ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES:
-            getValues().clear();
-            getValues().addAll( (Collection<? extends AttributeValue>)newValue );
-            return;
-        case ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE:
-            setType( (SpecType)newValue );
-            return;
+        switch( featureID ) {
+            case ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES:
+                getValues().clear();
+                getValues().addAll( (Collection<? extends AttributeValue>)newValue );
+                return;
+            case ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE:
+                setType( (SpecType)newValue );
+                return;
         }
         super.eSet( featureID, newValue );
     }
@@ -199,13 +199,13 @@ public abstract class SpecElementWithUserDefinedAttributesImpl extends Identifia
      */
     @Override
     public void eUnset( int featureID ) {
-        switch (featureID) {
-        case ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES:
-            getValues().clear();
-            return;
-        case ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE:
-            setType( (SpecType)null );
-            return;
+        switch( featureID ) {
+            case ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES:
+                getValues().clear();
+                return;
+            case ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE:
+                setType( (SpecType)null );
+                return;
         }
         super.eUnset( featureID );
     }
@@ -217,11 +217,11 @@ public abstract class SpecElementWithUserDefinedAttributesImpl extends Identifia
      */
     @Override
     public boolean eIsSet( int featureID ) {
-        switch (featureID) {
-        case ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES:
-            return values != null && !values.isEmpty();
-        case ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE:
-            return type != null;
+        switch( featureID ) {
+            case ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES:
+                return values != null && !values.isEmpty();
+            case ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE:
+                return type != null;
         }
         return super.eIsSet( featureID );
     }

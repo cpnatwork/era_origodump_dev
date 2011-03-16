@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EFactory;
  * @generated
  */
 public interface ErfFactory extends EFactory {
+
     /**
      * The singleton instance of the factory.
      * <!-- begin-user-doc -->
@@ -96,6 +97,15 @@ public interface ErfFactory extends EFactory {
      * @generated
      */
     Content createContent();
+
+    /**
+     * Returns a new object of class '<em>Spec Relation</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Spec Relation</em>'.
+     * @generated
+     */
+    SpecRelation createSpecRelation();
 
     /**
      * Returns the package supported by this factory.

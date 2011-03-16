@@ -20,6 +20,7 @@ import era.foss.erf.ErfFactory;
 import era.foss.erf.ErfPackage;
 import era.foss.erf.SpecElementWithUserDefinedAttributes;
 import era.foss.erf.SpecObject;
+import era.foss.erf.SpecRelation;
 import era.foss.erf.SpecType;
 import era.foss.erf.util.ErfValidator;
 
@@ -40,6 +41,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
  * @generated
  */
 public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
+
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -146,6 +148,13 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     private EClass contentEClass = null;
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass specRelationEClass = null;
+
+    /**
      * Creates an instance of the model <b>Package</b>, registered with
      * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
      * package URI value.
@@ -187,9 +196,9 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         if( isInited ) return (ErfPackage)EPackage.Registry.INSTANCE.getEPackage( ErfPackage.eNS_URI );
 
         // Obtain or create and register package
-        ErfPackageImpl theErfPackage = (ErfPackageImpl)(EPackage.Registry.INSTANCE.get( eNS_URI ) instanceof ErfPackageImpl
-            ? EPackage.Registry.INSTANCE.get( eNS_URI )
-            : new ErfPackageImpl());
+        ErfPackageImpl theErfPackage = (ErfPackageImpl)( EPackage.Registry.INSTANCE.get( eNS_URI ) instanceof ErfPackageImpl ? EPackage.Registry.INSTANCE
+                .get( eNS_URI )
+                : new ErfPackageImpl() );
 
         isInited = true;
 
@@ -201,6 +210,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
 
         // Register package validator
         EValidator.Registry.INSTANCE.put( theErfPackage, new EValidator.Descriptor() {
+
             public EValidator getEValidator() {
                 return ErfValidator.INSTANCE;
             }
@@ -302,6 +312,24 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
      */
     public EClass getSpecObject() {
         return specObjectEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSpecObject_Sources() {
+        return (EReference)specObjectEClass.getEStructuralFeatures().get( 0 );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSpecObject_Targets() {
+        return (EReference)specObjectEClass.getEStructuralFeatures().get( 1 );
     }
 
     /**
@@ -525,6 +553,42 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getContent_SpecRelations() {
+        return (EReference)contentEClass.getEStructuralFeatures().get( 3 );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getSpecRelation() {
+        return specRelationEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSpecRelation_Source() {
+        return (EReference)specRelationEClass.getEStructuralFeatures().get( 0 );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSpecRelation_Target() {
+        return (EReference)specRelationEClass.getEStructuralFeatures().get( 1 );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public ErfFactory getErfFactory() {
         return (ErfFactory)getEFactoryInstance();
     }
@@ -558,11 +622,12 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         datatypeDefinitionEClass = createEClass( DATATYPE_DEFINITION );
 
         specElementWithUserDefinedAttributesEClass = createEClass( SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES );
-        createEReference( specElementWithUserDefinedAttributesEClass,
-                          SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES );
+        createEReference( specElementWithUserDefinedAttributesEClass, SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES );
         createEReference( specElementWithUserDefinedAttributesEClass, SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE );
 
         specObjectEClass = createEClass( SPEC_OBJECT );
+        createEReference( specObjectEClass, SPEC_OBJECT__SOURCES );
+        createEReference( specObjectEClass, SPEC_OBJECT__TARGETS );
 
         specTypeEClass = createEClass( SPEC_TYPE );
         createEReference( specTypeEClass, SPEC_TYPE__SPEC_ATTRIBUTES );
@@ -597,6 +662,11 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         createEReference( contentEClass, CONTENT__SPEC_OBJECTS );
         createEReference( contentEClass, CONTENT__SPEC_TYPES );
         createEReference( contentEClass, CONTENT__DATA_TYPES );
+        createEReference( contentEClass, CONTENT__SPEC_RELATIONS );
+
+        specRelationEClass = createEClass( SPEC_RELATION );
+        createEReference( specRelationEClass, SPEC_RELATION__SOURCE );
+        createEReference( specRelationEClass, SPEC_RELATION__TARGET );
     }
 
     /**
@@ -640,6 +710,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         datatypeDefinitionSimpleEClass.getESuperTypes().add( this.getDatatypeDefinition() );
         datatypeDefinitionStringEClass.getESuperTypes().add( this.getDatatypeDefinitionSimple() );
         attributeDefinitionSimpleEClass.getESuperTypes().add( this.getAttributeDefinition() );
+        specRelationEClass.getESuperTypes().add( this.getSpecElementWithUserDefinedAttributes() );
 
         // Initialize classes and features; add operations and parameters
         initEClass( attributeDefinitionEClass,
@@ -757,6 +828,40 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                     !IS_ABSTRACT,
                     !IS_INTERFACE,
                     IS_GENERATED_INSTANCE_CLASS );
+        initEReference( getSpecObject_Sources(),
+                        this.getSpecRelation(),
+                        this.getSpecRelation_Target(),
+                        "sources",
+                        null,
+                        1,
+                        -1,
+                        SpecObject.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_COMPOSITE,
+                        IS_RESOLVE_PROXIES,
+                        !IS_UNSETTABLE,
+                        IS_UNIQUE,
+                        !IS_DERIVED,
+                        IS_ORDERED );
+        initEReference( getSpecObject_Targets(),
+                        this.getSpecRelation(),
+                        this.getSpecRelation_Source(),
+                        "targets",
+                        null,
+                        1,
+                        -1,
+                        SpecObject.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_COMPOSITE,
+                        IS_RESOLVE_PROXIES,
+                        !IS_UNSETTABLE,
+                        IS_UNIQUE,
+                        !IS_DERIVED,
+                        IS_ORDERED );
 
         initEClass( specTypeEClass,
                     SpecType.class,
@@ -965,12 +1070,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         !IS_DERIVED,
                         IS_ORDERED );
 
-        initEClass( erfEClass,
-                    era.foss.erf.ERF.class,
-                    "ERF",
-                    !IS_ABSTRACT,
-                    !IS_INTERFACE,
-                    IS_GENERATED_INSTANCE_CLASS );
+        initEClass( erfEClass, era.foss.erf.ERF.class, "ERF", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS );
         initEReference( getERF_CoreContent(),
                         this.getContent(),
                         null,
@@ -1041,6 +1141,64 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         IS_UNIQUE,
                         !IS_DERIVED,
                         IS_ORDERED );
+        initEReference( getContent_SpecRelations(),
+                        this.getSpecRelation(),
+                        null,
+                        "specRelations",
+                        null,
+                        0,
+                        -1,
+                        Content.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        IS_COMPOSITE,
+                        !IS_RESOLVE_PROXIES,
+                        !IS_UNSETTABLE,
+                        IS_UNIQUE,
+                        !IS_DERIVED,
+                        IS_ORDERED );
+
+        initEClass( specRelationEClass,
+                    SpecRelation.class,
+                    "SpecRelation",
+                    !IS_ABSTRACT,
+                    !IS_INTERFACE,
+                    IS_GENERATED_INSTANCE_CLASS );
+        initEReference( getSpecRelation_Source(),
+                        this.getSpecObject(),
+                        this.getSpecObject_Targets(),
+                        "source",
+                        null,
+                        1,
+                        1,
+                        SpecRelation.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_COMPOSITE,
+                        IS_RESOLVE_PROXIES,
+                        !IS_UNSETTABLE,
+                        IS_UNIQUE,
+                        !IS_DERIVED,
+                        IS_ORDERED );
+        initEReference( getSpecRelation_Target(),
+                        this.getSpecObject(),
+                        this.getSpecObject_Sources(),
+                        "target",
+                        null,
+                        1,
+                        1,
+                        SpecRelation.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_COMPOSITE,
+                        IS_RESOLVE_PROXIES,
+                        !IS_UNSETTABLE,
+                        IS_UNIQUE,
+                        !IS_DERIVED,
+                        IS_ORDERED );
 
         // Create resource
         createResource( eNS_URI );
@@ -1060,11 +1218,11 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
      */
     protected void createUIAnnotations() {
         String source = "UI";
-        addAnnotation( getAttributeDefinition_Ident(), source, new String[]{"Detail", "true"} );
-        addAnnotation( getAttributeDefinition_Unique(), source, new String[]{"Detail", "true"} );
-        addAnnotation( getDatatypeDefinitionInteger_Max(), source, new String[]{"Detail", "true"} );
-        addAnnotation( getDatatypeDefinitionInteger_Min(), source, new String[]{"Detail", "true"} );
-        addAnnotation( getDatatypeDefinitionString_MaxLength(), source, new String[]{"Detail", "true"} );
+        addAnnotation( getAttributeDefinition_Ident(), source, new String[] { "Detail", "true" } );
+        addAnnotation( getAttributeDefinition_Unique(), source, new String[] { "Detail", "true" } );
+        addAnnotation( getDatatypeDefinitionInteger_Max(), source, new String[] { "Detail", "true" } );
+        addAnnotation( getDatatypeDefinitionInteger_Min(), source, new String[] { "Detail", "true" } );
+        addAnnotation( getDatatypeDefinitionString_MaxLength(), source, new String[] { "Detail", "true" } );
     }
 
     /**
@@ -1075,12 +1233,10 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
      */
     protected void createEcoreAnnotations() {
         String source = "http://www.eclipse.org/emf/2002/Ecore";
-        addAnnotation( attributeValueSimpleEClass, source, new String[]{
-            "constraints",
-            "DatatypeDefinitionConstraints"} );
-        addAnnotation( datatypeDefinitionIntegerEClass, source, new String[]{
-            "constraints",
-            "NonNegative MaxGreaterThanMin"} );
+        addAnnotation( attributeValueSimpleEClass, source, new String[] { "constraints",
+                                                                         "DatatypeDefinitionConstraints" } );
+        addAnnotation( datatypeDefinitionIntegerEClass, source, new String[] { "constraints",
+                                                                              "NonNegative MaxGreaterThanMin" } );
     }
 
 } //ErfPackageImpl
