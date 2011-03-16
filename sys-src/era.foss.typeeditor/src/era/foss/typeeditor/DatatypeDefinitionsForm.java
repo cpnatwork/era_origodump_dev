@@ -82,7 +82,7 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
         // setup Data type properties viewer
         DetailViewer dataTypeDefinitionDetail = new DetailViewer(
             this,
-            SWT.BORDER,
+            SWT.NONE,
             editingDomain,
             ViewerProperties.singleSelection().observe(tableViewer)
             );

@@ -491,7 +491,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
         // setup Data type properties viewer
         DetailViewer detailViewer = new DetailViewer(
             this,
-            SWT.BORDER,
+            SWT.NONE,
             editingDomain,
             ViewerProperties.singleSelection().observe( tableViewer ) );
         detailViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );

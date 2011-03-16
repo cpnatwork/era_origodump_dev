@@ -1,5 +1,6 @@
 package era.foss.typeeditor;
 
+
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.observable.value.IValueChangeListener;
 import org.eclipse.core.databinding.observable.value.ValueChangeEvent;
@@ -8,9 +9,12 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 
 /**
  * Show attributes of ecore elements using EMF databinding
@@ -25,6 +29,9 @@ public class DetailViewer extends Composite {
 
     // Ui provides methods for creating Ui elements
     protected Ui ui;
+    
+    // Composite holding the controls for the attributes
+    protected Composite attributeComposite;
 
     /**
      * Create Composite holding detailed information of a datatype definition
@@ -38,13 +45,25 @@ public class DetailViewer extends Composite {
         super( parent, style );
         this.editingDomain = editingDomain;
         this.master = master;
+        this.setEnabled( false );
 
         // set-up layout
-        GridLayout gridLayout = new GridLayout( 2, true );
-        this.setLayout( gridLayout );
-
-        // create UI elements
-        this.createControls();
+        GridLayout gridLayout = new GridLayout( 1, true );
+        this.setLayout( gridLayout ); 
+        
+        
+        // create label for detail viewer
+        Label label= new Label (this,SWT.NONE);
+        label.setLayoutData(new GridData(SWT.LEFT,SWT.TOP,true,false,1,1) );
+        label.setText( Activator.INSTANCE.getString( "_UI_DetailViewer_title" )+":" );
+        
+        // Create composite holding the UI elements of the 
+        attributeComposite = new Composite( this, SWT.BORDER );
+        attributeComposite.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
+        attributeComposite.setLayout( new GridLayout(2,false) );
+        
+        // create UI elements for attributes
+        this.createAttributeControls();
 
         master.addValueChangeListener( new IValueChangeListener() {
 
@@ -54,26 +73,25 @@ public class DetailViewer extends Composite {
                 // then we have different information
                 Object newValue = event.diff.getNewValue();
                 Object oldValue = event.diff.getOldValue();
+                           
                 if( newValue != null
                     && newValue instanceof EObject
                     && ( oldValue == null 
                          || ( oldValue instanceof EObject 
                               && ((EObject)newValue).eClass().getClassifierID() != ((EObject)oldValue).eClass().getClassifierID())) ) {
 
-                    if( ui != null ) {
-                        ui.dispose();
-                    }
-
-                    // Dispose all old UI elements
-                    for( Control control : DetailViewer.this.getChildren() ) {
-                        control.dispose();
-                    }
+                    DetailViewer.this.disposeAttributeControls();
+                   
                     // create new ui elements
-                    DetailViewer.this.createControls();
+                    DetailViewer.this.createAttributeControls();
 
                     // redraw this composite
-                    DetailViewer.this.redraw();
-                    DetailViewer.this.layout();
+                    attributeComposite.redraw();
+                    attributeComposite.layout();
+                }
+                if (newValue == null)
+                {
+                    DetailViewer.this.disposeAttributeControls();
                 }
             }
         } );
@@ -82,7 +100,10 @@ public class DetailViewer extends Composite {
     /**
      * create UI elements according to the attributes of the master element
      */
-    protected void createControls() {
+    protected void createAttributeControls() {
+        
+
+ 
         if( master.getValue() != null ) {
             ui = new Ui( editingDomain );
             assert (master.getValue() instanceof EObject);
@@ -100,17 +121,30 @@ public class DetailViewer extends Composite {
                         switch (eAttribute.getEAttributeType().getClassifierID()) {
 
                         case EcorePackage.EBOOLEAN:
-                            ui.createCheckbox( this, eAttribute, master );
+                            ui.createCheckbox( attributeComposite, eAttribute, master );
                             break;
 
                         default:
-                            ui.createText( this, eAttribute, master );
+                            ui.createText( attributeComposite, eAttribute, master );
                         }
                     }
 
                 }
             }
         }
+    }
+    
+    /**
+     * dispose controls created for attributes
+     */
+    protected void disposeAttributeControls() {
+        if( ui != null ) {
+            ui.dispose();
+        }
+        
+        for(Control control : attributeComposite.getChildren() ) {
+            control.dispose();
+        } 
     }
 
     /**
@@ -122,7 +156,7 @@ public class DetailViewer extends Composite {
     @Override
     public void dispose() {
         super.dispose();
-        ui.dispose();
+        this.disposeAttributeControls();
         master.dispose();
     }
 
