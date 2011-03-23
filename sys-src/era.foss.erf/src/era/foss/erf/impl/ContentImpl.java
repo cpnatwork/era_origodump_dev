@@ -111,9 +111,10 @@ public class ContentImpl extends EObjectImpl implements Content {
      */
     public EList<SpecObject> getSpecObjects() {
         if( specObjects == null ) {
-            specObjects = new EObjectContainmentEList<SpecObject>( SpecObject.class,
-                                                                   this,
-                                                                   ErfPackage.CONTENT__SPEC_OBJECTS );
+            specObjects = new EObjectContainmentEList<SpecObject>(
+                SpecObject.class,
+                this,
+                ErfPackage.CONTENT__SPEC_OBJECTS );
         }
         return specObjects;
     }
@@ -137,9 +138,10 @@ public class ContentImpl extends EObjectImpl implements Content {
      */
     public EList<DatatypeDefinition> getDataTypes() {
         if( dataTypes == null ) {
-            dataTypes = new EObjectContainmentEList<DatatypeDefinition>( DatatypeDefinition.class,
-                                                                         this,
-                                                                         ErfPackage.CONTENT__DATA_TYPES );
+            dataTypes = new EObjectContainmentEList<DatatypeDefinition>(
+                DatatypeDefinition.class,
+                this,
+                ErfPackage.CONTENT__DATA_TYPES );
         }
         return dataTypes;
     }
@@ -151,9 +153,10 @@ public class ContentImpl extends EObjectImpl implements Content {
      */
     public EList<SpecRelation> getSpecRelations() {
         if( specRelations == null ) {
-            specRelations = new EObjectContainmentEList<SpecRelation>( SpecRelation.class,
-                                                                       this,
-                                                                       ErfPackage.CONTENT__SPEC_RELATIONS );
+            specRelations = new EObjectContainmentEList<SpecRelation>(
+                SpecRelation.class,
+                this,
+                ErfPackage.CONTENT__SPEC_RELATIONS );
         }
         return specRelations;
     }
@@ -165,15 +168,15 @@ public class ContentImpl extends EObjectImpl implements Content {
      */
     @Override
     public NotificationChain eInverseRemove( InternalEObject otherEnd, int featureID, NotificationChain msgs ) {
-        switch( featureID ) {
-            case ErfPackage.CONTENT__SPEC_OBJECTS:
-                return ( (InternalEList<?>)getSpecObjects() ).basicRemove( otherEnd, msgs );
-            case ErfPackage.CONTENT__SPEC_TYPES:
-                return ( (InternalEList<?>)getSpecTypes() ).basicRemove( otherEnd, msgs );
-            case ErfPackage.CONTENT__DATA_TYPES:
-                return ( (InternalEList<?>)getDataTypes() ).basicRemove( otherEnd, msgs );
-            case ErfPackage.CONTENT__SPEC_RELATIONS:
-                return ( (InternalEList<?>)getSpecRelations() ).basicRemove( otherEnd, msgs );
+        switch (featureID) {
+        case ErfPackage.CONTENT__SPEC_OBJECTS:
+            return ((InternalEList<?>)getSpecObjects()).basicRemove( otherEnd, msgs );
+        case ErfPackage.CONTENT__SPEC_TYPES:
+            return ((InternalEList<?>)getSpecTypes()).basicRemove( otherEnd, msgs );
+        case ErfPackage.CONTENT__DATA_TYPES:
+            return ((InternalEList<?>)getDataTypes()).basicRemove( otherEnd, msgs );
+        case ErfPackage.CONTENT__SPEC_RELATIONS:
+            return ((InternalEList<?>)getSpecRelations()).basicRemove( otherEnd, msgs );
         }
         return super.eInverseRemove( otherEnd, featureID, msgs );
     }
@@ -185,15 +188,15 @@ public class ContentImpl extends EObjectImpl implements Content {
      */
     @Override
     public Object eGet( int featureID, boolean resolve, boolean coreType ) {
-        switch( featureID ) {
-            case ErfPackage.CONTENT__SPEC_OBJECTS:
-                return getSpecObjects();
-            case ErfPackage.CONTENT__SPEC_TYPES:
-                return getSpecTypes();
-            case ErfPackage.CONTENT__DATA_TYPES:
-                return getDataTypes();
-            case ErfPackage.CONTENT__SPEC_RELATIONS:
-                return getSpecRelations();
+        switch (featureID) {
+        case ErfPackage.CONTENT__SPEC_OBJECTS:
+            return getSpecObjects();
+        case ErfPackage.CONTENT__SPEC_TYPES:
+            return getSpecTypes();
+        case ErfPackage.CONTENT__DATA_TYPES:
+            return getDataTypes();
+        case ErfPackage.CONTENT__SPEC_RELATIONS:
+            return getSpecRelations();
         }
         return super.eGet( featureID, resolve, coreType );
     }
@@ -203,26 +206,26 @@ public class ContentImpl extends EObjectImpl implements Content {
      * <!-- end-user-doc -->
      * @generated
      */
-    @SuppressWarnings( "unchecked" )
+    @SuppressWarnings("unchecked")
     @Override
     public void eSet( int featureID, Object newValue ) {
-        switch( featureID ) {
-            case ErfPackage.CONTENT__SPEC_OBJECTS:
-                getSpecObjects().clear();
-                getSpecObjects().addAll( (Collection<? extends SpecObject>)newValue );
-                return;
-            case ErfPackage.CONTENT__SPEC_TYPES:
-                getSpecTypes().clear();
-                getSpecTypes().addAll( (Collection<? extends SpecType>)newValue );
-                return;
-            case ErfPackage.CONTENT__DATA_TYPES:
-                getDataTypes().clear();
-                getDataTypes().addAll( (Collection<? extends DatatypeDefinition>)newValue );
-                return;
-            case ErfPackage.CONTENT__SPEC_RELATIONS:
-                getSpecRelations().clear();
-                getSpecRelations().addAll( (Collection<? extends SpecRelation>)newValue );
-                return;
+        switch (featureID) {
+        case ErfPackage.CONTENT__SPEC_OBJECTS:
+            getSpecObjects().clear();
+            getSpecObjects().addAll( (Collection<? extends SpecObject>)newValue );
+            return;
+        case ErfPackage.CONTENT__SPEC_TYPES:
+            getSpecTypes().clear();
+            getSpecTypes().addAll( (Collection<? extends SpecType>)newValue );
+            return;
+        case ErfPackage.CONTENT__DATA_TYPES:
+            getDataTypes().clear();
+            getDataTypes().addAll( (Collection<? extends DatatypeDefinition>)newValue );
+            return;
+        case ErfPackage.CONTENT__SPEC_RELATIONS:
+            getSpecRelations().clear();
+            getSpecRelations().addAll( (Collection<? extends SpecRelation>)newValue );
+            return;
         }
         super.eSet( featureID, newValue );
     }
@@ -234,19 +237,19 @@ public class ContentImpl extends EObjectImpl implements Content {
      */
     @Override
     public void eUnset( int featureID ) {
-        switch( featureID ) {
-            case ErfPackage.CONTENT__SPEC_OBJECTS:
-                getSpecObjects().clear();
-                return;
-            case ErfPackage.CONTENT__SPEC_TYPES:
-                getSpecTypes().clear();
-                return;
-            case ErfPackage.CONTENT__DATA_TYPES:
-                getDataTypes().clear();
-                return;
-            case ErfPackage.CONTENT__SPEC_RELATIONS:
-                getSpecRelations().clear();
-                return;
+        switch (featureID) {
+        case ErfPackage.CONTENT__SPEC_OBJECTS:
+            getSpecObjects().clear();
+            return;
+        case ErfPackage.CONTENT__SPEC_TYPES:
+            getSpecTypes().clear();
+            return;
+        case ErfPackage.CONTENT__DATA_TYPES:
+            getDataTypes().clear();
+            return;
+        case ErfPackage.CONTENT__SPEC_RELATIONS:
+            getSpecRelations().clear();
+            return;
         }
         super.eUnset( featureID );
     }
@@ -258,15 +261,15 @@ public class ContentImpl extends EObjectImpl implements Content {
      */
     @Override
     public boolean eIsSet( int featureID ) {
-        switch( featureID ) {
-            case ErfPackage.CONTENT__SPEC_OBJECTS:
-                return specObjects != null && !specObjects.isEmpty();
-            case ErfPackage.CONTENT__SPEC_TYPES:
-                return specTypes != null && !specTypes.isEmpty();
-            case ErfPackage.CONTENT__DATA_TYPES:
-                return dataTypes != null && !dataTypes.isEmpty();
-            case ErfPackage.CONTENT__SPEC_RELATIONS:
-                return specRelations != null && !specRelations.isEmpty();
+        switch (featureID) {
+        case ErfPackage.CONTENT__SPEC_OBJECTS:
+            return specObjects != null && !specObjects.isEmpty();
+        case ErfPackage.CONTENT__SPEC_TYPES:
+            return specTypes != null && !specTypes.isEmpty();
+        case ErfPackage.CONTENT__DATA_TYPES:
+            return dataTypes != null && !dataTypes.isEmpty();
+        case ErfPackage.CONTENT__SPEC_RELATIONS:
+            return specRelations != null && !specRelations.isEmpty();
         }
         return super.eIsSet( featureID );
     }

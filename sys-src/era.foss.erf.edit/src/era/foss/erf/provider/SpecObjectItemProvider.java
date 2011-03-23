@@ -6,6 +6,7 @@
  */
 package era.foss.erf.provider;
 
+import era.foss.erf.ErfPackage;
 import era.foss.erf.SpecObject;
 
 import java.util.Collection;
@@ -14,6 +15,7 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -51,8 +53,54 @@ public class SpecObjectItemProvider extends SpecElementWithUserDefinedAttributes
         if( itemPropertyDescriptors == null ) {
             super.getPropertyDescriptors( object );
 
+            addSourcesPropertyDescriptor( object );
+            addTargetsPropertyDescriptor( object );
         }
         return itemPropertyDescriptors;
+    }
+
+    /**
+     * This adds a property descriptor for the Sources feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addSourcesPropertyDescriptor( Object object ) {
+        itemPropertyDescriptors.add( createItemPropertyDescriptor( ((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                                                                   getResourceLocator(),
+                                                                   getString( "_UI_SpecObject_sources_feature" ),
+                                                                   getString( "_UI_PropertyDescriptor_description",
+                                                                              "_UI_SpecObject_sources_feature",
+                                                                              "_UI_SpecObject_type" ),
+                                                                   ErfPackage.Literals.SPEC_OBJECT__SOURCES,
+                                                                   true,
+                                                                   false,
+                                                                   true,
+                                                                   null,
+                                                                   null,
+                                                                   null ) );
+    }
+
+    /**
+     * This adds a property descriptor for the Targets feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addTargetsPropertyDescriptor( Object object ) {
+        itemPropertyDescriptors.add( createItemPropertyDescriptor( ((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                                                                   getResourceLocator(),
+                                                                   getString( "_UI_SpecObject_targets_feature" ),
+                                                                   getString( "_UI_PropertyDescriptor_description",
+                                                                              "_UI_SpecObject_targets_feature",
+                                                                              "_UI_SpecObject_type" ),
+                                                                   ErfPackage.Literals.SPEC_OBJECT__TARGETS,
+                                                                   true,
+                                                                   false,
+                                                                   true,
+                                                                   null,
+                                                                   null,
+                                                                   null ) );
     }
 
     /**

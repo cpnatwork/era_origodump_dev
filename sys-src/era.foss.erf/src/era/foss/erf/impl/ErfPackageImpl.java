@@ -196,9 +196,9 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         if( isInited ) return (ErfPackage)EPackage.Registry.INSTANCE.getEPackage( ErfPackage.eNS_URI );
 
         // Obtain or create and register package
-        ErfPackageImpl theErfPackage = (ErfPackageImpl)( EPackage.Registry.INSTANCE.get( eNS_URI ) instanceof ErfPackageImpl ? EPackage.Registry.INSTANCE
-                .get( eNS_URI )
-                : new ErfPackageImpl() );
+        ErfPackageImpl theErfPackage = (ErfPackageImpl)(EPackage.Registry.INSTANCE.get( eNS_URI ) instanceof ErfPackageImpl
+            ? EPackage.Registry.INSTANCE.get( eNS_URI )
+            : new ErfPackageImpl());
 
         isInited = true;
 
@@ -210,7 +210,6 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
 
         // Register package validator
         EValidator.Registry.INSTANCE.put( theErfPackage, new EValidator.Descriptor() {
-
             public EValidator getEValidator() {
                 return ErfValidator.INSTANCE;
             }
@@ -622,7 +621,8 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         datatypeDefinitionEClass = createEClass( DATATYPE_DEFINITION );
 
         specElementWithUserDefinedAttributesEClass = createEClass( SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES );
-        createEReference( specElementWithUserDefinedAttributesEClass, SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES );
+        createEReference( specElementWithUserDefinedAttributesEClass,
+                          SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES );
         createEReference( specElementWithUserDefinedAttributesEClass, SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE );
 
         specObjectEClass = createEClass( SPEC_OBJECT );
@@ -1070,7 +1070,12 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         !IS_DERIVED,
                         IS_ORDERED );
 
-        initEClass( erfEClass, era.foss.erf.ERF.class, "ERF", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS );
+        initEClass( erfEClass,
+                    era.foss.erf.ERF.class,
+                    "ERF",
+                    !IS_ABSTRACT,
+                    !IS_INTERFACE,
+                    IS_GENERATED_INSTANCE_CLASS );
         initEReference( getERF_CoreContent(),
                         this.getContent(),
                         null,
@@ -1218,11 +1223,12 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
      */
     protected void createUIAnnotations() {
         String source = "UI";
-        addAnnotation( getAttributeDefinition_Ident(), source, new String[] { "Detail", "true" } );
-        addAnnotation( getAttributeDefinition_Unique(), source, new String[] { "Detail", "true" } );
-        addAnnotation( getDatatypeDefinitionInteger_Max(), source, new String[] { "Detail", "true" } );
-        addAnnotation( getDatatypeDefinitionInteger_Min(), source, new String[] { "Detail", "true" } );
-        addAnnotation( getDatatypeDefinitionString_MaxLength(), source, new String[] { "Detail", "true" } );
+        addAnnotation( getAttributeDefinition_Ident(), source, new String[]{"Detail", "true"} );
+        addAnnotation( getAttributeDefinition_Unique(), source, new String[]{"Detail", "true"} );
+        addAnnotation( getSpecType_SpecAttributes(), source, new String[]{"ObservedStructuralFeature", "dataTypes"} );
+        addAnnotation( getDatatypeDefinitionInteger_Max(), source, new String[]{"Detail", "true"} );
+        addAnnotation( getDatatypeDefinitionInteger_Min(), source, new String[]{"Detail", "true"} );
+        addAnnotation( getDatatypeDefinitionString_MaxLength(), source, new String[]{"Detail", "true"} );
     }
 
     /**
@@ -1233,10 +1239,12 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
      */
     protected void createEcoreAnnotations() {
         String source = "http://www.eclipse.org/emf/2002/Ecore";
-        addAnnotation( attributeValueSimpleEClass, source, new String[] { "constraints",
-                                                                         "DatatypeDefinitionConstraints" } );
-        addAnnotation( datatypeDefinitionIntegerEClass, source, new String[] { "constraints",
-                                                                              "NonNegative MaxGreaterThanMin" } );
+        addAnnotation( attributeValueSimpleEClass, source, new String[]{
+            "constraints",
+            "DatatypeDefinitionConstraints"} );
+        addAnnotation( datatypeDefinitionIntegerEClass, source, new String[]{
+            "constraints",
+            "NonNegative MaxGreaterThanMin"} );
     }
 
 } //ErfPackageImpl

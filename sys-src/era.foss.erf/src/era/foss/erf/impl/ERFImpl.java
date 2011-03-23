@@ -81,14 +81,14 @@ public class ERFImpl extends EObjectImpl implements ERF {
         Content oldCoreContent = coreContent;
         coreContent = newCoreContent;
         if( eNotificationRequired() ) {
-            ENotificationImpl notification = new ENotificationImpl( this,
-                                                                    Notification.SET,
-                                                                    ErfPackage.ERF__CORE_CONTENT,
-                                                                    oldCoreContent,
-                                                                    newCoreContent );
+            ENotificationImpl notification = new ENotificationImpl(
+                this,
+                Notification.SET,
+                ErfPackage.ERF__CORE_CONTENT,
+                oldCoreContent,
+                newCoreContent );
             if( msgs == null ) msgs = notification;
-            else
-                msgs.add( notification );
+            else msgs.add( notification );
         }
         return msgs;
     }
@@ -101,20 +101,24 @@ public class ERFImpl extends EObjectImpl implements ERF {
     public void setCoreContent( Content newCoreContent ) {
         if( newCoreContent != coreContent ) {
             NotificationChain msgs = null;
-            if( coreContent != null )
-                msgs = ( (InternalEObject)coreContent ).eInverseRemove( this, EOPPOSITE_FEATURE_BASE
-                        - ErfPackage.ERF__CORE_CONTENT, null, msgs );
-            if( newCoreContent != null )
-                msgs = ( (InternalEObject)newCoreContent ).eInverseAdd( this, EOPPOSITE_FEATURE_BASE
-                        - ErfPackage.ERF__CORE_CONTENT, null, msgs );
+            if( coreContent != null ) msgs = ((InternalEObject)coreContent).eInverseRemove( this,
+                                                                                            EOPPOSITE_FEATURE_BASE
+                                                                                                - ErfPackage.ERF__CORE_CONTENT,
+                                                                                            null,
+                                                                                            msgs );
+            if( newCoreContent != null ) msgs = ((InternalEObject)newCoreContent).eInverseAdd( this,
+                                                                                               EOPPOSITE_FEATURE_BASE
+                                                                                                   - ErfPackage.ERF__CORE_CONTENT,
+                                                                                               null,
+                                                                                               msgs );
             msgs = basicSetCoreContent( newCoreContent, msgs );
             if( msgs != null ) msgs.dispatch();
-        } else if( eNotificationRequired() )
-            eNotify( new ENotificationImpl( this,
-                                            Notification.SET,
-                                            ErfPackage.ERF__CORE_CONTENT,
-                                            newCoreContent,
-                                            newCoreContent ) );
+        } else if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            ErfPackage.ERF__CORE_CONTENT,
+            newCoreContent,
+            newCoreContent ) );
     }
 
     /**
@@ -124,9 +128,9 @@ public class ERFImpl extends EObjectImpl implements ERF {
      */
     @Override
     public NotificationChain eInverseRemove( InternalEObject otherEnd, int featureID, NotificationChain msgs ) {
-        switch( featureID ) {
-            case ErfPackage.ERF__CORE_CONTENT:
-                return basicSetCoreContent( null, msgs );
+        switch (featureID) {
+        case ErfPackage.ERF__CORE_CONTENT:
+            return basicSetCoreContent( null, msgs );
         }
         return super.eInverseRemove( otherEnd, featureID, msgs );
     }
@@ -138,9 +142,9 @@ public class ERFImpl extends EObjectImpl implements ERF {
      */
     @Override
     public Object eGet( int featureID, boolean resolve, boolean coreType ) {
-        switch( featureID ) {
-            case ErfPackage.ERF__CORE_CONTENT:
-                return getCoreContent();
+        switch (featureID) {
+        case ErfPackage.ERF__CORE_CONTENT:
+            return getCoreContent();
         }
         return super.eGet( featureID, resolve, coreType );
     }
@@ -152,10 +156,10 @@ public class ERFImpl extends EObjectImpl implements ERF {
      */
     @Override
     public void eSet( int featureID, Object newValue ) {
-        switch( featureID ) {
-            case ErfPackage.ERF__CORE_CONTENT:
-                setCoreContent( (Content)newValue );
-                return;
+        switch (featureID) {
+        case ErfPackage.ERF__CORE_CONTENT:
+            setCoreContent( (Content)newValue );
+            return;
         }
         super.eSet( featureID, newValue );
     }
@@ -167,10 +171,10 @@ public class ERFImpl extends EObjectImpl implements ERF {
      */
     @Override
     public void eUnset( int featureID ) {
-        switch( featureID ) {
-            case ErfPackage.ERF__CORE_CONTENT:
-                setCoreContent( (Content)null );
-                return;
+        switch (featureID) {
+        case ErfPackage.ERF__CORE_CONTENT:
+            setCoreContent( (Content)null );
+            return;
         }
         super.eUnset( featureID );
     }
@@ -182,9 +186,9 @@ public class ERFImpl extends EObjectImpl implements ERF {
      */
     @Override
     public boolean eIsSet( int featureID ) {
-        switch( featureID ) {
-            case ErfPackage.ERF__CORE_CONTENT:
-                return coreContent != null;
+        switch (featureID) {
+        case ErfPackage.ERF__CORE_CONTENT:
+            return coreContent != null;
         }
         return super.eIsSet( featureID );
     }

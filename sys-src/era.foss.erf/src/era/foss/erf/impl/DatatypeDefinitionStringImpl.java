@@ -97,13 +97,13 @@ public class DatatypeDefinitionStringImpl extends DatatypeDefinitionSimpleImpl i
         maxLength = newMaxLength;
         boolean oldMaxLengthESet = maxLengthESet;
         maxLengthESet = true;
-        if( eNotificationRequired() )
-            eNotify( new ENotificationImpl( this,
-                                            Notification.SET,
-                                            ErfPackage.DATATYPE_DEFINITION_STRING__MAX_LENGTH,
-                                            oldMaxLength,
-                                            maxLength,
-                                            !oldMaxLengthESet ) );
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            ErfPackage.DATATYPE_DEFINITION_STRING__MAX_LENGTH,
+            oldMaxLength,
+            maxLength,
+            !oldMaxLengthESet ) );
     }
 
     /**
@@ -116,13 +116,13 @@ public class DatatypeDefinitionStringImpl extends DatatypeDefinitionSimpleImpl i
         boolean oldMaxLengthESet = maxLengthESet;
         maxLength = MAX_LENGTH_EDEFAULT;
         maxLengthESet = false;
-        if( eNotificationRequired() )
-            eNotify( new ENotificationImpl( this,
-                                            Notification.UNSET,
-                                            ErfPackage.DATATYPE_DEFINITION_STRING__MAX_LENGTH,
-                                            oldMaxLength,
-                                            MAX_LENGTH_EDEFAULT,
-                                            oldMaxLengthESet ) );
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.UNSET,
+            ErfPackage.DATATYPE_DEFINITION_STRING__MAX_LENGTH,
+            oldMaxLength,
+            MAX_LENGTH_EDEFAULT,
+            oldMaxLengthESet ) );
     }
 
     /**
@@ -141,9 +141,9 @@ public class DatatypeDefinitionStringImpl extends DatatypeDefinitionSimpleImpl i
      */
     @Override
     public Object eGet( int featureID, boolean resolve, boolean coreType ) {
-        switch( featureID ) {
-            case ErfPackage.DATATYPE_DEFINITION_STRING__MAX_LENGTH:
-                return getMaxLength();
+        switch (featureID) {
+        case ErfPackage.DATATYPE_DEFINITION_STRING__MAX_LENGTH:
+            return getMaxLength();
         }
         return super.eGet( featureID, resolve, coreType );
     }
@@ -155,10 +155,10 @@ public class DatatypeDefinitionStringImpl extends DatatypeDefinitionSimpleImpl i
      */
     @Override
     public void eSet( int featureID, Object newValue ) {
-        switch( featureID ) {
-            case ErfPackage.DATATYPE_DEFINITION_STRING__MAX_LENGTH:
-                setMaxLength( (Integer)newValue );
-                return;
+        switch (featureID) {
+        case ErfPackage.DATATYPE_DEFINITION_STRING__MAX_LENGTH:
+            setMaxLength( (Integer)newValue );
+            return;
         }
         super.eSet( featureID, newValue );
     }
@@ -170,10 +170,10 @@ public class DatatypeDefinitionStringImpl extends DatatypeDefinitionSimpleImpl i
      */
     @Override
     public void eUnset( int featureID ) {
-        switch( featureID ) {
-            case ErfPackage.DATATYPE_DEFINITION_STRING__MAX_LENGTH:
-                unsetMaxLength();
-                return;
+        switch (featureID) {
+        case ErfPackage.DATATYPE_DEFINITION_STRING__MAX_LENGTH:
+            unsetMaxLength();
+            return;
         }
         super.eUnset( featureID );
     }
@@ -185,9 +185,9 @@ public class DatatypeDefinitionStringImpl extends DatatypeDefinitionSimpleImpl i
      */
     @Override
     public boolean eIsSet( int featureID ) {
-        switch( featureID ) {
-            case ErfPackage.DATATYPE_DEFINITION_STRING__MAX_LENGTH:
-                return isSetMaxLength();
+        switch (featureID) {
+        case ErfPackage.DATATYPE_DEFINITION_STRING__MAX_LENGTH:
+            return isSetMaxLength();
         }
         return super.eIsSet( featureID );
     }
@@ -204,8 +204,7 @@ public class DatatypeDefinitionStringImpl extends DatatypeDefinitionSimpleImpl i
         StringBuffer result = new StringBuffer( super.toString() );
         result.append( " (maxLength: " );
         if( maxLengthESet ) result.append( maxLength );
-        else
-            result.append( "<unset>" );
+        else result.append( "<unset>" );
         result.append( ')' );
         return result.toString();
     }

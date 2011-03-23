@@ -1478,16 +1478,14 @@ public interface ErfPackage extends EPackage {
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES = eINSTANCE
-                .getSpecElementWithUserDefinedAttributes_Values();
+        EReference SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES = eINSTANCE.getSpecElementWithUserDefinedAttributes_Values();
         /**
          * The meta object literal for the '<em><b>Type</b></em>' reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE = eINSTANCE
-                .getSpecElementWithUserDefinedAttributes_Type();
+        EReference SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE = eINSTANCE.getSpecElementWithUserDefinedAttributes_Type();
         /**
          * The meta object literal for the '{@link era.foss.erf.impl.SpecObjectImpl <em>Spec Object</em>}' class.
          * <!-- begin-user-doc -->

@@ -325,7 +325,7 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
         tableViewer.setEditingDomain( editingDomain );
         tableViewer.setAddCommandParameter( erfModel.getCoreContent(),
                                             ErfFactoryImpl.eINSTANCE.createDatatypeDefinitionInteger().eClass() );
-        TableColumnLayout columnLayout = tableViewer.getTableColumnLayout();
+        TableColumnLayout columnLayout = (TableColumnLayout) tableViewer.getTable().getParent().getLayout();
         String[] colTitles = {
             typeEditorActivator.getString( "_UI_DataTypeDefinitionName_label" ),
             typeEditorActivator.getString( "_UI_DataTypeDefinitionType_label" )};

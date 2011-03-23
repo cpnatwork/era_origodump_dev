@@ -60,7 +60,7 @@ public class ErfAdapterFactory extends AdapterFactoryImpl {
             return true;
         }
         if( object instanceof EObject ) {
-            return ( (EObject)object ).eClass().getEPackage() == modelPackage;
+            return ((EObject)object).eClass().getEPackage() == modelPackage;
         }
         return false;
     }
@@ -72,7 +72,6 @@ public class ErfAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     protected ErfSwitch<Adapter> modelSwitch = new ErfSwitch<Adapter>() {
-
         @Override
         public Adapter caseAttributeDefinition( AttributeDefinition object ) {
             return createAttributeDefinitionAdapter();

@@ -127,13 +127,13 @@ public class DatatypeDefinitionIntegerImpl extends DatatypeDefinitionSimpleImpl 
         max = newMax;
         boolean oldMaxESet = maxESet;
         maxESet = true;
-        if( eNotificationRequired() )
-            eNotify( new ENotificationImpl( this,
-                                            Notification.SET,
-                                            ErfPackage.DATATYPE_DEFINITION_INTEGER__MAX,
-                                            oldMax,
-                                            max,
-                                            !oldMaxESet ) );
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            ErfPackage.DATATYPE_DEFINITION_INTEGER__MAX,
+            oldMax,
+            max,
+            !oldMaxESet ) );
     }
 
     /**
@@ -146,13 +146,13 @@ public class DatatypeDefinitionIntegerImpl extends DatatypeDefinitionSimpleImpl 
         boolean oldMaxESet = maxESet;
         max = MAX_EDEFAULT;
         maxESet = false;
-        if( eNotificationRequired() )
-            eNotify( new ENotificationImpl( this,
-                                            Notification.UNSET,
-                                            ErfPackage.DATATYPE_DEFINITION_INTEGER__MAX,
-                                            oldMax,
-                                            MAX_EDEFAULT,
-                                            oldMaxESet ) );
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.UNSET,
+            ErfPackage.DATATYPE_DEFINITION_INTEGER__MAX,
+            oldMax,
+            MAX_EDEFAULT,
+            oldMaxESet ) );
     }
 
     /**
@@ -183,13 +183,13 @@ public class DatatypeDefinitionIntegerImpl extends DatatypeDefinitionSimpleImpl 
         min = newMin;
         boolean oldMinESet = minESet;
         minESet = true;
-        if( eNotificationRequired() )
-            eNotify( new ENotificationImpl( this,
-                                            Notification.SET,
-                                            ErfPackage.DATATYPE_DEFINITION_INTEGER__MIN,
-                                            oldMin,
-                                            min,
-                                            !oldMinESet ) );
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            ErfPackage.DATATYPE_DEFINITION_INTEGER__MIN,
+            oldMin,
+            min,
+            !oldMinESet ) );
     }
 
     /**
@@ -202,13 +202,13 @@ public class DatatypeDefinitionIntegerImpl extends DatatypeDefinitionSimpleImpl 
         boolean oldMinESet = minESet;
         min = MIN_EDEFAULT;
         minESet = false;
-        if( eNotificationRequired() )
-            eNotify( new ENotificationImpl( this,
-                                            Notification.UNSET,
-                                            ErfPackage.DATATYPE_DEFINITION_INTEGER__MIN,
-                                            oldMin,
-                                            MIN_EDEFAULT,
-                                            oldMinESet ) );
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.UNSET,
+            ErfPackage.DATATYPE_DEFINITION_INTEGER__MIN,
+            oldMin,
+            MIN_EDEFAULT,
+            oldMinESet ) );
     }
 
     /**
@@ -227,11 +227,11 @@ public class DatatypeDefinitionIntegerImpl extends DatatypeDefinitionSimpleImpl 
      */
     @Override
     public Object eGet( int featureID, boolean resolve, boolean coreType ) {
-        switch( featureID ) {
-            case ErfPackage.DATATYPE_DEFINITION_INTEGER__MAX:
-                return getMax();
-            case ErfPackage.DATATYPE_DEFINITION_INTEGER__MIN:
-                return getMin();
+        switch (featureID) {
+        case ErfPackage.DATATYPE_DEFINITION_INTEGER__MAX:
+            return getMax();
+        case ErfPackage.DATATYPE_DEFINITION_INTEGER__MIN:
+            return getMin();
         }
         return super.eGet( featureID, resolve, coreType );
     }
@@ -243,13 +243,13 @@ public class DatatypeDefinitionIntegerImpl extends DatatypeDefinitionSimpleImpl 
      */
     @Override
     public void eSet( int featureID, Object newValue ) {
-        switch( featureID ) {
-            case ErfPackage.DATATYPE_DEFINITION_INTEGER__MAX:
-                setMax( (Integer)newValue );
-                return;
-            case ErfPackage.DATATYPE_DEFINITION_INTEGER__MIN:
-                setMin( (Integer)newValue );
-                return;
+        switch (featureID) {
+        case ErfPackage.DATATYPE_DEFINITION_INTEGER__MAX:
+            setMax( (Integer)newValue );
+            return;
+        case ErfPackage.DATATYPE_DEFINITION_INTEGER__MIN:
+            setMin( (Integer)newValue );
+            return;
         }
         super.eSet( featureID, newValue );
     }
@@ -261,13 +261,13 @@ public class DatatypeDefinitionIntegerImpl extends DatatypeDefinitionSimpleImpl 
      */
     @Override
     public void eUnset( int featureID ) {
-        switch( featureID ) {
-            case ErfPackage.DATATYPE_DEFINITION_INTEGER__MAX:
-                unsetMax();
-                return;
-            case ErfPackage.DATATYPE_DEFINITION_INTEGER__MIN:
-                unsetMin();
-                return;
+        switch (featureID) {
+        case ErfPackage.DATATYPE_DEFINITION_INTEGER__MAX:
+            unsetMax();
+            return;
+        case ErfPackage.DATATYPE_DEFINITION_INTEGER__MIN:
+            unsetMin();
+            return;
         }
         super.eUnset( featureID );
     }
@@ -279,11 +279,11 @@ public class DatatypeDefinitionIntegerImpl extends DatatypeDefinitionSimpleImpl 
      */
     @Override
     public boolean eIsSet( int featureID ) {
-        switch( featureID ) {
-            case ErfPackage.DATATYPE_DEFINITION_INTEGER__MAX:
-                return isSetMax();
-            case ErfPackage.DATATYPE_DEFINITION_INTEGER__MIN:
-                return isSetMin();
+        switch (featureID) {
+        case ErfPackage.DATATYPE_DEFINITION_INTEGER__MAX:
+            return isSetMax();
+        case ErfPackage.DATATYPE_DEFINITION_INTEGER__MIN:
+            return isSetMin();
         }
         return super.eIsSet( featureID );
     }
@@ -300,12 +300,10 @@ public class DatatypeDefinitionIntegerImpl extends DatatypeDefinitionSimpleImpl 
         StringBuffer result = new StringBuffer( super.toString() );
         result.append( " (max: " );
         if( maxESet ) result.append( max );
-        else
-            result.append( "<unset>" );
+        else result.append( "<unset>" );
         result.append( ", min: " );
         if( minESet ) result.append( min );
-        else
-            result.append( "<unset>" );
+        else result.append( "<unset>" );
         result.append( ')' );
         return result.toString();
     }

@@ -79,10 +79,11 @@ public class SpecObjectImpl extends SpecElementWithUserDefinedAttributesImpl imp
      */
     public EList<SpecRelation> getSources() {
         if( sources == null ) {
-            sources = new EObjectWithInverseResolvingEList<SpecRelation>( SpecRelation.class,
-                                                                          this,
-                                                                          ErfPackage.SPEC_OBJECT__SOURCES,
-                                                                          ErfPackage.SPEC_RELATION__TARGET );
+            sources = new EObjectWithInverseResolvingEList<SpecRelation>(
+                SpecRelation.class,
+                this,
+                ErfPackage.SPEC_OBJECT__SOURCES,
+                ErfPackage.SPEC_RELATION__TARGET );
         }
         return sources;
     }
@@ -94,10 +95,11 @@ public class SpecObjectImpl extends SpecElementWithUserDefinedAttributesImpl imp
      */
     public EList<SpecRelation> getTargets() {
         if( targets == null ) {
-            targets = new EObjectWithInverseResolvingEList<SpecRelation>( SpecRelation.class,
-                                                                          this,
-                                                                          ErfPackage.SPEC_OBJECT__TARGETS,
-                                                                          ErfPackage.SPEC_RELATION__SOURCE );
+            targets = new EObjectWithInverseResolvingEList<SpecRelation>(
+                SpecRelation.class,
+                this,
+                ErfPackage.SPEC_OBJECT__TARGETS,
+                ErfPackage.SPEC_RELATION__SOURCE );
         }
         return targets;
     }
@@ -107,14 +109,14 @@ public class SpecObjectImpl extends SpecElementWithUserDefinedAttributesImpl imp
      * <!-- end-user-doc -->
      * @generated
      */
-    @SuppressWarnings( "unchecked" )
+    @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd( InternalEObject otherEnd, int featureID, NotificationChain msgs ) {
-        switch( featureID ) {
-            case ErfPackage.SPEC_OBJECT__SOURCES:
-                return ( (InternalEList<InternalEObject>)(InternalEList<?>)getSources() ).basicAdd( otherEnd, msgs );
-            case ErfPackage.SPEC_OBJECT__TARGETS:
-                return ( (InternalEList<InternalEObject>)(InternalEList<?>)getTargets() ).basicAdd( otherEnd, msgs );
+        switch (featureID) {
+        case ErfPackage.SPEC_OBJECT__SOURCES:
+            return ((InternalEList<InternalEObject>)(InternalEList<?>)getSources()).basicAdd( otherEnd, msgs );
+        case ErfPackage.SPEC_OBJECT__TARGETS:
+            return ((InternalEList<InternalEObject>)(InternalEList<?>)getTargets()).basicAdd( otherEnd, msgs );
         }
         return super.eInverseAdd( otherEnd, featureID, msgs );
     }
@@ -126,11 +128,11 @@ public class SpecObjectImpl extends SpecElementWithUserDefinedAttributesImpl imp
      */
     @Override
     public NotificationChain eInverseRemove( InternalEObject otherEnd, int featureID, NotificationChain msgs ) {
-        switch( featureID ) {
-            case ErfPackage.SPEC_OBJECT__SOURCES:
-                return ( (InternalEList<?>)getSources() ).basicRemove( otherEnd, msgs );
-            case ErfPackage.SPEC_OBJECT__TARGETS:
-                return ( (InternalEList<?>)getTargets() ).basicRemove( otherEnd, msgs );
+        switch (featureID) {
+        case ErfPackage.SPEC_OBJECT__SOURCES:
+            return ((InternalEList<?>)getSources()).basicRemove( otherEnd, msgs );
+        case ErfPackage.SPEC_OBJECT__TARGETS:
+            return ((InternalEList<?>)getTargets()).basicRemove( otherEnd, msgs );
         }
         return super.eInverseRemove( otherEnd, featureID, msgs );
     }
@@ -142,11 +144,11 @@ public class SpecObjectImpl extends SpecElementWithUserDefinedAttributesImpl imp
      */
     @Override
     public Object eGet( int featureID, boolean resolve, boolean coreType ) {
-        switch( featureID ) {
-            case ErfPackage.SPEC_OBJECT__SOURCES:
-                return getSources();
-            case ErfPackage.SPEC_OBJECT__TARGETS:
-                return getTargets();
+        switch (featureID) {
+        case ErfPackage.SPEC_OBJECT__SOURCES:
+            return getSources();
+        case ErfPackage.SPEC_OBJECT__TARGETS:
+            return getTargets();
         }
         return super.eGet( featureID, resolve, coreType );
     }
@@ -156,18 +158,18 @@ public class SpecObjectImpl extends SpecElementWithUserDefinedAttributesImpl imp
      * <!-- end-user-doc -->
      * @generated
      */
-    @SuppressWarnings( "unchecked" )
+    @SuppressWarnings("unchecked")
     @Override
     public void eSet( int featureID, Object newValue ) {
-        switch( featureID ) {
-            case ErfPackage.SPEC_OBJECT__SOURCES:
-                getSources().clear();
-                getSources().addAll( (Collection<? extends SpecRelation>)newValue );
-                return;
-            case ErfPackage.SPEC_OBJECT__TARGETS:
-                getTargets().clear();
-                getTargets().addAll( (Collection<? extends SpecRelation>)newValue );
-                return;
+        switch (featureID) {
+        case ErfPackage.SPEC_OBJECT__SOURCES:
+            getSources().clear();
+            getSources().addAll( (Collection<? extends SpecRelation>)newValue );
+            return;
+        case ErfPackage.SPEC_OBJECT__TARGETS:
+            getTargets().clear();
+            getTargets().addAll( (Collection<? extends SpecRelation>)newValue );
+            return;
         }
         super.eSet( featureID, newValue );
     }
@@ -179,13 +181,13 @@ public class SpecObjectImpl extends SpecElementWithUserDefinedAttributesImpl imp
      */
     @Override
     public void eUnset( int featureID ) {
-        switch( featureID ) {
-            case ErfPackage.SPEC_OBJECT__SOURCES:
-                getSources().clear();
-                return;
-            case ErfPackage.SPEC_OBJECT__TARGETS:
-                getTargets().clear();
-                return;
+        switch (featureID) {
+        case ErfPackage.SPEC_OBJECT__SOURCES:
+            getSources().clear();
+            return;
+        case ErfPackage.SPEC_OBJECT__TARGETS:
+            getTargets().clear();
+            return;
         }
         super.eUnset( featureID );
     }
@@ -197,11 +199,11 @@ public class SpecObjectImpl extends SpecElementWithUserDefinedAttributesImpl imp
      */
     @Override
     public boolean eIsSet( int featureID ) {
-        switch( featureID ) {
-            case ErfPackage.SPEC_OBJECT__SOURCES:
-                return sources != null && !sources.isEmpty();
-            case ErfPackage.SPEC_OBJECT__TARGETS:
-                return targets != null && !targets.isEmpty();
+        switch (featureID) {
+        case ErfPackage.SPEC_OBJECT__SOURCES:
+            return sources != null && !sources.isEmpty();
+        case ErfPackage.SPEC_OBJECT__TARGETS:
+            return targets != null && !targets.isEmpty();
         }
         return super.eIsSet( featureID );
     }

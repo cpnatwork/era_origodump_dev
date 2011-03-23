@@ -59,13 +59,6 @@ public abstract class AbstractErfTypesForm extends Composite {
      * @param editor the editor from which the and {@link CommandStack} can be derived
      * @param style the style of widget to construct
      * 
-     * @see SWT#NO_BACKGROUND
-     * @see SWT#NO_FOCUS
-     * @see SWT#NO_MERGE_PAINTS
-     * @see SWT#NO_REDRAW_RESIZE
-     * @see SWT#NO_RADIO_GROUP
-     * @see SWT#EMBEDDED
-     * @see SWT#DOUBLE_BUFFERED
      * @see Widget#getStyle
      */
     public AbstractErfTypesForm( Composite parent, IEditorPart editor, int style ) {

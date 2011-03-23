@@ -38,7 +38,11 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SpecType" eSuperTypes="#//Identifiable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="specAttributes" upperBound="-1"
-        eType="#//AttributeDefinition" containment="true" resolveProxies="false"/>
+        eType="#//AttributeDefinition" containment="true" resolveProxies="false">
+      <eAnnotations source="UI">
+        <details key="ObservedStructuralFeature" value="dataTypes"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Map" instanceClassName="java.util.Map"
       abstract="true" interface="true">

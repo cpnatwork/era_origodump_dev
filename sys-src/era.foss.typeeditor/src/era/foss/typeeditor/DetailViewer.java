@@ -45,7 +45,7 @@ public class DetailViewer extends Composite {
         super( parent, style );
         this.editingDomain = editingDomain;
         this.master = master;
-        this.setEnabled( false );
+        
 
         // set-up layout
         GridLayout gridLayout = new GridLayout( 1, true );
@@ -102,10 +102,8 @@ public class DetailViewer extends Composite {
      */
     protected void createAttributeControls() {
         
-
- 
         if( master.getValue() != null ) {
-            ui = new Ui( editingDomain );
+            ui = new Ui( editingDomain,null);
             assert (master.getValue() instanceof EObject);
             EObject eObject = (EObject)master.getValue();
 

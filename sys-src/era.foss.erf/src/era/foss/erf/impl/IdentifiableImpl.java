@@ -143,8 +143,13 @@ public abstract class IdentifiableImpl extends EObjectImpl implements Identifiab
         iD = newID;
         boolean oldIDESet = iDESet;
         iDESet = true;
-        if( eNotificationRequired() )
-            eNotify( new ENotificationImpl( this, Notification.SET, ErfPackage.IDENTIFIABLE__ID, oldID, iD, !oldIDESet ) );
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            ErfPackage.IDENTIFIABLE__ID,
+            oldID,
+            iD,
+            !oldIDESet ) );
     }
 
     /**
@@ -157,13 +162,13 @@ public abstract class IdentifiableImpl extends EObjectImpl implements Identifiab
         boolean oldIDESet = iDESet;
         iD = ID_EDEFAULT;
         iDESet = false;
-        if( eNotificationRequired() )
-            eNotify( new ENotificationImpl( this,
-                                            Notification.UNSET,
-                                            ErfPackage.IDENTIFIABLE__ID,
-                                            oldID,
-                                            ID_EDEFAULT,
-                                            oldIDESet ) );
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.UNSET,
+            ErfPackage.IDENTIFIABLE__ID,
+            oldID,
+            ID_EDEFAULT,
+            oldIDESet ) );
     }
 
     /**
@@ -192,8 +197,12 @@ public abstract class IdentifiableImpl extends EObjectImpl implements Identifiab
     public void setDesc( String newDesc ) {
         String oldDesc = desc;
         desc = newDesc;
-        if( eNotificationRequired() )
-            eNotify( new ENotificationImpl( this, Notification.SET, ErfPackage.IDENTIFIABLE__DESC, oldDesc, desc ) );
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            ErfPackage.IDENTIFIABLE__DESC,
+            oldDesc,
+            desc ) );
     }
 
     /**
@@ -213,12 +222,12 @@ public abstract class IdentifiableImpl extends EObjectImpl implements Identifiab
     public void setLongName( String newLongName ) {
         String oldLongName = longName;
         longName = newLongName;
-        if( eNotificationRequired() )
-            eNotify( new ENotificationImpl( this,
-                                            Notification.SET,
-                                            ErfPackage.IDENTIFIABLE__LONG_NAME,
-                                            oldLongName,
-                                            longName ) );
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            ErfPackage.IDENTIFIABLE__LONG_NAME,
+            oldLongName,
+            longName ) );
     }
 
     /**
@@ -228,13 +237,13 @@ public abstract class IdentifiableImpl extends EObjectImpl implements Identifiab
      */
     @Override
     public Object eGet( int featureID, boolean resolve, boolean coreType ) {
-        switch( featureID ) {
-            case ErfPackage.IDENTIFIABLE__ID:
-                return getID();
-            case ErfPackage.IDENTIFIABLE__DESC:
-                return getDesc();
-            case ErfPackage.IDENTIFIABLE__LONG_NAME:
-                return getLongName();
+        switch (featureID) {
+        case ErfPackage.IDENTIFIABLE__ID:
+            return getID();
+        case ErfPackage.IDENTIFIABLE__DESC:
+            return getDesc();
+        case ErfPackage.IDENTIFIABLE__LONG_NAME:
+            return getLongName();
         }
         return super.eGet( featureID, resolve, coreType );
     }
@@ -246,16 +255,16 @@ public abstract class IdentifiableImpl extends EObjectImpl implements Identifiab
      */
     @Override
     public void eSet( int featureID, Object newValue ) {
-        switch( featureID ) {
-            case ErfPackage.IDENTIFIABLE__ID:
-                setID( (String)newValue );
-                return;
-            case ErfPackage.IDENTIFIABLE__DESC:
-                setDesc( (String)newValue );
-                return;
-            case ErfPackage.IDENTIFIABLE__LONG_NAME:
-                setLongName( (String)newValue );
-                return;
+        switch (featureID) {
+        case ErfPackage.IDENTIFIABLE__ID:
+            setID( (String)newValue );
+            return;
+        case ErfPackage.IDENTIFIABLE__DESC:
+            setDesc( (String)newValue );
+            return;
+        case ErfPackage.IDENTIFIABLE__LONG_NAME:
+            setLongName( (String)newValue );
+            return;
         }
         super.eSet( featureID, newValue );
     }
@@ -267,16 +276,16 @@ public abstract class IdentifiableImpl extends EObjectImpl implements Identifiab
      */
     @Override
     public void eUnset( int featureID ) {
-        switch( featureID ) {
-            case ErfPackage.IDENTIFIABLE__ID:
-                unsetID();
-                return;
-            case ErfPackage.IDENTIFIABLE__DESC:
-                setDesc( DESC_EDEFAULT );
-                return;
-            case ErfPackage.IDENTIFIABLE__LONG_NAME:
-                setLongName( LONG_NAME_EDEFAULT );
-                return;
+        switch (featureID) {
+        case ErfPackage.IDENTIFIABLE__ID:
+            unsetID();
+            return;
+        case ErfPackage.IDENTIFIABLE__DESC:
+            setDesc( DESC_EDEFAULT );
+            return;
+        case ErfPackage.IDENTIFIABLE__LONG_NAME:
+            setLongName( LONG_NAME_EDEFAULT );
+            return;
         }
         super.eUnset( featureID );
     }
@@ -288,13 +297,13 @@ public abstract class IdentifiableImpl extends EObjectImpl implements Identifiab
      */
     @Override
     public boolean eIsSet( int featureID ) {
-        switch( featureID ) {
-            case ErfPackage.IDENTIFIABLE__ID:
-                return isSetID();
-            case ErfPackage.IDENTIFIABLE__DESC:
-                return DESC_EDEFAULT == null ? desc != null : !DESC_EDEFAULT.equals( desc );
-            case ErfPackage.IDENTIFIABLE__LONG_NAME:
-                return LONG_NAME_EDEFAULT == null ? longName != null : !LONG_NAME_EDEFAULT.equals( longName );
+        switch (featureID) {
+        case ErfPackage.IDENTIFIABLE__ID:
+            return isSetID();
+        case ErfPackage.IDENTIFIABLE__DESC:
+            return DESC_EDEFAULT == null ? desc != null : !DESC_EDEFAULT.equals( desc );
+        case ErfPackage.IDENTIFIABLE__LONG_NAME:
+            return LONG_NAME_EDEFAULT == null ? longName != null : !LONG_NAME_EDEFAULT.equals( longName );
         }
         return super.eIsSet( featureID );
     }
@@ -311,8 +320,7 @@ public abstract class IdentifiableImpl extends EObjectImpl implements Identifiab
         StringBuffer result = new StringBuffer( super.toString() );
         result.append( " (iD: " );
         if( iDESet ) result.append( iD );
-        else
-            result.append( "<unset>" );
+        else result.append( "<unset>" );
         result.append( ", desc: " );
         result.append( desc );
         result.append( ", longName: " );

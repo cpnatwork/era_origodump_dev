@@ -261,6 +261,29 @@ public class ErfItemProviderAdapterFactory extends ErfAdapterFactory implements 
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link era.foss.erf.SpecRelation} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected SpecRelationItemProvider specRelationItemProvider;
+
+    /**
+     * This creates an adapter for a {@link era.foss.erf.SpecRelation}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createSpecRelationAdapter() {
+        if( specRelationItemProvider == null ) {
+            specRelationItemProvider = new SpecRelationItemProvider( this );
+        }
+
+        return specRelationItemProvider;
+    }
+
+    /**
      * This returns the root adapter factory that contains this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -367,6 +390,7 @@ public class ErfItemProviderAdapterFactory extends ErfAdapterFactory implements 
         if( attributeDefinitionSimpleItemProvider != null ) attributeDefinitionSimpleItemProvider.dispose();
         if( erfItemProvider != null ) erfItemProvider.dispose();
         if( contentItemProvider != null ) contentItemProvider.dispose();
+        if( specRelationItemProvider != null ) specRelationItemProvider.dispose();
     }
 
 }

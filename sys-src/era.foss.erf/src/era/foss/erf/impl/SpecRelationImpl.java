@@ -11,8 +11,8 @@ import era.foss.erf.SpecObject;
 import era.foss.erf.SpecRelation;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
@@ -33,7 +33,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * @generated
  */
 public class SpecRelationImpl extends SpecElementWithUserDefinedAttributesImpl implements SpecRelation {
-
     /**
      * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
      * <!-- begin-user-doc -->
@@ -83,12 +82,12 @@ public class SpecRelationImpl extends SpecElementWithUserDefinedAttributesImpl i
             InternalEObject oldSource = (InternalEObject)source;
             source = (SpecObject)eResolveProxy( oldSource );
             if( source != oldSource ) {
-                if( eNotificationRequired() )
-                    eNotify( new ENotificationImpl( this,
-                                                    Notification.RESOLVE,
-                                                    ErfPackage.SPEC_RELATION__SOURCE,
-                                                    oldSource,
-                                                    source ) );
+                if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+                    this,
+                    Notification.RESOLVE,
+                    ErfPackage.SPEC_RELATION__SOURCE,
+                    oldSource,
+                    source ) );
             }
         }
         return source;
@@ -112,14 +111,14 @@ public class SpecRelationImpl extends SpecElementWithUserDefinedAttributesImpl i
         SpecObject oldSource = source;
         source = newSource;
         if( eNotificationRequired() ) {
-            ENotificationImpl notification = new ENotificationImpl( this,
-                                                                    Notification.SET,
-                                                                    ErfPackage.SPEC_RELATION__SOURCE,
-                                                                    oldSource,
-                                                                    newSource );
+            ENotificationImpl notification = new ENotificationImpl(
+                this,
+                Notification.SET,
+                ErfPackage.SPEC_RELATION__SOURCE,
+                oldSource,
+                newSource );
             if( msgs == null ) msgs = notification;
-            else
-                msgs.add( notification );
+            else msgs.add( notification );
         }
         return msgs;
     }
@@ -132,24 +131,22 @@ public class SpecRelationImpl extends SpecElementWithUserDefinedAttributesImpl i
     public void setSource( SpecObject newSource ) {
         if( newSource != source ) {
             NotificationChain msgs = null;
-            if( source != null )
-                msgs = ( (InternalEObject)source ).eInverseRemove( this,
-                                                                   ErfPackage.SPEC_OBJECT__TARGETS,
-                                                                   SpecObject.class,
-                                                                   msgs );
-            if( newSource != null )
-                msgs = ( (InternalEObject)newSource ).eInverseAdd( this,
-                                                                   ErfPackage.SPEC_OBJECT__TARGETS,
-                                                                   SpecObject.class,
-                                                                   msgs );
+            if( source != null ) msgs = ((InternalEObject)source).eInverseRemove( this,
+                                                                                  ErfPackage.SPEC_OBJECT__TARGETS,
+                                                                                  SpecObject.class,
+                                                                                  msgs );
+            if( newSource != null ) msgs = ((InternalEObject)newSource).eInverseAdd( this,
+                                                                                     ErfPackage.SPEC_OBJECT__TARGETS,
+                                                                                     SpecObject.class,
+                                                                                     msgs );
             msgs = basicSetSource( newSource, msgs );
             if( msgs != null ) msgs.dispatch();
-        } else if( eNotificationRequired() )
-            eNotify( new ENotificationImpl( this,
-                                            Notification.SET,
-                                            ErfPackage.SPEC_RELATION__SOURCE,
-                                            newSource,
-                                            newSource ) );
+        } else if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            ErfPackage.SPEC_RELATION__SOURCE,
+            newSource,
+            newSource ) );
     }
 
     /**
@@ -162,12 +159,12 @@ public class SpecRelationImpl extends SpecElementWithUserDefinedAttributesImpl i
             InternalEObject oldTarget = (InternalEObject)target;
             target = (SpecObject)eResolveProxy( oldTarget );
             if( target != oldTarget ) {
-                if( eNotificationRequired() )
-                    eNotify( new ENotificationImpl( this,
-                                                    Notification.RESOLVE,
-                                                    ErfPackage.SPEC_RELATION__TARGET,
-                                                    oldTarget,
-                                                    target ) );
+                if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+                    this,
+                    Notification.RESOLVE,
+                    ErfPackage.SPEC_RELATION__TARGET,
+                    oldTarget,
+                    target ) );
             }
         }
         return target;
@@ -191,14 +188,14 @@ public class SpecRelationImpl extends SpecElementWithUserDefinedAttributesImpl i
         SpecObject oldTarget = target;
         target = newTarget;
         if( eNotificationRequired() ) {
-            ENotificationImpl notification = new ENotificationImpl( this,
-                                                                    Notification.SET,
-                                                                    ErfPackage.SPEC_RELATION__TARGET,
-                                                                    oldTarget,
-                                                                    newTarget );
+            ENotificationImpl notification = new ENotificationImpl(
+                this,
+                Notification.SET,
+                ErfPackage.SPEC_RELATION__TARGET,
+                oldTarget,
+                newTarget );
             if( msgs == null ) msgs = notification;
-            else
-                msgs.add( notification );
+            else msgs.add( notification );
         }
         return msgs;
     }
@@ -211,24 +208,22 @@ public class SpecRelationImpl extends SpecElementWithUserDefinedAttributesImpl i
     public void setTarget( SpecObject newTarget ) {
         if( newTarget != target ) {
             NotificationChain msgs = null;
-            if( target != null )
-                msgs = ( (InternalEObject)target ).eInverseRemove( this,
-                                                                   ErfPackage.SPEC_OBJECT__SOURCES,
-                                                                   SpecObject.class,
-                                                                   msgs );
-            if( newTarget != null )
-                msgs = ( (InternalEObject)newTarget ).eInverseAdd( this,
-                                                                   ErfPackage.SPEC_OBJECT__SOURCES,
-                                                                   SpecObject.class,
-                                                                   msgs );
+            if( target != null ) msgs = ((InternalEObject)target).eInverseRemove( this,
+                                                                                  ErfPackage.SPEC_OBJECT__SOURCES,
+                                                                                  SpecObject.class,
+                                                                                  msgs );
+            if( newTarget != null ) msgs = ((InternalEObject)newTarget).eInverseAdd( this,
+                                                                                     ErfPackage.SPEC_OBJECT__SOURCES,
+                                                                                     SpecObject.class,
+                                                                                     msgs );
             msgs = basicSetTarget( newTarget, msgs );
             if( msgs != null ) msgs.dispatch();
-        } else if( eNotificationRequired() )
-            eNotify( new ENotificationImpl( this,
-                                            Notification.SET,
-                                            ErfPackage.SPEC_RELATION__TARGET,
-                                            newTarget,
-                                            newTarget ) );
+        } else if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            ErfPackage.SPEC_RELATION__TARGET,
+            newTarget,
+            newTarget ) );
     }
 
     /**
@@ -238,21 +233,19 @@ public class SpecRelationImpl extends SpecElementWithUserDefinedAttributesImpl i
      */
     @Override
     public NotificationChain eInverseAdd( InternalEObject otherEnd, int featureID, NotificationChain msgs ) {
-        switch( featureID ) {
-            case ErfPackage.SPEC_RELATION__SOURCE:
-                if( source != null )
-                    msgs = ( (InternalEObject)source ).eInverseRemove( this,
-                                                                       ErfPackage.SPEC_OBJECT__TARGETS,
-                                                                       SpecObject.class,
-                                                                       msgs );
-                return basicSetSource( (SpecObject)otherEnd, msgs );
-            case ErfPackage.SPEC_RELATION__TARGET:
-                if( target != null )
-                    msgs = ( (InternalEObject)target ).eInverseRemove( this,
-                                                                       ErfPackage.SPEC_OBJECT__SOURCES,
-                                                                       SpecObject.class,
-                                                                       msgs );
-                return basicSetTarget( (SpecObject)otherEnd, msgs );
+        switch (featureID) {
+        case ErfPackage.SPEC_RELATION__SOURCE:
+            if( source != null ) msgs = ((InternalEObject)source).eInverseRemove( this,
+                                                                                  ErfPackage.SPEC_OBJECT__TARGETS,
+                                                                                  SpecObject.class,
+                                                                                  msgs );
+            return basicSetSource( (SpecObject)otherEnd, msgs );
+        case ErfPackage.SPEC_RELATION__TARGET:
+            if( target != null ) msgs = ((InternalEObject)target).eInverseRemove( this,
+                                                                                  ErfPackage.SPEC_OBJECT__SOURCES,
+                                                                                  SpecObject.class,
+                                                                                  msgs );
+            return basicSetTarget( (SpecObject)otherEnd, msgs );
         }
         return super.eInverseAdd( otherEnd, featureID, msgs );
     }
@@ -264,11 +257,11 @@ public class SpecRelationImpl extends SpecElementWithUserDefinedAttributesImpl i
      */
     @Override
     public NotificationChain eInverseRemove( InternalEObject otherEnd, int featureID, NotificationChain msgs ) {
-        switch( featureID ) {
-            case ErfPackage.SPEC_RELATION__SOURCE:
-                return basicSetSource( null, msgs );
-            case ErfPackage.SPEC_RELATION__TARGET:
-                return basicSetTarget( null, msgs );
+        switch (featureID) {
+        case ErfPackage.SPEC_RELATION__SOURCE:
+            return basicSetSource( null, msgs );
+        case ErfPackage.SPEC_RELATION__TARGET:
+            return basicSetTarget( null, msgs );
         }
         return super.eInverseRemove( otherEnd, featureID, msgs );
     }
@@ -280,13 +273,13 @@ public class SpecRelationImpl extends SpecElementWithUserDefinedAttributesImpl i
      */
     @Override
     public Object eGet( int featureID, boolean resolve, boolean coreType ) {
-        switch( featureID ) {
-            case ErfPackage.SPEC_RELATION__SOURCE:
-                if( resolve ) return getSource();
-                return basicGetSource();
-            case ErfPackage.SPEC_RELATION__TARGET:
-                if( resolve ) return getTarget();
-                return basicGetTarget();
+        switch (featureID) {
+        case ErfPackage.SPEC_RELATION__SOURCE:
+            if( resolve ) return getSource();
+            return basicGetSource();
+        case ErfPackage.SPEC_RELATION__TARGET:
+            if( resolve ) return getTarget();
+            return basicGetTarget();
         }
         return super.eGet( featureID, resolve, coreType );
     }
@@ -298,13 +291,13 @@ public class SpecRelationImpl extends SpecElementWithUserDefinedAttributesImpl i
      */
     @Override
     public void eSet( int featureID, Object newValue ) {
-        switch( featureID ) {
-            case ErfPackage.SPEC_RELATION__SOURCE:
-                setSource( (SpecObject)newValue );
-                return;
-            case ErfPackage.SPEC_RELATION__TARGET:
-                setTarget( (SpecObject)newValue );
-                return;
+        switch (featureID) {
+        case ErfPackage.SPEC_RELATION__SOURCE:
+            setSource( (SpecObject)newValue );
+            return;
+        case ErfPackage.SPEC_RELATION__TARGET:
+            setTarget( (SpecObject)newValue );
+            return;
         }
         super.eSet( featureID, newValue );
     }
@@ -316,13 +309,13 @@ public class SpecRelationImpl extends SpecElementWithUserDefinedAttributesImpl i
      */
     @Override
     public void eUnset( int featureID ) {
-        switch( featureID ) {
-            case ErfPackage.SPEC_RELATION__SOURCE:
-                setSource( (SpecObject)null );
-                return;
-            case ErfPackage.SPEC_RELATION__TARGET:
-                setTarget( (SpecObject)null );
-                return;
+        switch (featureID) {
+        case ErfPackage.SPEC_RELATION__SOURCE:
+            setSource( (SpecObject)null );
+            return;
+        case ErfPackage.SPEC_RELATION__TARGET:
+            setTarget( (SpecObject)null );
+            return;
         }
         super.eUnset( featureID );
     }
@@ -334,11 +327,11 @@ public class SpecRelationImpl extends SpecElementWithUserDefinedAttributesImpl i
      */
     @Override
     public boolean eIsSet( int featureID ) {
-        switch( featureID ) {
-            case ErfPackage.SPEC_RELATION__SOURCE:
-                return source != null;
-            case ErfPackage.SPEC_RELATION__TARGET:
-                return target != null;
+        switch (featureID) {
+        case ErfPackage.SPEC_RELATION__SOURCE:
+            return source != null;
+        case ErfPackage.SPEC_RELATION__TARGET:
+            return target != null;
         }
         return super.eIsSet( featureID );
     }

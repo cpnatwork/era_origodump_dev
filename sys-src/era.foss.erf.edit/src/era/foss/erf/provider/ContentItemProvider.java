@@ -76,6 +76,7 @@ public class ContentItemProvider extends ItemProviderAdapter implements IEditing
             childrenFeatures.add( ErfPackage.Literals.CONTENT__SPEC_OBJECTS );
             childrenFeatures.add( ErfPackage.Literals.CONTENT__SPEC_TYPES );
             childrenFeatures.add( ErfPackage.Literals.CONTENT__DATA_TYPES );
+            childrenFeatures.add( ErfPackage.Literals.CONTENT__SPEC_RELATIONS );
         }
         return childrenFeatures;
     }
@@ -127,6 +128,7 @@ public class ContentItemProvider extends ItemProviderAdapter implements IEditing
         case ErfPackage.CONTENT__SPEC_OBJECTS:
         case ErfPackage.CONTENT__SPEC_TYPES:
         case ErfPackage.CONTENT__DATA_TYPES:
+        case ErfPackage.CONTENT__SPEC_RELATIONS:
             fireNotifyChanged( new ViewerNotification( notification, notification.getNotifier(), true, false ) );
             return;
         }
@@ -154,6 +156,9 @@ public class ContentItemProvider extends ItemProviderAdapter implements IEditing
 
         newChildDescriptors.add( createChildParameter( ErfPackage.Literals.CONTENT__DATA_TYPES,
                                                        ErfFactory.eINSTANCE.createDatatypeDefinitionString() ) );
+
+        newChildDescriptors.add( createChildParameter( ErfPackage.Literals.CONTENT__SPEC_RELATIONS,
+                                                       ErfFactory.eINSTANCE.createSpecRelation() ) );
     }
 
     /**

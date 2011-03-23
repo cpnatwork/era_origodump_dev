@@ -63,8 +63,6 @@ public class AddDeleteTableViewer extends TableViewer {
      */
     private Composite composite;
 
-    /** Layout for specifying the layout */
-    private TableColumnLayout tableColumnLayout;
 
     /** The description field for the elements in the table */
     Text descriptionText;
@@ -139,7 +137,10 @@ public class AddDeleteTableViewer extends TableViewer {
      */
     protected void dispose() {
         master.dispose();
-        dataBindContext.dispose();
+        if (dataBindContext != null)
+        {
+            dataBindContext.dispose();
+        }
     }
 
     /**
@@ -154,8 +155,7 @@ public class AddDeleteTableViewer extends TableViewer {
         composite = tableComposite.getParent();
 
         // set column layout of table composite
-        tableColumnLayout = new TableColumnLayout();
-        tableComposite.setLayout( tableColumnLayout );
+        tableComposite.setLayout( new TableColumnLayout() );
         tableComposite.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
 
         composite.setLayout( new GridLayout( 1, false ) );
@@ -222,12 +222,6 @@ public class AddDeleteTableViewer extends TableViewer {
         // bind values
         master=ViewerProperties.singleSelection().observe( this );
         
-        dataBindContext = new DataBindingContext();
-        dataBindContext.bindValue( WidgetProperties.text( SWT.Modify ).observeDelayed( 400,
-                                                                                     descriptionText ),
-                                 EMFEditProperties.value( editingDomain,
-                                                          ErfPackage.Literals.IDENTIFIABLE__DESC )
-                                                  .observeDetail( master ) );
         
         /* We only need the listener as the F****** data binding  can't handle null
          * pointer as value of the master object at the time the various
@@ -359,14 +353,6 @@ public class AddDeleteTableViewer extends TableViewer {
 
     }
 
-    /**
-     * Get the column layout assigned to the table
-     * 
-     * @return column layout assigned to the table
-     */
-    public TableColumnLayout getTableColumnLayout() {
-        return tableColumnLayout;
-    }
 
     /**
      * Get position of column
