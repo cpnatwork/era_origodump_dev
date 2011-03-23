@@ -27,6 +27,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#getType <em>Type</em>}</li>
  *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#isIdent <em>Ident</em>}</li>
  *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#isUnique <em>Unique</em>}</li>
+ *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#isEditorShowLabel <em>Editor Show Label</em>}</li>
+ *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#getEditorRowNumber <em>Editor Row Number</em>}</li>
+ *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#getEditorColumnSpan <em>Editor Column Span</em>}</li>
+ *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#getUiShowLabel <em>Ui Show Label</em>}</li>
  * </ul>
  * </p>
  *
@@ -83,6 +87,76 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
      * @ordered
      */
     protected boolean unique = UNIQUE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isEditorShowLabel() <em>Editor Show Label</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isEditorShowLabel()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean EDITOR_SHOW_LABEL_EDEFAULT = true;
+
+    /**
+     * The cached value of the '{@link #isEditorShowLabel() <em>Editor Show Label</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isEditorShowLabel()
+     * @generated
+     * @ordered
+     */
+    protected boolean editorShowLabel = EDITOR_SHOW_LABEL_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getEditorRowNumber() <em>Editor Row Number</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getEditorRowNumber()
+     * @generated
+     * @ordered
+     */
+    protected static final int EDITOR_ROW_NUMBER_EDEFAULT = 1;
+
+    /**
+     * The cached value of the '{@link #getEditorRowNumber() <em>Editor Row Number</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getEditorRowNumber()
+     * @generated
+     * @ordered
+     */
+    protected int editorRowNumber = EDITOR_ROW_NUMBER_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getEditorColumnSpan() <em>Editor Column Span</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getEditorColumnSpan()
+     * @generated
+     * @ordered
+     */
+    protected static final int EDITOR_COLUMN_SPAN_EDEFAULT = 1;
+
+    /**
+     * The cached value of the '{@link #getEditorColumnSpan() <em>Editor Column Span</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getEditorColumnSpan()
+     * @generated
+     * @ordered
+     */
+    protected int editorColumnSpan = EDITOR_COLUMN_SPAN_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getUiShowLabel() <em>Ui Show Label</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getUiShowLabel()
+     * @generated
+     * @ordered
+     */
+    protected DatatypeDefinition uiShowLabel;
 
     /**
      * <!-- begin-user-doc -->
@@ -204,6 +278,127 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isEditorShowLabel() {
+        return editorShowLabel;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setEditorShowLabel( boolean newEditorShowLabel ) {
+        boolean oldEditorShowLabel = editorShowLabel;
+        editorShowLabel = newEditorShowLabel;
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_SHOW_LABEL,
+            oldEditorShowLabel,
+            editorShowLabel ) );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getEditorRowNumber() {
+        return editorRowNumber;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setEditorRowNumber( int newEditorRowNumber ) {
+        int oldEditorRowNumber = editorRowNumber;
+        editorRowNumber = newEditorRowNumber;
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_ROW_NUMBER,
+            oldEditorRowNumber,
+            editorRowNumber ) );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getEditorColumnSpan() {
+        return editorColumnSpan;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setEditorColumnSpan( int newEditorColumnSpan ) {
+        int oldEditorColumnSpan = editorColumnSpan;
+        editorColumnSpan = newEditorColumnSpan;
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN,
+            oldEditorColumnSpan,
+            editorColumnSpan ) );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public DatatypeDefinition getUiShowLabel() {
+        if( uiShowLabel != null && uiShowLabel.eIsProxy() ) {
+            InternalEObject oldUiShowLabel = (InternalEObject)uiShowLabel;
+            uiShowLabel = (DatatypeDefinition)eResolveProxy( oldUiShowLabel );
+            if( uiShowLabel != oldUiShowLabel ) {
+                if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+                    this,
+                    Notification.RESOLVE,
+                    ErfPackage.ATTRIBUTE_DEFINITION__UI_SHOW_LABEL,
+                    oldUiShowLabel,
+                    uiShowLabel ) );
+            }
+        }
+        return uiShowLabel;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public DatatypeDefinition basicGetUiShowLabel() {
+        return uiShowLabel;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setUiShowLabel( DatatypeDefinition newUiShowLabel ) {
+        DatatypeDefinition oldUiShowLabel = uiShowLabel;
+        uiShowLabel = newUiShowLabel;
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            ErfPackage.ATTRIBUTE_DEFINITION__UI_SHOW_LABEL,
+            oldUiShowLabel,
+            uiShowLabel ) );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public Object eGet( int featureID, boolean resolve, boolean coreType ) {
         switch (featureID) {
@@ -214,6 +409,15 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
             return isIdent();
         case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
             return isUnique();
+        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_SHOW_LABEL:
+            return isEditorShowLabel();
+        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_ROW_NUMBER:
+            return getEditorRowNumber();
+        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN:
+            return getEditorColumnSpan();
+        case ErfPackage.ATTRIBUTE_DEFINITION__UI_SHOW_LABEL:
+            if( resolve ) return getUiShowLabel();
+            return basicGetUiShowLabel();
         }
         return super.eGet( featureID, resolve, coreType );
     }
@@ -234,6 +438,18 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
             return;
         case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
             setUnique( (Boolean)newValue );
+            return;
+        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_SHOW_LABEL:
+            setEditorShowLabel( (Boolean)newValue );
+            return;
+        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_ROW_NUMBER:
+            setEditorRowNumber( (Integer)newValue );
+            return;
+        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN:
+            setEditorColumnSpan( (Integer)newValue );
+            return;
+        case ErfPackage.ATTRIBUTE_DEFINITION__UI_SHOW_LABEL:
+            setUiShowLabel( (DatatypeDefinition)newValue );
             return;
         }
         super.eSet( featureID, newValue );
@@ -256,6 +472,18 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
         case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
             setUnique( UNIQUE_EDEFAULT );
             return;
+        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_SHOW_LABEL:
+            setEditorShowLabel( EDITOR_SHOW_LABEL_EDEFAULT );
+            return;
+        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_ROW_NUMBER:
+            setEditorRowNumber( EDITOR_ROW_NUMBER_EDEFAULT );
+            return;
+        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN:
+            setEditorColumnSpan( EDITOR_COLUMN_SPAN_EDEFAULT );
+            return;
+        case ErfPackage.ATTRIBUTE_DEFINITION__UI_SHOW_LABEL:
+            setUiShowLabel( (DatatypeDefinition)null );
+            return;
         }
         super.eUnset( featureID );
     }
@@ -274,6 +502,14 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
             return ident != IDENT_EDEFAULT;
         case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
             return unique != UNIQUE_EDEFAULT;
+        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_SHOW_LABEL:
+            return editorShowLabel != EDITOR_SHOW_LABEL_EDEFAULT;
+        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_ROW_NUMBER:
+            return editorRowNumber != EDITOR_ROW_NUMBER_EDEFAULT;
+        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN:
+            return editorColumnSpan != EDITOR_COLUMN_SPAN_EDEFAULT;
+        case ErfPackage.ATTRIBUTE_DEFINITION__UI_SHOW_LABEL:
+            return uiShowLabel != null;
         }
         return super.eIsSet( featureID );
     }
@@ -292,6 +528,12 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
         result.append( ident );
         result.append( ", unique: " );
         result.append( unique );
+        result.append( ", editorShowLabel: " );
+        result.append( editorShowLabel );
+        result.append( ", editorRowNumber: " );
+        result.append( editorRowNumber );
+        result.append( ", editorColumnSpan: " );
+        result.append( editorColumnSpan );
         result.append( ')' );
         return result.toString();
     }

@@ -264,6 +264,42 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getAttributeDefinition_EditorShowLabel() {
+        return (EAttribute)attributeDefinitionEClass.getEStructuralFeatures().get( 3 );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAttributeDefinition_EditorRowNumber() {
+        return (EAttribute)attributeDefinitionEClass.getEStructuralFeatures().get( 4 );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAttributeDefinition_EditorColumnSpan() {
+        return (EAttribute)attributeDefinitionEClass.getEStructuralFeatures().get( 5 );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getAttributeDefinition_UiShowLabel() {
+        return (EReference)attributeDefinitionEClass.getEStructuralFeatures().get( 6 );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getAttributeValue() {
         return attributeValueEClass;
     }
@@ -615,6 +651,10 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         createEReference( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__TYPE );
         createEAttribute( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__IDENT );
         createEAttribute( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__UNIQUE );
+        createEAttribute( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__EDITOR_SHOW_LABEL );
+        createEAttribute( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__EDITOR_ROW_NUMBER );
+        createEAttribute( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN );
+        createEReference( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__UI_SHOW_LABEL );
 
         attributeValueEClass = createEClass( ATTRIBUTE_VALUE );
 
@@ -766,6 +806,68 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         !IS_UNIQUE,
                         !IS_DERIVED,
                         !IS_ORDERED );
+        initEAttribute( getAttributeDefinition_EditorShowLabel(),
+                        ecorePackage.getEBoolean(),
+                        "editorShowLabel",
+                        "true",
+                        1,
+                        1,
+                        AttributeDefinition.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_UNSETTABLE,
+                        !IS_ID,
+                        !IS_UNIQUE,
+                        !IS_DERIVED,
+                        !IS_ORDERED );
+        initEAttribute( getAttributeDefinition_EditorRowNumber(),
+                        ecorePackage.getEInt(),
+                        "editorRowNumber",
+                        "1",
+                        1,
+                        1,
+                        AttributeDefinition.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_UNSETTABLE,
+                        !IS_ID,
+                        !IS_UNIQUE,
+                        !IS_DERIVED,
+                        !IS_ORDERED );
+        initEAttribute( getAttributeDefinition_EditorColumnSpan(),
+                        ecorePackage.getEInt(),
+                        "editorColumnSpan",
+                        "1",
+                        1,
+                        1,
+                        AttributeDefinition.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_UNSETTABLE,
+                        !IS_ID,
+                        !IS_UNIQUE,
+                        !IS_DERIVED,
+                        !IS_ORDERED );
+        initEReference( getAttributeDefinition_UiShowLabel(),
+                        this.getDatatypeDefinition(),
+                        null,
+                        "uiShowLabel",
+                        null,
+                        1,
+                        1,
+                        AttributeDefinition.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_COMPOSITE,
+                        IS_RESOLVE_PROXIES,
+                        !IS_UNSETTABLE,
+                        IS_UNIQUE,
+                        !IS_DERIVED,
+                        IS_ORDERED );
 
         initEClass( attributeValueEClass,
                     AttributeValue.class,
@@ -1223,9 +1325,15 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
      */
     protected void createUIAnnotations() {
         String source = "UI";
+        addAnnotation( getAttributeDefinition_Type(), source, new String[]{
+            "ObservedStructuralFeature",
+            "coreContent:dataTypes"} );
         addAnnotation( getAttributeDefinition_Ident(), source, new String[]{"Detail", "true"} );
         addAnnotation( getAttributeDefinition_Unique(), source, new String[]{"Detail", "true"} );
-        addAnnotation( getSpecType_SpecAttributes(), source, new String[]{"ObservedStructuralFeature", "dataTypes"} );
+        addAnnotation( getAttributeDefinition_EditorShowLabel(), source, new String[]{"Detail", "true"} );
+        addAnnotation( getAttributeDefinition_EditorRowNumber(), source, new String[]{"Detail", "true"} );
+        addAnnotation( getAttributeDefinition_EditorColumnSpan(), source, new String[]{"Detail", "true"} );
+        addAnnotation( getAttributeDefinition_UiShowLabel(), source, new String[]{"Detail", "true"} );
         addAnnotation( getDatatypeDefinitionInteger_Max(), source, new String[]{"Detail", "true"} );
         addAnnotation( getDatatypeDefinitionInteger_Min(), source, new String[]{"Detail", "true"} );
         addAnnotation( getDatatypeDefinitionString_MaxLength(), source, new String[]{"Detail", "true"} );

@@ -5,7 +5,11 @@
     nsURI="http://era/foss/erf" nsPrefix="era.foss.erf">
   <eClassifiers xsi:type="ecore:EClass" name="AttributeDefinition" abstract="true"
       eSuperTypes="#//Identifiable">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="#//DatatypeDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="#//DatatypeDefinition">
+      <eAnnotations source="UI">
+        <details key="ObservedStructuralFeature" value="coreContent:dataTypes"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="ident" ordered="false"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false">
@@ -16,6 +20,33 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="unique" ordered="false"
         unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false">
+      <eAnnotations source="UI">
+        <details key="Detail" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editorShowLabel" ordered="false"
+        unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true">
+      <eAnnotations source="UI">
+        <details key="Detail" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editorRowNumber" ordered="false"
+        unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="1">
+      <eAnnotations source="UI">
+        <details key="Detail" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editorColumnSpan" ordered="false"
+        unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="1">
+      <eAnnotations source="UI">
+        <details key="Detail" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="uiShowLabel" lowerBound="1"
+        eType="#//DatatypeDefinition">
       <eAnnotations source="UI">
         <details key="Detail" value="true"/>
       </eAnnotations>
@@ -38,11 +69,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SpecType" eSuperTypes="#//Identifiable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="specAttributes" upperBound="-1"
-        eType="#//AttributeDefinition" containment="true" resolveProxies="false">
-      <eAnnotations source="UI">
-        <details key="ObservedStructuralFeature" value="dataTypes"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="#//AttributeDefinition" containment="true" resolveProxies="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Map" instanceClassName="java.util.Map"
       abstract="true" interface="true">

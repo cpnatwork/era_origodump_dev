@@ -271,13 +271,49 @@ public interface ErfPackage extends EPackage {
     int ATTRIBUTE_DEFINITION__UNIQUE = IDENTIFIABLE_FEATURE_COUNT + 2;
 
     /**
+     * The feature id for the '<em><b>Editor Show Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION__EDITOR_SHOW_LABEL = IDENTIFIABLE_FEATURE_COUNT + 3;
+
+    /**
+     * The feature id for the '<em><b>Editor Row Number</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION__EDITOR_ROW_NUMBER = IDENTIFIABLE_FEATURE_COUNT + 4;
+
+    /**
+     * The feature id for the '<em><b>Editor Column Span</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN = IDENTIFIABLE_FEATURE_COUNT + 5;
+
+    /**
+     * The feature id for the '<em><b>Ui Show Label</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION__UI_SHOW_LABEL = IDENTIFIABLE_FEATURE_COUNT + 6;
+
+    /**
      * The number of structural features of the '<em>Attribute Definition</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ATTRIBUTE_DEFINITION_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 3;
+    int ATTRIBUTE_DEFINITION_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 7;
 
     /**
      * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -785,6 +821,42 @@ public interface ErfPackage extends EPackage {
     int ATTRIBUTE_DEFINITION_SIMPLE__UNIQUE = ATTRIBUTE_DEFINITION__UNIQUE;
 
     /**
+     * The feature id for the '<em><b>Editor Show Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_SIMPLE__EDITOR_SHOW_LABEL = ATTRIBUTE_DEFINITION__EDITOR_SHOW_LABEL;
+
+    /**
+     * The feature id for the '<em><b>Editor Row Number</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_SIMPLE__EDITOR_ROW_NUMBER = ATTRIBUTE_DEFINITION__EDITOR_ROW_NUMBER;
+
+    /**
+     * The feature id for the '<em><b>Editor Column Span</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_SIMPLE__EDITOR_COLUMN_SPAN = ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN;
+
+    /**
+     * The feature id for the '<em><b>Ui Show Label</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_SIMPLE__UI_SHOW_LABEL = ATTRIBUTE_DEFINITION__UI_SHOW_LABEL;
+
+    /**
      * The feature id for the '<em><b>Default Value</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1009,6 +1081,50 @@ public interface ErfPackage extends EPackage {
      * @generated
      */
     EAttribute getAttributeDefinition_Unique();
+
+    /**
+     * Returns the meta object for the attribute '{@link era.foss.erf.AttributeDefinition#isEditorShowLabel <em>Editor Show Label</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Editor Show Label</em>'.
+     * @see era.foss.erf.AttributeDefinition#isEditorShowLabel()
+     * @see #getAttributeDefinition()
+     * @generated
+     */
+    EAttribute getAttributeDefinition_EditorShowLabel();
+
+    /**
+     * Returns the meta object for the attribute '{@link era.foss.erf.AttributeDefinition#getEditorRowNumber <em>Editor Row Number</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Editor Row Number</em>'.
+     * @see era.foss.erf.AttributeDefinition#getEditorRowNumber()
+     * @see #getAttributeDefinition()
+     * @generated
+     */
+    EAttribute getAttributeDefinition_EditorRowNumber();
+
+    /**
+     * Returns the meta object for the attribute '{@link era.foss.erf.AttributeDefinition#getEditorColumnSpan <em>Editor Column Span</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Editor Column Span</em>'.
+     * @see era.foss.erf.AttributeDefinition#getEditorColumnSpan()
+     * @see #getAttributeDefinition()
+     * @generated
+     */
+    EAttribute getAttributeDefinition_EditorColumnSpan();
+
+    /**
+     * Returns the meta object for the reference '{@link era.foss.erf.AttributeDefinition#getUiShowLabel <em>Ui Show Label</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Ui Show Label</em>'.
+     * @see era.foss.erf.AttributeDefinition#getUiShowLabel()
+     * @see #getAttributeDefinition()
+     * @generated
+     */
+    EReference getAttributeDefinition_UiShowLabel();
 
     /**
      * Returns the meta object for class '{@link era.foss.erf.AttributeValue <em>Attribute Value</em>}'.
@@ -1445,6 +1561,34 @@ public interface ErfPackage extends EPackage {
          * @generated
          */
         EAttribute ATTRIBUTE_DEFINITION__UNIQUE = eINSTANCE.getAttributeDefinition_Unique();
+        /**
+         * The meta object literal for the '<em><b>Editor Show Label</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ATTRIBUTE_DEFINITION__EDITOR_SHOW_LABEL = eINSTANCE.getAttributeDefinition_EditorShowLabel();
+        /**
+         * The meta object literal for the '<em><b>Editor Row Number</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ATTRIBUTE_DEFINITION__EDITOR_ROW_NUMBER = eINSTANCE.getAttributeDefinition_EditorRowNumber();
+        /**
+         * The meta object literal for the '<em><b>Editor Column Span</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN = eINSTANCE.getAttributeDefinition_EditorColumnSpan();
+        /**
+         * The meta object literal for the '<em><b>Ui Show Label</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference ATTRIBUTE_DEFINITION__UI_SHOW_LABEL = eINSTANCE.getAttributeDefinition_UiShowLabel();
         /**
          * The meta object literal for the '{@link era.foss.erf.impl.AttributeValueImpl <em>Attribute Value</em>}' class.
          * <!-- begin-user-doc -->

@@ -7,7 +7,7 @@ import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.swt.widgets.Composite;
 
 /**
- * Decorator for ComboBoxViewerCellEditor providing an ISelectionProvider interface
+ * Wrapper for ComboBoxViewerCellEditor providing an ISelectionProvider interface
  */
 public class ComboBoxViewerCellEditorSp extends ComboBoxViewerCellEditor implements ISelectionProvider
 {

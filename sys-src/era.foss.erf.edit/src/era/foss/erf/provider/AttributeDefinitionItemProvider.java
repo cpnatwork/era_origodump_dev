@@ -57,6 +57,10 @@ public class AttributeDefinitionItemProvider extends IdentifiableItemProvider im
             addTypePropertyDescriptor( object );
             addIdentPropertyDescriptor( object );
             addUniquePropertyDescriptor( object );
+            addEditorShowLabelPropertyDescriptor( object );
+            addEditorRowNumberPropertyDescriptor( object );
+            addEditorColumnSpanPropertyDescriptor( object );
+            addUiShowLabelPropertyDescriptor( object );
         }
         return itemPropertyDescriptors;
     }
@@ -128,6 +132,94 @@ public class AttributeDefinitionItemProvider extends IdentifiableItemProvider im
     }
 
     /**
+     * This adds a property descriptor for the Editor Show Label feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addEditorShowLabelPropertyDescriptor( Object object ) {
+        itemPropertyDescriptors.add( createItemPropertyDescriptor( ((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                                                                   getResourceLocator(),
+                                                                   getString( "_UI_AttributeDefinition_editorShowLabel_feature" ),
+                                                                   getString( "_UI_PropertyDescriptor_description",
+                                                                              "_UI_AttributeDefinition_editorShowLabel_feature",
+                                                                              "_UI_AttributeDefinition_type" ),
+                                                                   ErfPackage.Literals.ATTRIBUTE_DEFINITION__EDITOR_SHOW_LABEL,
+                                                                   true,
+                                                                   false,
+                                                                   false,
+                                                                   ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+                                                                   null,
+                                                                   null ) );
+    }
+
+    /**
+     * This adds a property descriptor for the Editor Row Number feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addEditorRowNumberPropertyDescriptor( Object object ) {
+        itemPropertyDescriptors.add( createItemPropertyDescriptor( ((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                                                                   getResourceLocator(),
+                                                                   getString( "_UI_AttributeDefinition_editorRowNumber_feature" ),
+                                                                   getString( "_UI_PropertyDescriptor_description",
+                                                                              "_UI_AttributeDefinition_editorRowNumber_feature",
+                                                                              "_UI_AttributeDefinition_type" ),
+                                                                   ErfPackage.Literals.ATTRIBUTE_DEFINITION__EDITOR_ROW_NUMBER,
+                                                                   true,
+                                                                   false,
+                                                                   false,
+                                                                   ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+                                                                   null,
+                                                                   null ) );
+    }
+
+    /**
+     * This adds a property descriptor for the Editor Column Span feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addEditorColumnSpanPropertyDescriptor( Object object ) {
+        itemPropertyDescriptors.add( createItemPropertyDescriptor( ((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                                                                   getResourceLocator(),
+                                                                   getString( "_UI_AttributeDefinition_editorColumnSpan_feature" ),
+                                                                   getString( "_UI_PropertyDescriptor_description",
+                                                                              "_UI_AttributeDefinition_editorColumnSpan_feature",
+                                                                              "_UI_AttributeDefinition_type" ),
+                                                                   ErfPackage.Literals.ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN,
+                                                                   true,
+                                                                   false,
+                                                                   false,
+                                                                   ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+                                                                   null,
+                                                                   null ) );
+    }
+
+    /**
+     * This adds a property descriptor for the Ui Show Label feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addUiShowLabelPropertyDescriptor( Object object ) {
+        itemPropertyDescriptors.add( createItemPropertyDescriptor( ((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                                                                   getResourceLocator(),
+                                                                   getString( "_UI_AttributeDefinition_uiShowLabel_feature" ),
+                                                                   getString( "_UI_PropertyDescriptor_description",
+                                                                              "_UI_AttributeDefinition_uiShowLabel_feature",
+                                                                              "_UI_AttributeDefinition_type" ),
+                                                                   ErfPackage.Literals.ATTRIBUTE_DEFINITION__UI_SHOW_LABEL,
+                                                                   true,
+                                                                   false,
+                                                                   true,
+                                                                   null,
+                                                                   null,
+                                                                   null ) );
+    }
+
+    /**
      * This returns the label text for the adapted class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -155,6 +247,9 @@ public class AttributeDefinitionItemProvider extends IdentifiableItemProvider im
         switch (notification.getFeatureID( AttributeDefinition.class )) {
         case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
         case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
+        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_SHOW_LABEL:
+        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_ROW_NUMBER:
+        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN:
             fireNotifyChanged( new ViewerNotification( notification, notification.getNotifier(), false, true ) );
             return;
         }
