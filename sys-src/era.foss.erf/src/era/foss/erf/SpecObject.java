@@ -1,7 +1,6 @@
 package era.foss.erf;
 
 import org.eclipse.emf.common.util.EList;
-import java.util.List;
 
 /**
  * @model 
