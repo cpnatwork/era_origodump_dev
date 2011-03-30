@@ -30,7 +30,7 @@ public interface AttributeDefinition extends Identifiable {
     boolean isUnique();
 
     /**
-     * @model unique="false" default="true" lowerBound="1" upperBound="1" ordered="false" annotation="UI Detail='true'"
+     * @model unique="false" default="true" required="true" ordered="false" annotation="UI Detail='true'"
      * @Not generated
      * @return
      */
@@ -38,8 +38,7 @@ public interface AttributeDefinition extends Identifiable {
 
     /**
      * Sets the value of the '{@link era.foss.erf.AttributeDefinition#isEditorShowLabel <em>Editor Show Label</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Editor Show Label</em>' attribute.
      * @see #isEditorShowLabel()
      * @generated
@@ -55,8 +54,7 @@ public interface AttributeDefinition extends Identifiable {
 
     /**
      * Sets the value of the '{@link era.foss.erf.AttributeDefinition#getEditorRowNumber <em>Editor Row Number</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Editor Row Number</em>' attribute.
      * @see #getEditorRowNumber()
      * @generated
@@ -72,30 +70,12 @@ public interface AttributeDefinition extends Identifiable {
 
     /**
      * Sets the value of the '{@link era.foss.erf.AttributeDefinition#getEditorColumnSpan <em>Editor Column Span</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Editor Column Span</em>' attribute.
      * @see #getEditorColumnSpan()
      * @generated
      */
     void setEditorColumnSpan( int value );
-
-    /**
-     * @model lowerBound="1" upperBound="1" annotation="UI Detail='true'"
-     * @Not generated
-     * @return
-     */
-    public DatatypeDefinition getUiShowLabel();
-
-    /**
-     * Sets the value of the '{@link era.foss.erf.AttributeDefinition#getUiShowLabel <em>Ui Show Label</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Ui Show Label</em>' reference.
-     * @see #getUiShowLabel()
-     * @generated
-     */
-    void setUiShowLabel( DatatypeDefinition value );
 
     /**
      * Sets the value of the '{@link era.foss.erf.AttributeDefinition#isUnique <em>Unique</em>}' attribute. <!--

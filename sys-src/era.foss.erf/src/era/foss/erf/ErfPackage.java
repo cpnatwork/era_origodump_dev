@@ -298,22 +298,13 @@ public interface ErfPackage extends EPackage {
     int ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN = IDENTIFIABLE_FEATURE_COUNT + 5;
 
     /**
-     * The feature id for the '<em><b>Ui Show Label</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ATTRIBUTE_DEFINITION__UI_SHOW_LABEL = IDENTIFIABLE_FEATURE_COUNT + 6;
-
-    /**
      * The number of structural features of the '<em>Attribute Definition</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ATTRIBUTE_DEFINITION_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 7;
+    int ATTRIBUTE_DEFINITION_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 6;
 
     /**
      * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -848,15 +839,6 @@ public interface ErfPackage extends EPackage {
     int ATTRIBUTE_DEFINITION_SIMPLE__EDITOR_COLUMN_SPAN = ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN;
 
     /**
-     * The feature id for the '<em><b>Ui Show Label</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ATTRIBUTE_DEFINITION_SIMPLE__UI_SHOW_LABEL = ATTRIBUTE_DEFINITION__UI_SHOW_LABEL;
-
-    /**
      * The feature id for the '<em><b>Default Value</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1114,17 +1096,6 @@ public interface ErfPackage extends EPackage {
      * @generated
      */
     EAttribute getAttributeDefinition_EditorColumnSpan();
-
-    /**
-     * Returns the meta object for the reference '{@link era.foss.erf.AttributeDefinition#getUiShowLabel <em>Ui Show Label</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Ui Show Label</em>'.
-     * @see era.foss.erf.AttributeDefinition#getUiShowLabel()
-     * @see #getAttributeDefinition()
-     * @generated
-     */
-    EReference getAttributeDefinition_UiShowLabel();
 
     /**
      * Returns the meta object for class '{@link era.foss.erf.AttributeValue <em>Attribute Value</em>}'.
@@ -1582,13 +1553,6 @@ public interface ErfPackage extends EPackage {
          * @generated
          */
         EAttribute ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN = eINSTANCE.getAttributeDefinition_EditorColumnSpan();
-        /**
-         * The meta object literal for the '<em><b>Ui Show Label</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference ATTRIBUTE_DEFINITION__UI_SHOW_LABEL = eINSTANCE.getAttributeDefinition_UiShowLabel();
         /**
          * The meta object literal for the '{@link era.foss.erf.impl.AttributeValueImpl <em>Attribute Value</em>}' class.
          * <!-- begin-user-doc -->

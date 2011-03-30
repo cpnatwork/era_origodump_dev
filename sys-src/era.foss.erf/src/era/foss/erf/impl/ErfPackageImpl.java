@@ -291,15 +291,6 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getAttributeDefinition_UiShowLabel() {
-        return (EReference)attributeDefinitionEClass.getEStructuralFeatures().get( 6 );
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EClass getAttributeValue() {
         return attributeValueEClass;
     }
@@ -654,7 +645,6 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         createEAttribute( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__EDITOR_SHOW_LABEL );
         createEAttribute( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__EDITOR_ROW_NUMBER );
         createEAttribute( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN );
-        createEReference( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__UI_SHOW_LABEL );
 
         attributeValueEClass = createEClass( ATTRIBUTE_VALUE );
 
@@ -851,23 +841,6 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         !IS_UNIQUE,
                         !IS_DERIVED,
                         !IS_ORDERED );
-        initEReference( getAttributeDefinition_UiShowLabel(),
-                        this.getDatatypeDefinition(),
-                        null,
-                        "uiShowLabel",
-                        null,
-                        1,
-                        1,
-                        AttributeDefinition.class,
-                        !IS_TRANSIENT,
-                        !IS_VOLATILE,
-                        IS_CHANGEABLE,
-                        !IS_COMPOSITE,
-                        IS_RESOLVE_PROXIES,
-                        !IS_UNSETTABLE,
-                        IS_UNIQUE,
-                        !IS_DERIVED,
-                        IS_ORDERED );
 
         initEClass( attributeValueEClass,
                     AttributeValue.class,
@@ -935,7 +908,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         this.getSpecRelation_Target(),
                         "sources",
                         null,
-                        1,
+                        0,
                         -1,
                         SpecObject.class,
                         !IS_TRANSIENT,
@@ -952,7 +925,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         this.getSpecRelation_Source(),
                         "targets",
                         null,
-                        1,
+                        0,
                         -1,
                         SpecObject.class,
                         !IS_TRANSIENT,
@@ -1333,7 +1306,6 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         addAnnotation( getAttributeDefinition_EditorShowLabel(), source, new String[]{"Detail", "true"} );
         addAnnotation( getAttributeDefinition_EditorRowNumber(), source, new String[]{"Detail", "true"} );
         addAnnotation( getAttributeDefinition_EditorColumnSpan(), source, new String[]{"Detail", "true"} );
-        addAnnotation( getAttributeDefinition_UiShowLabel(), source, new String[]{"Detail", "true"} );
         addAnnotation( getDatatypeDefinitionInteger_Max(), source, new String[]{"Detail", "true"} );
         addAnnotation( getDatatypeDefinitionInteger_Min(), source, new String[]{"Detail", "true"} );
         addAnnotation( getDatatypeDefinitionString_MaxLength(), source, new String[]{"Detail", "true"} );

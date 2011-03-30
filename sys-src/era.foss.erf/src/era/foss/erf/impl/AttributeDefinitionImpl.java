@@ -30,7 +30,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#isEditorShowLabel <em>Editor Show Label</em>}</li>
  *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#getEditorRowNumber <em>Editor Row Number</em>}</li>
  *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#getEditorColumnSpan <em>Editor Column Span</em>}</li>
- *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#getUiShowLabel <em>Ui Show Label</em>}</li>
  * </ul>
  * </p>
  *
@@ -147,16 +146,6 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
      * @ordered
      */
     protected int editorColumnSpan = EDITOR_COLUMN_SPAN_EDEFAULT;
-
-    /**
-     * The cached value of the '{@link #getUiShowLabel() <em>Ui Show Label</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getUiShowLabel()
-     * @generated
-     * @ordered
-     */
-    protected DatatypeDefinition uiShowLabel;
 
     /**
      * <!-- begin-user-doc -->
@@ -353,52 +342,6 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
      * <!-- end-user-doc -->
      * @generated
      */
-    public DatatypeDefinition getUiShowLabel() {
-        if( uiShowLabel != null && uiShowLabel.eIsProxy() ) {
-            InternalEObject oldUiShowLabel = (InternalEObject)uiShowLabel;
-            uiShowLabel = (DatatypeDefinition)eResolveProxy( oldUiShowLabel );
-            if( uiShowLabel != oldUiShowLabel ) {
-                if( eNotificationRequired() ) eNotify( new ENotificationImpl(
-                    this,
-                    Notification.RESOLVE,
-                    ErfPackage.ATTRIBUTE_DEFINITION__UI_SHOW_LABEL,
-                    oldUiShowLabel,
-                    uiShowLabel ) );
-            }
-        }
-        return uiShowLabel;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public DatatypeDefinition basicGetUiShowLabel() {
-        return uiShowLabel;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setUiShowLabel( DatatypeDefinition newUiShowLabel ) {
-        DatatypeDefinition oldUiShowLabel = uiShowLabel;
-        uiShowLabel = newUiShowLabel;
-        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
-            this,
-            Notification.SET,
-            ErfPackage.ATTRIBUTE_DEFINITION__UI_SHOW_LABEL,
-            oldUiShowLabel,
-            uiShowLabel ) );
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     @Override
     public Object eGet( int featureID, boolean resolve, boolean coreType ) {
         switch (featureID) {
@@ -415,9 +358,6 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
             return getEditorRowNumber();
         case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN:
             return getEditorColumnSpan();
-        case ErfPackage.ATTRIBUTE_DEFINITION__UI_SHOW_LABEL:
-            if( resolve ) return getUiShowLabel();
-            return basicGetUiShowLabel();
         }
         return super.eGet( featureID, resolve, coreType );
     }
@@ -447,9 +387,6 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
             return;
         case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN:
             setEditorColumnSpan( (Integer)newValue );
-            return;
-        case ErfPackage.ATTRIBUTE_DEFINITION__UI_SHOW_LABEL:
-            setUiShowLabel( (DatatypeDefinition)newValue );
             return;
         }
         super.eSet( featureID, newValue );
@@ -481,9 +418,6 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
         case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN:
             setEditorColumnSpan( EDITOR_COLUMN_SPAN_EDEFAULT );
             return;
-        case ErfPackage.ATTRIBUTE_DEFINITION__UI_SHOW_LABEL:
-            setUiShowLabel( (DatatypeDefinition)null );
-            return;
         }
         super.eUnset( featureID );
     }
@@ -508,8 +442,6 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
             return editorRowNumber != EDITOR_ROW_NUMBER_EDEFAULT;
         case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN:
             return editorColumnSpan != EDITOR_COLUMN_SPAN_EDEFAULT;
-        case ErfPackage.ATTRIBUTE_DEFINITION__UI_SHOW_LABEL:
-            return uiShowLabel != null;
         }
         return super.eIsSet( featureID );
     }
