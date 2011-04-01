@@ -296,6 +296,29 @@ public class ErfItemProviderAdapterFactory extends ErfAdapterFactory implements 
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link era.foss.erf.AttributeDefinitionUiProperties} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected AttributeDefinitionUiPropertiesItemProvider attributeDefinitionUiPropertiesItemProvider;
+
+    /**
+     * This creates an adapter for a {@link era.foss.erf.AttributeDefinitionUiProperties}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createAttributeDefinitionUiPropertiesAdapter() {
+        if( attributeDefinitionUiPropertiesItemProvider == null ) {
+            attributeDefinitionUiPropertiesItemProvider = new AttributeDefinitionUiPropertiesItemProvider( this );
+        }
+
+        return attributeDefinitionUiPropertiesItemProvider;
+    }
+
+    /**
      * This returns the root adapter factory that contains this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -403,6 +426,7 @@ public class ErfItemProviderAdapterFactory extends ErfAdapterFactory implements 
         if( erfItemProvider != null ) erfItemProvider.dispose();
         if( contentItemProvider != null ) contentItemProvider.dispose();
         if( specRelationItemProvider != null ) specRelationItemProvider.dispose();
+        if( attributeDefinitionUiPropertiesItemProvider != null ) attributeDefinitionUiPropertiesItemProvider.dispose();
     }
 
 }

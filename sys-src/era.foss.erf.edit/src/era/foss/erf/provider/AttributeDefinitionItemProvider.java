@@ -19,6 +19,7 @@
 package era.foss.erf.provider;
 
 import era.foss.erf.AttributeDefinition;
+import era.foss.erf.ErfFactory;
 import era.foss.erf.ErfPackage;
 
 import java.util.Collection;
@@ -27,6 +28,7 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -69,9 +71,6 @@ public class AttributeDefinitionItemProvider extends IdentifiableItemProvider im
             addTypePropertyDescriptor( object );
             addIdentPropertyDescriptor( object );
             addUniquePropertyDescriptor( object );
-            addEditorShowLabelPropertyDescriptor( object );
-            addEditorRowNumberPropertyDescriptor( object );
-            addEditorColumnSpanPropertyDescriptor( object );
         }
         return itemPropertyDescriptors;
     }
@@ -143,69 +142,33 @@ public class AttributeDefinitionItemProvider extends IdentifiableItemProvider im
     }
 
     /**
-     * This adds a property descriptor for the Editor Show Label feature.
+     * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+     * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+     * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addEditorShowLabelPropertyDescriptor( Object object ) {
-        itemPropertyDescriptors.add( createItemPropertyDescriptor( ((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                                                                   getResourceLocator(),
-                                                                   getString( "_UI_AttributeDefinition_editorShowLabel_feature" ),
-                                                                   getString( "_UI_PropertyDescriptor_description",
-                                                                              "_UI_AttributeDefinition_editorShowLabel_feature",
-                                                                              "_UI_AttributeDefinition_type" ),
-                                                                   ErfPackage.Literals.ATTRIBUTE_DEFINITION__EDITOR_SHOW_LABEL,
-                                                                   true,
-                                                                   false,
-                                                                   false,
-                                                                   ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-                                                                   null,
-                                                                   null ) );
+    @Override
+    public Collection<? extends EStructuralFeature> getChildrenFeatures( Object object ) {
+        if( childrenFeatures == null ) {
+            super.getChildrenFeatures( object );
+            childrenFeatures.add( ErfPackage.Literals.ATTRIBUTE_DEFINITION__UI_PROPERTIES );
+        }
+        return childrenFeatures;
     }
 
     /**
-     * This adds a property descriptor for the Editor Row Number feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addEditorRowNumberPropertyDescriptor( Object object ) {
-        itemPropertyDescriptors.add( createItemPropertyDescriptor( ((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                                                                   getResourceLocator(),
-                                                                   getString( "_UI_AttributeDefinition_editorRowNumber_feature" ),
-                                                                   getString( "_UI_PropertyDescriptor_description",
-                                                                              "_UI_AttributeDefinition_editorRowNumber_feature",
-                                                                              "_UI_AttributeDefinition_type" ),
-                                                                   ErfPackage.Literals.ATTRIBUTE_DEFINITION__EDITOR_ROW_NUMBER,
-                                                                   true,
-                                                                   false,
-                                                                   false,
-                                                                   ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-                                                                   null,
-                                                                   null ) );
-    }
+    @Override
+    protected EStructuralFeature getChildFeature( Object object, Object child ) {
+        // Check the type of the specified child object and return the proper feature to use for
+        // adding (see {@link AddCommand}) it as a child.
 
-    /**
-     * This adds a property descriptor for the Editor Column Span feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addEditorColumnSpanPropertyDescriptor( Object object ) {
-        itemPropertyDescriptors.add( createItemPropertyDescriptor( ((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                                                                   getResourceLocator(),
-                                                                   getString( "_UI_AttributeDefinition_editorColumnSpan_feature" ),
-                                                                   getString( "_UI_PropertyDescriptor_description",
-                                                                              "_UI_AttributeDefinition_editorColumnSpan_feature",
-                                                                              "_UI_AttributeDefinition_type" ),
-                                                                   ErfPackage.Literals.ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN,
-                                                                   true,
-                                                                   false,
-                                                                   false,
-                                                                   ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-                                                                   null,
-                                                                   null ) );
+        return super.getChildFeature( object, child );
     }
 
     /**
@@ -236,10 +199,10 @@ public class AttributeDefinitionItemProvider extends IdentifiableItemProvider im
         switch (notification.getFeatureID( AttributeDefinition.class )) {
         case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
         case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
-        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_SHOW_LABEL:
-        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_ROW_NUMBER:
-        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN:
             fireNotifyChanged( new ViewerNotification( notification, notification.getNotifier(), false, true ) );
+            return;
+        case ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES:
+            fireNotifyChanged( new ViewerNotification( notification, notification.getNotifier(), true, false ) );
             return;
         }
         super.notifyChanged( notification );
@@ -255,6 +218,9 @@ public class AttributeDefinitionItemProvider extends IdentifiableItemProvider im
     @Override
     protected void collectNewChildDescriptors( Collection<Object> newChildDescriptors, Object object ) {
         super.collectNewChildDescriptors( newChildDescriptors, object );
+
+        newChildDescriptors.add( createChildParameter( ErfPackage.Literals.ATTRIBUTE_DEFINITION__UI_PROPERTIES,
+                                                       ErfFactory.eINSTANCE.createAttributeDefinitionUiProperties() ) );
     }
 
 }

@@ -26,11 +26,13 @@ import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.property.value.IValueProperty;
 import org.eclipse.emf.databinding.EMFDataBindingContext;
 import org.eclipse.emf.databinding.EMFProperties;
+import org.eclipse.emf.databinding.EMFUpdateValueStrategy;
 import org.eclipse.emf.databinding.FeaturePath;
 import org.eclipse.emf.databinding.IEMFListProperty;
 import org.eclipse.emf.databinding.edit.EMFEditProperties;
-import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -43,8 +45,6 @@ import org.eclipse.jface.databinding.viewers.ObservableMapCellLabelProvider;
 import org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider;
 import org.eclipse.jface.databinding.viewers.ObservableValueEditingSupport;
 import org.eclipse.jface.databinding.viewers.ViewerProperties;
-import org.eclipse.jface.layout.TableColumnLayout;
-import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ComboBoxViewerCellEditor;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TableViewer;
@@ -97,10 +97,13 @@ public class Ui {
      * @param eAttribute the e attribute
      * @param master the master
      */
-    public void createText( Composite parent, EAttribute eAttribute, IObservableValue master ) {
+    public void createText( Composite parent, FeaturePath featurePath, IObservableValue master ) {
+        //
+        EStructuralFeature eStructuralFeature = featurePath.getFeaturePath()[featurePath.getFeaturePath().length - 1];
+
         // create label
         Label label = new Label( parent, SWT.NONE );
-        label.setText( Ui.getUiName( eAttribute ) );
+        label.setText( Ui.getUiName( eStructuralFeature ) );
         label.setLayoutData( new GridData( SWT.LEFT, SWT.DEFAULT, true, false ) );
 
         // create text field
@@ -109,7 +112,9 @@ public class Ui {
 
         // bind values
         dataBindContext.bindValue( WidgetProperties.text( SWT.Modify ).observeDelayed( 400, text ),
-                                   EMFEditProperties.value( editingDomain, eAttribute ).observeDetail( master ) );
+                                   EMFEditProperties.value( editingDomain, featurePath ).observeDetail( master ),
+                                   new UnsettableEMFUpdateValueStrategy( eStructuralFeature ),
+                                   new EMFUpdateValueStrategy() );
     }
 
     /**
@@ -119,10 +124,10 @@ public class Ui {
      * @param eAttribute the e attribute
      * @param master the master
      */
-    public void createCheckbox( Composite parent, EAttribute eAttribute, IObservableValue master ) {
+    public void createCheckbox( Composite parent, FeaturePath featurePath, IObservableValue master ) {
         // create label
         Label label = new Label( parent, SWT.NONE );
-        label.setText( Ui.getUiName( eAttribute ) );
+        label.setText( Ui.getUiName( featurePath.getFeaturePath()[featurePath.getFeaturePath().length - 1] ) );
         label.setLayoutData( new GridData( SWT.LEFT, SWT.DEFAULT, true, false ) );
 
         // create checkbox
@@ -131,7 +136,7 @@ public class Ui {
 
         // bind values
         dataBindContext.bindValue( SWTObservables.observeSelection( checkbox ),
-                                   EMFEditProperties.value( editingDomain, eAttribute ).observeDetail( master ) );
+                                   EMFEditProperties.value( editingDomain, featurePath ).observeDetail( master ) );
     }
 
     /**
@@ -180,24 +185,13 @@ public class Ui {
      * @param weigth the weigth
      * @param resizable the resizable
      */
-    public void createColumn( TableViewer tableViewer,
-                              EStructuralFeature[] eStructuralFeatureList,
-                              int minWidth,
-                              int weigth,
-                              boolean resizable ) {
+    public void bindColumn( TableViewerColumn column, EStructuralFeature[] eStructuralFeatureList ) {
 
-        TableColumnLayout columnLayout = (TableColumnLayout)tableViewer.getTable().getParent().getLayout();
+        TableViewer tableViewer = (TableViewer)column.getViewer();
         ObservableListContentProvider cp = (ObservableListContentProvider)tableViewer.getContentProvider();
 
         // get the top level structural feature
         EStructuralFeature topStructuralFeature = eStructuralFeatureList[0];
-
-        // column settings
-        TableViewerColumn column = new TableViewerColumn( tableViewer, SWT.NONE );
-        column.getColumn().setText( Ui.getUiName( topStructuralFeature ) );
-        column.getColumn().setResizable( resizable );
-        column.getColumn().setMoveable( false );
-        columnLayout.setColumnData( column.getColumn(), new ColumnWeightData( weigth, minWidth ) );
 
         // set label provider
         IValueProperty elementProperty = EMFEditProperties.value( editingDomain,
@@ -278,4 +272,31 @@ public class Ui {
         column.setEditingSupport( editingSupport );
 
     }
+
+    static String getUIAnnotationDetail( EModelElement eModelElement, String detail ) {
+        EAnnotation uiAnnotation = eModelElement.getEAnnotation( "UI" );
+        if( (uiAnnotation != null) && (uiAnnotation.getDetails() != null) ) {
+            return uiAnnotation.getDetails().get( detail );
+        } else {
+            return null;
+        }
+    }
+
+    private class UnsettableEMFUpdateValueStrategy extends EMFUpdateValueStrategy {
+        private EStructuralFeature eStructuralFeature;
+
+        public UnsettableEMFUpdateValueStrategy( EStructuralFeature eStructuralFeature ) {
+            super();
+            this.eStructuralFeature = eStructuralFeature;
+        }
+
+        @Override
+        public Object convert( Object value ) {
+            if( ((String)value).isEmpty() && this.eStructuralFeature.isUnsettable() ) {
+                return eStructuralFeature.getDefaultValue();
+            }
+            return super.convert( value );
+        }
+    }
+
 }

@@ -81,7 +81,6 @@ public class AddDeleteTableViewer extends TableViewer {
      */
     private Composite composite;
 
-
     /** The description field for the elements in the table. */
     Text descriptionText;
 
@@ -168,14 +167,14 @@ public class AddDeleteTableViewer extends TableViewer {
         setupTable();
         createDescriptionField();
         triggerColumnSelectedColumn();
-        
+
         parent.addDisposeListener( new DisposeListener() {
-            
+
             @Override
             public void widgetDisposed( DisposeEvent e ) {
                 AddDeleteTableViewer.this.dispose();
             }
-        });
+        } );
     }
 
     /**
@@ -183,8 +182,7 @@ public class AddDeleteTableViewer extends TableViewer {
      */
     protected void dispose() {
         master.dispose();
-        if (dataBindContext != null)
-        {
+        if( dataBindContext != null ) {
             dataBindContext.dispose();
         }
     }
@@ -262,23 +260,20 @@ public class AddDeleteTableViewer extends TableViewer {
 
         // Text widget for the general Description attribute of any ERF-Identifiable
         // descriptionText = new Text( composite, SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL );
-        descriptionText = new Text( composite, SWT.BORDER );
+        descriptionText = new Text( composite, SWT.BORDER | SWT.MULTI );
         descriptionText.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true, 0, 0 ) );
         descriptionText.setEnabled( false );
         // bind values
-        master=ViewerProperties.singleSelection().observe( this );
-        
-        
-        /* We only need the listener as the F****** data binding  can't handle null
-         * pointer as value of the master object at the time the various
-         * listeners are created.
-         * Maybe this has something to do with the fact that the data binding stuff
-         * automatically creates common converters (e.g.  int -> string,...)
-         * but on the other hand... EMF knows everything and especially the 
-         * type... 
+        master = ViewerProperties.singleSelection().observe( this );
+
+        /*
+         * We only need the listener as the F****** data binding can't handle null pointer as value of the master object
+         * at the time the various listeners are created. Maybe this has something to do with the fact that the data
+         * binding stuff automatically creates common converters (e.g. int -> string,...) but on the other hand... EMF
+         * knows everything and especially the type...
          * 
-         * However a null pointer is OK once a data binding has been created where
-         * the value of the master object is not null.
+         * However a null pointer is OK once a data binding has been created where the value of the master object is not
+         * null.
          * 
          * This is major crap...
          */
@@ -304,8 +299,6 @@ public class AddDeleteTableViewer extends TableViewer {
             }
         } );
     }
-
-
 
     /**
      * Create a button bar holding the Add and Remove Button.
@@ -402,7 +395,6 @@ public class AddDeleteTableViewer extends TableViewer {
         }
 
     }
-
 
     /**
      * Get position of column.

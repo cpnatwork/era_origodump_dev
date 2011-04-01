@@ -31,7 +31,10 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
 import org.eclipse.jface.databinding.viewers.ViewerProperties;
+import org.eclipse.jface.layout.TableColumnLayout;
+import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -78,10 +81,9 @@ public class SpecTypeForm extends AbstractErfTypesForm {
 
     /** Table viewer holding the attributes of a spec type. */
     private AddDeleteTableViewer tableViewer;
-    
+
     /** object for creating and binding ui elements. */
     Ui ui;
-    
 
     /**
      * Instantiates a new spec type form.
@@ -92,25 +94,24 @@ public class SpecTypeForm extends AbstractErfTypesForm {
     public SpecTypeForm( Composite parent, IEditorPart editor ) {
         super( parent, editor, SWT.NONE );
 
-        ui= new Ui(editingDomain,erfModel);
-        
+        ui = new Ui( editingDomain, erfModel );
+
         // check for and eventually initialize the sole SpecType
         theOneAndOnlySpecType = (SpecType)erfModel.getCoreContent().getSpecTypes().get( 0 );
-  
+
         // set-up layout
         GridLayout gridLayout = new GridLayout( 2, true );
         this.setLayout( gridLayout );
 
         // set up table viewer for attribute definitions
         createTableViewer();
-        
+
         // set up viewer for details
         createDetailViewer();
 
         // Context menu for creating Elements of default values
         createContextMenu();
     }
-    
 
     /**
      * Create Table viewer showing attributes.
@@ -123,31 +124,41 @@ public class SpecTypeForm extends AbstractErfTypesForm {
         tableViewer.setEditingDomain( editingDomain );
         tableViewer.setAddCommandParameter( theOneAndOnlySpecType,
                                             ErfFactoryImpl.eINSTANCE.createAttributeDefinitionSimple().eClass() );
-		
-		
+
         ObservableListContentProvider cp = new ObservableListContentProvider();
-        tableViewer.setContentProvider(cp);
-		
-        EStructuralFeature[][] colEStructuralFeatures={
+        tableViewer.setContentProvider( cp );
+
+        EStructuralFeature[][] colEStructuralFeatures = {
             {ErfPackage.Literals.IDENTIFIABLE__LONG_NAME},
-            {ErfPackage.Literals.ATTRIBUTE_DEFINITION__TYPE,ErfPackage.Literals.IDENTIFIABLE__LONG_NAME}, 
-            {ErfPackage.Literals.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE,ErfPackage.Literals.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE}
-        };
-        
-        
+            {ErfPackage.Literals.ATTRIBUTE_DEFINITION__TYPE, ErfPackage.Literals.IDENTIFIABLE__LONG_NAME},
+            {
+                ErfPackage.Literals.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE,
+                ErfPackage.Literals.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE}};
+
         int[] colMinWidth = {100, 100, 100};
         int[] colWeigth = {34, 33, 33};
         boolean[] colResize = {true, true, false};
-       
-        for( int colNr = 0; colNr < colEStructuralFeatures.length; colNr++ ) {          
-            ui.createColumn(tableViewer, colEStructuralFeatures[colNr],colMinWidth[colNr],colWeigth[colNr],colResize[colNr]);        
+
+        for( int colNr = 0; colNr < colEStructuralFeatures.length; colNr++ ) {
+            TableColumnLayout columnLayout = (TableColumnLayout)tableViewer.getTable().getParent().getLayout();
+
+            // column settings
+            TableViewerColumn column = new TableViewerColumn( tableViewer, SWT.NONE );
+            column.getColumn().setText( Ui.getUiName( colEStructuralFeatures[colNr][0] ) );
+            column.getColumn().setResizable( colResize[colNr] );
+            column.getColumn().setMoveable( false );
+            columnLayout.setColumnData( column.getColumn(), new ColumnWeightData(
+                colWeigth[colNr],
+                colMinWidth[colNr] ) );
+            ui.bindColumn( column, colEStructuralFeatures[colNr] );
+
         }
-        
-        IEMFListProperty specAttributes = EMFProperties.list(ErfPackage.Literals.SPEC_TYPE__SPEC_ATTRIBUTES);
-        tableViewer.setInput(specAttributes.observe(theOneAndOnlySpecType));
-       
+
+        IEMFListProperty specAttributes = EMFProperties.list( ErfPackage.Literals.SPEC_TYPE__SPEC_ATTRIBUTES );
+        tableViewer.setInput( specAttributes.observe( theOneAndOnlySpecType ) );
+
     }
-    
+
     /**
      * create detailed viewer for selected element.
      */
@@ -155,7 +166,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
         // setup Data type properties viewer
         DetailViewer detailViewer = new DetailViewer(
             this,
-            SWT.BORDER,
+            SWT.NONE,
             editingDomain,
             ViewerProperties.singleSelection().observe( tableViewer ) );
         detailViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
@@ -166,7 +177,6 @@ public class SpecTypeForm extends AbstractErfTypesForm {
      * create context menu for -Adding and removing Dafatult values.
      */
     private void createContextMenu() {
-
 
         final class DefaultValueAction extends Action {
             /** remove Default value instead of adding */
@@ -212,10 +222,10 @@ public class SpecTypeForm extends AbstractErfTypesForm {
                 // pass the first element of the row, the attribute definition, to the handler
                 AttributeDefinitionSimple attribute = getAttributeDefForColumn( selection,
                                                                                 typeEditorActivator.getString( "_UI_AttributeDefinitionDefaultValue_label" ) );
-                if (attribute == null){
+                if( attribute == null ) {
                     return;
                 }
-                    
+
                 defaultValueAction.setAttribute( attribute );
                 menuMgr.add( defaultValueAction );
             }
@@ -236,7 +246,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
         {
             AttributeValueSimple addCommandValue = ErfFactoryImpl.eINSTANCE.createAttributeValueSimple();
             addCommandValue.setTheValue( "" );
-            addCommandValue.setDefinition(attribute);
+            addCommandValue.setDefinition( attribute );
             Command cmd = AddCommand.create( editingDomain,
                                              attribute,
                                              ErfPackage.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE,
@@ -285,6 +295,5 @@ public class SpecTypeForm extends AbstractErfTypesForm {
 
         return attributeDef;
     }
-    
 
 }
