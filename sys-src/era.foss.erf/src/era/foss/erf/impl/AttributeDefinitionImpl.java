@@ -18,30 +18,27 @@
  *************************************************************************/
 package era.foss.erf.impl;
 
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import era.foss.erf.AttributeDefinition;
+import era.foss.erf.AttributeDefinitionUiProperties;
 import era.foss.erf.DatatypeDefinition;
 import era.foss.erf.ErfPackage;
 
-import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Attribute Definition</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Attribute Definition</b></em>'. <!--
+ * end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
  *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#getType <em>Type</em>}</li>
  *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#isIdent <em>Ident</em>}</li>
  *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#isUnique <em>Unique</em>}</li>
- *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#isEditorShowLabel <em>Editor Show Label</em>}</li>
- *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#getEditorRowNumber <em>Editor Row Number</em>}</li>
- *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#getEditorColumnSpan <em>Editor Column Span</em>}</li>
+ *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#getUiProperties <em>Ui Properties</em>}</li>
  * </ul>
  * </p>
  *
@@ -50,9 +47,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 public abstract class AttributeDefinitionImpl extends IdentifiableImpl implements AttributeDefinition {
 
     /**
-     * The cached value of the '{@link #getType() <em>Type</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getType() <em>Type</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getType()
      * @generated
      * @ordered
@@ -60,9 +57,9 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     protected DatatypeDefinition type;
 
     /**
-     * The default value of the '{@link #isIdent() <em>Ident</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #isIdent() <em>Ident</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #isIdent()
      * @generated
      * @ordered
@@ -70,9 +67,9 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     protected static final boolean IDENT_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isIdent() <em>Ident</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #isIdent() <em>Ident</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #isIdent()
      * @generated
      * @ordered
@@ -81,8 +78,8 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
 
     /**
      * The default value of the '{@link #isUnique() <em>Unique</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isUnique()
      * @generated
      * @ordered
@@ -91,8 +88,8 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
 
     /**
      * The cached value of the '{@link #isUnique() <em>Unique</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isUnique()
      * @generated
      * @ordered
@@ -100,77 +97,27 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     protected boolean unique = UNIQUE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isEditorShowLabel() <em>Editor Show Label</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isEditorShowLabel()
+     * The cached value of the '{@link #getUiProperties() <em>Ui Properties</em>}' containment reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @see #getUiProperties()
      * @generated
      * @ordered
      */
-    protected static final boolean EDITOR_SHOW_LABEL_EDEFAULT = true;
+    protected AttributeDefinitionUiProperties uiProperties;
 
     /**
-     * The cached value of the '{@link #isEditorShowLabel() <em>Editor Show Label</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isEditorShowLabel()
-     * @generated
-     * @ordered
-     */
-    protected boolean editorShowLabel = EDITOR_SHOW_LABEL_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #getEditorRowNumber() <em>Editor Row Number</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getEditorRowNumber()
-     * @generated
-     * @ordered
-     */
-    protected static final int EDITOR_ROW_NUMBER_EDEFAULT = 1;
-
-    /**
-     * The cached value of the '{@link #getEditorRowNumber() <em>Editor Row Number</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getEditorRowNumber()
-     * @generated
-     * @ordered
-     */
-    protected int editorRowNumber = EDITOR_ROW_NUMBER_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #getEditorColumnSpan() <em>Editor Column Span</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getEditorColumnSpan()
-     * @generated
-     * @ordered
-     */
-    protected static final int EDITOR_COLUMN_SPAN_EDEFAULT = 1;
-
-    /**
-     * The cached value of the '{@link #getEditorColumnSpan() <em>Editor Column Span</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getEditorColumnSpan()
-     * @generated
-     * @ordered
-     */
-    protected int editorColumnSpan = EDITOR_COLUMN_SPAN_EDEFAULT;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @not generated
      */
     protected AttributeDefinitionImpl() {
         super();
+        this.uiProperties = new AttributeDefinitionUiPropertiesImpl();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -179,8 +126,7 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DatatypeDefinition getType() {
@@ -200,8 +146,7 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DatatypeDefinition basicGetType() {
@@ -209,8 +154,7 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setType( DatatypeDefinition newType ) {
@@ -225,8 +169,7 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isIdent() {
@@ -234,8 +177,7 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIdent( boolean newIdent ) {
@@ -250,8 +192,7 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isUnique() {
@@ -259,8 +200,7 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setUnique( boolean newUnique ) {
@@ -275,83 +215,49 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public boolean isEditorShowLabel() {
-        return editorShowLabel;
+    public AttributeDefinitionUiProperties getUiProperties() {
+        return uiProperties;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public void setEditorShowLabel( boolean newEditorShowLabel ) {
-        boolean oldEditorShowLabel = editorShowLabel;
-        editorShowLabel = newEditorShowLabel;
-        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
-            this,
-            Notification.SET,
-            ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_SHOW_LABEL,
-            oldEditorShowLabel,
-            editorShowLabel ) );
+    public NotificationChain basicSetUiProperties( AttributeDefinitionUiProperties newUiProperties,
+                                                   NotificationChain msgs ) {
+        AttributeDefinitionUiProperties oldUiProperties = uiProperties;
+        uiProperties = newUiProperties;
+        if( eNotificationRequired() ) {
+            ENotificationImpl notification = new ENotificationImpl(
+                this,
+                Notification.SET,
+                ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES,
+                oldUiProperties,
+                newUiProperties );
+            if( msgs == null ) msgs = notification;
+            else msgs.add( notification );
+        }
+        return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public int getEditorRowNumber() {
-        return editorRowNumber;
+    @Override
+    public NotificationChain eInverseRemove( InternalEObject otherEnd, int featureID, NotificationChain msgs ) {
+        switch (featureID) {
+        case ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES:
+            return basicSetUiProperties( null, msgs );
+        }
+        return super.eInverseRemove( otherEnd, featureID, msgs );
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setEditorRowNumber( int newEditorRowNumber ) {
-        int oldEditorRowNumber = editorRowNumber;
-        editorRowNumber = newEditorRowNumber;
-        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
-            this,
-            Notification.SET,
-            ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_ROW_NUMBER,
-            oldEditorRowNumber,
-            editorRowNumber ) );
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public int getEditorColumnSpan() {
-        return editorColumnSpan;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setEditorColumnSpan( int newEditorColumnSpan ) {
-        int oldEditorColumnSpan = editorColumnSpan;
-        editorColumnSpan = newEditorColumnSpan;
-        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
-            this,
-            Notification.SET,
-            ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN,
-            oldEditorColumnSpan,
-            editorColumnSpan ) );
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -364,19 +270,14 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
             return isIdent();
         case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
             return isUnique();
-        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_SHOW_LABEL:
-            return isEditorShowLabel();
-        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_ROW_NUMBER:
-            return getEditorRowNumber();
-        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN:
-            return getEditorColumnSpan();
+        case ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES:
+            return getUiProperties();
         }
         return super.eGet( featureID, resolve, coreType );
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -391,22 +292,12 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
         case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
             setUnique( (Boolean)newValue );
             return;
-        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_SHOW_LABEL:
-            setEditorShowLabel( (Boolean)newValue );
-            return;
-        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_ROW_NUMBER:
-            setEditorRowNumber( (Integer)newValue );
-            return;
-        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN:
-            setEditorColumnSpan( (Integer)newValue );
-            return;
         }
         super.eSet( featureID, newValue );
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -421,22 +312,12 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
         case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
             setUnique( UNIQUE_EDEFAULT );
             return;
-        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_SHOW_LABEL:
-            setEditorShowLabel( EDITOR_SHOW_LABEL_EDEFAULT );
-            return;
-        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_ROW_NUMBER:
-            setEditorRowNumber( EDITOR_ROW_NUMBER_EDEFAULT );
-            return;
-        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN:
-            setEditorColumnSpan( EDITOR_COLUMN_SPAN_EDEFAULT );
-            return;
         }
         super.eUnset( featureID );
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -448,19 +329,14 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
             return ident != IDENT_EDEFAULT;
         case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
             return unique != UNIQUE_EDEFAULT;
-        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_SHOW_LABEL:
-            return editorShowLabel != EDITOR_SHOW_LABEL_EDEFAULT;
-        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_ROW_NUMBER:
-            return editorRowNumber != EDITOR_ROW_NUMBER_EDEFAULT;
-        case ErfPackage.ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN:
-            return editorColumnSpan != EDITOR_COLUMN_SPAN_EDEFAULT;
+        case ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES:
+            return uiProperties != null;
         }
         return super.eIsSet( featureID );
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -472,14 +348,8 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
         result.append( ident );
         result.append( ", unique: " );
         result.append( unique );
-        result.append( ", editorShowLabel: " );
-        result.append( editorShowLabel );
-        result.append( ", editorRowNumber: " );
-        result.append( editorRowNumber );
-        result.append( ", editorColumnSpan: " );
-        result.append( editorColumnSpan );
         result.append( ')' );
         return result.toString();
     }
 
-} //AttributeDefinitionImpl
+} // AttributeDefinitionImpl

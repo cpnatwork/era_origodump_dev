@@ -120,6 +120,15 @@ public interface ErfFactory extends EFactory {
     SpecRelation createSpecRelation();
 
     /**
+     * Returns a new object of class '<em>Attribute Definition Ui Properties</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Attribute Definition Ui Properties</em>'.
+     * @generated
+     */
+    AttributeDefinitionUiProperties createAttributeDefinitionUiProperties();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

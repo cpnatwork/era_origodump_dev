@@ -20,6 +20,7 @@ package era.foss.erf.impl;
 
 import era.foss.erf.AttributeDefinition;
 import era.foss.erf.AttributeDefinitionSimple;
+import era.foss.erf.AttributeDefinitionUiProperties;
 import era.foss.erf.AttributeValue;
 import era.foss.erf.AttributeValueSimple;
 import era.foss.erf.DatatypeDefinition;
@@ -167,6 +168,13 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     private EClass specRelationEClass = null;
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass attributeDefinitionUiPropertiesEClass = null;
+
+    /**
      * Creates an instance of the model <b>Package</b>, registered with
      * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
      * package URI value.
@@ -276,26 +284,8 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getAttributeDefinition_EditorShowLabel() {
-        return (EAttribute)attributeDefinitionEClass.getEStructuralFeatures().get( 3 );
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getAttributeDefinition_EditorRowNumber() {
-        return (EAttribute)attributeDefinitionEClass.getEStructuralFeatures().get( 4 );
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getAttributeDefinition_EditorColumnSpan() {
-        return (EAttribute)attributeDefinitionEClass.getEStructuralFeatures().get( 5 );
+    public EReference getAttributeDefinition_UiProperties() {
+        return (EReference)attributeDefinitionEClass.getEStructuralFeatures().get( 3 );
     }
 
     /**
@@ -627,6 +617,42 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getAttributeDefinitionUiProperties() {
+        return attributeDefinitionUiPropertiesEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAttributeDefinitionUiProperties_EditorShowLabel() {
+        return (EAttribute)attributeDefinitionUiPropertiesEClass.getEStructuralFeatures().get( 0 );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAttributeDefinitionUiProperties_EditorRowNumber() {
+        return (EAttribute)attributeDefinitionUiPropertiesEClass.getEStructuralFeatures().get( 1 );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAttributeDefinitionUiProperties_EditorColumnSpan() {
+        return (EAttribute)attributeDefinitionUiPropertiesEClass.getEStructuralFeatures().get( 2 );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public ErfFactory getErfFactory() {
         return (ErfFactory)getEFactoryInstance();
     }
@@ -654,9 +680,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         createEReference( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__TYPE );
         createEAttribute( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__IDENT );
         createEAttribute( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__UNIQUE );
-        createEAttribute( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__EDITOR_SHOW_LABEL );
-        createEAttribute( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__EDITOR_ROW_NUMBER );
-        createEAttribute( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__EDITOR_COLUMN_SPAN );
+        createEReference( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__UI_PROPERTIES );
 
         attributeValueEClass = createEClass( ATTRIBUTE_VALUE );
 
@@ -709,6 +733,14 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         specRelationEClass = createEClass( SPEC_RELATION );
         createEReference( specRelationEClass, SPEC_RELATION__SOURCE );
         createEReference( specRelationEClass, SPEC_RELATION__TARGET );
+
+        attributeDefinitionUiPropertiesEClass = createEClass( ATTRIBUTE_DEFINITION_UI_PROPERTIES );
+        createEAttribute( attributeDefinitionUiPropertiesEClass,
+                          ATTRIBUTE_DEFINITION_UI_PROPERTIES__EDITOR_SHOW_LABEL );
+        createEAttribute( attributeDefinitionUiPropertiesEClass,
+                          ATTRIBUTE_DEFINITION_UI_PROPERTIES__EDITOR_ROW_NUMBER );
+        createEAttribute( attributeDefinitionUiPropertiesEClass,
+                          ATTRIBUTE_DEFINITION_UI_PROPERTIES__EDITOR_COLUMN_SPAN );
     }
 
     /**
@@ -808,49 +840,21 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         !IS_UNIQUE,
                         !IS_DERIVED,
                         !IS_ORDERED );
-        initEAttribute( getAttributeDefinition_EditorShowLabel(),
-                        ecorePackage.getEBoolean(),
-                        "editorShowLabel",
-                        "true",
+        initEReference( getAttributeDefinition_UiProperties(),
+                        this.getAttributeDefinitionUiProperties(),
+                        null,
+                        "uiProperties",
+                        null,
                         1,
                         1,
                         AttributeDefinition.class,
                         !IS_TRANSIENT,
                         !IS_VOLATILE,
-                        IS_CHANGEABLE,
+                        !IS_CHANGEABLE,
+                        IS_COMPOSITE,
+                        !IS_RESOLVE_PROXIES,
                         !IS_UNSETTABLE,
-                        !IS_ID,
-                        !IS_UNIQUE,
-                        !IS_DERIVED,
-                        !IS_ORDERED );
-        initEAttribute( getAttributeDefinition_EditorRowNumber(),
-                        ecorePackage.getEInt(),
-                        "editorRowNumber",
-                        "1",
-                        1,
-                        1,
-                        AttributeDefinition.class,
-                        !IS_TRANSIENT,
-                        !IS_VOLATILE,
-                        IS_CHANGEABLE,
-                        !IS_UNSETTABLE,
-                        !IS_ID,
-                        !IS_UNIQUE,
-                        !IS_DERIVED,
-                        !IS_ORDERED );
-        initEAttribute( getAttributeDefinition_EditorColumnSpan(),
-                        ecorePackage.getEInt(),
-                        "editorColumnSpan",
-                        "1",
-                        1,
-                        1,
-                        AttributeDefinition.class,
-                        !IS_TRANSIENT,
-                        !IS_VOLATILE,
-                        IS_CHANGEABLE,
-                        !IS_UNSETTABLE,
-                        !IS_ID,
-                        !IS_UNIQUE,
+                        IS_UNIQUE,
                         !IS_DERIVED,
                         !IS_ORDERED );
 
@@ -1292,6 +1296,58 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         !IS_DERIVED,
                         IS_ORDERED );
 
+        initEClass( attributeDefinitionUiPropertiesEClass,
+                    AttributeDefinitionUiProperties.class,
+                    "AttributeDefinitionUiProperties",
+                    !IS_ABSTRACT,
+                    !IS_INTERFACE,
+                    IS_GENERATED_INSTANCE_CLASS );
+        initEAttribute( getAttributeDefinitionUiProperties_EditorShowLabel(),
+                        ecorePackage.getEBoolean(),
+                        "editorShowLabel",
+                        "true",
+                        1,
+                        1,
+                        AttributeDefinitionUiProperties.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_UNSETTABLE,
+                        !IS_ID,
+                        !IS_UNIQUE,
+                        !IS_DERIVED,
+                        !IS_ORDERED );
+        initEAttribute( getAttributeDefinitionUiProperties_EditorRowNumber(),
+                        ecorePackage.getEInt(),
+                        "editorRowNumber",
+                        "1",
+                        1,
+                        1,
+                        AttributeDefinitionUiProperties.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_UNSETTABLE,
+                        !IS_ID,
+                        !IS_UNIQUE,
+                        !IS_DERIVED,
+                        !IS_ORDERED );
+        initEAttribute( getAttributeDefinitionUiProperties_EditorColumnSpan(),
+                        ecorePackage.getEInt(),
+                        "editorColumnSpan",
+                        "1",
+                        1,
+                        1,
+                        AttributeDefinitionUiProperties.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_UNSETTABLE,
+                        !IS_ID,
+                        !IS_UNIQUE,
+                        !IS_DERIVED,
+                        !IS_ORDERED );
+
         // Create resource
         createResource( eNS_URI );
 
@@ -1315,12 +1371,13 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
             "coreContent:dataTypes"} );
         addAnnotation( getAttributeDefinition_Ident(), source, new String[]{"Detail", "true"} );
         addAnnotation( getAttributeDefinition_Unique(), source, new String[]{"Detail", "true"} );
-        addAnnotation( getAttributeDefinition_EditorShowLabel(), source, new String[]{"Detail", "true"} );
-        addAnnotation( getAttributeDefinition_EditorRowNumber(), source, new String[]{"Detail", "true"} );
-        addAnnotation( getAttributeDefinition_EditorColumnSpan(), source, new String[]{"Detail", "true"} );
+        addAnnotation( getAttributeDefinition_UiProperties(), source, new String[]{"Detail", "true"} );
         addAnnotation( getDatatypeDefinitionInteger_Max(), source, new String[]{"Detail", "true"} );
         addAnnotation( getDatatypeDefinitionInteger_Min(), source, new String[]{"Detail", "true"} );
         addAnnotation( getDatatypeDefinitionString_MaxLength(), source, new String[]{"Detail", "true"} );
+        addAnnotation( getAttributeDefinitionUiProperties_EditorShowLabel(), source, new String[]{"Detail", "true"} );
+        addAnnotation( getAttributeDefinitionUiProperties_EditorRowNumber(), source, new String[]{"Detail", "true"} );
+        addAnnotation( getAttributeDefinitionUiProperties_EditorColumnSpan(), source, new String[]{"Detail", "true"} );
     }
 
     /**

@@ -19,18 +19,33 @@
 package era.foss.erf.util;
 
 import era.foss.erf.*;
-
 import java.util.ArrayList;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.EObjectValidator;
+
+import era.foss.erf.AttributeDefinition;
+import era.foss.erf.AttributeDefinitionSimple;
+import era.foss.erf.AttributeDefinitionUiProperties;
+import era.foss.erf.AttributeValue;
+import era.foss.erf.AttributeValueSimple;
+import era.foss.erf.Content;
+import era.foss.erf.DatatypeDefinition;
+import era.foss.erf.DatatypeDefinitionInteger;
+import era.foss.erf.DatatypeDefinitionSimple;
+import era.foss.erf.DatatypeDefinitionString;
+import era.foss.erf.ERF;
+import era.foss.erf.ErfPackage;
+import era.foss.erf.Identifiable;
+import era.foss.erf.SpecElementWithUserDefinedAttributes;
+import era.foss.erf.SpecObject;
+import era.foss.erf.SpecRelation;
+import era.foss.erf.SpecType;
 
 /**
  * <!-- begin-user-doc --> The <b>Validator</b> for the model. <!-- end-user-doc -->
@@ -136,6 +151,10 @@ public class ErfValidator extends EObjectValidator {
             return validateContent( (Content)value, diagnostics, context );
         case ErfPackage.SPEC_RELATION:
             return validateSpecRelation( (SpecRelation)value, diagnostics, context );
+        case ErfPackage.ATTRIBUTE_DEFINITION_UI_PROPERTIES:
+            return validateAttributeDefinitionUiProperties( (AttributeDefinitionUiProperties)value,
+                                                            diagnostics,
+                                                            context );
         default:
             return true;
         }
@@ -212,6 +231,7 @@ public class ErfValidator extends EObjectValidator {
     public boolean validateAttributeValueSimple( AttributeValueSimple attributeValueSimple,
                                                  DiagnosticChain diagnostics,
                                                  Map<Object, Object> context ) {
+        if( !validate_NoCircularContainment( attributeValueSimple, diagnostics, context ) ) return false;
         boolean result = validate_EveryMultiplicityConforms( attributeValueSimple, diagnostics, context );
         if( result || diagnostics != null ) result &= validate_EveryDataValueConforms( attributeValueSimple,
                                                                                        diagnostics,
@@ -219,6 +239,9 @@ public class ErfValidator extends EObjectValidator {
         if( result || diagnostics != null ) result &= validate_EveryReferenceIsContained( attributeValueSimple,
                                                                                           diagnostics,
                                                                                           context );
+        if( result || diagnostics != null ) result &= validate_EveryBidirectionalReferenceIsPaired( attributeValueSimple,
+                                                                                                    diagnostics,
+                                                                                                    context );
         if( result || diagnostics != null ) result &= validate_EveryProxyResolves( attributeValueSimple,
                                                                                    diagnostics,
                                                                                    context );
@@ -263,8 +286,8 @@ public class ErfValidator extends EObjectValidator {
             }
 
             if( errorMsgKey == null ) {
-                if( (datatypeDefinitionInteger.isSetMax() && integerValue > datatypeDefinitionInteger.getMax())
-                    || (datatypeDefinitionInteger.isSetMin() && integerValue < datatypeDefinitionInteger.getMin()) ) {
+                if( (datatypeDefinitionInteger.getMax() != null && integerValue > datatypeDefinitionInteger.getMax())
+                    || (datatypeDefinitionInteger.getMin() != null && integerValue < datatypeDefinitionInteger.getMin()) ) {
                     errorMsgKey = "_UI_DatatypeDefinitionConstraints_Range";
                     substitutions.add( datatypeDefinitionInteger.getMin() );
                     substitutions.add( datatypeDefinitionInteger.getMax() );
@@ -275,7 +298,7 @@ public class ErfValidator extends EObjectValidator {
         /* Check constraints if value is of DatatypedefinitionString */
         else if( datatypeDefinition instanceof DatatypeDefinitionString ) {
             DatatypeDefinitionString datatypeDefinitionString = (DatatypeDefinitionString)datatypeDefinition;
-            if( datatypeDefinitionString.isSetMaxLength()
+            if( datatypeDefinitionString.getMaxLength() != null
                 && attributeValueSimple.getTheValue().length() > datatypeDefinitionString.getMaxLength() ) {
                 errorMsgKey = "_UI_DatatypeDefinitionConstraints_StringLength";
                 substitutions.add( datatypeDefinitionString.getMaxLength() );
@@ -305,6 +328,7 @@ public class ErfValidator extends EObjectValidator {
     public boolean validateDatatypeDefinitionInteger( DatatypeDefinitionInteger datatypeDefinitionInteger,
                                                       DiagnosticChain diagnostics,
                                                       Map<Object, Object> context ) {
+        if( !validate_NoCircularContainment( datatypeDefinitionInteger, diagnostics, context ) ) return false;
         boolean result = validate_EveryMultiplicityConforms( datatypeDefinitionInteger, diagnostics, context );
         if( result || diagnostics != null ) result &= validate_EveryDataValueConforms( datatypeDefinitionInteger,
                                                                                        diagnostics,
@@ -312,6 +336,9 @@ public class ErfValidator extends EObjectValidator {
         if( result || diagnostics != null ) result &= validate_EveryReferenceIsContained( datatypeDefinitionInteger,
                                                                                           diagnostics,
                                                                                           context );
+        if( result || diagnostics != null ) result &= validate_EveryBidirectionalReferenceIsPaired( datatypeDefinitionInteger,
+                                                                                                    diagnostics,
+                                                                                                    context );
         if( result || diagnostics != null ) result &= validate_EveryProxyResolves( datatypeDefinitionInteger,
                                                                                    diagnostics,
                                                                                    context );
@@ -342,8 +369,8 @@ public class ErfValidator extends EObjectValidator {
     public boolean validateDatatypeDefinitionInteger_NonNegative( DatatypeDefinitionInteger datatypeDefinitionInteger,
                                                                   DiagnosticChain diagnostics,
                                                                   Map<Object, Object> context ) {
-        if( (datatypeDefinitionInteger.isSetMax() && datatypeDefinitionInteger.getMax() < 0)
-            || (datatypeDefinitionInteger.isSetMin() && datatypeDefinitionInteger.getMin() < 0) ) {
+        if( (datatypeDefinitionInteger.getMax() != null && datatypeDefinitionInteger.getMax() < 0)
+            || (datatypeDefinitionInteger.getMin() != null && datatypeDefinitionInteger.getMin() < 0) ) {
             if( diagnostics != null ) {
                 diagnostics.add( createDiagnostic( Diagnostic.ERROR,
                                                    DIAGNOSTIC_SOURCE,
@@ -369,8 +396,8 @@ public class ErfValidator extends EObjectValidator {
     public boolean validateDatatypeDefinitionInteger_MaxGreaterThanMin( DatatypeDefinitionInteger datatypeDefinitionInteger,
                                                                         DiagnosticChain diagnostics,
                                                                         Map<Object, Object> context ) {
-        if( datatypeDefinitionInteger.isSetMax()
-            && datatypeDefinitionInteger.isSetMin()
+        if( datatypeDefinitionInteger.getMax() != null
+            && datatypeDefinitionInteger.getMin() != null
             && datatypeDefinitionInteger.getMax() < datatypeDefinitionInteger.getMin() ) {
             if( diagnostics != null ) {
                 diagnostics.add( createDiagnostic( Diagnostic.ERROR,
@@ -445,14 +472,23 @@ public class ErfValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean validateSpecRelation( SpecRelation specRelation,
                                          DiagnosticChain diagnostics,
                                          Map<Object, Object> context ) {
         return validate_EveryDefaultConstraint( specRelation, diagnostics, context );
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean validateAttributeDefinitionUiProperties( AttributeDefinitionUiProperties attributeDefinitionUiProperties,
+                                                            DiagnosticChain diagnostics,
+                                                            Map<Object, Object> context ) {
+        return validate_EveryDefaultConstraint( attributeDefinitionUiProperties, diagnostics, context );
     }
 
     /**

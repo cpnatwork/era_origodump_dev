@@ -90,6 +90,8 @@ public class ErfFactoryImpl extends EFactoryImpl implements ErfFactory {
             return createContent();
         case ErfPackage.SPEC_RELATION:
             return createSpecRelation();
+        case ErfPackage.ATTRIBUTE_DEFINITION_UI_PROPERTIES:
+            return createAttributeDefinitionUiProperties();
         default:
             throw new IllegalArgumentException( "The class '" + eClass.getName() + "' is not a valid classifier" );
         }
@@ -183,6 +185,16 @@ public class ErfFactoryImpl extends EFactoryImpl implements ErfFactory {
     public SpecRelation createSpecRelation() {
         SpecRelationImpl specRelation = new SpecRelationImpl();
         return specRelation;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public AttributeDefinitionUiProperties createAttributeDefinitionUiProperties() {
+        AttributeDefinitionUiPropertiesImpl attributeDefinitionUiProperties = new AttributeDefinitionUiPropertiesImpl();
+        return attributeDefinitionUiProperties;
     }
 
     /**

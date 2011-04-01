@@ -48,54 +48,6 @@ public interface AttributeDefinition extends Identifiable {
     boolean isUnique();
 
     /**
-     * @model unique="false" default="true" required="true" ordered="false" annotation="UI Detail='true'"
-     * @Not generated
-     * @return
-     */
-    boolean isEditorShowLabel();
-
-    /**
-     * Sets the value of the '{@link era.foss.erf.AttributeDefinition#isEditorShowLabel <em>Editor Show Label</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @param value the new value of the '<em>Editor Show Label</em>' attribute.
-     * @see #isEditorShowLabel()
-     * @generated
-     */
-    void setEditorShowLabel( boolean value );
-
-    /**
-     * @model unique="false" default="1" lowerBound="1" upperBound="1" ordered="false" annotation="UI Detail='true'"
-     * @Not generated
-     * @return
-     */
-    int getEditorRowNumber();
-
-    /**
-     * Sets the value of the '{@link era.foss.erf.AttributeDefinition#getEditorRowNumber <em>Editor Row Number</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @param value the new value of the '<em>Editor Row Number</em>' attribute.
-     * @see #getEditorRowNumber()
-     * @generated
-     */
-    void setEditorRowNumber( int value );
-
-    /**
-     * @model unique="false" default="1" lowerBound="1" upperBound="1" ordered="false" annotation="UI Detail='true'"
-     * @Not generated
-     * @return
-     */
-    int getEditorColumnSpan();
-
-    /**
-     * Sets the value of the '{@link era.foss.erf.AttributeDefinition#getEditorColumnSpan <em>Editor Column Span</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @param value the new value of the '<em>Editor Column Span</em>' attribute.
-     * @see #getEditorColumnSpan()
-     * @generated
-     */
-    void setEditorColumnSpan( int value );
-
-    /**
      * Sets the value of the '{@link era.foss.erf.AttributeDefinition#isUnique <em>Unique</em>}' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -124,5 +76,10 @@ public interface AttributeDefinition extends Identifiable {
      * @generated
      */
     void setType( DatatypeDefinition value );
+
+    /**
+     * @model changeable='false' containment='true' required="true" ordered="false" annotation="UI Detail='true'"
+     */
+    public AttributeDefinitionUiProperties getUiProperties();
 
 }
