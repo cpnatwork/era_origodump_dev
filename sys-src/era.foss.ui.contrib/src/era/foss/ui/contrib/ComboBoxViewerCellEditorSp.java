@@ -25,45 +25,64 @@ import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.swt.widgets.Composite;
 
 /**
- * Wrapper for ComboBoxViewerCellEditor providing an ISelectionProvider interface
+ * Wrapper for ComboBoxViewerCellEditor providing an ISelectionProvider interface.
  */
 public class ComboBoxViewerCellEditorSp extends ComboBoxViewerCellEditor implements ISelectionProvider
 {
+    
     /**
-     * {@link ComboBoxViewerCellEditor#ComboBoxViewerCellEditor(Composite)}
+     * Instantiates a new combo box viewer cell editor sp.
+     * 
+     * @param parent the parent {@link ComboBoxViewerCellEditor#ComboBoxViewerCellEditor(Composite)}
      */
     public ComboBoxViewerCellEditorSp( Composite parent ) {
         super( parent );
     }
+    
     /**
-     * {@link ComboBoxViewerCellEditor#ComboBoxViewerCellEditor(Composite, int)}
+     * Instantiates a new combo box viewer cell editor sp.
+     * 
+     * @param parent the parent
+     * @param style the style {@link ComboBoxViewerCellEditor#ComboBoxViewerCellEditor(Composite, int)}
      */
     public ComboBoxViewerCellEditorSp( Composite parent,int style ) {
         super( parent,style );
     }      
+    
     /**
-     * {@link ISelectionProvider#addSelectionChangedListener(ISelectionChangedListener)}
+     * Adds the selection changed listener.
+     * 
+     * @param listener the listener {@link ISelectionProvider#addSelectionChangedListener(ISelectionChangedListener)}
      */
     @Override
     public void addSelectionChangedListener( ISelectionChangedListener listener ) {
         getViewer().addSelectionChangedListener( listener );       
     }
+    
     /**
-     * {@link ISelectionProvider#getSelection()}
+     * Gets the selection.
+     * 
+     * @return the selection {@link ISelectionProvider#getSelection()}
      */
     @Override
     public ISelection getSelection() {
         return getViewer().getSelection();
     }
+    
     /**
-     * {@link ISelectionProvider#removeSelectionChangedListener(ISelectionChangedListener)}
+     * Removes the selection changed listener.
+     * 
+     * @param listener the listener {@link ISelectionProvider#removeSelectionChangedListener(ISelectionChangedListener)}
      */
     @Override
     public void removeSelectionChangedListener( ISelectionChangedListener listener ) {
         getViewer().removeSelectionChangedListener( listener );         
     }
+    
     /**
-     * {@link ISelectionProvider#setSelection(ISelection)}
+     * Sets the selection.
+     * 
+     * @param selection the new selection {@link ISelectionProvider#setSelection(ISelection)}
      */
     @Override
     public void setSelection( ISelection selection ) {

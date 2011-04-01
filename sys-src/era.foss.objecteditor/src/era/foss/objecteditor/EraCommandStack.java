@@ -27,9 +27,11 @@ import org.eclipse.emf.common.command.BasicCommandStack;
  */
 public class EraCommandStack extends BasicCommandStack {
 
+    /** The checkpoint. */
     protected int checkpoint;
 
     /**
+     * Instantiates a new era command stack.
      * 
      * @since 10.03.2010
      */
@@ -39,7 +41,7 @@ public class EraCommandStack extends BasicCommandStack {
     }
 
     /**
-     * Planting a checkpoint for rollback simply remembers the current position of the CommandStack
+     * Planting a checkpoint for rollback simply remembers the current position of the CommandStack.
      * 
      * @since 10.03.2010
      */

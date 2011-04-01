@@ -20,15 +20,23 @@ package era.foss.ui.contrib;
 
 
 /**
- * This interface provides methods for getting
- * and setting the active column of a table
+ * This interface provides methods for getting and setting the active column of a table.
+ * 
  * @author schorsch
  */
 public interface IActiveColumn {
     
-    /** get the id of the active table column */
+    /**
+     * get the id of the active table column.
+     * 
+     * @return the active column
+     */
     public int getActiveColumn();
     
-    /** set the active column of a table */
+    /**
+     * set the active column of a table.
+     * 
+     * @param activeColumn the new active column
+     */
     public void setActiveColumn(int activeColumn);
 }

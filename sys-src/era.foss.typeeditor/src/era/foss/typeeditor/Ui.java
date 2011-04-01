@@ -62,23 +62,27 @@ import era.foss.erf.provider.ErfEditPlugin;
 import era.foss.ui.contrib.ComboBoxViewerCellEditorSp;
 
 /**
- * This class provides methods for creating UI elements for Ecore models
+ * This class provides methods for creating UI elements for Ecore models.
  */
 public class Ui {
 
     // The editing domain
+    /** The editing domain. */
     private EditingDomain editingDomain;
 
     // data binding context used for binding EMF elements to UI elements
+    /** The data bind context. */
     private DataBindingContext dataBindContext;
 
     // The model we are in...
+    /** The erf model. */
     private ERF erfModel = null;
 
     /**
-     * Create Ui Please call the dispose method when an object of this type is not required anymore
+     * Create Ui Please call the dispose method when an object of this type is not required anymore.
      * 
      * @param editingDomain used for binding the UI elements to
+     * @param erfModel the erf model
      */
     public Ui( EditingDomain editingDomain, ERF erfModel ) {
         this.editingDomain = editingDomain;
@@ -87,7 +91,11 @@ public class Ui {
     }
 
     /**
-     * Create a text field with a label The information about the element is retrieved from the Ecore model
+     * Create a text field with a label The information about the element is retrieved from the Ecore model.
+     * 
+     * @param parent the parent
+     * @param eAttribute the e attribute
+     * @param master the master
      */
     public void createText( Composite parent, EAttribute eAttribute, IObservableValue master ) {
         // create label
@@ -105,7 +113,11 @@ public class Ui {
     }
 
     /**
-     * Create a checkbox with a label The information about the element is retrieved from the Ecore model
+     * Create a checkbox with a label The information about the element is retrieved from the Ecore model.
+     * 
+     * @param parent the parent
+     * @param eAttribute the e attribute
+     * @param master the master
      */
     public void createCheckbox( Composite parent, EAttribute eAttribute, IObservableValue master ) {
         // create label
@@ -123,17 +135,17 @@ public class Ui {
     }
 
     /**
-     * Dispose the data binding context created during initialization
+     * Dispose the data binding context created during initialization.
      */
     public void dispose() {
         dataBindContext.dispose();
     }
 
     /**
-     * Get UI name for an eclass
+     * Get UI name for an eclass.
      * 
      * @param eClass to get the name for
-     * @return
+     * @return the ui name
      */
     public static String getUiName( EClass eClass ) {
         String name = ErfEditPlugin.INSTANCE.getString( "_UI_" + eClass.getName() + "_type" );
@@ -141,10 +153,10 @@ public class Ui {
     }
 
     /**
-     * Get UI name for an eAttribute
+     * Get UI name for an eAttribute.
      * 
      * @param eStructuralFeature to get the name for
-     * @return
+     * @return the ui name
      */
     public static String getUiName( EStructuralFeature eStructuralFeature ) {
         String name = ErfEditPlugin.INSTANCE.getString( "_UI_"
@@ -160,13 +172,13 @@ public class Ui {
      * 
      * <li>In case the top level structural feature is a reference display a combo box</li> <li>In case the top level
      * structural feature is a containment reference create element if it does not exist</li> <li>In case the structural
-     * feature is a boolean show a checkbox</li> <li>Otherwise show a simple text field</li>
+     * feature is a boolean show a checkbox</li> <li>Otherwise show a simple text field</li>.
      * 
-     * @param tableViewer
+     * @param tableViewer the table viewer
      * @param eStructuralFeatureList list to create a feature path from
-     * @param minWidth
-     * @param weigth
-     * @param resizable
+     * @param minWidth the min width
+     * @param weigth the weigth
+     * @param resizable the resizable
      */
     public void createColumn( TableViewer tableViewer,
                               EStructuralFeature[] eStructuralFeatureList,

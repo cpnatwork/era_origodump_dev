@@ -39,6 +39,9 @@ public class ExtensionUtils {
     // defines
 
     /**
+     * Gets the configuration elements for point.
+     * 
+     * @param point the point
      * @return The IConfigurationElements for the given extension-point or null
      */
     public static IConfigurationElement[] getConfigurationElementsForPoint( String point ) {
@@ -47,6 +50,9 @@ public class ExtensionUtils {
     }
 
     /**
+     * Gets the extension id.
+     * 
+     * @param elt the elt
      * @return The simple-identifier of the extension containing this elt
      */
     public static String getExtensionId( IConfigurationElement elt ) {
@@ -54,6 +60,9 @@ public class ExtensionUtils {
     }
 
     /**
+     * Gets the plug in id.
+     * 
+     * @param elt the elt
      * @return The PlugIn id of the PlugIn of which the plugin.xml contains this element
      */
     public static String getPlugInId( IConfigurationElement elt ) {
@@ -61,6 +70,9 @@ public class ExtensionUtils {
     }
 
     /**
+     * Gets the extensions for point.
+     * 
+     * @param point the point
      * @return Handles to extensions for the point specified by the given parameter string if the ex and null otherwise.
      *         The elements of the list are IExtensions.
      */
@@ -78,9 +90,10 @@ public class ExtensionUtils {
     /**
      * Get the value of an attribute.
      * 
-     * @param elem The element to query
-     * @param attribName The name of the attribute
+     * @param element the element
+     * @param name the name
      * @param defaultValue The defaultValue
+     * @return the attribute
      */
     public static String getAttribute( IConfigurationElement element, String name, String defaultValue ) {
         String value = element.getAttribute( name );
@@ -90,9 +103,10 @@ public class ExtensionUtils {
     /**
      * Get the value of an attribute.
      * 
-     * @param elem The element to query
-     * @param attribName The name of the attribute
+     * @param element the element
+     * @param name the name
      * @param defaultValue The defaultValue
+     * @return the attribute
      */
     public static boolean getAttribute( IConfigurationElement element, String name, boolean defaultValue ) {
         String value = element.getAttribute( name );
@@ -104,9 +118,10 @@ public class ExtensionUtils {
     /**
      * Get the value of an attribute.
      * 
-     * @param elem The element to query
-     * @param attribName The name of the attribute
+     * @param element the element
+     * @param name the name
      * @param defaultValue The defaultValue
+     * @return the attribute
      */
     public static int getAttribute( IConfigurationElement element, String name, int defaultValue ) {
         String value = element.getAttribute( name );
@@ -121,9 +136,10 @@ public class ExtensionUtils {
     /**
      * Get the value of an attribute.
      * 
-     * @param elem The element to query
-     * @param attribName The name of the attribute
+     * @param element the element
+     * @param name the name
      * @param defaultValue The defaultValue
+     * @return the attribute
      */
     public static long getAttribute( IConfigurationElement element, String name, long defaultValue ) {
         String value = element.getAttribute( name );
@@ -138,9 +154,10 @@ public class ExtensionUtils {
     /**
      * Get the value of an attribute.
      * 
-     * @param elem The element to query
-     * @param attribName The name of the attribute
+     * @param element the element
+     * @param name the name
      * @param defaultValue The defaultValue
+     * @return the attribute
      */
     public static float getAttribute( IConfigurationElement element, String name, float defaultValue ) {
         String value = element.getAttribute( name );
@@ -155,9 +172,10 @@ public class ExtensionUtils {
     /**
      * Get the value of an attribute.
      * 
-     * @param elem The element to query
-     * @param attribName The name of the attribute
+     * @param element the element
+     * @param name the name
      * @param defaultValue The defaultValue
+     * @return the attribute
      */
     public static double getAttribute( IConfigurationElement element, String name, double defaultValue ) {
         String value = element.getAttribute( name );

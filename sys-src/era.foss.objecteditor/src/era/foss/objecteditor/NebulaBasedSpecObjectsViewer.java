@@ -311,6 +311,7 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
      */
     private static class NebulaDemandedSpecObjectRowControl extends Composite {
 
+        /** The one and only spec type. */
         protected SpecType theOneAndOnlySpecType = null;
 
         /** The text fields. */

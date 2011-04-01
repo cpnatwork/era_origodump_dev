@@ -28,7 +28,8 @@ package era.foss.util.log;
 public class Assert {
    
     /**
-     * Validates that a given object is not null
+     * Validates that a given object is not null.
+     * 
      * @param message the message to send on error
      * @param o the object to check
      * @throws IllegalStateException if the object is null

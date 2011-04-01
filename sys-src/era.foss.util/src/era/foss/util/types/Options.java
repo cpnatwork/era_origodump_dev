@@ -23,19 +23,29 @@ import java.util.Map;
 /**
  * Provides a convenient class to manage tag-value options.
  * 
+ * @param <X> the generic type
+ * @param <Y> the generic type
  */
 public class Options<X, Y> {
 
     //
     // private members
 
+    /** The m_options. */
     private Map<X, Y> m_options = null;
 
+    /**
+     * Instantiates a new options.
+     * 
+     * @param options the options
+     */
     public Options( Map<X, Y> options ) {
         m_options = options;
     }
 
     /**
+     * Gets the options.
+     * 
      * @return The options map
      */
     public Map<X, Y> getOptions() {
@@ -43,6 +53,9 @@ public class Options<X, Y> {
     }
 
     /**
+     * Checks if is option.
+     * 
+     * @param name the name
      * @return true if the named option exists
      */
     public boolean isOption( String name ) {

@@ -35,29 +35,33 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 
 /**
- * Show attributes of ecore elements using EMF databinding
+ * Show attributes of ecore elements using EMF databinding.
  */
 public class DetailViewer extends Composite {
 
     // The master element which attributes are shown
+    /** The master. */
     private IObservableValue master;
 
     // the current editing domain
+    /** The editing domain. */
     private EditingDomain editingDomain;
 
     // Ui provides methods for creating Ui elements
+    /** The ui. */
     protected Ui ui;
     
     // Composite holding the controls for the attributes
+    /** The attribute composite. */
     protected Composite attributeComposite;
 
     /**
-     * Create Composite holding detailed information of a datatype definition
+     * Create Composite holding detailed information of a datatype definition.
      * 
-     * @param parent
-     * @param editingDomain
-     * @param tableViewer
-     * @param style
+     * @param parent the parent
+     * @param style the style
+     * @param editingDomain the editing domain
+     * @param master the master
      */
     DetailViewer( Composite parent, int style, EditingDomain editingDomain, IObservableValue master ) {
         super( parent, style );
@@ -116,7 +120,7 @@ public class DetailViewer extends Composite {
     }
 
     /**
-     * create UI elements according to the attributes of the master element
+     * create UI elements according to the attributes of the master element.
      */
     protected void createAttributeControls() {
         
@@ -151,7 +155,7 @@ public class DetailViewer extends Composite {
     }
     
     /**
-     * dispose controls created for attributes
+     * dispose controls created for attributes.
      */
     protected void disposeAttributeControls() {
         if( ui != null ) {
@@ -164,7 +168,7 @@ public class DetailViewer extends Composite {
     }
 
     /**
-     * Dispose the ui instance and master observable
+     * Dispose the ui instance and master observable.
      * 
      * @see org.eclipse.swt.widgets.Widget#dispose()
      * @see era.foss.typeeditor.Ui#dispose()

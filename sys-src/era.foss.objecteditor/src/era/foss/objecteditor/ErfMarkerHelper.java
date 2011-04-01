@@ -31,14 +31,18 @@ import org.eclipse.emf.edit.ui.EMFEditUIPlugin;
 import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
 
 
+/**
+ * The Class ErfMarkerHelper.
+ */
 public class ErfMarkerHelper extends EditUIMarkerHelper
 {
 
   /**
-   * get the ID of the marker.
-   * In our case this is the ID used for Eclipse markers 
-   * which are based on diagnostics of EMF objects.
-   */
+     * get the ID of the marker. In our case this is the ID used for Eclipse markers which are based on diagnostics of
+     * EMF objects.
+     * 
+     * @return the marker id
+     */
   @Override
   protected String getMarkerID()
   {
@@ -46,12 +50,11 @@ public class ErfMarkerHelper extends EditUIMarkerHelper
   }
 
   /**
-   * Create markers for the issues in the diagnostic object 
-   * and report errors to the Logging facility of the Edit plugin
-   * 
-   * 
-   * @param diagnostic holding all issues showed up during validation
-   */
+     * Create markers for the issues in the diagnostic object and report errors to the Logging facility of the Edit
+     * plugin.
+     * 
+     * @param diagnostic holding all issues showed up during validation
+     */
   public void createMarkers(Diagnostic diagnostic)
   {
     try
@@ -65,8 +68,13 @@ public class ErfMarkerHelper extends EditUIMarkerHelper
   }
 
   /**
-   * extract the data of validation issues from the diagnostic object 
-   */
+     * extract the data of validation issues from the diagnostic object.
+     * 
+     * @param marker the marker
+     * @param diagnostic the diagnostic
+     * @param parentDiagnostic the parent diagnostic
+     * @throws CoreException the core exception
+     */
   @Override
   protected void adjustMarker(IMarker marker, Diagnostic diagnostic, Diagnostic parentDiagnostic) throws CoreException
   {

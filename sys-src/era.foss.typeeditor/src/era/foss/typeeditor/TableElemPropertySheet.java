@@ -62,7 +62,7 @@ public class TableElemPropertySheet extends Composite {
      * 
      * @param parent a widget which will be the parent of the new instance (cannot be null)
      * @param editor the editor from which the and {@link CommandStack} can be derived
-     * 
+     * @param modelTableViewer the model table viewer
      * @see #AbstractErfTypesForm(Composite, IEditorPart, int)
      */
     public TableElemPropertySheet( Composite parent, IEditorPart editor, TableViewer modelTableViewer ) {

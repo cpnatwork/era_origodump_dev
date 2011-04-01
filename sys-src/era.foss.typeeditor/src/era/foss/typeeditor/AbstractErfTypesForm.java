@@ -46,12 +46,25 @@ import era.foss.objecteditor.EraCommandStack;
  */
 public abstract class AbstractErfTypesForm extends Composite {
 
+    /** The editor. */
     protected IEditorPart editor = null;
+    
+    /** The editing domain. */
     protected AdapterFactoryEditingDomain editingDomain = null;
+    
+    /** The erf resource. */
     protected Resource erfResource = null;
+    
+    /** The erf model. */
     protected ERF erfModel = null;
+    
+    /** The era command stack. */
     protected EraCommandStack eraCommandStack = null;
+    
+    /** The adapter factory. */
     protected AdapterFactory adapterFactory = null;
+    
+    /** The type editor activator. */
     protected Activator typeEditorActivator = null;
     
     /**

@@ -48,8 +48,17 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
+/**
+ * The Class RifExportWizardMainPage.
+ */
 public class RifExportWizardMainPage extends WizardPage {
 
+    /**
+     * Instantiates a new rif export wizard main page.
+     * 
+     * @param pageName the page name
+     * @param erfFileList the erf file list
+     */
     public RifExportWizardMainPage( String pageName, List<IFile> erfFileList ) {
         super( pageName );
         this.setTitle( Activator.getPlugin().getString( "export.wizard.rif.description" ) );
@@ -58,10 +67,18 @@ public class RifExportWizardMainPage extends WizardPage {
     }
 
     // Text field holding the directory name where the output is written to
+    /** The erf workspace resource list. */
     private List<IFile> erfWorkspaceResourceList;
+    
+    /** The Dir name. */
     private Text DirName;
+    
+    /** The is complete. */
     private boolean isComplete;
 
+    /* (non-Javadoc)
+     * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
+     */
     @Override
     public void createControl( Composite parent ) {
 
@@ -116,10 +133,18 @@ public class RifExportWizardMainPage extends WizardPage {
         setControl( composite );
     }
 
+    /**
+     * Sets the complete.
+     * 
+     * @param complete the new complete
+     */
     protected void setComplete( boolean complete ) {
         this.isComplete = complete;
     }
 
+    /* (non-Javadoc)
+     * @see org.eclipse.jface.wizard.WizardPage#isPageComplete()
+     */
     public boolean isPageComplete() {
         return this.isComplete;
     }
@@ -129,9 +154,7 @@ public class RifExportWizardMainPage extends WizardPage {
      * is returned then the wizard will not close.
      * 
      * @return boolean
-     * @throws IOException
-     * @throws IOException
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     public boolean finish() throws IOException {
 
@@ -191,6 +214,14 @@ public class RifExportWizardMainPage extends WizardPage {
         return true;
     }
 
+    /**
+     * Transform.
+     * 
+     * @param in the in
+     * @param out the out
+     * @return the resource
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     private Resource transform( URI in, URI out ) throws IOException {
         ATLTranformer transformer = new ATLTranformer();
         transformer.loadModel( "erf", null, getBundleURI( "era.foss.erf", "model/erf.ecore" ) );
@@ -203,14 +234,23 @@ public class RifExportWizardMainPage extends WizardPage {
                                       false );
     }
 
+    /**
+     * Gets the bundle uri.
+     * 
+     * @param bundle the bundle
+     * @param path the path
+     * @return the bundle uri
+     */
     private URI getBundleURI( String bundle, String path ) {
         return URI.createPlatformPluginURI( bundle + "/" + path, true );
     }
 
     /**
-     * @param rif11MetamodelURI
-     * @return
-     * @throws IOException
+     * Load ri f11 e package.
+     * 
+     * @param rif11MetamodelURI the rif11 metamodel uri
+     * @return the e package
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     private static EPackage loadRIF11EPackage( URI rif11MetamodelURI ) throws IOException {
         EPackage rif11Package = null;
@@ -224,10 +264,12 @@ public class RifExportWizardMainPage extends WizardPage {
     }
 
     /**
-     * @param resourceSet
-     * @param rifXmiURI
-     * @return
-     * @throws IOException
+     * Load rif resource from rif xmi.
+     * 
+     * @param resourceSet the resource set
+     * @param rifXmiURI the rif xmi uri
+     * @return the resource
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     private Resource loadRifResourceFromRifXmi( ResourceSet resourceSet, URI rifXmiURI ) throws IOException {
         Resource resource = null;
@@ -238,9 +280,11 @@ public class RifExportWizardMainPage extends WizardPage {
     }
 
     /**
-     * @param resourceSet
-     * @param rifResource
-     * @throws IOException
+     * Store rif resource to rif11 xml.
+     * 
+     * @param resourceSet the resource set
+     * @param rifResource the rif resource
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     private void storeRifResourceToRif11Xml( ResourceSet resourceSet, Resource rifResource ) throws IOException {
         resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put( "rif", new XMLResourceFactoryImpl() );

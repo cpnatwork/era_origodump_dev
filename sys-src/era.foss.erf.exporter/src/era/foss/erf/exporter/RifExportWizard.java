@@ -30,19 +30,31 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.IExportWizard;
 import org.eclipse.ui.IWorkbench;
 
+/**
+ * The Class RifExportWizard.
+ */
 public class RifExportWizard extends Wizard implements IExportWizard {
 
     // List of files to process
+    /** The main page. */
     private RifExportWizardMainPage mainPage;
+    
+    /** The selection. */
     private IStructuredSelection selection;
 
+    /* (non-Javadoc)
+     * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench, org.eclipse.jface.viewers.IStructuredSelection)
+     */
     @Override
     public void init( IWorkbench workbench, IStructuredSelection selection ) {
         this.selection = selection;
     }
 
     /**
-     * @param selection
+     * Gets the white checked input resources.
+     * 
+     * @param selection the selection
+     * @return the white checked input resources
      */
     private List<IFile> getWhiteCheckedInputResources( IStructuredSelection selection ) {
         List<IFile> erfFileList = new ArrayList<IFile>();
@@ -74,6 +86,9 @@ public class RifExportWizard extends Wizard implements IExportWizard {
         addPage( mainPage );
     }
 
+    /* (non-Javadoc)
+     * @see org.eclipse.jface.wizard.Wizard#performFinish()
+     */
     @Override
     public boolean performFinish() {
         try {

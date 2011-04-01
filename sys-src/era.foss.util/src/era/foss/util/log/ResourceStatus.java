@@ -31,6 +31,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 
 /**
+ * The Class ResourceStatus.
+ * 
  * {@link IStatus} with workbench resource information (URI,line,column) that can be added as a marker.
  * 
  * @author poldi
@@ -40,16 +42,25 @@ public class ResourceStatus extends Status {
     //
     // private members
 
+    /** The uri. */
     private URI uri;
+    
+    /** The line. */
     private int line;
+    
+    /** The column. */
     private int column;
 
     /**
-     * @param severity
-     * @param pluginId
-     * @param code
-     * @param message
-     * @param exception
+     * Instantiates a new resource status.
+     * 
+     * @param severity the severity
+     * @param pluginId the plugin id
+     * @param uri the uri
+     * @param line the line
+     * @param column the column
+     * @param message the message
+     * @param exception the exception
      * @since Jul 31, 2009
      */
     public ResourceStatus( int severity,

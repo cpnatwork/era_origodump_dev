@@ -181,9 +181,10 @@ public class ErfModelWizard extends Wizard implements INewWizard {
     protected List<String> initialObjectNames;
 
     /**
-     * This just records the information.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This just records the information. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @param workbench the workbench
+     * @param selection the selection
      * @generated
      */
     public void init( IWorkbench workbench, IStructuredSelection selection ) {
@@ -194,9 +195,10 @@ public class ErfModelWizard extends Wizard implements INewWizard {
     }
 
     /**
-     * Returns the names of the types that can be created as the root object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the names of the types that can be created as the root object. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return the initial object names
      * @generated
      */
     protected Collection<String> getInitialObjectNames() {
@@ -216,9 +218,9 @@ public class ErfModelWizard extends Wizard implements INewWizard {
     }
 
     /**
-     * Create a new model.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Create a new model. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @return the e object
      * @not generated
      */
     protected EObject createInitialModel() {
@@ -233,9 +235,9 @@ public class ErfModelWizard extends Wizard implements INewWizard {
     }
 
     /**
-     * Do the work after everything is specified.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Do the work after everything is specified. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @return true, if successful
      * @generated
      */
     @Override
@@ -327,10 +329,12 @@ public class ErfModelWizard extends Wizard implements INewWizard {
      * @generated
      */
     public class ErfModelWizardNewFileCreationPage extends WizardNewFileCreationPage {
+        
         /**
-         * Pass in the selection.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * Pass in the selection. <!-- begin-user-doc --> <!-- end-user-doc -->
+         * 
+         * @param pageId the page id
+         * @param selection the selection
          * @generated
          */
         public ErfModelWizardNewFileCreationPage( String pageId, IStructuredSelection selection ) {
@@ -338,9 +342,9 @@ public class ErfModelWizard extends Wizard implements INewWizard {
         }
 
         /**
-         * The framework calls this to see if the file is correct.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The framework calls this to see if the file is correct. <!-- begin-user-doc --> <!-- end-user-doc -->
+         * 
+         * @return true, if successful
          * @generated
          */
         @Override
@@ -358,8 +362,9 @@ public class ErfModelWizard extends Wizard implements INewWizard {
         }
 
         /**
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->.
+         * 
+         * @return the model file
          * @generated
          */
         public IFile getModelFile() {
@@ -375,31 +380,19 @@ public class ErfModelWizard extends Wizard implements INewWizard {
      */
     public class ErfModelWizardInitialObjectCreationPage extends WizardPage {
 
-        /**
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
+        /** <!-- begin-user-doc --> <!-- end-user-doc -->. @generated */
         protected Combo initialObjectField;
 
-        /**
-         * @generated
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         */
+        /** The encodings. @generated <!-- begin-user-doc --> <!-- end-user-doc --> */
         protected List<String> encodings;
 
-        /**
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
+        /** <!-- begin-user-doc --> <!-- end-user-doc -->. @generated */
         protected Combo encodingField;
 
         /**
-         * Pass in the selection.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * Pass in the selection. <!-- begin-user-doc --> <!-- end-user-doc -->
+         * 
+         * @param pageId the page id
          * @generated
          */
         public ErfModelWizardInitialObjectCreationPage( String pageId ) {
@@ -407,8 +400,9 @@ public class ErfModelWizard extends Wizard implements INewWizard {
         }
 
         /**
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->.
+         * 
+         * @param parent the parent
          * @not generated
          */
         public void createControl( Composite parent ) {
@@ -453,11 +447,7 @@ public class ErfModelWizard extends Wizard implements INewWizard {
             setControl( composite );
         }
 
-        /**
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
+        /** <!-- begin-user-doc --> <!-- end-user-doc -->. @generated */
         protected ModifyListener validator = new ModifyListener() {
             public void modifyText( ModifyEvent e ) {
                 setPageComplete( validatePage() );
@@ -465,8 +455,9 @@ public class ErfModelWizard extends Wizard implements INewWizard {
         };
 
         /**
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->.
+         * 
+         * @return true, if successful
          * @not generated
          */
         protected boolean validatePage() {
@@ -474,8 +465,9 @@ public class ErfModelWizard extends Wizard implements INewWizard {
         }
 
         /**
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->.
+         * 
+         * @param visible the new visible
          * @not generated
          */
         @Override
@@ -483,8 +475,9 @@ public class ErfModelWizard extends Wizard implements INewWizard {
         }
 
         /**
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->.
+         * 
+         * @return the initial object name
          * @not generated
          */
         public String getInitialObjectName() {
@@ -492,8 +485,9 @@ public class ErfModelWizard extends Wizard implements INewWizard {
         }
 
         /**
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->.
+         * 
+         * @return the encoding
          * @generated
          */
         public String getEncoding() {
@@ -501,9 +495,10 @@ public class ErfModelWizard extends Wizard implements INewWizard {
         }
 
         /**
-         * Returns the label for the specified type name.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * Returns the label for the specified type name. <!-- begin-user-doc --> <!-- end-user-doc -->
+         * 
+         * @param typeName the type name
+         * @return the label
          * @generated
          */
         protected String getLabel( String typeName ) {
@@ -516,8 +511,9 @@ public class ErfModelWizard extends Wizard implements INewWizard {
         }
 
         /**
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->.
+         * 
+         * @return the encodings
          * @generated
          */
         protected Collection<String> getEncodings() {
@@ -590,9 +586,9 @@ public class ErfModelWizard extends Wizard implements INewWizard {
     }
 
     /**
-     * Get the file from the page.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Get the file from the page. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @return the model file
      * @generated
      */
     public IFile getModelFile() {

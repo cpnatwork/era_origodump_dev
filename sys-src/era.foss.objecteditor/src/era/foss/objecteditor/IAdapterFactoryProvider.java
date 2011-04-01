@@ -20,10 +20,15 @@ package era.foss.objecteditor;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 
+/**
+ * The Interface IAdapterFactoryProvider.
+ */
 public interface IAdapterFactoryProvider {
 
     /**
-     * (wtf? no comment)
+     * (wtf? no comment).
+     * 
+     * @return the adapter factory
      */
     public abstract AdapterFactory getAdapterFactory();
 

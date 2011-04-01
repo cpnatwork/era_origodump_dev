@@ -76,43 +76,64 @@ import era.foss.erf.impl.ErfFactoryImpl;
 public class AddDeleteTableViewer extends TableViewer {
 
     /**
-     * Composite holding the table, the element description ({@link #descriptionText}) and the button bar (
+     * Composite holding the table, the element description ({@link #descriptionText}) and the button bar (.
      * {@link #buttonBar})
      */
     private Composite composite;
 
 
-    /** The description field for the elements in the table */
+    /** The description field for the elements in the table. */
     Text descriptionText;
 
+    /** The table. */
     protected Table table;
+    
+    /** The editing domain. */
     protected EditingDomain editingDomain;
+    
+    /** The type editor activator. */
     protected Activator typeEditorActivator;
 
+    /**
+     * Sets the editing domain.
+     * 
+     * @param editingDomain the new editing domain
+     */
     public void setEditingDomain( EditingDomain editingDomain ) {
         this.editingDomain = editingDomain;
     }
 
-    /**
-     * Button bar holding the Add and remove buttons New buttons can be added by the users of this table
-     */
+    /** Button bar holding the Add and remove buttons New buttons can be added by the users of this table. */
     private Composite buttonBar;
 
     // standard add and remove button
+    /** The remove elements button. */
     Button removeElementsButton;
+    
+    /** The add element button. */
     Button addElementButton;
 
     // parameters for add Command
+    /** The add command owner. */
     private EObject addCommandOwner;
+    
+    /** The add command value default type. */
     private EClass addCommandValueDefaultType;
 
+    /** The active column. */
     private int activeColumn;
 
     //
+    /** The data bind context. */
     private DataBindingContext dataBindContext;
+    
+    /** The master. */
     private IObservableValue master;
 
     /**
+     * Instantiates a new adds the delete table viewer.
+     * 
+     * @param parent the parent
      * @see TableViewer
      */
     public AddDeleteTableViewer( Composite parent ) {
@@ -120,6 +141,9 @@ public class AddDeleteTableViewer extends TableViewer {
     }
 
     /**
+     * Instantiates a new adds the delete table viewer.
+     * 
+     * @param table the table
      * @see TableViewer
      */
     public AddDeleteTableViewer( Table table ) {
@@ -129,6 +153,10 @@ public class AddDeleteTableViewer extends TableViewer {
     }
 
     /**
+     * Instantiates a new adds the delete table viewer.
+     * 
+     * @param parent the parent
+     * @param style the style
      * @see TableViewer
      */
     public AddDeleteTableViewer( Composite parent, int style ) {
@@ -151,7 +179,7 @@ public class AddDeleteTableViewer extends TableViewer {
     }
 
     /**
-     * Dispose observable to avoid listener leaking
+     * Dispose observable to avoid listener leaking.
      */
     protected void dispose() {
         master.dispose();
@@ -162,7 +190,7 @@ public class AddDeleteTableViewer extends TableViewer {
     }
 
     /**
-     * Layout the Composites
+     * Layout the Composites.
      */
     private void layoutComposite() {
 
@@ -181,7 +209,7 @@ public class AddDeleteTableViewer extends TableViewer {
     }
 
     /**
-     * Create table
+     * Create table.
      */
     private void setupTable() {
 
@@ -223,7 +251,7 @@ public class AddDeleteTableViewer extends TableViewer {
     }
 
     /**
-     * Create Text widget for displaying the element description
+     * Create Text widget for displaying the element description.
      */
     private void createDescriptionField() {
 
@@ -280,7 +308,7 @@ public class AddDeleteTableViewer extends TableViewer {
 
 
     /**
-     * Create a button bar holding the Add and Remove Button
+     * Create a button bar holding the Add and Remove Button.
      */
     private void createButtonBar() {
 
@@ -314,9 +342,9 @@ public class AddDeleteTableViewer extends TableViewer {
     }
 
     /**
-     * Set layout data
+     * Set layout data.
      * 
-     * @param layoutData
+     * @param layoutData the new layout data
      * @see org.eclipse.swt.widgets.Control#setLayoutData(Object)
      */
     public void setLayoutData( Object layoutData ) {
@@ -324,24 +352,28 @@ public class AddDeleteTableViewer extends TableViewer {
     }
 
     /**
-     * Show add button
+     * Show add button.
+     * 
+     * @param enabled the enabled
      */
     public void showAddButton( boolean enabled ) {
         addElementButton.setEnabled( enabled );
     }
 
     /**
-     * Show delete button
+     * Show delete button.
+     * 
+     * @param enabled the enabled
      */
     public void showRemoveButton( boolean enabled ) {
         removeElementsButton.setEnabled( enabled );
     }
 
     /**
-     * Set the information required for adding a new element to the table with {@link #addElement()}
+     * Set the information required for adding a new element to the table with {@link #addElement()}.
      * 
      * @param addCommandOwner The element the new element is put at
-     * @param addCommandValueDefaultType
+     * @param addCommandValueDefaultType the add command value default type
      */
     public void setAddCommandParameter( EObject addCommandOwner, EClass addCommandValueDefaultType ) {
         this.addCommandOwner = addCommandOwner;
@@ -350,7 +382,7 @@ public class AddDeleteTableViewer extends TableViewer {
 
     /**
      * Add a new element to the list using the EMF Command Stack The information for adding the element has to be
-     * specified by calling {@link #setAddCommandParameter(EObject, EReference, EClass)}
+     * specified by calling {@link #setAddCommandParameter(EObject, EReference, EClass)}.
      */
     public void addElement() {
         EObject addCommandValue = ErfFactoryImpl.eINSTANCE.create( addCommandValueDefaultType );
@@ -360,7 +392,7 @@ public class AddDeleteTableViewer extends TableViewer {
     }
 
     /**
-     * Remove selected elements from this table
+     * Remove selected elements from this table.
      */
     public void removeElements() {
         if( getSelection().isEmpty() == false ) {
@@ -373,9 +405,8 @@ public class AddDeleteTableViewer extends TableViewer {
 
 
     /**
-     * Get position of column
+     * Get position of column.
      * 
-     * @param v
      */
     private void triggerColumnSelectedColumn() {
         AddDeleteTableViewer.this.getTable().addMouseListener( new MouseAdapter() {
@@ -395,7 +426,7 @@ public class AddDeleteTableViewer extends TableViewer {
     }
 
     /**
-     * Get column where a mouse down event occured
+     * Get column where a mouse down event occured.
      * 
      * @return number of active column
      */

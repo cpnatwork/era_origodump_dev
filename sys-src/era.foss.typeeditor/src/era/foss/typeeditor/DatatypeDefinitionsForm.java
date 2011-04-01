@@ -80,11 +80,15 @@ import era.foss.erf.provider.ErfEditPlugin;
  */
 final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
 
-    /**
-     * Table viewer containing the datatype definitions
-     */
+    /** Table viewer containing the datatype definitions. */
     private AddDeleteTableViewer tableViewer;
 
+    /**
+     * Instantiates a new datatype definitions form.
+     * 
+     * @param parent the parent
+     * @param editor the editor
+     */
     public DatatypeDefinitionsForm( Composite parent, IEditorPart editor ) {
         super( parent, editor, SWT.NONE );
 
@@ -105,10 +109,23 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
         
     }
 
+    /**
+     * The Class DatatypeDefinitionEditingSupport.
+     */
     public class DatatypeDefinitionEditingSupport extends EditingSupport {
+        
+        /** The cell editor. */
         private CellEditor cellEditor;
+        
+        /** The column. */
         private int column;
 
+        /**
+         * Instantiates a new datatype definition editing support.
+         * 
+         * @param viewer the viewer
+         * @param column the column
+         */
         public DatatypeDefinitionEditingSupport( ColumnViewer viewer, int column ) {
             super( viewer );
             this.column = column;
@@ -135,16 +152,25 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.eclipse.jface.viewers.EditingSupport#canEdit(java.lang.Object)
+         */
         @Override
         protected boolean canEdit( Object element ) {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see org.eclipse.jface.viewers.EditingSupport#getCellEditor(java.lang.Object)
+         */
         @Override
         protected CellEditor getCellEditor( Object element ) {
             return this.cellEditor;
         }
 
+        /* (non-Javadoc)
+         * @see org.eclipse.jface.viewers.EditingSupport#getValue(java.lang.Object)
+         */
         @Override
         protected Object getValue( Object element ) {
             DatatypeDefinition dataType = (DatatypeDefinition)element;
@@ -163,6 +189,9 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
             return retVal;
         }
 
+        /* (non-Javadoc)
+         * @see org.eclipse.jface.viewers.EditingSupport#setValue(java.lang.Object, java.lang.Object)
+         */
         @Override
         protected void setValue( Object element, Object value ) {
             DatatypeDefinition dataType = (DatatypeDefinition)element;
@@ -225,11 +254,23 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
         }
     }
 
+    /**
+     * The Class DatatypeDefinitionContentProvider.
+     */
     public class DatatypeDefinitionContentProvider extends AdapterFactoryContentProvider {
+        
+        /**
+         * Instantiates a new datatype definition content provider.
+         * 
+         * @param adapterFactory the adapter factory
+         */
         public DatatypeDefinitionContentProvider( AdapterFactory adapterFactory ) {
             super( adapterFactory );
         }
 
+        /* (non-Javadoc)
+         * @see org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider#getElements(java.lang.Object)
+         */
         public Object[] getElements( Object object ) {
 
             DatatypeDefinition[] objects;
@@ -242,6 +283,9 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
         }
 
         // listen on changes of Datatype definitions
+        /* (non-Javadoc)
+         * @see org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider#notifyChanged(org.eclipse.emf.common.notify.Notification)
+         */
         @Override
         public void notifyChanged( Notification notification ) {
             super.notifyChanged( notification );
@@ -257,8 +301,14 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
         }
     }
 
+    /**
+     * The Class DatatypeDefinitionLabelProvider.
+     */
     public class DatatypeDefinitionLabelProvider extends LabelProvider implements ITableLabelProvider {
 
+        /* (non-Javadoc)
+         * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object, int)
+         */
         @Override
         public String getColumnText( Object element, int columnIndex ) {
             DatatypeDefinition dataType = (DatatypeDefinition)element;
@@ -273,6 +323,9 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object, int)
+         */
         @Override
         public Image getColumnImage( Object element, int columnIndex ) {
             // no icons (yet)
@@ -281,20 +334,27 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
     }
 
     /**
-     * Content provider for the combo box
+     * Content provider for the combo box.
      */
     public class TypesForDatatypeDefinitionComboContentProvider extends AdapterFactoryContentProvider {
 
+        /**
+         * Instantiates a new types for datatype definition combo content provider.
+         * 
+         * @param adapterFactory the adapter factory
+         * @param viewer the viewer
+         */
         public TypesForDatatypeDefinitionComboContentProvider( AdapterFactory adapterFactory, Viewer viewer ) {
             super( adapterFactory );
             this.viewer = viewer;
         }
 
         /**
-         * Get list of typenames for the allowed DatatypeDefinition elements which hawe to be show in the combobox
+         * Get list of typenames for the allowed DatatypeDefinition elements which hawe to be show in the combobox.
          * 
-         * @see org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider#getElements(java.lang.Object)
+         * @param object the object
          * @return EClass[] of form (DatatypeDefinition x).eClass()
+         * @see org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider#getElements(java.lang.Object)
          */
         @SuppressWarnings("unchecked")
         public Object[] getElements( Object object ) {
@@ -319,15 +379,22 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
     }
 
     /**
-     * Label provider for the Combo box
+     * Label provider for the Combo box.
      */
     public class TypesForDatatypeDefinitionComboLabelProvider extends LabelProvider implements IBaseLabelProvider {
+        
+        /* (non-Javadoc)
+         * @see org.eclipse.jface.viewers.LabelProvider#getText(java.lang.Object)
+         */
         @Override
         public String getText( Object element ) {
             return getTypenameForDatatypeDefinition( (EClass)element );
         }
     }
 
+    /**
+     * Creates the table viewer.
+     */
     private void createTableViewer() {
 
         // Label for table
@@ -373,7 +440,7 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
      * <p>
      * Gets the text specified in the resource file of the edit plug-in.
      * 
-     * @param dataTypeDefObsv the DatatypeDefinition object in question
+     * @param eClass the e class
      * @return its type name
      */
     private String getTypenameForDatatypeDefinition( EClass eClass ) {
@@ -382,6 +449,12 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
     }
     
 
+    /**
+     * Gets the typename for datatype definition.
+     * 
+     * @param dataType the data type
+     * @return the typename for datatype definition
+     */
     private String getTypenameForDatatypeDefinition( DatatypeDefinition dataType ) {
         return getTypenameForDatatypeDefinition( dataType.eClass() );
     }

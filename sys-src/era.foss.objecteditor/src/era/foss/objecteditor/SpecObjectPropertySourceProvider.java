@@ -29,39 +29,81 @@ import era.foss.erf.AttributeValue;
 import era.foss.erf.AttributeValueSimple;
 import era.foss.erf.SpecObject;
 
+/**
+ * The Class SpecObjectPropertySourceProvider.
+ */
 public class SpecObjectPropertySourceProvider implements IPropertySourceProvider {
 
+    /**
+     * The Class SpecObjectPropertySource.
+     */
     class SpecObjectPropertySource implements IPropertySource {
         
+        /**
+         * The Class SpecObjectPropertyId.
+         */
         class SpecObjectPropertyId{
+            
+            /** The spec object. */
             private SpecObject specObject;
+            
+            /** The attribute definition. */
             private AttributeDefinition attributeDefinition;
             
+            /**
+             * Instantiates a new spec object property id.
+             * 
+             * @param specObject the spec object
+             * @param attributeDefinition the attribute definition
+             */
             public SpecObjectPropertyId(SpecObject specObject, AttributeDefinition attributeDefinition) {
                 SpecObjectPropertyId.this.specObject = specObject;
                 SpecObjectPropertyId.this.attributeDefinition = attributeDefinition;
             }
 
+            /**
+             * Gets the spec object.
+             * 
+             * @return the spec object
+             */
             public SpecObject getSpecObject() {
                 return specObject;
             }
+            
+            /**
+             * Gets the attribute definition.
+             * 
+             * @return the attribute definition
+             */
             public AttributeDefinition getAttributeDefinition() {
                 return attributeDefinition;
             }
         }
         
+        /** The spec object. */
         private SpecObject specObject;
 
+        /**
+         * Instantiates a new spec object property source.
+         * 
+         * @param specObject the spec object
+         */
         public SpecObjectPropertySource( SpecObject specObject ) {
             this.specObject = specObject;
         }
 
+        /* (non-Javadoc)
+         * @see org.eclipse.ui.views.properties.IPropertySource#getEditableValue()
+         */
         @Override
         public Object getEditableValue() {
             // TODO Auto-generated method stub
             return null;
         }
 
+        /* (non-Javadoc)
+         * @see org.eclipse.ui.views.properties.IPropertySource#getPropertyDescriptors()
+         */
         @Override
         public IPropertyDescriptor[] getPropertyDescriptors() {
             ArrayList<IPropertyDescriptor> propertyDescriptors = new ArrayList<IPropertyDescriptor>();
@@ -75,6 +117,9 @@ public class SpecObjectPropertySourceProvider implements IPropertySourceProvider
             return propertyDescriptors.toArray( new PropertyDescriptor[propertyDescriptors.size()] );
         }
 
+        /* (non-Javadoc)
+         * @see org.eclipse.ui.views.properties.IPropertySource#getPropertyValue(java.lang.Object)
+         */
         @Override
         public Object getPropertyValue( Object object ) {
             SpecObject specObject = ((SpecObjectPropertyId)object).getSpecObject();
@@ -97,17 +142,26 @@ public class SpecObjectPropertySourceProvider implements IPropertySourceProvider
             return null;
         }
 
+        /* (non-Javadoc)
+         * @see org.eclipse.ui.views.properties.IPropertySource#isPropertySet(java.lang.Object)
+         */
         @Override
         public boolean isPropertySet( Object id ) {
             // TODO Auto-generated method stub
             return false;
         }
 
+        /* (non-Javadoc)
+         * @see org.eclipse.ui.views.properties.IPropertySource#resetPropertyValue(java.lang.Object)
+         */
         @Override
         public void resetPropertyValue( Object id ) {
             // TODO Auto-generated method stub
         }
 
+        /* (non-Javadoc)
+         * @see org.eclipse.ui.views.properties.IPropertySource#setPropertyValue(java.lang.Object, java.lang.Object)
+         */
         @Override
         public void setPropertyValue( Object id, Object value ) {
             // TODO Auto-generated method stub
@@ -115,6 +169,9 @@ public class SpecObjectPropertySourceProvider implements IPropertySourceProvider
 
     }
 
+    /* (non-Javadoc)
+     * @see org.eclipse.ui.views.properties.IPropertySourceProvider#getPropertySource(java.lang.Object)
+     */
     @Override
     public IPropertySource getPropertySource( Object object ) {
         // stop processing if we don't have a spec object

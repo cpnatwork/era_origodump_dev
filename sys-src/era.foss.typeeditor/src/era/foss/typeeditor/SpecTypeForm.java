@@ -73,17 +73,22 @@ import era.foss.erf.impl.ErfFactoryImpl;
 public class SpecTypeForm extends AbstractErfTypesForm {
 
     // for now the one and only spec type
+    /** The one and only spec type. */
     private SpecType theOneAndOnlySpecType;
 
-    /**
-     * Table viewer holding the attributes of a spec type
-     */
+    /** Table viewer holding the attributes of a spec type. */
     private AddDeleteTableViewer tableViewer;
     
-    /** object for creating and binding ui elements */
+    /** object for creating and binding ui elements. */
     Ui ui;
     
 
+    /**
+     * Instantiates a new spec type form.
+     * 
+     * @param parent the parent
+     * @param editor the editor
+     */
     public SpecTypeForm( Composite parent, IEditorPart editor ) {
         super( parent, editor, SWT.NONE );
 
@@ -108,7 +113,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
     
 
     /**
-     * Create Table viewer showing attributes
+     * Create Table viewer showing attributes.
      */
     private void createTableViewer() {
 
@@ -144,7 +149,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
     }
     
     /**
-     * create detailed viewer for selected element
+     * create detailed viewer for selected element.
      */
     private void createDetailViewer() {
         // setup Data type properties viewer
@@ -158,7 +163,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
     }
 
     /**
-     * create context menu for -Adding and removing Dafatult values
+     * create context menu for -Adding and removing Dafatult values.
      */
     private void createContextMenu() {
 
@@ -220,7 +225,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
     }
 
     /**
-     * Add a default value for a simple Attribute Definition
+     * Add a default value for a simple Attribute Definition.
      * 
      * @param attribute Attribute definition for which the default value shall be added
      */
@@ -243,7 +248,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
     }
 
     /**
-     * remove a default value from a simple attribute definition
+     * remove a default value from a simple attribute definition.
      * 
      * @param attribute AttributeDefintion from which the default value shall be removed
      */
@@ -255,10 +260,12 @@ public class SpecTypeForm extends AbstractErfTypesForm {
     }
 
     /**
-     * Get attribute definition in case the column for the default value is selected
+     * Get attribute definition in case the column for the default value is selected.
      * 
+     * @param selection the selection
+     * @param columnName the column name
+     * @return the attribute def for column
      * @selection the selection of Attributes
-     * @param column name of column which has to be selected
      */
     private AttributeDefinitionSimple getAttributeDefForColumn( IStructuredSelection selection, String columnName ) {
         // Check if an element is selected and if we are in the column

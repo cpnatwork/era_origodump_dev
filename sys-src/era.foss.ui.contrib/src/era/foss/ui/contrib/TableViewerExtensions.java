@@ -23,14 +23,17 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
 
+/**
+ * The Class TableViewerExtensions.
+ */
 public class TableViewerExtensions 
 {
+    
     /**
-     * Requires a TableViewer.
-     * Will translate a MouseClick into the active column.
-     * Primary use-case: reset column value to its default value.
+     * Requires a TableViewer. Will translate a MouseClick into the active column. Primary use-case: reset column value
+     * to its default value.
      * 
-     * @param tableViewer
+     * @param tableViewer the table viewer
      */
     public static void addActiveColumnDetection( final TableViewer tableViewer ) {
         tableViewer.getTable().addMouseListener( new MouseAdapter() {

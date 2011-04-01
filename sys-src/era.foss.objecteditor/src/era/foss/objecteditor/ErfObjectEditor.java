@@ -198,14 +198,10 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
      */
     protected boolean updateProblemIndication = true;
 
-    /**
-     * The resource of the ERF file (initialized in {@link #createModel()})
-     */
+    /** The resource of the ERF file (initialized in {@link #createModel()}). */
     protected Resource erfResource;
 
-    /**
-     * The ERF model (initialized in {@link #createModel()})
-     */
+    /** The ERF model (initialized in {@link #createModel()}). */
     protected ERF erfModel;
 
     /**
@@ -335,6 +331,9 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
      */
     public class ViewerRefreshEContentAdapter extends EContentAdapter {
 
+        /* (non-Javadoc)
+         * @see org.eclipse.emf.ecore.util.EContentAdapter#notifyChanged(org.eclipse.emf.common.notify.Notification)
+         */
         @Override
         public void notifyChanged( Notification notification ) {
             super.notifyChanged( notification );
@@ -466,6 +465,8 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
 
     /**
      * Shows a dialog that asks if conflicting changes should be discarded.
+     * 
+     * @return true, if successful
      */
     protected boolean handleDirtyConflict() {
         return MessageDialog.openQuestion( getSite().getShell(),
@@ -566,6 +567,8 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
 
     /**
      * This is here for the listener to be able to call it.
+     * 
+     * @param action the action
      */
     // TODO: CPN-wtf? - fire property changes
     @Override
@@ -575,6 +578,8 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
 
     /**
      * This sets the selection into whichever viewer is active.
+     * 
+     * @param collection the new selection to viewer
      */
     public void setSelectionToViewer( Collection<?> collection ) {
         final Collection<?> theSelection = collection;
@@ -608,7 +613,8 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
     /**
      * This returns the editing domain as required by the {@link IEditingDomainProvider} interface. This is important
      * for implementing the static methods of {@link AdapterFactoryEditingDomain} and for supporting
-     * {@link org.eclipse.emf.edit.ui.action.CommandAction}.
+     * 
+     * @return the editing domain {@link org.eclipse.emf.edit.ui.action.CommandAction}.
      */
     public EditingDomain getEditingDomain() {
         return editingDomain;
@@ -617,6 +623,8 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
     /**
      * This makes sure that one content viewer, either for the current page or the outline view, if it has focus, is the
      * current one.
+     * 
+     * @param viewer the new current viewer
      */
     public void setCurrentViewer( Viewer viewer ) {
         // If it is changing...
@@ -658,6 +666,8 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
 
     /**
      * This returns the viewer as required by the {@link IViewerProvider} interface.
+     * 
+     * @return the viewer
      */
     public Viewer getViewer() {
         return currentViewer;
@@ -694,6 +704,10 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
     /**
      * Returns a diagnostic describing the errors and warnings listed in the resource and the specified exception (if
      * any).
+     * 
+     * @param resource the resource
+     * @param exception the exception
+     * @return the diagnostic
      */
     public Diagnostic analyzeResourceProblems( Resource resource, Exception exception ) {
         if( !resource.getErrors().isEmpty() || !resource.getWarnings().isEmpty() ) {
@@ -719,6 +733,9 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
 
     /**
      * This is how the framework determines which interfaces we implement.
+     * 
+     * @param key the key
+     * @return the adapter
      */
     @SuppressWarnings("unchecked")
     @Override
@@ -736,6 +753,8 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
 
     /**
      * This accesses a cached version of the content outliner.
+     * 
+     * @return the content outline page
      */
     public IContentOutlinePage getContentOutlinePage() {
         // TODO: the outline shall display the hierarchy as soon as it is supported by ERA
@@ -744,6 +763,8 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
 
     /**
      * This accesses a cached version of the property sheet.
+     * 
+     * @return the property sheet page
      */
     public IPropertySheetPage getPropertySheetPage() {
         if( propertySheetPage == null ) {
@@ -765,6 +786,8 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
 
     /**
      * This is for implementing {@link IEditorPart} and simply tests the command stack.
+     * 
+     * @return true, if is dirty
      */
     @Override
     public boolean isDirty() {
@@ -773,6 +796,8 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
 
     /**
      * This is for implementing {@link IEditorPart} and simply saves the model file.
+     * 
+     * @param progressMonitor the progress monitor
      */
     @Override
     public void doSave( IProgressMonitor progressMonitor ) {
@@ -831,6 +856,9 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
     /**
      * This returns whether something has been persisted to the URI of the specified resource. The implementation uses
      * the URI converter from the editor's resource set to try to open an input stream.
+     * 
+     * @param resource the resource
+     * @return true, if is persisted
      */
     protected boolean isPersisted( Resource resource ) {
         boolean result = false;
@@ -850,6 +878,8 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
 
     /**
      * This always returns true because it is not currently supported.
+     * 
+     * @return true, if is save as allowed
      */
     @Override
     public boolean isSaveAsAllowed() {
@@ -875,6 +905,8 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
 
     /**
      * See {@link org.eclipse.ui.ide.IGotoMarker}
+     * 
+     * @param marker the marker
      */
     public void gotoMarker( IMarker marker ) {
         try {
@@ -894,7 +926,10 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
     }
 
     /**
-     * Handle save operation (Save As)
+     * Handle save operation (Save As).
+     * 
+     * @param uri the uri
+     * @param editorInput the editor input
      */
     protected void doSaveAs( URI uri, IEditorInput editorInput ) {
         (editingDomain.getResourceSet().getResources().get( 0 )).setURI( uri );
@@ -908,6 +943,9 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
      * Initializes the editor part
      * 
      * This is called during startup.
+     * 
+     * @param site the site
+     * @param editorInput the editor input
      */
     @Override
     public void init( IEditorSite site, IEditorInput editorInput ) {
@@ -920,7 +958,7 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
     }
 
     /**
-     * See {@link WorkbenchPart#setFocus()}
+     * See {@link WorkbenchPart#setFocus()}.
      */
     @Override
     public void setFocus() {
@@ -931,7 +969,9 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
      * This implements {@link org.eclipse.jface.viewers.ISelectionProvider}.
      * 
      * Also see
-     * {@link org.eclipse.jface.viewers.ISelectionProvider#addSelectionChangedListener(ISelectionChangedListener)}
+     * 
+     * @param listener the listener
+     *        {@link org.eclipse.jface.viewers.ISelectionProvider#addSelectionChangedListener(ISelectionChangedListener)}
      */
     public void addSelectionChangedListener( ISelectionChangedListener listener ) {
         selectionChangedListeners.add( listener );
@@ -939,6 +979,8 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
 
     /**
      * This implements {@link org.eclipse.jface.viewers.ISelectionProvider}.
+     * 
+     * @param listener the listener
      */
     public void removeSelectionChangedListener( ISelectionChangedListener listener ) {
         selectionChangedListeners.remove( listener );
@@ -946,6 +988,8 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
 
     /**
      * This implements {@link org.eclipse.jface.viewers.ISelectionProvider} to return this editor's overall selection.
+     * 
+     * @return the selection
      */
     public ISelection getSelection() {
         return editorSelection;
@@ -954,6 +998,8 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
     /**
      * This implements {@link org.eclipse.jface.viewers.ISelectionProvider} to set this editor's overall selection.
      * Calling this result will notify the listeners.
+     * 
+     * @param selection the new selection
      */
     public void setSelection( ISelection selection ) {
         editorSelection = selection;
@@ -965,7 +1011,9 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
     }
 
     /**
-     * Set text displayed in status line according to the element selcted in the viewer
+     * Set text displayed in status line according to the element selcted in the viewer.
+     * 
+     * @param selection the new status line manager
      */
     public void setStatusLineManager( ISelection selection ) {
 
@@ -1007,6 +1055,9 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
 
     /**
      * This looks up a string in the plugin's plugin.properties file.
+     * 
+     * @param key the key
+     * @return the string
      */
     private static String getString( String key ) {
         return ErfObjectsEditorPlugin.INSTANCE.getString( key );
@@ -1014,12 +1065,19 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
 
     /**
      * This looks up a string in plugin.properties, making a substitution.
+     * 
+     * @param key the key
+     * @param s1 the s1
+     * @return the string
      */
     private static String getString( String key, Object s1 ) {
         return ErfObjectsEditorPlugin.INSTANCE.getString( key, new Object[]{s1} );
     }
 
     /**
+     * Gets the adapter factory.
+     * 
+     * @return the adapter factory
      * @see era.foss.objecteditor.IAdapterFactoryProvider#getAdapterFactory()
      * @since Oct 28, 2010
      */
@@ -1028,7 +1086,7 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
     }
 
     /**
-     * Dispose this control and controls created by this one
+     * Dispose this control and controls created by this one.
      */
     @Override
     public void dispose() {
@@ -1051,11 +1109,16 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
 
     /**
      * Returns whether the outline view should be presented to the user. (Currently: "yes, always")
+     * 
+     * @return true, if successful
      */
     protected boolean showOutlineView() {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
+     */
     @Override
     public void createPartControl( Composite parent ) {
 

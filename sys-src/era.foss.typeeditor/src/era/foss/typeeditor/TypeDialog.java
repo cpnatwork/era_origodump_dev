@@ -46,19 +46,23 @@ import era.foss.objecteditor.SpecObjectsViewer;
  */
 public class TypeDialog extends Dialog {
 
+    /** The editor. */
     private IEditorPart editor = null;
+    
+    /** The editing domain. */
     private EditingDomain editingDomain = null;
     // commandStack is required for Ok and Cancel Buttons
+    /** The era command stack. */
     private EraCommandStack eraCommandStack = null;
+    
+    /** The type editor activator. */
     private Activator typeEditorActivator = null;
 
     /**
-     * Creates a editor for Datatype, Attributes and Spectypes
+     * Creates a editor for Datatype, Attributes and Spectypes.
      * 
-     * @param parentShell parent shell of this dialog
-     * @param adapterFactory
-     * @param domain
-     * 
+     * @param activeShell the active shell
+     * @param editor the editor
      */
     public TypeDialog( Shell activeShell, IEditorPart editor ) {
         super( activeShell );
@@ -117,6 +121,8 @@ public class TypeDialog extends Dialog {
     }
 
     /**
+     * Ok pressed.
+     * 
      * @see org.eclipse.jface.dialogs.Dialog#okPressed()
      * @since 03.03.2010
      */
@@ -134,6 +140,8 @@ public class TypeDialog extends Dialog {
     }
 
     /**
+     * Cancel pressed.
+     * 
      * @see org.eclipse.jface.dialogs.Dialog#cancelPressed()
      * @since 03.03.2010
      */

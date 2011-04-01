@@ -33,26 +33,24 @@ import org.eclipse.m2m.atl.engine.vm.AtlModelHandler;
 import org.eclipse.m2m.atl.engine.vm.nativelib.ASMModel;
 
 /**
- * Wrapper around the ATL Transformer to
+ * Wrapper around the ATL Transformer to.
  * 
  * @author poldi
- * 
  */
 public class ATLTranformer {
 
     //
     // private members
 
-    /**
-     * Caches the model loader
-     */
+    /** Caches the model loader. */
     private EMFModelLoader loader = null;
 
-    /**
-     * All parsed and outputed models (changed by loadModel and createModel)
-     */
+    /** All parsed and outputed models (changed by loadModel and createModel). */
     private Map<String, ASMModel> models = new HashMap<String, ASMModel>();
 
+    /**
+     * Instantiates a new aTL tranformer.
+     */
     public ATLTranformer() {
     }
 
@@ -61,14 +59,11 @@ public class ATLTranformer {
      * 
      * Loaded models are added to {@link #models}.
      * 
-     * @param modelId
-     *            a unique id to identify the model during this transformation
-     * @param metaModel
-     *            id of a previously loaded meta-model or null to use MOF as
-     *            meta model
-     * @param path
-     *            the workspace relative path to the model file
+     * @param modelId a unique id to identify the model during this transformation
+     * @param metaModelId the meta model id
+     * @param modelPath the model path
      * @return the parsed model
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     public void loadModel( String modelId, String metaModelId, URI modelPath ) throws IOException {
         EMFModelLoader ml = getModelLoader();
@@ -91,15 +86,13 @@ public class ATLTranformer {
     /**
      * Run the model transformation.
      * 
-     * @param atlPath
-     *            Path to an atl or asm file
-     * @param outputId
-     *            id of the output model
-     * @param outputPath
-     *            path to output file
-     * @param outputMetaModelId
-     *            id of a previously loaded meta model or null for MOF
-     *            @param saveModel true to save the model 
+     * @param asmPath the asm path
+     * @param outputId id of the output model
+     * @param outputPath path to output file
+     * @param outputMetaModelId id of a previously loaded meta model or null for MOF
+     * @param saveModel true to save the model
+     * @return the resource
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     public Resource transform( String asmPath, String outputId, URI outputPath, String outputMetaModelId, boolean saveModel )
             throws IOException {
@@ -121,7 +114,7 @@ public class ATLTranformer {
     // Internal helpers
 
     /**
-     * Create the model loader
+     * Create the model loader.
      * 
      * @return the mode loader
      */
@@ -135,13 +128,11 @@ public class ATLTranformer {
      * 
      * Loaded models are added to {@link #models}.
      * 
-     * @param modelId
-     *            a unique id to identify the model during this transformation
-     * @param metaModel
-     *            the parsed meta model
-     * @param path
-     *            the workspace relative path to the model file
+     * @param modelId a unique id to identify the model during this transformation
+     * @param metaModel the parsed meta model
+     * @param path the workspace relative path to the model file
      * @return the parsed model
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     private ASMModel loadModel( String modelId, ASMModel metaModel, URI path ) throws IOException {
         return ( getModelLoader() ).loadModel( modelId, metaModel, path );
@@ -152,13 +143,11 @@ public class ATLTranformer {
      * 
      * Created models are added to {@link #models}.
      * 
-     * @param modelId
-     *            A unique id during this transformation for the new model
-     * @param metaModel
-     *            the meta model of the model
-     * @param path
-     *            the path to which the model shall be saved
+     * @param modelId A unique id during this transformation for the new model
+     * @param metaModel the meta model of the model
+     * @param path the path to which the model shall be saved
      * @return the model
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     private ASMModel createModel( String modelId, ASMModel metaModel, URI path ) throws IOException {
         return ( getModelLoader() ).newModel( modelId, path.toString(), metaModel );
@@ -169,13 +158,11 @@ public class ATLTranformer {
      * 
      * Created models are added to {@link #models}.
      * 
-     * @param modelId
-     *            A unique id during this transformation for the new model
-     * @param metaModel
-     *            id of a previously parsed meta model or null to use MOF
-     * @param path
-     *            the path to which the model shall be saved
+     * @param modelId A unique id during this transformation for the new model
+     * @param metaModelId the meta model id
+     * @param modelPath the model path
      * @return the model
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     private ASMModel createModel( String modelId, String metaModelId, URI modelPath ) throws IOException {
         EMFModelLoader ml = getModelLoader();
@@ -201,11 +188,9 @@ public class ATLTranformer {
     /**
      * Save a model to disk.
      * 
-     * @param outputModelId
-     *            Id of a previously loaded or created model.
-     * 
-     * @param outputPath
-     *            the path to a workspace file
+     * @param outputModelId Id of a previously loaded or created model.
+     * @param outputPath the path to a workspace file
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     private void saveModel( String outputModelId, URI outputPath ) throws IOException {
         ASMModel outputModel = models.get( outputModelId );

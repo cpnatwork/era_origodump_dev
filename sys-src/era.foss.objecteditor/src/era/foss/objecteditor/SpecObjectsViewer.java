@@ -81,20 +81,40 @@ import era.foss.ui.contrib.TableViewerExtensions;
 
 
 //SuppressWarnings("restriction")
+/**
+ * The Class SpecObjectsViewer.
+ */
 public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
 
+    /** The Constant SPEC_ATTRIBUTE_COLUMN_DATA. */
     final static String SPEC_ATTRIBUTE_COLUMN_DATA = "Spec Attribute";
 
+    /** The editing domain. */
     protected AdapterFactoryEditingDomain editingDomain = null;
+    
+    /** The erf resource. */
     protected Resource erfResource = null;
+    
+    /** The erf model. */
     protected ERF erfModel = null;
+    
+    /** The era command stack. */
     protected EraCommandStack eraCommandStack = null;
+    
+    /** The adapter factory. */
     protected AdapterFactory adapterFactory = null;
     
 
 
+    /** The active column. */
     protected int activeColumn;
 
+    /**
+     * Instantiates a new spec objects viewer.
+     * 
+     * @param parent the parent
+     * @param erfObjectEditor the erf object editor
+     */
     public SpecObjectsViewer( Composite parent, IEditorPart erfObjectEditor ) {
         super( parent, SWT.MULTI | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
         // CPN: use casts to avoid direct dependencies to the generated Erf*Editor class(es)
@@ -107,6 +127,9 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
     }
    
     
+    /**
+     * Setup table viewer.
+     */
     private void setupTableViewer() {
 
         Table table = this.getTable();
@@ -154,7 +177,7 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
 
 
     /**
-     * Recreate columns for the spec Object viewer
+     * Recreate columns for the spec Object viewer.
      */
     public void recreate_columns() {
         for( TableColumn column : this.getTable().getColumns() ) {
@@ -165,7 +188,7 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
     }
     
     /**
-     * Create columns for the spec Object viewer
+     * Create columns for the spec Object viewer.
      */
     private void create_columns() {
         
@@ -193,6 +216,9 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
 
     }
     
+    /**
+     * Creates the context menu.
+     */
     private void createContextMenu() {
 
         
@@ -320,6 +346,9 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
     }
     
     
+    /**
+     * Adds the key listerner.
+     */
     private void addKeyListerner() {
         // add key listener
         this.getTable().addKeyListener( new KeyListener() {
@@ -342,8 +371,9 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
     }
 
     /**
-     * Remove selected spec objects
-     * @param selection 
+     * Remove selected spec objects.
+     * 
+     * @param selection the selection
      */
     private void removeSpecObjectElements( IStructuredSelection selection ) {
         Command removeCommand = RemoveCommand.create( editingDomain, selection.toList() );
@@ -353,7 +383,9 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
 
 
     /**
-     * Add spec object
+     * Add spec object.
+     * 
+     * @param selection the selection
      */
     private void addSpecObectElement(IStructuredSelection selection) {
         SpecObject newSpecObject = ErfFactoryImpl.eINSTANCE.createSpecObject();
@@ -367,15 +399,23 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
     }
 
     /**
-     * Provide data for table containing spec objects
+     * Provide data for table containing spec objects.
      */
     public class SpecObjectContentProvider extends AdapterFactoryContentProvider {
 
+        /**
+         * Instantiates a new spec object content provider.
+         * 
+         * @param adapterFactory the adapter factory
+         */
         public SpecObjectContentProvider( AdapterFactory adapterFactory ) {
             super( adapterFactory );
         }
 
         // get elements shown in the table viewer holding S
+        /* (non-Javadoc)
+         * @see org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider#getElements(java.lang.Object)
+         */
         public Object[] getElements( Object object ) {
 
             SpecObject[] objects;
@@ -387,6 +427,9 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
             return objects;
         }
         
+        /* (non-Javadoc)
+         * @see org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider#notifyChanged(org.eclipse.emf.common.notify.Notification)
+         */
         @Override
         public void notifyChanged( Notification notification ) {
             super.notifyChanged( notification );
@@ -410,23 +453,33 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
 
 
     /**
-     * Provide label for data of table containing SpecTypes
+     * Provide label for data of table containing SpecTypes.
      */
     public class SpecObjectLabelProvider extends ColumnLabelProvider {
 
+        /** The Color default value bg. */
         private Color ColorDefaultValueBg = null;
+        
         /**
-         * The attribute definition for this label provider * Required for getting the defatult value in case no value is
-         * defined
+         * The attribute definition for this label provider * Required for getting the defatult value in case no value
+         * is defined.
          */
         private AttributeDefinition attributeDefinition;
         
+        /**
+         * Instantiates a new spec object label provider.
+         * 
+         * @param attributeDefinition the attribute definition
+         */
         public SpecObjectLabelProvider( AttributeDefinition attributeDefinition ) {
             this.attributeDefinition = attributeDefinition;
             ColorDefaultValueBg = new Color (Display.getCurrent (), 140, 170, 210);
         }
 
 
+        /* (non-Javadoc)
+         * @see org.eclipse.jface.viewers.BaseLabelProvider#dispose()
+         */
         @Override
         public void dispose()
         {
@@ -435,14 +488,21 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
         }
         
         /**
-         * get the attribute definition for this column
+         * get the attribute definition for this column.
          * 
-         * @return
+         * @return the attribute definition
          */
         public AttributeDefinition getAttributeDefinition() {
             return attributeDefinition;
         }
         
+        /**
+         * Gets the image.
+         * 
+         * @param value the value
+         * @param diagnostic the diagnostic
+         * @return the image
+         */
         public Image getImage(AttributeValue value, Diagnostic diagnostic)
         {
             Image image = null;
@@ -454,6 +514,9 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
             return image;
         }
         
+        /* (non-Javadoc)
+         * @see org.eclipse.jface.viewers.CellLabelProvider#getToolTipText(java.lang.Object)
+         */
         @Override
         public String getToolTipText(Object element)
         {
@@ -469,6 +532,9 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
             return text;
         }
 
+        /* (non-Javadoc)
+         * @see org.eclipse.jface.viewers.CellLabelProvider#getToolTipImage(java.lang.Object)
+         */
         @Override
         /**
          * Show tooltip if validation fails
@@ -490,8 +556,11 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
         }
         
         
-        /** show different background color if value is 
-         * has default value (i.e. it is not present)
+        /**
+         * show different background color if value is has default value (i.e. it is not present)
+         * 
+         * @param value the value
+         * @return the background
          */
         public Color getBackground(AttributeValue value){
             Color backgroundColor = null;
@@ -501,6 +570,9 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
             return backgroundColor;
         }
         
+        /* (non-Javadoc)
+         * @see org.eclipse.jface.viewers.ColumnLabelProvider#update(org.eclipse.jface.viewers.ViewerCell)
+         */
         @Override
         public void update(ViewerCell cell) {
             SpecObject specObject = (SpecObject) cell.getElement();
@@ -519,18 +591,26 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
     }
 
     /**
-     * Editing support for Table holding the attribute definitions
+     * Editing support for Table holding the attribute definitions.
      * 
-     * @param viewer
-     * @param column
      */
     public class SpecObjectEditingSupport extends EditingSupport {
+        
+        /** The cell editor. */
         private CellEditor cellEditor;
+        
+        /** The basic command stack. */
         private BasicCommandStack basicCommandStack;
 
-        /** Attribute defintion shown in this column */
+        /** Attribute defintion shown in this column. */
         AttributeDefinition attributeDefinition;
 
+        /**
+         * Instantiates a new spec object editing support.
+         * 
+         * @param viewer the viewer
+         * @param attributeDefinition the attribute definition
+         */
         public SpecObjectEditingSupport( ColumnViewer viewer, AttributeDefinition attributeDefinition ) {
             super( viewer );
             this.attributeDefinition = attributeDefinition;
@@ -542,16 +622,25 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.eclipse.jface.viewers.EditingSupport#canEdit(java.lang.Object)
+         */
         @Override
         protected boolean canEdit( Object element ) {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see org.eclipse.jface.viewers.EditingSupport#getCellEditor(java.lang.Object)
+         */
         @Override
         protected CellEditor getCellEditor( Object element ) {
             return this.cellEditor;
         }
 
+        /* (non-Javadoc)
+         * @see org.eclipse.jface.viewers.EditingSupport#getValue(java.lang.Object)
+         */
         @Override
         protected Object getValue( Object element ) {
             SpecObject specObject = (SpecObject)element;
@@ -559,6 +648,9 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
             return SpecObjectsViewer.this.getSpecObjectValueString(value,attributeDefinition);
         }
 
+        /* (non-Javadoc)
+         * @see org.eclipse.jface.viewers.EditingSupport#setValue(java.lang.Object, java.lang.Object)
+         */
         @Override
         protected void setValue( Object element, Object value ) {
             SpecObject specObject = (SpecObject)element;
@@ -569,6 +661,12 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
 
         }
 
+        /**
+         * Sets the value attribute defintion simple.
+         * 
+         * @param specObject the spec object
+         * @param editorValue the editor value
+         */
         private void setValueAttributeDefintionSimple( SpecObject specObject, Object editorValue ) {
 
             AttributeDefinitionSimple attributeDefinition = (AttributeDefinitionSimple)this.attributeDefinition;
@@ -628,6 +726,9 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
     }
 
     // Helper for using the SpecObjectViewer from its viewer pane
+    /**
+     * Setup.
+     */
     public void setup() {
         setupTableViewer();
     }
@@ -635,12 +736,11 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
     /**
      * get the string representation of a spec object for a certain attribute Definition
      * 
-     * in case no attribute value has been set search for the default
-     * value given for the attribute definition
+     * in case no attribute value has been set search for the default value given for the attribute definition
      * 
-     * in case no default value is specified return the empty string 
+     * in case no default value is specified return the empty string.
      * 
-     * @param specObject of which the attribute value is taken
+     * @param value the value
      * @param attributeDefinition of which the value is taken
      * @return String holding the value of spec object
      */
@@ -668,11 +768,13 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
     }
     
     /**
-     * Find the attribte value object of SpecObject for a certain attribute definition
+     * Find the attribte value object of SpecObject for a certain attribute definition.
      * 
-     * @param specObject
-     * @param attributeDefinition
-     * @return <ul><li>attribute value</li><li><code>null</code> in case on attribute value has been found</li>
+     * @param specObject the spec object
+     * @param attributeDefinition the attribute definition
+     * @return <ul>
+     *         <li>attribute value</li>
+     *         <li><code>null</code> in case on attribute value has been found</li>
      */
     private AttributeValue getSpecObjectValue( SpecObject specObject, AttributeDefinition attributeDefinition ) {
 
@@ -689,7 +791,7 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
     }
     
     /**
-     * remove attribute value of spec object
+     * remove attribute value of spec object.
      * 
      * @param value object to be removed
      */
@@ -703,7 +805,7 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
 
     
     /**
-     * Get column where a mouse down event occured
+     * Get column where a mouse down event occured.
      * 
      * @return number of active column
      */
@@ -712,7 +814,9 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
     }
     
     /**
-     * Set active column
+     * Set active column.
+     * 
+     * @param activeColumn the new active column
      */
     public void setActiveColumn(int activeColumn) {
        this.activeColumn = activeColumn;

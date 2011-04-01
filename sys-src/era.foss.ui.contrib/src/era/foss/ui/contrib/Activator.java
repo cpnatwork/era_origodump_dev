@@ -22,6 +22,9 @@ import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
+/**
+ * The Class Activator.
+ */
 public class Activator extends AbstractUIPlugin {
     
     /**
@@ -29,14 +32,16 @@ public class Activator extends AbstractUIPlugin {
      */
     public static final Activator INSTANCE = new Activator();
     
+    /** The Constant PLUGIN_ID. */
     public static final String PLUGIN_ID = "era.foss.ui.contrib"; //$NON-NLS-1$
     
+    /** The Constant ICONS_PATH. */
     private final static String ICONS_PATH = "$nl$/icons/full/";//$NON-NLS-1$
     
     /**
-     * Get the workbench image with the given path relative to
-     * ICON_PATH.
-     * @param relativePath
+     * Get the workbench image with the given path relative to ICON_PATH.
+     * 
+     * @param relativePath the relative path
      * @return ImageDescriptor
      */
     public static ImageDescriptor getViewImageDescriptor(String relativePath){

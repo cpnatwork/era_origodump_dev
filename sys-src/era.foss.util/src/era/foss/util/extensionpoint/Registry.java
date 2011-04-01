@@ -45,37 +45,38 @@ import era.foss.util.types.StringUtils;
  * <pre>
  * public class MyExtensionPointRegistry {
  * 
- *  public static final String EXTENSION_POINT = &quot;era.foss.myextension&quot;;
- *  
- *  private static final Registry&lt;MyExtensionPointRegistry&gt; registry = new Registry&lt;MyExtensionPointRegistry&gt;();
- *  
- *  private static Map<String,MyExtensionPointRegistry> byId = new HashMap<String,MyExtensionPointRegistry>();
- *  
- *   private String id = null;
- *  
- *  public static Set&lt;MyExtensionPointRegistry&gt; getRegistrations() {
- *      return registry.getRegistrations( MyExtensionPointRegistry.class, EXTENSION_POINT ); 
- *  }
- *  
- *  public static void putId( String id, MyExtensionPointRegistry registration ) {
- *      byId.put( id, registration );
- *  } 
- *  
- *  public static MyExtensionPointRegistry getById( String id ) {
- *      registry.getRegistrations( MyExtensionPointRegistry.class, EXTENSION_POINT );
- *      return byId.get( id );
- *  }
- *  
- *  public void setId( String id ) {
- *      this.id = id;
- *  }
- *  
- *  public String getId() {
- *      return id;
- *  }
+ *     public static final String EXTENSION_POINT = &quot;era.foss.myextension&quot;;
+ * 
+ *     private static final Registry&lt;MyExtensionPointRegistry&gt; registry = new Registry&lt;MyExtensionPointRegistry&gt;();
+ * 
+ *     private static Map&lt;String, MyExtensionPointRegistry&gt; byId = new HashMap&lt;String, MyExtensionPointRegistry&gt;();
+ * 
+ *     private String id = null;
+ * 
+ *     public static Set&lt;MyExtensionPointRegistry&gt; getRegistrations() {
+ *         return registry.getRegistrations( MyExtensionPointRegistry.class, EXTENSION_POINT );
+ *     }
+ * 
+ *     public static void putId( String id, MyExtensionPointRegistry registration ) {
+ *         byId.put( id, registration );
+ *     }
+ * 
+ *     public static MyExtensionPointRegistry getById( String id ) {
+ *         registry.getRegistrations( MyExtensionPointRegistry.class, EXTENSION_POINT );
+ *         return byId.get( id );
+ *     }
+ * 
+ *     public void setId( String id ) {
+ *         this.id = id;
+ *     }
+ * 
+ *     public String getId() {
+ *         return id;
+ *     }
  * }
  * </pre>
  * 
+ * @param <T> the generic type
  * @author poldi
  */
 public class Registry<T> {
@@ -83,27 +84,19 @@ public class Registry<T> {
     //
     // defines
 
-    /**
-     * Method prefix for the method under which to register by id
-     */
+    /** Method prefix for the method under which to register by id. */
     public static final String PUT_METHOD_PREFIX = "put";
 
-    /**
-     * Method prefix for the methods via which to set attributes
-     */
+    /** Method prefix for the methods via which to set attributes. */
     public static final String SET_METHOD_PREFIX = "set";
 
-    /**
-     * Method prefix for the add methods
-     */
+    /** Method prefix for the add methods. */
     public static final String ADD_METHOD_PREFIX = "add";
 
     //
     // private members
 
-    /**
-     * The id-attribute to id method mappings parsed via reflection
-     */
+    /** The id-attribute to id method mappings parsed via reflection. */
     private Map<String, Method> idMethods = null;
 
     /**
@@ -111,9 +104,7 @@ public class Registry<T> {
      */
     private Set<T> registrations = null;
 
-    /**
-     * Instance of an executable extension
-     */
+    /** Instance of an executable extension. */
     private Object instance = null;
 
 
@@ -122,6 +113,9 @@ public class Registry<T> {
      * 
      * @param type The type of the toplevel object
      * @param extensionPoint the extension-point id
+     * @return the registrations
+     * @throws IllegalStateException the illegal state exception
+     * @throws IllegalArgumentException the illegal argument exception
      * @since Jun 14, 2009
      */
     public Set<T> getRegistrations( Class<T> type, String extensionPoint )
@@ -186,6 +180,15 @@ public class Registry<T> {
      * 
      * @since Jun 14, 2009
      */
+    /**
+     * Parses the extension.
+     * 
+     * @param type the type
+     * @param element the element
+     * @return the t
+     * @throws IllegalStateException the illegal state exception
+     * @throws IllegalArgumentException the illegal argument exception
+     */
     @SuppressWarnings("unchecked")
     private T parseExtension( Class<T> type, IConfigurationElement element )
         throws IllegalStateException,
@@ -229,6 +232,8 @@ public class Registry<T> {
      * @param type The sub type
      * @param element the element to transform
      * @return the sub object
+     * @throws IllegalStateException the illegal state exception
+     * @throws IllegalArgumentException the illegal argument exception
      * @since Jun 14, 2009
      */
     private Object parseSubElement( Object parent, Class<?> type, IConfigurationElement element )
@@ -310,9 +315,9 @@ public class Registry<T> {
     /**
      * Makes a registration of the registry by id.
      * 
+     * @param registration the registration to call the registration on
      * @param attributeName The name of the id attribute
      * @param id the id value
-     * @param registration the registration to call the registration on
      * @throws IllegalArgumentException in case the attribute is unknown
      * @throws IllegalStateException in case the method call to the put method does not work
      * @since Jun 14, 2009
@@ -426,6 +431,7 @@ public class Registry<T> {
      * @param type The type to convert to
      * @param value the string value
      * @return the converted value
+     * @throws IllegalArgumentException the illegal argument exception
      * @since Jun 14, 2009
      */
     private Object convertValue( Class<?> type, String value ) throws IllegalArgumentException {
