@@ -86,6 +86,7 @@ import org.eclipse.ui.part.WorkbenchPart;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheetPage;
+
 import era.foss.erf.ERF;
 import era.foss.erf.SpecObject;
 import era.foss.erf.provider.ErfItemProviderAdapterFactory;
@@ -184,8 +185,16 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
      * Controls whether the problem indication should be updated.
      */
     protected boolean updateProblemIndication = true;
-    
 
+    /**
+     * The resource of the ERF file (initialized in {@link #createModel()})
+     */
+    protected Resource erfResource;
+
+    /**
+     * The ERF model (initialized in {@link #createModel()})
+     */
+    protected ERF erfModel;
 
     /**
      * Adapter used to update the problem indication when resources are demanded loaded.
@@ -300,10 +309,35 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
                     } );
                 }
             } catch( CoreException exception ) {
-                ErfObjectEditorPlugin.INSTANCE.log( exception );
+                ErfObjectsEditorPlugin.INSTANCE.log( exception );
             }
         }
     };
+
+    /**
+     * An Adapter that triggers viewer refreshs.
+     * <p>
+     * It is derived from EContentAdapter that auto-adapts all new objects
+     * 
+     * @author cpn
+     */
+    public class ViewerRefreshEContentAdapter extends EContentAdapter {
+
+        @Override
+        public void notifyChanged( Notification notification ) {
+            super.notifyChanged( notification );
+
+            // We need the ViewerRefreshEContentAdapter (VRCA) because
+            // the SpecObjectContentProvider (SOCP) will only be notified based on
+            // ViewerNotifications. These are wrappers around the original Notification.
+            // Yet, more important, they will only be fired if the EObject has already
+            // been selected in the Viewer once (the ItemProvider will only then be
+            // adapted to the EObject.
+
+            System.out.println( "== " + this.getClass().getCanonicalName() );
+            System.out.println( notification.toString() );
+        }
+    }
 
     /**
      * Handles activation of the editor or it's associated views.
@@ -411,7 +445,7 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
                     try {
                         markerHelper.createMarkers( diagnostic );
                     } catch( CoreException exception ) {
-                        ErfObjectEditorPlugin.INSTANCE.log( exception );
+                        ErfObjectsEditorPlugin.INSTANCE.log( exception );
                     }
                 }
             }
@@ -455,14 +489,14 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
         // focus.
         //
         commandStack.addCommandStackListener( new CommandStackListener() {
-            
+
             private Job validateJob = null;
-            
+
             /**
-             * create a validate job if none is existing yet
-             * The validate job asynchronously checks if the erfModel is valid
+             * create a validate job if none is existing yet The validate job asynchronously checks if the erfModel is
+             * valid
              * 
-             * @return the validate job 
+             * @return the validate job
              */
             private Job getValidateJob() {
                 if( validateJob == null ) {
@@ -475,7 +509,7 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
 
                         public IStatus run( IProgressMonitor monitor ) {
                             markerHelper.deleteMarkers( erfResource );
-                            Diagnostic diagnostic = Diagnostician.INSTANCE. validate( erfModel);
+                            Diagnostic diagnostic = Diagnostician.INSTANCE.validate( erfModel );
                             markerHelper.createMarkers( diagnostic );
                             return Status.OK_STATUS;
                         }
@@ -483,8 +517,7 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
                 }
                 return validateJob;
             }
-             
-            
+
             public void commandStackChanged( final EventObject event ) {
                 ErfObjectEditor.this.specObjectViewerPane.getControl().getDisplay().asyncExec( new Runnable() {
                     public void run() {
@@ -496,18 +529,18 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
                         if( mostRecentCommand != null ) {
                             setSelectionToViewer( mostRecentCommand.getAffectedObjects() );
                         }
-                        
+
                         // refresh property page
                         if( propertySheetPage != null && !propertySheetPage.getControl().isDisposed() ) {
                             propertySheetPage.refresh();
                         }
-                        
+
                         // start model validation
                         getValidateJob().cancel();
                         getValidateJob().schedule();
                     }
                 } );
-                
+
             }
         } );
 
@@ -546,12 +579,12 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
                             } else if( eObject.eContainer() instanceof SpecObject ) {
                                 specObjectList.add( (SpecObject)eObject.eContainer() );
                             }
-                            // TODO: if element is part of the type editor, open type editor, 
+                            // TODO: if element is part of the type editor, open type editor,
                             // navigate to correct tab and mark the respective element
                         }
                     }
 
-                    if( currentViewer != null && ! specObjectList.isEmpty()) {
+                    if( currentViewer != null && !specObjectList.isEmpty() ) {
                         currentViewer.setSelection( new StructuredSelection( specObjectList.toArray() ), true );
                     }
                 }
@@ -639,6 +672,11 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
             resourceToDiagnosticMap.put( resource, analyzeResourceProblems( resource, exception ) );
         }
         editingDomain.getResourceSet().eAdapters().add( problemIndicationAdapter );
+
+        Resource erfResource = (XMIResource)editingDomain.getResourceSet()
+                                                         .getResource( EditUIUtil.getURI( getEditorInput() ), true );
+        erfModel = (ERF)(erfResource).getContents().get( 0 );
+        erfModel.getCoreContent().eAdapters().add( new ViewerRefreshEContentAdapter() );
     }
 
     /**
@@ -688,7 +726,7 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
      * This accesses a cached version of the content outliner.
      */
     public IContentOutlinePage getContentOutlinePage() {
-        //TODO: the outline shall display the hierarchy as soon as it is supported by ERA
+        // TODO: the outline shall display the hierarchy as soon as it is supported by ERA
         return null;
     }
 
@@ -697,17 +735,17 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
      */
     public IPropertySheetPage getPropertySheetPage() {
         if( propertySheetPage == null ) {
-            
+
             propertySheetPage = new ExtendedPropertySheetPage( editingDomain ) {
                 @Override
                 public void setSelectionToViewer( List<?> selection ) {
                     ErfObjectEditor.this.setSelectionToViewer( selection );
                     ErfObjectEditor.this.setFocus();
                 }
-                
+
             };
-            
-            propertySheetPage.setPropertySourceProvider( new SpecObjectPropertySourceProvider());
+
+            propertySheetPage.setPropertySourceProvider( new SpecObjectPropertySourceProvider() );
         }
 
         return propertySheetPage;
@@ -772,7 +810,7 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
         } catch( Exception exception ) {
             // Something went wrong that shouldn't.
             //
-            ErfObjectEditorPlugin.INSTANCE.log( exception );
+            ErfObjectsEditorPlugin.INSTANCE.log( exception );
         }
         updateProblemIndication = true;
         updateProblemIndication();
@@ -839,7 +877,7 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
                 }
             }
         } catch( CoreException exception ) {
-            ErfObjectEditorPlugin.INSTANCE.log( exception );
+            ErfObjectsEditorPlugin.INSTANCE.log( exception );
         }
     }
 
@@ -880,7 +918,8 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
     /**
      * This implements {@link org.eclipse.jface.viewers.ISelectionProvider}.
      * 
-     * Also see {@link org.eclipse.jface.viewers.ISelectionProvider#addSelectionChangedListener(ISelectionChangedListener)}
+     * Also see
+     * {@link org.eclipse.jface.viewers.ISelectionProvider#addSelectionChangedListener(ISelectionChangedListener)}
      */
     public void addSelectionChangedListener( ISelectionChangedListener listener ) {
         selectionChangedListeners.add( listener );
@@ -914,17 +953,16 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
     }
 
     /**
-     * Set text displayed in status line according to the element selcted in the 
-     * viewer
+     * Set text displayed in status line according to the element selcted in the viewer
      */
     public void setStatusLineManager( ISelection selection ) {
-        
-        /* TODO: discuss if it make sense to show anything here. it would make sense to 
-        * show the object ID as soon we are able to define an attribute definition as 
-        * ID for an spec object. Then again, do we need to specify a certain attribute defintion
-        * as ID ? We certainly need some kind of unique attribute... Check if ReqIf does 
-        * specify a 'unique' attribute for Attribute definitions.
-        */
+
+        /*
+         * TODO: discuss if it make sense to show anything here. it would make sense to show the object ID as soon we
+         * are able to define an attribute definition as ID for an spec object. Then again, do we need to specify a
+         * certain attribute defintion as ID ? We certainly need some kind of unique attribute... Check if ReqIf does
+         * specify a 'unique' attribute for Attribute definitions.
+         */
         IStatusLineManager statusLineManager = currentViewer != null && currentViewer == contentOutlineViewer
             ? contentOutlineStatusLineManager
             : null;
@@ -959,14 +997,14 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
      * This looks up a string in the plugin's plugin.properties file.
      */
     private static String getString( String key ) {
-        return ErfObjectEditorPlugin.INSTANCE.getString( key );
+        return ErfObjectsEditorPlugin.INSTANCE.getString( key );
     }
 
     /**
      * This looks up a string in plugin.properties, making a substitution.
      */
     private static String getString( String key, Object s1 ) {
-        return ErfObjectEditorPlugin.INSTANCE.getString( key, new Object[]{s1} );
+        return ErfObjectsEditorPlugin.INSTANCE.getString( key, new Object[]{s1} );
     }
 
     /**
@@ -977,14 +1015,13 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
         return adapterFactory;
     }
 
-    
     /**
      * Dispose this control and controls created by this one
      */
     @Override
     public void dispose() {
         updateProblemIndication = false;
-        
+
         ResourcesPlugin.getWorkspace().removeResourceChangeListener( resourceChangeListener );
 
         adapterFactory.dispose();
@@ -1020,7 +1057,7 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
             // This is the page for the table viewer.
             //
             {
-                specObjectViewerPane = new SpecObjectViewerPane( getSite().getPage(), ErfObjectEditor.this, parent ){
+                specObjectViewerPane = new SpecObjectsViewerPane( getSite().getPage(), ErfObjectEditor.this, parent ) {
                     @Override
                     public void requestActivation() {
                         super.requestActivation();

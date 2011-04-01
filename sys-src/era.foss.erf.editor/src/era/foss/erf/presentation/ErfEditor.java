@@ -121,14 +121,16 @@ import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 
+import era.foss.erf.ERF;
+import era.foss.erf.provider.ErfItemProviderAdapterFactory;
 import era.foss.objecteditor.EraCommandStack;
 import era.foss.objecteditor.IAdapterFactoryProvider;
-import era.foss.objecteditor.SpecObjectViewerPane;
-import era.foss.erf.provider.ErfItemProviderAdapterFactory;
+import era.foss.objecteditor.NebulaBasedSpecObjectsViewer;
+import era.foss.objecteditor.SpecObjectsViewerPane;
 
 /**
- * This is an example of a Erf model editor.
- * <!-- begin-user-doc --> <!-- end-user-doc -->
+ * This is an example of a Erf model editor. <!-- begin-user-doc --> <!-- end-user-doc -->
+ * 
  * @NOT generated
  */
 public class ErfEditor extends MultiPageEditorPart implements IEditingDomainProvider, ISelectionProvider,
@@ -266,6 +268,16 @@ public class ErfEditor extends MultiPageEditorPart implements IEditingDomainProv
      * @generated
      */
     protected MarkerHelper markerHelper = new EditUIMarkerHelper();
+
+    /**
+     * The resource of the ERF file (initialized in {@link #createModel()})
+     */
+    protected Resource erfResource;
+
+    /**
+     * The ERF model (initialized in {@link #createModel()})
+     */
+    protected ERF erfModel;
 
     /**
      * This listens for when the outline becomes active
@@ -464,6 +476,31 @@ public class ErfEditor extends MultiPageEditorPart implements IEditingDomainProv
             }
         }
     };
+
+    /**
+     * An Adapter that triggers viewer refreshs.
+     * <p>
+     * It is derived from EContentAdapter that auto-adapts all new objects
+     * 
+     * @author cpn
+     */
+    public class ViewerRefreshEContentAdapter extends EContentAdapter {
+
+        @Override
+        public void notifyChanged( Notification notification ) {
+            super.notifyChanged( notification );
+
+            // We need the ViewerRefreshEContentAdapter (VRCA) because
+            // the SpecObjectContentProvider (SOCP) will only be notified based on
+            // ViewerNotifications. These are wrappers around the original Notification.
+            // Yet, more important, they will only be fired if the EObject has already
+            // been selected in the Viewer once (the ItemProvider will only then be
+            // adapted to the EObject.
+
+            System.out.println( "== " + this.getClass().getCanonicalName() );
+            System.out.println( notification.toString() );
+        }
+    }
 
     /**
      * Handles activation of the editor or it's associated views.
@@ -844,27 +881,29 @@ public class ErfEditor extends MultiPageEditorPart implements IEditingDomainProv
 
     /**
      * This is the method called to load a resource into the editing domain's resource set based on the editor's input.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * <!-- begin-user-doc --> Called from {@link #createPages()} <!-- end-user-doc -->
      */
-    public void createModel() {
+    protected void createModel() {
         URI resourceURI = EditUIUtil.getURI( getEditorInput() );
         Exception exception = null;
-        Resource resource = null;
+        erfResource = null;
         try {
             // Load the resource through the editing domain.
             //
-            resource = editingDomain.getResourceSet().getResource( resourceURI, true );
+            erfResource = editingDomain.getResourceSet().getResource( resourceURI, true );
         } catch( Exception e ) {
             exception = e;
-            resource = editingDomain.getResourceSet().getResource( resourceURI, false );
+            erfResource = editingDomain.getResourceSet().getResource( resourceURI, false );
         }
 
-        Diagnostic diagnostic = analyzeResourceProblems( resource, exception );
+        Diagnostic diagnostic = analyzeResourceProblems( erfResource, exception );
         if( diagnostic.getSeverity() != Diagnostic.OK ) {
-            resourceToDiagnosticMap.put( resource, analyzeResourceProblems( resource, exception ) );
+            resourceToDiagnosticMap.put( erfResource, analyzeResourceProblems( erfResource, exception ) );
         }
         editingDomain.getResourceSet().eAdapters().add( problemIndicationAdapter );
+
+        erfModel = (ERF)(erfResource).getContents().get( 0 );
+        erfModel.getCoreContent().eAdapters().add( new ViewerRefreshEContentAdapter() );
     }
 
     /**
@@ -904,17 +943,27 @@ public class ErfEditor extends MultiPageEditorPart implements IEditingDomainProv
     @Override
     public void createPages() {
         // Creates the model from the editor input
-        //
         createModel();
 
         // Only creates the other pages if there is something that can be edited
         //
         if( !getEditingDomain().getResourceSet().getResources().isEmpty() ) {
 
-            // Create a page for the ERA SpecObjectViewerPane
+            // Create a page for the ERA SpecObjectViewerPane / Nebula-based
             //
             {
-                ViewerPane viewerPane = new SpecObjectViewerPane( getSite().getPage(), ErfEditor.this, getContainer() );
+
+                int pageIndex = addPage( new NebulaBasedSpecObjectsViewer( getContainer(), editingDomain, erfModel ) );
+                setPageText( pageIndex, "Nebula CompositeTable" );
+            }
+
+            // Create a page for the ERA SpecObjectViewerPane / TableViewer-based
+            //
+            {
+                ViewerPane viewerPane = new SpecObjectsViewerPane(
+                    getSite().getPage(),
+                    ErfEditor.this,
+                    getContainer() );
                 int pageIndex = addPage( viewerPane.getControl() );
                 setPageText( pageIndex, "Specification Objects" );
             }

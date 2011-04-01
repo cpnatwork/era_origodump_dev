@@ -24,21 +24,21 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 
-public class SpecObjectViewerPane extends ViewerPane {
+public class SpecObjectsViewerPane extends ViewerPane {
 
     /** editor where this viewer pane is part of */
     IEditorPart erfEditor;
 
-    public SpecObjectViewerPane( IWorkbenchPage page, IEditorPart erfEditor , Composite parent) {
+    public SpecObjectsViewerPane( IWorkbenchPage page, IEditorPart erfEditor, Composite parent ) {
         super( page, erfEditor );
         this.erfEditor = erfEditor;
         this.createControl( parent );
-        ((SpecObjectViewer) this.getViewer()).setup();
+        ((SpecObjectsViewer)this.getViewer()).setup();
     }
 
     @Override
     public Viewer createViewer( Composite composite ) {
-        return new SpecObjectViewer( composite,erfEditor);
+        return new SpecObjectsViewer( composite, erfEditor );
     }
 
 }

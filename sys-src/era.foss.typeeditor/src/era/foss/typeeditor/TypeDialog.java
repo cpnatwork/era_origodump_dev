@@ -4,6 +4,7 @@ import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
@@ -14,7 +15,7 @@ import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.ui.IEditorPart;
 
 import era.foss.objecteditor.EraCommandStack;
-import era.foss.objecteditor.SpecObjectViewer;
+import era.foss.objecteditor.SpecObjectsViewer;
 
 /**
  * The topmost UI class of the typeeditor plug-in: representing the overall dialog.
@@ -105,10 +106,13 @@ public class TypeDialog extends Dialog {
         super.okPressed();
         // the performed commands should not be available for undo after OK.
         eraCommandStack.inhibitUndos();
-        
+
         // redraw the SpecObject editor
-        SpecObjectViewer viewer = (SpecObjectViewer)((IViewerProvider)editor).getViewer();
-        viewer.recreate_columns();
+        Viewer viewer = ((IViewerProvider)editor).getViewer();
+        if( viewer instanceof SpecObjectsViewer ) {
+            ((SpecObjectsViewer)viewer).recreate_columns();
+        }
+        // FIXME recreate_columns abstraction needed at okPressed for NebulaBasedSpecObjectsXY
     }
 
     /**

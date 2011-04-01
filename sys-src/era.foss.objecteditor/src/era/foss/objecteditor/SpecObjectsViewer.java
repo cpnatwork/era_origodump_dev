@@ -26,7 +26,6 @@ import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.Diagnostician;
-import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
@@ -82,7 +81,7 @@ import era.foss.ui.contrib.TableViewerExtensions;
 
 
 //SuppressWarnings("restriction")
-public class SpecObjectViewer extends TableViewer implements IActiveColumn {
+public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
 
     final static String SPEC_ATTRIBUTE_COLUMN_DATA = "Spec Attribute";
 
@@ -96,7 +95,7 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
 
     protected int activeColumn;
 
-    public SpecObjectViewer( Composite parent, IEditorPart erfObjectEditor ) {
+    public SpecObjectsViewer( Composite parent, IEditorPart erfObjectEditor ) {
         super( parent, SWT.MULTI | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
         // CPN: use casts to avoid direct dependencies to the generated Erf*Editor class(es)
         this.editingDomain = (AdapterFactoryEditingDomain) ((IEditingDomainProvider)erfObjectEditor).getEditingDomain();
@@ -135,9 +134,6 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
         create_columns();
 
         this.setContentProvider( new SpecObjectContentProvider( this.adapterFactory ) );
-
-        // TODO: Is this really the right place to adapt ALL elements ???
-        erfModel.getCoreContent().eAdapters().add( new ViewerRefreshEContentAdapter() );
 
         //enable tooltips
         ColumnViewerToolTipSupport.enableFor(this,ToolTip.NO_RECREATE);
@@ -225,9 +221,9 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
             public void run() {
                 // remove attribute values of all spec object in selection
                 for( Object specObject : selection.toArray() ) {
-                    AttributeValue value = SpecObjectViewer.this.getSpecObjectValue( (SpecObject)specObject, attributeDefinition );
+                    AttributeValue value = SpecObjectsViewer.this.getSpecObjectValue( (SpecObject)specObject, attributeDefinition );
                     if ( value != null){
-                        SpecObjectViewer.this.removeAttributeValue( value );
+                        SpecObjectsViewer.this.removeAttributeValue( value );
                     }
                 }
             }
@@ -251,7 +247,7 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
 
             @Override
             public void run() {
-               SpecObjectViewer.this.addSpecObectElement(selection);
+               SpecObjectsViewer.this.addSpecObectElement(selection);
             }
         }
         
@@ -272,7 +268,7 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
             }
             @Override
             public void run() {
-               SpecObjectViewer.this.removeSpecObjectElements(selection);
+               SpecObjectsViewer.this.removeSpecObjectElements(selection);
             }
         }
 
@@ -288,7 +284,7 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
             public void menuAboutToShow( IMenuManager manager ) {
                
                 // get selected elements
-                IStructuredSelection selection = (IStructuredSelection)SpecObjectViewer.this.getSelection();
+                IStructuredSelection selection = (IStructuredSelection)SpecObjectsViewer.this.getSelection();
                 
                 // action for adding new elements
                 // selection might be empty (element is appeneded then)
@@ -308,11 +304,11 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
                 // get current column
                 int columnIndex = getActiveColumn();
                 // get attribute definition shown in this column
-                AttributeDefinition attributeDefinition = (AttributeDefinition)SpecObjectViewer.this.getColumnViewerOwner( columnIndex ).getData( SPEC_ATTRIBUTE_COLUMN_DATA );
+                AttributeDefinition attributeDefinition = (AttributeDefinition)SpecObjectsViewer.this.getColumnViewerOwner( columnIndex ).getData( SPEC_ATTRIBUTE_COLUMN_DATA );
                 
                 // remove show menu only if first element of selection has a value
                 SpecObject specObject = (SpecObject) selection.getFirstElement();
-                AttributeValue value = SpecObjectViewer.this.getSpecObjectValue(specObject, attributeDefinition );
+                AttributeValue value = SpecObjectsViewer.this.getSpecObjectValue(specObject, attributeDefinition );
                 if (value != null){
                     menuMgr.add( new RemoveValueAction(selection,attributeDefinition) );
                 }
@@ -320,7 +316,7 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
             }
         } );
         // register menu at the table viewer
-        SpecObjectViewer.this.getControl().setMenu( menuMgr.createContextMenu( SpecObjectViewer.this.getControl() ) );
+        SpecObjectsViewer.this.getControl().setMenu( menuMgr.createContextMenu( SpecObjectsViewer.this.getControl() ) );
     }
     
     
@@ -330,10 +326,10 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
 
             public void keyPressed( KeyEvent e ) {
                 if( e.character == SWT.DEL ) {
-                    SpecObjectViewer.this.removeSpecObjectElements( (IStructuredSelection) SpecObjectViewer.this.getSelection());
+                    SpecObjectsViewer.this.removeSpecObjectElements( (IStructuredSelection) SpecObjectsViewer.this.getSelection());
                 }
                 else if( e.stateMask == SWT.CTRL  &&  (e.character == SWT.LF || e.character == SWT.CR)) {
-                    SpecObjectViewer.this.addSpecObectElement( (IStructuredSelection) SpecObjectViewer.this.getSelection() );
+                    SpecObjectsViewer.this.addSpecObectElement( (IStructuredSelection) SpecObjectsViewer.this.getSelection() );
                 }
             }
 
@@ -412,36 +408,6 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
 
     }
 
-    /**
-     * An Adapter that triggers viewer refreshs.
-     * <p>
-     * It is derived from EContentAdapter that auto-adapts all new objects
-     * 
-     * @author cpn
-     */
-    public class ViewerRefreshEContentAdapter extends EContentAdapter {
-        
-       
-         
-
-        @Override
-        public void notifyChanged( Notification notification ) {
-            super.notifyChanged( notification );
-
-            // We need the ViewerRefreshEContentAdapter (VRCA) because 
-            // the SpecObjectContentProvider (SOCP) will only be notified based on
-            // ViewerNotifications. These are wrappers around the original Notification.
-            // Yet, more important, they will only be fired if the EObject has already
-            // been selected in the Viewer once (the ItemProvider will only then be 
-            // adapted to the EObject. 
-            
-            System.out.println("== " + this.getClass().getCanonicalName());
-            System.out.println(notification.toString() );
-        }
-    }
-    
-    
-    
 
     /**
      * Provide label for data of table containing SpecTypes
@@ -493,7 +459,7 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
         {
             String text = null;
             /* show */
-            AttributeValue value = SpecObjectViewer.this.getSpecObjectValue( (SpecObject) element, attributeDefinition );
+            AttributeValue value = SpecObjectsViewer.this.getSpecObjectValue( (SpecObject) element, attributeDefinition );
             if (value != null){
                 Diagnostic diagnostic = Diagnostician.INSTANCE.validate( value );
                 if(diagnostic.getSeverity() == Diagnostic.ERROR ) {
@@ -511,7 +477,7 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
         {
             Image image = null;
             
-            AttributeValue value = SpecObjectViewer.this.getSpecObjectValue( (SpecObject) element, attributeDefinition );
+            AttributeValue value = SpecObjectsViewer.this.getSpecObjectValue( (SpecObject) element, attributeDefinition );
             
             /* show error image in case validation of value fails */
             if (value != null){
@@ -538,14 +504,14 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
         @Override
         public void update(ViewerCell cell) {
             SpecObject specObject = (SpecObject) cell.getElement();
-            AttributeValue value = SpecObjectViewer.this.getSpecObjectValue( specObject, attributeDefinition );
+            AttributeValue value = SpecObjectsViewer.this.getSpecObjectValue( specObject, attributeDefinition );
             
             Diagnostic diagnostic = null;
             if (value != null){
                 diagnostic = Diagnostician.INSTANCE.validate( value );
             }
             
-            cell.setText(SpecObjectViewer.this.getSpecObjectValueString( value, attributeDefinition ));
+            cell.setText(SpecObjectsViewer.this.getSpecObjectValueString( value, attributeDefinition ));
             cell.setImage(getImage(value,diagnostic));
             cell.setBackground(getBackground(value));
         }
@@ -589,8 +555,8 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
         @Override
         protected Object getValue( Object element ) {
             SpecObject specObject = (SpecObject)element;
-            AttributeValue value = SpecObjectViewer.this.getSpecObjectValue( specObject, attributeDefinition );
-            return SpecObjectViewer.this.getSpecObjectValueString(value,attributeDefinition);
+            AttributeValue value = SpecObjectsViewer.this.getSpecObjectValue( specObject, attributeDefinition );
+            return SpecObjectsViewer.this.getSpecObjectValueString(value,attributeDefinition);
         }
 
         @Override
@@ -633,7 +599,7 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
                                                  ErfPackage.SPEC_OBJECT__VALUES,
                                                  attributeValue );
                 basicCommandStack.execute( cmd );
-                SpecObjectViewer.this.update( specObject, null );
+                SpecObjectsViewer.this.update( specObject, null );
 
             }
 
@@ -656,7 +622,7 @@ public class SpecObjectViewer extends TableViewer implements IActiveColumn {
                     editorValue );
 
                 basicCommandStack.execute( cmd );
-                SpecObjectViewer.this.update( specObject, null );
+                SpecObjectsViewer.this.update( specObject, null );
             }
         }
     }

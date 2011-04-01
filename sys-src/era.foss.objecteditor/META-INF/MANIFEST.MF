@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: era.foss.objecteditor;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-ClassPath: .
-Bundle-Activator: era.foss.objecteditor.ErfObjectEditorPlugin$Implementation
+Bundle-Activator: era.foss.objecteditor.ErfObjectsEditorPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
@@ -16,5 +16,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.ide,
  era.foss.ui.contrib,
  era.foss.erf,
- era.foss.erf.edit
+ era.foss.erf.edit,
+ org.eclipse.nebula.widgets.compositetable;resolution:=optional
 Bundle-ActivationPolicy: lazy

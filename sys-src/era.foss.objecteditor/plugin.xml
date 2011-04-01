@@ -35,7 +35,7 @@
  -->
    <extension point="org.eclipse.ui.editors">
       <editor
-            id="era.editor"
+            id="era.editor.prim"
             name="%_UI_ErfEditor_label"
             icon="icons/full/obj16/EraFile.gif"
             class="era.foss.objecteditor.ErfObjectEditor">

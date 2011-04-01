@@ -100,7 +100,7 @@ public class ErfModelWizard extends Wizard implements INewWizard {
      * <!-- end-user-doc -->
      * @generated
      */
-    public static final List<String> FILE_EXTENSIONS = Collections.unmodifiableList( Arrays.asList( ErfObjectEditorPlugin.INSTANCE.getString( "_UI_ErfEditorFilenameExtensions" )
+    public static final List<String> FILE_EXTENSIONS = Collections.unmodifiableList( Arrays.asList( ErfObjectsEditorPlugin.INSTANCE.getString( "_UI_ErfEditorFilenameExtensions" )
                                                                                                                             .split( "\\s*,\\s*" ) ) );
 
     /**
@@ -109,7 +109,7 @@ public class ErfModelWizard extends Wizard implements INewWizard {
      * <!-- end-user-doc -->
      * @generated
      */
-    public static final String FORMATTED_FILE_EXTENSIONS = ErfObjectEditorPlugin.INSTANCE.getString( "_UI_ErfEditorFilenameExtensions" )
+    public static final String FORMATTED_FILE_EXTENSIONS = ErfObjectsEditorPlugin.INSTANCE.getString( "_UI_ErfEditorFilenameExtensions" )
                                                                                    .replaceAll( "\\s*,\\s*", ", " );
 
     /**
@@ -177,8 +177,8 @@ public class ErfModelWizard extends Wizard implements INewWizard {
     public void init( IWorkbench workbench, IStructuredSelection selection ) {
         this.workbench = workbench;
         this.selection = selection;
-        setWindowTitle( ErfObjectEditorPlugin.INSTANCE.getString( "_UI_Wizard_label" ) );
-        setDefaultPageImageDescriptor( ExtendedImageRegistry.INSTANCE.getImageDescriptor( ErfObjectEditorPlugin.INSTANCE.getImage( "full/wizban/NewEraFile" ) ) );
+        setWindowTitle( ErfObjectsEditorPlugin.INSTANCE.getString( "_UI_Wizard_label" ) );
+        setDefaultPageImageDescriptor( ExtendedImageRegistry.INSTANCE.getImageDescriptor( ErfObjectsEditorPlugin.INSTANCE.getImage( "full/wizban/NewEraFile" ) ) );
     }
 
     /**
@@ -264,7 +264,7 @@ public class ErfModelWizard extends Wizard implements INewWizard {
                         options.put( XMLResource.OPTION_ENCODING, initialObjectCreationPage.getEncoding() );
                         resource.save( options );
                     } catch( Exception exception ) {
-                        ErfObjectEditorPlugin.INSTANCE.log( exception );
+                        ErfObjectsEditorPlugin.INSTANCE.log( exception );
                     } finally {
                         progressMonitor.done();
                     }
@@ -296,14 +296,14 @@ public class ErfModelWizard extends Wizard implements INewWizard {
                                           .getId() );
             } catch( PartInitException exception ) {
                 MessageDialog.openError( workbenchWindow.getShell(),
-                                         ErfObjectEditorPlugin.INSTANCE.getString( "_UI_OpenEditorError_label" ),
+                                         ErfObjectsEditorPlugin.INSTANCE.getString( "_UI_OpenEditorError_label" ),
                                          exception.getMessage() );
                 return false;
             }
 
             return true;
         } catch( Exception exception ) {
-            ErfObjectEditorPlugin.INSTANCE.log( exception );
+            ErfObjectsEditorPlugin.INSTANCE.log( exception );
             return false;
         }
     }
@@ -337,7 +337,7 @@ public class ErfModelWizard extends Wizard implements INewWizard {
                 String extension = new Path( getFileName() ).getFileExtension();
                 if( extension == null || !FILE_EXTENSIONS.contains( extension ) ) {
                     String key = FILE_EXTENSIONS.size() > 1 ? "_WARN_FilenameExtensions" : "_WARN_FilenameExtension";
-                    setErrorMessage( ErfObjectEditorPlugin.INSTANCE.getString( key, new Object[]{FORMATTED_FILE_EXTENSIONS} ) );
+                    setErrorMessage( ErfObjectsEditorPlugin.INSTANCE.getString( key, new Object[]{FORMATTED_FILE_EXTENSIONS} ) );
                     return false;
                 }
                 return true;
@@ -416,7 +416,7 @@ public class ErfModelWizard extends Wizard implements INewWizard {
 
             Label encodingLabel = new Label( composite, SWT.LEFT );
             {
-                encodingLabel.setText( ErfObjectEditorPlugin.INSTANCE.getString( "_UI_XMLEncoding" ) );
+                encodingLabel.setText( ErfObjectsEditorPlugin.INSTANCE.getString( "_UI_XMLEncoding" ) );
 
                 GridData data = new GridData();
                 data.horizontalAlignment = GridData.FILL;
@@ -498,7 +498,7 @@ public class ErfModelWizard extends Wizard implements INewWizard {
             try {
                 return ErfEditPlugin.INSTANCE.getString( "_UI_" + typeName + "_type" );
             } catch( MissingResourceException mre ) {
-                ErfObjectEditorPlugin.INSTANCE.log( mre );
+                ErfObjectsEditorPlugin.INSTANCE.log( mre );
             }
             return typeName;
         }
@@ -512,7 +512,7 @@ public class ErfModelWizard extends Wizard implements INewWizard {
             if( encodings == null ) {
                 encodings = new ArrayList<String>();
                 for( StringTokenizer stringTokenizer = new StringTokenizer(
-                    ErfObjectEditorPlugin.INSTANCE.getString( "_UI_XMLEncodingChoices" ) ); stringTokenizer.hasMoreTokens(); ) {
+                    ErfObjectsEditorPlugin.INSTANCE.getString( "_UI_XMLEncodingChoices" ) ); stringTokenizer.hasMoreTokens(); ) {
                     encodings.add( stringTokenizer.nextToken() );
                 }
             }
@@ -531,9 +531,9 @@ public class ErfModelWizard extends Wizard implements INewWizard {
         // Create a page, set the title, and the initial model file name.
         //
         newFileCreationPage = new ErfModelWizardNewFileCreationPage( "Whatever", selection );
-        newFileCreationPage.setTitle( ErfObjectEditorPlugin.INSTANCE.getString( "_UI_ErfModelWizard_label" ) );
-        newFileCreationPage.setDescription( ErfObjectEditorPlugin.INSTANCE.getString( "_UI_ErfModelWizard_description" ) );
-        newFileCreationPage.setFileName( ErfObjectEditorPlugin.INSTANCE.getString( "_UI_ErfEditorFilenameDefaultBase" )
+        newFileCreationPage.setTitle( ErfObjectsEditorPlugin.INSTANCE.getString( "_UI_ErfModelWizard_label" ) );
+        newFileCreationPage.setDescription( ErfObjectsEditorPlugin.INSTANCE.getString( "_UI_ErfModelWizard_description" ) );
+        newFileCreationPage.setFileName( ErfObjectsEditorPlugin.INSTANCE.getString( "_UI_ErfEditorFilenameDefaultBase" )
             + "."
             + FILE_EXTENSIONS.get( 0 ) );
         addPage( newFileCreationPage );
@@ -561,7 +561,7 @@ public class ErfModelWizard extends Wizard implements INewWizard {
 
                     // Make up a unique new name here.
                     //
-                    String defaultModelBaseFilename = ErfObjectEditorPlugin.INSTANCE.getString( "_UI_ErfEditorFilenameDefaultBase" );
+                    String defaultModelBaseFilename = ErfObjectsEditorPlugin.INSTANCE.getString( "_UI_ErfEditorFilenameDefaultBase" );
                     String defaultModelFilenameExtension = FILE_EXTENSIONS.get( 0 );
                     String modelFilename = defaultModelBaseFilename + "." + defaultModelFilenameExtension;
                     for( int i = 1; ((IContainer)selectedResource).findMember( modelFilename ) != null; ++i ) {
@@ -572,8 +572,8 @@ public class ErfModelWizard extends Wizard implements INewWizard {
             }
         }
         initialObjectCreationPage = new ErfModelWizardInitialObjectCreationPage( "Whatever2" );
-        initialObjectCreationPage.setTitle( ErfObjectEditorPlugin.INSTANCE.getString( "_UI_ErfModelWizard_label" ) );
-        initialObjectCreationPage.setDescription( ErfObjectEditorPlugin.INSTANCE.getString( "_UI_Wizard_initial_object_description" ) );
+        initialObjectCreationPage.setTitle( ErfObjectsEditorPlugin.INSTANCE.getString( "_UI_ErfModelWizard_label" ) );
+        initialObjectCreationPage.setDescription( ErfObjectsEditorPlugin.INSTANCE.getString( "_UI_Wizard_initial_object_description" ) );
         addPage( initialObjectCreationPage );
     }
 

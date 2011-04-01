@@ -15,11 +15,11 @@ import org.eclipse.emf.common.util.ResourceLocator;
 /**
  * This is the central singleton for the Erf editor plugin.
  */
-public final class ErfObjectEditorPlugin extends EMFPlugin {
+public final class ErfObjectsEditorPlugin extends EMFPlugin {
     /**
      * Keep track of the singleton.
      */
-    public static final ErfObjectEditorPlugin INSTANCE = new ErfObjectEditorPlugin();
+    public static final ErfObjectsEditorPlugin INSTANCE = new ErfObjectsEditorPlugin();
 
     /**
      * Keep track of the singleton.
@@ -29,7 +29,7 @@ public final class ErfObjectEditorPlugin extends EMFPlugin {
     /**
      * Create the instance.
      */
-    public ErfObjectEditorPlugin() {
+    public ErfObjectsEditorPlugin() {
         super( new ResourceLocator[]{} );
     }
 

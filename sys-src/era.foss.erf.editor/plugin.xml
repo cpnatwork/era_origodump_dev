@@ -32,7 +32,7 @@
  -->
    <extension point="org.eclipse.ui.editors">
       <editor
-            id="era.foss.erf.editor"
+            id="era.editor.sec"
             name="%_UI_ErfEditor_label"
             class="era.foss.erf.presentation.ErfEditor"
             contributorClass="era.foss.erf.presentation.ErfActionBarContributor">

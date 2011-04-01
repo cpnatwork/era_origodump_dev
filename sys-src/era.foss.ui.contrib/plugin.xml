@@ -23,7 +23,26 @@
                <with
                      variable="activeEditorId">
                   <equals
-                        value="era.editor">
+                        value="era.editor.prim">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu">
+         <menu
+               id="era.menu"
+               label="Era">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeEditorId">
+                  <equals
+                        value="era.editor.sec">
                   </equals>
                </with>
             </visibleWhen>
