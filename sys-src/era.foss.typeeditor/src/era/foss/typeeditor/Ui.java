@@ -1,21 +1,21 @@
 /**************************************************************************
-* ERA - Eclipse Requirements Analysis
-* ==============================================
-* Copyright (C) 2009-2011 by Georg Blaschke, Christoph P. Neumann
-* and Bernd Haberstumpf (http://era.origo.ethz.ch)
-**************************************************************************
-* Licensed under the Eclipse Public License - v 1.0 (the "License");
-* you may not use this file except in compliance with
-* the License. You may obtain a copy of the License at
-* http://www.eclipse.org/org/documents/epl-v10.html
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-**************************************************************************
-* $Id$
-*************************************************************************/
+ * ERA - Eclipse Requirements Analysis
+ * ==============================================
+ * Copyright (C) 2009-2011 by Georg Blaschke, Christoph P. Neumann
+ * and Bernd Haberstumpf (http://era.origo.ethz.ch)
+ **************************************************************************
+ * Licensed under the Eclipse Public License - v 1.0 (the "License");
+ * you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.eclipse.org/org/documents/epl-v10.html
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ **************************************************************************
+ * $Id$
+ *************************************************************************/
 package era.foss.typeeditor;
 
 import java.util.Arrays;
@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
@@ -181,9 +182,6 @@ public class Ui {
      * 
      * @param tableViewer the table viewer
      * @param eStructuralFeatureList list to create a feature path from
-     * @param minWidth the min width
-     * @param weigth the weigth
-     * @param resizable the resizable
      */
     public void bindColumn( TableViewerColumn column, EStructuralFeature[] eStructuralFeatureList ) {
 
@@ -273,6 +271,13 @@ public class Ui {
 
     }
 
+    /**
+     * Get annotation detail for Model annotation 'UI'
+     * 
+     * @param eModelElement model element to get the annotation from
+     * @param detail name of the annotation detail
+     * @return <li>the value of the annotation detail if annotation detail exists</li> <li><tt>null</tt> otherwise</li>
+     */
     static String getUIAnnotationDetail( EModelElement eModelElement, String detail ) {
         EAnnotation uiAnnotation = eModelElement.getEAnnotation( "UI" );
         if( (uiAnnotation != null) && (uiAnnotation.getDetails() != null) ) {
@@ -282,18 +287,35 @@ public class Ui {
         }
     }
 
+    /**
+     * The purpose of this class is to handle the update of String values which are 'unsettable' (see
+     * {@link EStructuralFeature#isUnsettable()})
+     */
     private class UnsettableEMFUpdateValueStrategy extends EMFUpdateValueStrategy {
+        /**
+         * Structural feature of the observed value
+         */
         private EStructuralFeature eStructuralFeature;
 
+        /**
+         * Constructor
+         * 
+         * @param eStructuralFeature structural feature of the value to the conversion is applied
+         */
         public UnsettableEMFUpdateValueStrategy( EStructuralFeature eStructuralFeature ) {
             super();
             this.eStructuralFeature = eStructuralFeature;
         }
 
         @Override
+        /**
+         * In case the value sting is empty and the observed feature is 'unsettable' 
+         * then return {@link SetCommand.UNSET_VALUE}
+         * Otherwise leave the value as it is
+         */
         public Object convert( Object value ) {
             if( ((String)value).isEmpty() && this.eStructuralFeature.isUnsettable() ) {
-                return eStructuralFeature.getDefaultValue();
+                return SetCommand.UNSET_VALUE;
             }
             return super.convert( value );
         }

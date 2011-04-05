@@ -1,3 +1,21 @@
+/**************************************************************************
+ * ERA - Eclipse Requirements Analysis
+ * ==============================================
+ * Copyright (C) 2009-2011 by Georg Blaschke, Christoph P. Neumann
+ * and Bernd Haberstumpf (http://era.origo.ethz.ch)
+ **************************************************************************
+ * Licensed under the Eclipse Public License - v 1.0 (the "License");
+ * you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.eclipse.org/org/documents/epl-v10.html
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ **************************************************************************
+ * $Id$
+ *************************************************************************/
 package era.foss.typeeditor;
 
 import java.util.ArrayList;
@@ -30,16 +48,16 @@ import org.eclipse.swt.widgets.TabItem;
  */
 public class DetailViewer extends Composite {
 
-    // The master element which attributes are shown
+    /** The master element which attributes are shown */
     private IObservableValue master;
 
-    // the current editing domain
+    /** the current editing domain */
     private EditingDomain editingDomain;
 
-    // Ui provides methods for creating Ui elements
+    /** Ui provides methods for creating Ui elements */
     protected Ui ui;
 
-    // Composite holding the controls for the attributes
+    /** Composite holding the controls for the attributes */
     protected Composite attributeComposite;
 
     /**
@@ -48,12 +66,12 @@ public class DetailViewer extends Composite {
     private static final String UI_ANNONTATION_DETAIL = "Detail";
 
     /**
-     * Create Composite holding detailed information of a datatype definition
+     * Create Composite holding detailed information of a datatype definition.
      * 
-     * @param parent
-     * @param editingDomain
-     * @param tableViewer
-     * @param style
+     * @param parent the parent
+     * @param style the style
+     * @param editingDomain the editing domain
+     * @param master the master
      */
     DetailViewer( Composite parent, int style, EditingDomain editingDomain, IObservableValue master ) {
         super( parent, style );
@@ -209,7 +227,7 @@ public class DetailViewer extends Composite {
     }
 
     /**
-     * dispose controls created for attributes
+     * Dispose stuff created in the details viewer.
      */
     protected void disposeDetails() {
         if( ui != null ) {
@@ -222,7 +240,7 @@ public class DetailViewer extends Composite {
     }
 
     /**
-     * Dispose the ui instance and master observable
+     * Clean up when disposing the details viewer
      * 
      * @see org.eclipse.swt.widgets.Widget#dispose()
      * @see era.foss.typeeditor.Ui#dispose()
