@@ -296,8 +296,8 @@ public class ErfValidator extends EObjectValidator {
             }
 
             if( errorMsgKey == null ) {
-                if( (datatypeDefinitionInteger.getMax() != null && integerValue > datatypeDefinitionInteger.getMax())
-                    || (datatypeDefinitionInteger.getMin() != null && integerValue < datatypeDefinitionInteger.getMin()) ) {
+                if( (datatypeDefinitionInteger.isSetMax() && integerValue > datatypeDefinitionInteger.getMax())
+                    || (datatypeDefinitionInteger.isSetMin() && integerValue < datatypeDefinitionInteger.getMin()) ) {
                     errorMsgKey = "_UI_DatatypeDefinitionConstraints_Range";
                     substitutions.add( datatypeDefinitionInteger.getMin() );
                     substitutions.add( datatypeDefinitionInteger.getMax() );
@@ -308,7 +308,7 @@ public class ErfValidator extends EObjectValidator {
         /* Check constraints if value is of DatatypedefinitionString */
         else if( datatypeDefinition instanceof DatatypeDefinitionString ) {
             DatatypeDefinitionString datatypeDefinitionString = (DatatypeDefinitionString)datatypeDefinition;
-            if( datatypeDefinitionString.getMaxLength() != null
+            if( datatypeDefinitionString.isSetMaxLength()
                 && attributeValueSimple.getTheValue().length() > datatypeDefinitionString.getMaxLength() ) {
                 errorMsgKey = "_UI_DatatypeDefinitionConstraints_StringLength";
                 substitutions.add( datatypeDefinitionString.getMaxLength() );
@@ -380,8 +380,8 @@ public class ErfValidator extends EObjectValidator {
     public boolean validateDatatypeDefinitionInteger_NonNegative( DatatypeDefinitionInteger datatypeDefinitionInteger,
                                                                   DiagnosticChain diagnostics,
                                                                   Map<Object, Object> context ) {
-        if( (datatypeDefinitionInteger.getMax() != null && datatypeDefinitionInteger.getMax() < 0)
-            || (datatypeDefinitionInteger.getMin() != null && datatypeDefinitionInteger.getMin() < 0) ) {
+        if( (datatypeDefinitionInteger.isSetMax() && datatypeDefinitionInteger.getMax() < 0)
+            || (datatypeDefinitionInteger.isSetMin() && datatypeDefinitionInteger.getMin() < 0) ) {
             if( diagnostics != null ) {
                 diagnostics.add( createDiagnostic( Diagnostic.ERROR,
                                                    DIAGNOSTIC_SOURCE,
@@ -407,8 +407,8 @@ public class ErfValidator extends EObjectValidator {
     public boolean validateDatatypeDefinitionInteger_MaxGreaterThanMin( DatatypeDefinitionInteger datatypeDefinitionInteger,
                                                                         DiagnosticChain diagnostics,
                                                                         Map<Object, Object> context ) {
-        if( datatypeDefinitionInteger.getMax() != null
-            && datatypeDefinitionInteger.getMin() != null
+        if( datatypeDefinitionInteger.isSetMax()
+            && datatypeDefinitionInteger.isSetMin()
             && datatypeDefinitionInteger.getMax() < datatypeDefinitionInteger.getMin() ) {
             if( diagnostics != null ) {
                 diagnostics.add( createDiagnostic( Diagnostic.ERROR,
