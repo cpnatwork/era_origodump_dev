@@ -1,21 +1,21 @@
 /**************************************************************************
-* ERA - Eclipse Requirements Analysis
-* ==============================================
-* Copyright (C) 2009-2011 by Georg Blaschke, Christoph P. Neumann
-* and Bernd Haberstumpf (http://era.origo.ethz.ch)
-**************************************************************************
-* Licensed under the Eclipse Public License - v 1.0 (the "License");
-* you may not use this file except in compliance with
-* the License. You may obtain a copy of the License at
-* http://www.eclipse.org/org/documents/epl-v10.html
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-**************************************************************************
-* $Id$
-*************************************************************************/
+ * ERA - Eclipse Requirements Analysis
+ * ==============================================
+ * Copyright (C) 2009-2011 by Georg Blaschke, Christoph P. Neumann
+ * and Bernd Haberstumpf (http://era.origo.ethz.ch)
+ **************************************************************************
+ * Licensed under the Eclipse Public License - v 1.0 (the "License");
+ * you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.eclipse.org/org/documents/epl-v10.html
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ **************************************************************************
+ * $Id$
+ *************************************************************************/
 package era.foss.typeeditor;
 
 import org.eclipse.emf.common.command.BasicCommandStack;
@@ -67,8 +67,6 @@ import era.foss.erf.impl.ErfFactoryImpl;
  * The inner class {@link .AttributesLabelProvider} is registered to the {@link AddDeleteTableViewer} and provides the
  * cell values from the {@link AttributeDefinition} element.
  * 
- * @author cpn
- * 
  * @see SpecType
  * @see AttributeDefinition
  * @see AttributeValueSimple
@@ -83,7 +81,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
     private AddDeleteTableViewer tableViewer;
 
     /** object for creating and binding ui elements. */
-    Ui ui;
+    private Ui ui;
 
     /**
      * Instantiates a new spec type form.
@@ -128,6 +126,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
         ObservableListContentProvider cp = new ObservableListContentProvider();
         tableViewer.setContentProvider( cp );
 
+        // set column data
         EStructuralFeature[][] colEStructuralFeatures = {
             {ErfPackage.Literals.IDENTIFIABLE__LONG_NAME},
             {ErfPackage.Literals.ATTRIBUTE_DEFINITION__TYPE, ErfPackage.Literals.IDENTIFIABLE__LONG_NAME},
@@ -139,6 +138,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
         int[] colWeigth = {34, 33, 33};
         boolean[] colResize = {true, true, false};
 
+        // create columns
         for( int colNr = 0; colNr < colEStructuralFeatures.length; colNr++ ) {
             TableColumnLayout columnLayout = (TableColumnLayout)tableViewer.getTable().getParent().getLayout();
 
@@ -154,8 +154,9 @@ public class SpecTypeForm extends AbstractErfTypesForm {
 
         }
 
-        IEMFListProperty specAttributes = EMFProperties.list( ErfPackage.Literals.SPEC_TYPE__SPEC_ATTRIBUTES );
-        tableViewer.setInput( specAttributes.observe( theOneAndOnlySpecType ) );
+        // provide input for the table
+        IEMFListProperty specAttributesProperty = EMFProperties.list( ErfPackage.Literals.SPEC_TYPE__SPEC_ATTRIBUTES );
+        tableViewer.setInput( specAttributesProperty.observe( theOneAndOnlySpecType ) );
 
     }
 

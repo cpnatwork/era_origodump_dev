@@ -1,21 +1,21 @@
 /**************************************************************************
-* ERA - Eclipse Requirements Analysis
-* ==============================================
-* Copyright (C) 2009-2011 by Georg Blaschke, Christoph P. Neumann
-* and Bernd Haberstumpf (http://era.origo.ethz.ch)
-**************************************************************************
-* Licensed under the Eclipse Public License - v 1.0 (the "License");
-* you may not use this file except in compliance with
-* the License. You may obtain a copy of the License at
-* http://www.eclipse.org/org/documents/epl-v10.html
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-**************************************************************************
-* $Id$
-*************************************************************************/
+ * ERA - Eclipse Requirements Analysis
+ * ==============================================
+ * Copyright (C) 2009-2011 by Georg Blaschke, Christoph P. Neumann
+ * and Bernd Haberstumpf (http://era.origo.ethz.ch)
+ **************************************************************************
+ * Licensed under the Eclipse Public License - v 1.0 (the "License");
+ * you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.eclipse.org/org/documents/epl-v10.html
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ **************************************************************************
+ * $Id$
+ *************************************************************************/
 
 package era.foss.typeeditor;
 
@@ -25,36 +25,37 @@ import java.util.LinkedList;
 
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
-import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.databinding.EMFProperties;
+import org.eclipse.emf.databinding.IEMFListProperty;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.command.CommandParameter;
 import org.eclipse.emf.edit.command.ReplaceCommand;
-import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
 import org.eclipse.jface.databinding.viewers.ViewerProperties;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ComboBoxViewerCellEditor;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
-import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorPart;
 
-import era.foss.erf.DatatypeDefinition;
 import era.foss.erf.Content;
+import era.foss.erf.DatatypeDefinition;
 import era.foss.erf.ErfPackage;
 import era.foss.erf.impl.ErfFactoryImpl;
 import era.foss.erf.provider.ErfEditPlugin;
@@ -74,7 +75,6 @@ import era.foss.erf.provider.ErfEditPlugin;
  * The inner class {@link .DatatypeDefinitionLabelProvider} is registered to the {@link AddDeleteTableViewer} and
  * provides the cell values from the {@link DatatypeDefinition} element.
  * 
- * @author cpn
  * 
  * @see DatatypeDefinition
  */
@@ -82,6 +82,9 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
 
     /** Table viewer containing the datatype definitions. */
     private AddDeleteTableViewer tableViewer;
+
+    /** object for creating and binding ui elements. */
+    private Ui ui;
 
     /**
      * Instantiates a new datatype definitions form.
@@ -96,6 +99,8 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
         GridLayout gridLayout = new GridLayout( 2, true );
         this.setLayout( gridLayout );
 
+        ui = new Ui( editingDomain, erfModel );
+
         createTableViewer();
 
         // setup Data type properties viewer
@@ -103,22 +108,18 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
             this,
             SWT.NONE,
             editingDomain,
-            ViewerProperties.singleSelection().observe(tableViewer)
-            );
+            ViewerProperties.singleSelection().observe( tableViewer ) );
         dataTypeDefinitionDetail.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
-        
+
     }
 
     /**
      * The Class DatatypeDefinitionEditingSupport.
      */
-    public class DatatypeDefinitionEditingSupport extends EditingSupport {
-        
+    public class DatatypeDefinitionTypeEditingSupport extends EditingSupport {
+
         /** The cell editor. */
         private CellEditor cellEditor;
-        
-        /** The column. */
-        private int column;
 
         /**
          * Instantiates a new datatype definition editing support.
@@ -126,33 +127,23 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
          * @param viewer the viewer
          * @param column the column
          */
-        public DatatypeDefinitionEditingSupport( ColumnViewer viewer, int column ) {
+        public DatatypeDefinitionTypeEditingSupport( ColumnViewer viewer ) {
             super( viewer );
-            this.column = column;
+            ComboBoxViewerCellEditor comboCellEditor = new ComboBoxViewerCellEditor(
+                ((TableViewer)viewer).getTable(),
+                SWT.READ_ONLY );
+            comboCellEditor.setContenProvider( new TypesForDatatypeDefinitionComboContentProvider(
+                adapterFactory,
+                comboCellEditor.getViewer() ) );
 
-            // Create the correct editor based on the column index
-            switch (column) {
-            case 0:
-                this.cellEditor = new TextCellEditor( ((TableViewer)viewer).getTable() );
-                break;
-            case 1:
-                ComboBoxViewerCellEditor comboCellEditor = new ComboBoxViewerCellEditor(
-                    ((TableViewer)viewer).getTable(),
-                    SWT.READ_ONLY );
-                comboCellEditor.setContenProvider( new TypesForDatatypeDefinitionComboContentProvider(
-                    adapterFactory,
-                    comboCellEditor.getViewer() ) );
-
-                comboCellEditor.setLabelProvider( new TypesForDatatypeDefinitionComboLabelProvider() );
-                comboCellEditor.setInput( editingDomain.getResourceSet() );
-                this.cellEditor = comboCellEditor;
-                break;
-            default:
-                this.cellEditor = null;
-            }
+            comboCellEditor.setLabelProvider( new TypesForDatatypeDefinitionComboLabelProvider() );
+            comboCellEditor.setInput( editingDomain.getResourceSet() );
+            this.cellEditor = comboCellEditor;
         }
 
-        /* (non-Javadoc)
+        /*
+         * (non-Javadoc)
+         * 
          * @see org.eclipse.jface.viewers.EditingSupport#canEdit(java.lang.Object)
          */
         @Override
@@ -160,7 +151,9 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
             return true;
         }
 
-        /* (non-Javadoc)
+        /*
+         * (non-Javadoc)
+         * 
          * @see org.eclipse.jface.viewers.EditingSupport#getCellEditor(java.lang.Object)
          */
         @Override
@@ -168,168 +161,78 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
             return this.cellEditor;
         }
 
-        /* (non-Javadoc)
+        /*
+         * (non-Javadoc)
+         * 
          * @see org.eclipse.jface.viewers.EditingSupport#getValue(java.lang.Object)
          */
         @Override
         protected Object getValue( Object element ) {
+            assert (element instanceof DatatypeDefinition);
             DatatypeDefinition dataType = (DatatypeDefinition)element;
-            Object retVal = null;
-
-            switch (this.column) {
-            case 0:
-                retVal = dataType.getLongName();
-                break;
-            case 1:
-                retVal = dataType.eClass();
-                break;
-            default:
-                break;
-            }
-            return retVal;
+            return dataType.eClass();
         }
 
-        /* (non-Javadoc)
+        /*
+         * (non-Javadoc)
+         * 
          * @see org.eclipse.jface.viewers.EditingSupport#setValue(java.lang.Object, java.lang.Object)
          */
         @Override
         protected void setValue( Object element, Object value ) {
+            assert (element instanceof DatatypeDefinition);
             DatatypeDefinition dataType = (DatatypeDefinition)element;
 
-            switch (this.column) {
-            case 0:
-                // only update data model in case the value has changed
-                if( dataType.getLongName().equals( value ) ) break;
-                // set longname to new value (using a command)
-                Command cmd = new SetCommand(
-                    editingDomain,
-                    dataType,
-                    dataType.eClass().getEStructuralFeature( ErfPackage.DATATYPE_DEFINITION__LONG_NAME ),
-                    (String)value );
-                eraCommandStack.execute( cmd );
-                super.getViewer().update( dataType, null );
-                break;
-            case 1:
-                // the value must always be valid (ensured with ComboBox and SWT.READ_ONLY for the cells)
-                assert (value instanceof EClass);
-                String dataTypeNameNew = getTypenameForDatatypeDefinition( (EClass)value );
-                String dataTypeNameCurrent = getTypenameForDatatypeDefinition( dataType );
-                if( dataTypeNameNew.equals( dataTypeNameCurrent ) ) {
-                    // the current data type is the same data type selected in the ComboBox
-                    // therefore: DO NOTHING
-                    break;
-                }
-
-                // create new a datatypeDefinition based on the value
-                DatatypeDefinition newDataType = (DatatypeDefinition)ErfFactoryImpl.eINSTANCE.create( (EClass)value );
-
-                // copy old data type attributes
-                // direct set can be used; no commands required here
-                newDataType.setID( dataType.getID() );
-                newDataType.setLongName( dataType.getLongName() );
-                newDataType.setDesc( dataType.getDesc() );
-
-                // perform the REPLACE with any side-effects
-                Command replaceCommand = ReplaceCommand.create( editingDomain,
-                                                                erfModel.getCoreContent(),
-                                                                erfModel.getCoreContent().eClass()
-                                                                              .getEStructuralFeature( ErfPackage.CONTENT__DATA_TYPES ),
-                                                                              dataType,
-                                                                Collections.singleton( newDataType ) );
-                // the ReplaceCommand will result in an REMOVE and ADD notification
-                editingDomain.getCommandStack().execute( replaceCommand );
-                
-                // reset the cellEditor (remember: there is only one object, which handles all cell in its row)
-                // because the selected value must not propagate if another row is selected
-                ((ComboBoxViewerCellEditor)this.cellEditor).setValue( null );
-                ((CCombo)((ComboBoxViewerCellEditor)this.cellEditor).getControl()).clearSelection();
-
-                // refresh the tableViewer for the datatypes
-                super.getViewer().refresh();
-                break;
-            default:
-                break;
+            // the value must always be valid (ensured with ComboBox and SWT.READ_ONLY for the cells)
+            assert (value instanceof EClass);
+            String dataTypeNameNew = getTypenameForDatatypeDefinition( (EClass)value );
+            String dataTypeNameCurrent = getTypenameForDatatypeDefinition( dataType );
+            if( dataTypeNameNew.equals( dataTypeNameCurrent ) ) {
+                // the current data type is the same data type selected in the ComboBox
+                // therefore: DO NOTHING
             }
+
+            // create new a datatypeDefinition based on the value
+            DatatypeDefinition newDataType = (DatatypeDefinition)ErfFactoryImpl.eINSTANCE.create( (EClass)value );
+
+            // copy old data type attributes
+            // direct set can be used; no commands required here
+            newDataType.setID( dataType.getID() );
+            newDataType.setLongName( dataType.getLongName() );
+            newDataType.setDesc( dataType.getDesc() );
+
+            // perform the REPLACE with any side-effects
+            Command replaceCommand = ReplaceCommand.create( editingDomain,
+                                                            erfModel.getCoreContent(),
+                                                            erfModel.getCoreContent()
+                                                                    .eClass()
+                                                                    .getEStructuralFeature( ErfPackage.CONTENT__DATA_TYPES ),
+                                                            dataType,
+                                                            Collections.singleton( newDataType ) );
+            // the ReplaceCommand will result in an REMOVE and ADD notification
+            editingDomain.getCommandStack().execute( replaceCommand );
+
+            // reset the cellEditor (remember: there is only one object, which handles all cell in its row)
+            // because the selected value must not propagate if another row is selected
+            ((ComboBoxViewerCellEditor)this.cellEditor).setValue( null );
+            ((CCombo)((ComboBoxViewerCellEditor)this.cellEditor).getControl()).clearSelection();
+
+            // refresh the tableViewer for the datatypes
+            super.getViewer().refresh();
 
         }
     }
 
     /**
-     * The Class DatatypeDefinitionContentProvider.
+     * Label Provider for the Type of the Datatype definition
      */
-    public class DatatypeDefinitionContentProvider extends AdapterFactoryContentProvider {
-        
-        /**
-         * Instantiates a new datatype definition content provider.
-         * 
-         * @param adapterFactory the adapter factory
-         */
-        public DatatypeDefinitionContentProvider( AdapterFactory adapterFactory ) {
-            super( adapterFactory );
-        }
+    public class DatatypeDefinitionTypeLabelProvider extends CellLabelProvider {
 
-        /* (non-Javadoc)
-         * @see org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider#getElements(java.lang.Object)
-         */
-        public Object[] getElements( Object object ) {
-
-            DatatypeDefinition[] objects;
-            try {
-                objects = (DatatypeDefinition[])erfModel.getCoreContent().getDataTypes().toArray();
-            } catch( NullPointerException e ) {
-                objects = new DatatypeDefinition[0];
-            }
-            return objects;
-        }
-
-        // listen on changes of Datatype definitions
-        /* (non-Javadoc)
-         * @see org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider#notifyChanged(org.eclipse.emf.common.notify.Notification)
-         */
         @Override
-        public void notifyChanged( Notification notification ) {
-            super.notifyChanged( notification );
-
-            if( (notification.getNotifier() instanceof DatatypeDefinition)
-                || (notification.getNewValue() instanceof DatatypeDefinition)
-                || (notification.getOldValue() instanceof DatatypeDefinition) ) {
-                // refresh the table (e.g. the name of the datatypye definition has changed => all rows must update)
-                DatatypeDefinitionsForm.this.tableViewer.refresh();
-            }
-            
-            // INFO : REMOVEs are handled by AddDeleteTableViewer
-        }
-    }
-
-    /**
-     * The Class DatatypeDefinitionLabelProvider.
-     */
-    public class DatatypeDefinitionLabelProvider extends LabelProvider implements ITableLabelProvider {
-
-        /* (non-Javadoc)
-         * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object, int)
-         */
-        @Override
-        public String getColumnText( Object element, int columnIndex ) {
-            DatatypeDefinition dataType = (DatatypeDefinition)element;
-
-            switch (columnIndex) {
-            case 0:
-                return dataType.getLongName();
-            case 1:
-                return getTypenameForDatatypeDefinition( dataType );
-            default:
-                throw new RuntimeException( "Should not happen" );
-            }
-        }
-
-        /* (non-Javadoc)
-         * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object, int)
-         */
-        @Override
-        public Image getColumnImage( Object element, int columnIndex ) {
-            // no icons (yet)
-            return null;
+        public void update( ViewerCell cell ) {
+            assert (cell.getElement() instanceof DatatypeDefinition);
+            DatatypeDefinition dataType = (DatatypeDefinition)cell.getElement();
+            cell.setText( getTypenameForDatatypeDefinition( dataType ) );
         }
     }
 
@@ -382,8 +285,10 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
      * Label provider for the Combo box.
      */
     public class TypesForDatatypeDefinitionComboLabelProvider extends LabelProvider implements IBaseLabelProvider {
-        
-        /* (non-Javadoc)
+
+        /*
+         * (non-Javadoc)
+         * 
          * @see org.eclipse.jface.viewers.LabelProvider#getText(java.lang.Object)
          */
         @Override
@@ -397,41 +302,38 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
      */
     private void createTableViewer() {
 
-        // Label for table
-        //Label descriptionLabel = new Label( this, SWT.NONE );
-        //descriptionLabel.setText( typeEditorActivator.getString( "_UI_DataTypeDefinitionTable_label" ) + ":" );
-        //descriptionLabel.setLayoutData( new GridData( SWT.LEFT, SWT.BOTTOM, true, false, 2, 0 ) );
-
         tableViewer = new AddDeleteTableViewer( this, SWT.MULTI | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
         tableViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
         tableViewer.setEditingDomain( editingDomain );
         tableViewer.setAddCommandParameter( erfModel.getCoreContent(),
                                             ErfFactoryImpl.eINSTANCE.createDatatypeDefinitionInteger().eClass() );
-        TableColumnLayout columnLayout = (TableColumnLayout) tableViewer.getTable().getParent().getLayout();
-        String[] colTitles = {
-            typeEditorActivator.getString( "_UI_DataTypeDefinitionName_label" ),
-            typeEditorActivator.getString( "_UI_DataTypeDefinitionType_label" )};
-        int[] colMinWidth = {100, 50};
-        int[] colWeigth = {70, 30};
-        boolean[] colResize = {true, false};
-        for( int colNr = 0; colNr < colTitles.length; colNr++ ) {
 
-            TableViewerColumn column = new TableViewerColumn( tableViewer, SWT.NONE );
-            column.getColumn().setText( colTitles[colNr] );
-            column.getColumn().setResizable( colResize[colNr] );
-            column.getColumn().setMoveable( false );
+        ObservableListContentProvider cp = new ObservableListContentProvider();
+        tableViewer.setContentProvider( cp );
 
-            columnLayout.setColumnData( column.getColumn(), new ColumnWeightData(
-                colWeigth[colNr],
-                colMinWidth[colNr] ) );
+        TableColumnLayout columnLayout = (TableColumnLayout)tableViewer.getTable().getParent().getLayout();
 
-            column.setEditingSupport( new DatatypeDefinitionEditingSupport( tableViewer, colNr ) );
-        }
+        // create column with name of the datatype
+        TableViewerColumn columnName = new TableViewerColumn( tableViewer, SWT.NONE );
+        columnLayout.setColumnData( columnName.getColumn(), new ColumnWeightData( 100, 70 ) );
+        columnName.getColumn().setResizable( true );
+        columnName.getColumn().setMoveable( false );
+        columnName.getColumn().setText( Ui.getUiName( ErfPackage.Literals.IDENTIFIABLE__LONG_NAME ) );
+        EStructuralFeature[] structuralFeature = {ErfPackage.Literals.IDENTIFIABLE__LONG_NAME};
+        ui.bindColumn( columnName, structuralFeature );
 
-        tableViewer.setContentProvider( new DatatypeDefinitionContentProvider( adapterFactory ) );
-        tableViewer.setLabelProvider( new DatatypeDefinitionLabelProvider() );
+        // create column with type of the datatype
+        TableViewerColumn columnType = new TableViewerColumn( tableViewer, SWT.NONE );
+        columnLayout.setColumnData( columnType.getColumn(), new ColumnWeightData( 70, 30 ) );
+        columnType.getColumn().setResizable( false );
+        columnType.getColumn().setMoveable( false );
+        columnType.setEditingSupport( new DatatypeDefinitionTypeEditingSupport( tableViewer ) );
+        columnType.setLabelProvider( new DatatypeDefinitionTypeLabelProvider() );
+        columnType.getColumn().setText( typeEditorActivator.getString( "_UI_DataTypeDefinitionType_label" ) );
 
-        tableViewer.setInput( editingDomain.getResourceSet() );
+        // provide input for the table
+        IEMFListProperty dataTypeProperty = EMFProperties.list( ErfPackage.Literals.CONTENT__DATA_TYPES );
+        tableViewer.setInput( dataTypeProperty.observe( erfModel.getCoreContent() ) );
 
     }
 
@@ -447,7 +349,6 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
         String nameFromResource = ErfEditPlugin.INSTANCE.getString( "_UI_" + eClass.getName() + "_type" );
         return (nameFromResource == null) ? eClass.getName() : nameFromResource;
     }
-    
 
     /**
      * Gets the typename for datatype definition.

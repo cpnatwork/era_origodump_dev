@@ -187,6 +187,7 @@ public class Ui {
 
         TableViewer tableViewer = (TableViewer)column.getViewer();
         ObservableListContentProvider cp = (ObservableListContentProvider)tableViewer.getContentProvider();
+        assert (cp != null);
 
         // get the top level structural feature
         EStructuralFeature topStructuralFeature = eStructuralFeatureList[0];
@@ -219,14 +220,14 @@ public class Ui {
                 }
             }
 
-            // ComboBox: Create combo box to select choices for the reference
+            // Combo box: Create combo box to select choices for the reference
             ComboBoxViewerCellEditor combo = new ComboBoxViewerCellEditorSp(
                 (Composite)tableViewer.getControl(),
                 SWT.READ_ONLY );
-            // ComboBox: Set Content Provider
+            // Combo box: Set Content Provider
             ObservableListContentProvider comboContentProvider = new ObservableListContentProvider();
             combo.setContenProvider( comboContentProvider );
-            // ComboBox: Set Label Provider
+
             // Show same information in Combo box as in label for the table cell
             FeaturePath featurePath = FeaturePath.fromList( Arrays.copyOfRange( eStructuralFeatureList,
                                                                                 1,
