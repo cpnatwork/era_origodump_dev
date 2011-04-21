@@ -3,7 +3,8 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: era.foss.objecteditor;singleton:=true
 Bundle-Version: 1.0.0
-Bundle-ClassPath: .
+Bundle-ClassPath: .,
+ lib/org.eclipse.nebula.widgets.compositetable.jar
 Bundle-Activator: era.foss.objecteditor.ErfObjectsEditorPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
