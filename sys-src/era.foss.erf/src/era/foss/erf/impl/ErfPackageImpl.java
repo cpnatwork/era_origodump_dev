@@ -850,7 +850,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         AttributeDefinition.class,
                         !IS_TRANSIENT,
                         !IS_VOLATILE,
-                        !IS_CHANGEABLE,
+                        IS_CHANGEABLE,
                         IS_COMPOSITE,
                         !IS_RESOLVE_PROXIES,
                         !IS_UNSETTABLE,

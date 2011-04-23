@@ -244,6 +244,34 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setUiProperties( AttributeDefinitionUiProperties newUiProperties ) {
+        if( newUiProperties != uiProperties ) {
+            NotificationChain msgs = null;
+            if( uiProperties != null ) msgs = ((InternalEObject)uiProperties).eInverseRemove( this,
+                                                                                              EOPPOSITE_FEATURE_BASE
+                                                                                                  - ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES,
+                                                                                              null,
+                                                                                              msgs );
+            if( newUiProperties != null ) msgs = ((InternalEObject)newUiProperties).eInverseAdd( this,
+                                                                                                 EOPPOSITE_FEATURE_BASE
+                                                                                                     - ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES,
+                                                                                                 null,
+                                                                                                 msgs );
+            msgs = basicSetUiProperties( newUiProperties, msgs );
+            if( msgs != null ) msgs.dispatch();
+        } else if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES,
+            newUiProperties,
+            newUiProperties ) );
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -292,6 +320,9 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
         case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
             setUnique( (Boolean)newValue );
             return;
+        case ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES:
+            setUiProperties( (AttributeDefinitionUiProperties)newValue );
+            return;
         }
         super.eSet( featureID, newValue );
     }
@@ -311,6 +342,9 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
             return;
         case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
             setUnique( UNIQUE_EDEFAULT );
+            return;
+        case ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES:
+            setUiProperties( (AttributeDefinitionUiProperties)null );
             return;
         }
         super.eUnset( featureID );

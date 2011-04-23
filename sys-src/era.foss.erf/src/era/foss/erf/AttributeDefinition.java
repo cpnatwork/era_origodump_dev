@@ -78,8 +78,18 @@ public interface AttributeDefinition extends Identifiable {
     void setType( DatatypeDefinition value );
 
     /**
-     * @model changeable='false' containment='true' required="true" ordered="false" annotation="UI Detail='true'"
+     * @model changeable='true' containment='true' required="true" ordered="false" annotation="UI Detail='true'"
      */
     public AttributeDefinitionUiProperties getUiProperties();
+
+    /**
+     * Sets the value of the '{@link era.foss.erf.AttributeDefinition#getUiProperties <em>Ui Properties</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Ui Properties</em>' containment reference.
+     * @see #getUiProperties()
+     * @generated
+     */
+    void setUiProperties( AttributeDefinitionUiProperties value );
 
 }

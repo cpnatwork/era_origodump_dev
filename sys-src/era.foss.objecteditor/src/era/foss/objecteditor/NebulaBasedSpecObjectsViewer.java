@@ -1,22 +1,25 @@
 /**************************************************************************
-* ERA - Eclipse Requirements Analysis
-* ==============================================
-* Copyright (C) 2009-2011 by Georg Blaschke, Christoph P. Neumann
-* and Bernd Haberstumpf (http://era.origo.ethz.ch)
-**************************************************************************
-* Licensed under the Eclipse Public License - v 1.0 (the "License");
-* you may not use this file except in compliance with
-* the License. You may obtain a copy of the License at
-* http://www.eclipse.org/org/documents/epl-v10.html
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-**************************************************************************
-* $Id$
-*************************************************************************/
+ * ERA - Eclipse Requirements Analysis
+ * ==============================================
+ * Copyright (C) 2009-2011 by Georg Blaschke, Christoph P. Neumann
+ * and Bernd Haberstumpf (http://era.origo.ethz.ch)
+ **************************************************************************
+ * Licensed under the Eclipse Public License - v 1.0 (the "License");
+ * you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.eclipse.org/org/documents/epl-v10.html
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ **************************************************************************
+ * $Id$
+ *************************************************************************/
 package era.foss.objecteditor;
+
+import java.util.HashMap;
+import java.util.TreeMap;
 
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
@@ -116,10 +119,12 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
                 /* ***************************************** */
                 EList<AttributeDefinition> specAttributeList = theOneAndOnlySpecType.getSpecAttributes();
                 int textFieldIdx = 0;
-                for( AttributeDefinition attribute : specAttributeList ) {
+                for( AttributeDefinition attrDef : specAttributeList ) {
                     String currentObjectString = getValue( NebulaBasedSpecObjectsViewer.this.specobjList.get( currentObjectOffset ),
-                                                           attribute );
-                    row.textFields[textFieldIdx].setText( currentObjectString );
+                                                           attrDef );
+                    // TODO: change into Listener-based / Type-switched evaluation
+                    Text textField = (Text)row.dataFields.get( attrDef.getID() );
+                    textField.setText( currentObjectString );
                     textFieldIdx++;
                 }
             }
@@ -134,10 +139,12 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
                 /* ***************************************** */
                 EList<AttributeDefinition> specAttributeList = theOneAndOnlySpecType.getSpecAttributes();
                 int textFieldIdx = 0;
-                for( AttributeDefinition attribute : specAttributeList ) {
-                    String currentTextFieldSting = row.textFields[textFieldIdx].getText();
+                for( AttributeDefinition attrDef : specAttributeList ) {
+                    // TODO: change into Listener-based / Type-switched evaluation
+                    Text textField = (Text)row.dataFields.get( attrDef.getID() );
+                    String currentTextFieldSting = textField.getText();
                     setValue( NebulaBasedSpecObjectsViewer.this.specobjList.get( currentObjectOffset ),
-                              attribute,
+                              attrDef,
                               currentTextFieldSting );
                     textFieldIdx++;
                 }
@@ -315,7 +322,7 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
         protected SpecType theOneAndOnlySpecType = null;
 
         /** The text fields. */
-        public Text[] textFields = null;
+        public HashMap<String, Control> dataFields = new HashMap<String, Control>();
 
         /**
          * Instantiates a new nebula demanded spec object row control.
@@ -340,29 +347,109 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
             // initialize members
             this.theOneAndOnlySpecType = myViewer.theOneAndOnlySpecType;
 
+            // helper reference
+            EList<AttributeDefinition> specAttributeList = theOneAndOnlySpecType.getSpecAttributes();
+
+            /* ***************************************** */
+            /* check preconditions */
+            /* ***************************************** */
+            if( specAttributeList.size() == 0 ) return;
+
             /* ***************************************** */
             /* initialize GridLayout */
             /* ***************************************** */
-            this.setLayout( new GridLayout( 4, true ) );
+            TreeMap<Integer, Integer> rowColumnCountMap = new TreeMap<Integer, Integer>();
+            int maxColumnSpan = 0;
+            for( AttributeDefinition attrDef : specAttributeList ) {
+                // current idx and increment
+                int currentRowNumber = attrDef.getUiProperties().getEditorRowNumber();
+                int currentColumnSpan = attrDef.getUiProperties().getEditorColumnSpan();
+                // TODO: provide validation for positive range of UiProperties
+                assert (currentRowNumber > 0);
+                // ensure initialized entry for row number
+                if( !rowColumnCountMap.containsKey( currentRowNumber ) ) {
+                    rowColumnCountMap.put( currentRowNumber, 0 );
+                }
+                // increment row counter by column span:
+                int newColumnSpanOfRow = rowColumnCountMap.get( currentRowNumber ) + currentColumnSpan;
+                // optionally increment by 1 for its label:
+                if( attrDef.getUiProperties().isEditorShowLabel() ) newColumnSpanOfRow++;
+                // set new column span for the row:
+                rowColumnCountMap.put( currentRowNumber, newColumnSpanOfRow );
+                // new global column span maximum:
+                maxColumnSpan = Math.max( maxColumnSpan, newColumnSpanOfRow );
+            }
+
+            // initialize grid layout with maximum column span
+            this.setLayout( new GridLayout( maxColumnSpan, true ) );
 
             /* ***************************************** */
             /* initialize the UI attribute fields */
             /* ***************************************** */
-            EList<AttributeDefinition> specAttributeList = theOneAndOnlySpecType.getSpecAttributes();
-            textFields = new Text[specAttributeList.size()];
+            this.dataFields = new HashMap<String, Control>( specAttributeList.size() );
 
-            int textFieldIdx = 0;
-            for( AttributeDefinition attribute : specAttributeList ) {
-                Label labelLongName = new Label( this, SWT.NULL );
-                labelLongName.setText( attribute.getLongName() + ":" );
-                labelLongName.setLayoutData( new GridData( SWT.RIGHT, SWT.CENTER, true, false, 1, 1 ) );
+            // iterate over each row index individually
+            for( int i = rowColumnCountMap.firstKey(); i <= rowColumnCountMap.lastKey(); i++ ) {
+                // look at all elements in AttributeDefinition list
+                for( AttributeDefinition attrDef : specAttributeList ) {
 
-                textFields[textFieldIdx] = new Text( this, SWT.BORDER );
-                textFields[textFieldIdx].setLayoutData( new GridData( SWT.FILL, SWT.CENTER, true, false, 1, 1 ) );
-                ++textFieldIdx;
+                    // filter the AttributeDefinition list for the ones belonging to the current row index
+                    int currentRowNumber = attrDef.getUiProperties().getEditorRowNumber();
+                    if( currentRowNumber != i ) continue;
+
+                    int currentColumnSpan = attrDef.getUiProperties().getEditorColumnSpan();
+
+                    // initialize label
+                    if( attrDef.getUiProperties().isEditorShowLabel() ) {
+                        Label labelLongName = new Label( this, SWT.NULL );
+                        labelLongName.setText( attrDef.getLongName() + ":" );
+                        labelLongName.setLayoutData( new GridData( SWT.RIGHT, SWT.CENTER, true, false, 1, 1 ) );
+                    }
+
+                    // create adequate widget control (based on AttributeDefinition type)
+                    Control currentControl = null;
+                    switch (attrDef.getType().eClass().getClassifierID()) {
+                    case ErfPackage.DATATYPE_DEFINITION_INTEGER:
+                    case ErfPackage.DATATYPE_DEFINITION_STRING:
+                        currentControl = new Text( this, SWT.BORDER );
+                        // taddListener(new Listener(a))
+                        break;
+                    default:
+                        throw new IllegalStateException( "not implemented" );
+                    }
+                    assert (currentControl != null);
+
+                    // set layout data for the current widget (with correct column span)
+                    currentControl.setLayoutData( new GridData(
+                        SWT.FILL,
+                        SWT.CENTER,
+                        true,
+                        false,
+                        currentColumnSpan,
+                        1 ) );
+
+                    // put the control into the HashMap for future reference
+                    dataFields.put( attrDef.getID(), currentControl );
+                }
+
+                // finalize row: determine padding column span and set empty label
+                Integer currentColumnSpanOfRow = rowColumnCountMap.get( i );
+                if( currentColumnSpanOfRow == null ) currentColumnSpanOfRow = 0;
+
+                int paddingColumnSpan = maxColumnSpan - currentColumnSpanOfRow;
+                if( paddingColumnSpan > 0 ) {
+                    Label labelLongName = new Label( this, SWT.NULL );
+                    labelLongName.setText( "" );
+                    labelLongName.setLayoutData( new GridData(
+                        SWT.RIGHT,
+                        SWT.CENTER,
+                        true,
+                        false,
+                        paddingColumnSpan,
+                        1 ) );
+                }
             }
         }
-
     }
 
 }
