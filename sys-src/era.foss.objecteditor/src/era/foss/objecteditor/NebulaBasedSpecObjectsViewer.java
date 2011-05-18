@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.emf.common.command.BasicCommandStack;
@@ -34,7 +35,14 @@ import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.ISelectionProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -60,7 +68,7 @@ import era.foss.erf.impl.ErfFactoryImpl;
 /**
  * FIXME (cpn) rename to NebulaBasedSpecObjectsComposite.
  */
-public class NebulaBasedSpecObjectsViewer extends Composite {
+public class NebulaBasedSpecObjectsViewer extends Composite implements ISelectionProvider {
 
     /** EditingDomain, being required for the Command creation. */
     protected AdapterFactoryEditingDomain editingDomain = null;
@@ -78,6 +86,12 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
 
     /** The specobj list. */
     EList<SpecObject> specobjList = null;
+
+    /** The current selection */
+    protected SpecObject selectedSpecObject = null;
+
+    /** Keeping ISelectionChangedListener */
+    List<ISelectionChangedListener> selectionChangedListeners = new LinkedList<ISelectionChangedListener>();
 
     /**
      * Instantiates a new nebula based spec objects viewer.
@@ -132,52 +146,35 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
         compositeTable.setRunTime( true );
 
         this.specobjList = getElements();
-        // FIXME (cpn) this is kinda static - the array of SpecObjects
         compositeTable.setNumRowsInCollection( specobjList.toArray().length );
 
         // Note the JFace-like virtual table API
-        compositeTable.addRowContentProvider( new IRowContentProvider() {
-
-            public void refresh( CompositeTable sender, int currentObjectOffset, Control rowControl ) {
-                assert (rowControl instanceof NebulaDemandedSpecObjectRowControl);
-                NebulaDemandedSpecObjectRowControl row = (NebulaDemandedSpecObjectRowControl)rowControl;
-
-                /* ***************************************** */
-                /* iterate AttributeDefinitions */
-                /* ***************************************** */
-                EList<AttributeDefinition> specAttributeList = theOneAndOnlySpecType.getSpecAttributes();
-                int textFieldIdx = 0;
-                for( AttributeDefinition attrDef : specAttributeList ) {
-                    String currentObjectString = getValue( NebulaBasedSpecObjectsViewer.this.specobjList.get( currentObjectOffset ),
-                                                           attrDef );
-                    // TODO: change into Listener-based / Type-switched
-                    // evaluation
-                    Text textField = (Text)row.dataFields.get( attrDef.getID() );
-                    textField.setText( currentObjectString );
-                    textFieldIdx++;
+        compositeTable.addRowFocusListener( new RowFocusAdapter() {
+            public void arrive( CompositeTable sender, int currentObjectOffset, Control newRow ) {
+                selectedSpecObject = specobjList.get( currentObjectOffset );
+                for( ISelectionChangedListener iter : selectionChangedListeners ) {
+                    iter.selectionChanged( new SelectionChangedEvent(
+                        NebulaBasedSpecObjectsViewer.this,
+                        NebulaBasedSpecObjectsViewer.this.getSelection() ) );
                 }
+
             }
         } );
-        compositeTable.addRowFocusListener( new RowFocusAdapter() {
-
-            public void depart( CompositeTable sender, int currentObjectOffset, Control rowControl ) {
+        // row needs to be filled with data
+        compositeTable.addRowContentProvider( new IRowContentProvider() {
+            public void refresh( CompositeTable sender, int currentObjectOffset, Control rowControl ) {
+                SpecObject refreshedSpecObject = NebulaBasedSpecObjectsViewer.this.specobjList.get( currentObjectOffset );
                 assert (rowControl instanceof NebulaDemandedSpecObjectRowControl);
                 NebulaDemandedSpecObjectRowControl row = (NebulaDemandedSpecObjectRowControl)rowControl;
-
-                /* ***************************************** */
                 /* iterate AttributeDefinitions */
-                /* ***************************************** */
                 EList<AttributeDefinition> specAttributeList = theOneAndOnlySpecType.getSpecAttributes();
-                int textFieldIdx = 0;
                 for( AttributeDefinition attrDef : specAttributeList ) {
-                    // TODO: change into Listener-based / Type-switched
-                    // evaluation
+                    String currentObjectString = getValue( refreshedSpecObject, attrDef );
                     Text textField = (Text)row.dataFields.get( attrDef.getID() );
-                    String currentTextFieldSting = textField.getText();
-                    setValue( NebulaBasedSpecObjectsViewer.this.specobjList.get( currentObjectOffset ),
-                              attrDef,
-                              currentTextFieldSting );
-                    textFieldIdx++;
+                    // not each model attribute necessarily has a view field
+                    if( textField == null ) continue;
+                    // write model attribute into field text
+                    textField.setText( currentObjectString );
                 }
             }
         } );
@@ -214,7 +211,9 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
     }
 
     /**
-     * Sets the value.
+     * Sets the value. <br>
+     * Will NOT execute a SET command if the editorValue equals the current SpecObject's value in the specified
+     * AttributeDefinition!
      * 
      * @param specObject the spec object
      * @param attributeDefinition the attribute definition
@@ -227,7 +226,8 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
     }
 
     /**
-     * Sets the value attribute defintion simple.
+     * Sets the value attribute definition SIMPLE. (Will NOT execute a SET command if the editorValue equals the current
+     * SpecObject's value in the specified AttributeDefinition.)
      * 
      * @param specObject the spec object
      * @param attributeDefinition the attribute definition
@@ -253,7 +253,7 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
             // create an Attribute Value
             attributeValue = ErfFactoryImpl.eINSTANCE.createAttributeValueSimple();
 
-            // set reference to the respecitive Attribute Definition
+            // set reference to the respective Attribute Definition
             attributeValue.setDefinition( attributeDefinition );
             // set value of attribute definition
             attributeValue.setTheValue( (String)editorValue );
@@ -266,8 +266,7 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
             basicCommandStack.execute( cmd );
         }
 
-        // don't update the model
-        // if the value is identical to current value of the spec object
+        /* don't update the model if the value is identical to current value of the spec object */
         else if( editorValue.equals( attributeValue.getTheValue() ) ) {
             return;
         }
@@ -345,6 +344,38 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
         return value;
     }
 
+    @Override
+    public void addSelectionChangedListener( ISelectionChangedListener listener ) {
+        if( selectionChangedListeners.contains( listener ) ) return;
+        selectionChangedListeners.add( listener );
+    }
+
+    @Override
+    public void removeSelectionChangedListener( ISelectionChangedListener listener ) {
+        selectionChangedListeners.remove( listener );
+    }
+
+    @Override
+    public ISelection getSelection() {
+        if( selectedSpecObject == null ) return StructuredSelection.EMPTY;
+        return new StructuredSelection( selectedSpecObject );
+    }
+
+    @Override
+    public void setSelection( ISelection selection ) {
+        if( selection.isEmpty() ) return;
+        // unpack ISelection into SpecObject
+        assert (selection instanceof StructuredSelection);
+        Object obj = ((StructuredSelection)selection).toList().get( 0 );
+        assert (obj instanceof SpecObject);
+        // set selectedSpecObject to given one
+        selectedSpecObject = (SpecObject)obj;
+        // find selectedSpecObject in list to get index/offset
+        int objIdx = specobjList.indexOf( selectedSpecObject );
+        // re-focus the composite table to correct position
+        compositeTable.setCurrentRow( objIdx );
+    }
+
     /**
      * The Class NebulaDemandedSpecObjectRowControl.
      */
@@ -355,6 +386,8 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
 
         /** The text fields. */
         public HashMap<String, Control> dataFields = new HashMap<String, Control>();
+
+        protected NebulaBasedSpecObjectsViewer myViewer = null;
 
         /**
          * Instantiates a new nebula demanded spec object row control.
@@ -375,7 +408,7 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
             Composite ancestor = parent;
             for( ; (ancestor != null) && !(ancestor instanceof NebulaBasedSpecObjectsViewer); ancestor = ancestor.getParent() );
             assert (ancestor != null);
-            NebulaBasedSpecObjectsViewer myViewer = (NebulaBasedSpecObjectsViewer)ancestor;
+            myViewer = (NebulaBasedSpecObjectsViewer)ancestor;
 
             // initialize members
             this.theOneAndOnlySpecType = myViewer.theOneAndOnlySpecType;
@@ -421,12 +454,12 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
 
             this.dataFields = new HashMap<String, Control>( specAttributeList.size() );
 
-            GridLayout gridLayout = new GridLayout( maxColumnSpan, false );
+            GridLayout gridLayout = new GridLayout( maxColumnSpan, true );
             setLayout( gridLayout );
 
             curRow = firstRow;
             curSpan = 0;
-            for( AttributeDefinition attrDef : visAttributes ) {
+            for( final AttributeDefinition attrDef : visAttributes ) {
                 final int r = attrDef.getUiProperties().getEditorRowNumber();
                 // do we have a row switch at this point of iteration?
                 if( r > curRow ) {
@@ -449,7 +482,7 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
                     curRow = r;
                     curSpan = 0;
                 }
-                
+
                 // track current row span for the "end of row" padding above
                 final int controlSpan = attrDef.getUiProperties().getEditorColumnSpan();
                 curSpan += controlSpan;
@@ -459,15 +492,22 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
                     curSpan++;
                     Label labelLongName = new Label( this, SWT.NULL );
                     labelLongName.setText( attrDef.getLongName() + ":" );
-                    labelLongName.setLayoutData( new GridData( SWT.LEFT, SWT.CENTER, false, false, 1, 1 ) );
+                    labelLongName.setLayoutData( new GridData( SWT.RIGHT, SWT.CENTER, false, false, 1, 1 ) );
                 }
 
                 Control currentControl = null;
                 switch (attrDef.getType().eClass().getClassifierID()) {
                 case ErfPackage.DATATYPE_DEFINITION_INTEGER:
                 case ErfPackage.DATATYPE_DEFINITION_STRING:
-                    currentControl = new Text( this, SWT.BORDER );
-                    // taddListener(new Listener(a))
+                    final Text textField = new Text( this, SWT.BORDER );
+                    textField.addModifyListener( new ModifyListener() {
+                        @Override
+                        public void modifyText( ModifyEvent e ) {
+                            if( myViewer.selectedSpecObject == null ) return;
+                            myViewer.setValue( myViewer.selectedSpecObject, attrDef, textField.getText() );
+                        }
+                    } );
+                    currentControl = textField;
                     break;
                 default:
                     throw new IllegalStateException( "not implemented" );
@@ -479,6 +519,7 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
                 dataFields.put( attrDef.getID(), currentControl );
             }
         }
+
     }
 
 }
