@@ -19,12 +19,10 @@
 package era.foss.objecteditor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.TreeMap;
 
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
@@ -37,7 +35,6 @@ import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.FontMetrics;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -85,29 +82,27 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
     /**
      * Instantiates a new nebula based spec objects viewer.
      * 
-     * @param parent
-     *            the parent
-     * @param editingDomain
-     *            the editing domain
-     * @param erfModel
-     *            the erf model
+     * @param parent the parent
+     * @param editingDomain the editing domain
+     * @param erfModel the erf model
      */
     public NebulaBasedSpecObjectsViewer( Composite parent, IEditorPart erfObjectEditor ) {
         this( parent,
-              (AdapterFactoryEditingDomain)( (IEditingDomainProvider)erfObjectEditor ).getEditingDomain(),
-              (ERF)(XMIResource)( (IEditingDomainProvider)erfObjectEditor ).getEditingDomain().getResourceSet()
-                      .getResource( EditUIUtil.getURI( erfObjectEditor.getEditorInput() ), true ).getContents().get( 0 ) );
+              (AdapterFactoryEditingDomain)((IEditingDomainProvider)erfObjectEditor).getEditingDomain(),
+              (ERF)(XMIResource)((IEditingDomainProvider)erfObjectEditor).getEditingDomain()
+                                                                         .getResourceSet()
+                                                                         .getResource( EditUIUtil.getURI( erfObjectEditor.getEditorInput() ),
+                                                                                       true )
+                                                                         .getContents()
+                                                                         .get( 0 ) );
     }
 
     /**
      * Instantiates a new nebula based spec objects viewer.
      * 
-     * @param parent
-     *            the parent
-     * @param editingDomain
-     *            the editing domain
-     * @param erfModel
-     *            the erf model
+     * @param parent the parent
+     * @param editingDomain the editing domain
+     * @param erfModel the erf model
      */
     public NebulaBasedSpecObjectsViewer( Composite parent, AdapterFactoryEditingDomain editingDomain, ERF erfModel ) {
         super( parent, SWT.NULL | SWT.NO_SCROLL );
@@ -144,7 +139,7 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
         compositeTable.addRowContentProvider( new IRowContentProvider() {
 
             public void refresh( CompositeTable sender, int currentObjectOffset, Control rowControl ) {
-                assert ( rowControl instanceof NebulaDemandedSpecObjectRowControl );
+                assert (rowControl instanceof NebulaDemandedSpecObjectRowControl);
                 NebulaDemandedSpecObjectRowControl row = (NebulaDemandedSpecObjectRowControl)rowControl;
 
                 /* ***************************************** */
@@ -153,8 +148,8 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
                 EList<AttributeDefinition> specAttributeList = theOneAndOnlySpecType.getSpecAttributes();
                 int textFieldIdx = 0;
                 for( AttributeDefinition attrDef : specAttributeList ) {
-                    String currentObjectString = getValue( NebulaBasedSpecObjectsViewer.this.specobjList
-                            .get( currentObjectOffset ), attrDef );
+                    String currentObjectString = getValue( NebulaBasedSpecObjectsViewer.this.specobjList.get( currentObjectOffset ),
+                                                           attrDef );
                     // TODO: change into Listener-based / Type-switched
                     // evaluation
                     Text textField = (Text)row.dataFields.get( attrDef.getID() );
@@ -166,7 +161,7 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
         compositeTable.addRowFocusListener( new RowFocusAdapter() {
 
             public void depart( CompositeTable sender, int currentObjectOffset, Control rowControl ) {
-                assert ( rowControl instanceof NebulaDemandedSpecObjectRowControl );
+                assert (rowControl instanceof NebulaDemandedSpecObjectRowControl);
                 NebulaDemandedSpecObjectRowControl row = (NebulaDemandedSpecObjectRowControl)rowControl;
 
                 /* ***************************************** */
@@ -194,7 +189,7 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
      * 
      * @return the elements
      */
-    @SuppressWarnings( "unchecked" )
+    @SuppressWarnings("unchecked")
     protected EList<SpecObject> getElements() {
 
         EList<SpecObject> specObjects = null;
@@ -209,10 +204,8 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
     /**
      * Gets the value.
      * 
-     * @param specObject
-     *            the spec object
-     * @param attributeDefinition
-     *            the attribute definition
+     * @param specObject the spec object
+     * @param attributeDefinition the attribute definition
      * @return the value
      */
     protected String getValue( SpecObject specObject, AttributeDefinition attributeDefinition ) {
@@ -223,12 +216,9 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
     /**
      * Sets the value.
      * 
-     * @param specObject
-     *            the spec object
-     * @param attributeDefinition
-     *            the attribute definition
-     * @param editorValue
-     *            the editor value
+     * @param specObject the spec object
+     * @param attributeDefinition the attribute definition
+     * @param editorValue the editor value
      */
     protected void setValue( SpecObject specObject, AttributeDefinition attributeDefinition, String editorValue ) {
         if( attributeDefinition instanceof AttributeDefinitionSimple ) {
@@ -239,12 +229,9 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
     /**
      * Sets the value attribute defintion simple.
      * 
-     * @param specObject
-     *            the spec object
-     * @param attributeDefinition
-     *            the attribute definition
-     * @param editorValue
-     *            the editor value
+     * @param specObject the spec object
+     * @param attributeDefinition the attribute definition
+     * @param editorValue the editor value
      */
     private void setValueAttributeDefintionSimple( SpecObject specObject,
                                                    AttributeDefinitionSimple attributeDefinition,
@@ -255,7 +242,7 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
         // check if the spec object provides a value for this column/attribute
         for( AttributeValue attributeValueIter : specObject.getValues() ) {
             if( attributeValueIter instanceof AttributeValueSimple ) {
-                if( attributeDefinition.equals( ( (AttributeValueSimple)attributeValueIter ).getDefinition() ) ) {
+                if( attributeDefinition.equals( ((AttributeValueSimple)attributeValueIter).getDefinition() ) ) {
                     attributeValue = (AttributeValueSimple)attributeValueIter;
                 }
             }
@@ -272,7 +259,10 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
             attributeValue.setTheValue( (String)editorValue );
 
             // create new Attribute value in the model
-            Command cmd = AddCommand.create( editingDomain, specObject, ErfPackage.SPEC_OBJECT__VALUES, attributeValue );
+            Command cmd = AddCommand.create( editingDomain,
+                                             specObject,
+                                             ErfPackage.SPEC_OBJECT__VALUES,
+                                             attributeValue );
             basicCommandStack.execute( cmd );
         }
 
@@ -288,26 +278,25 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
             // create() method. Reason: Due to a bug the 'feature Id' is not
             // passed
             // to the command. Therefore the execution fails.
-            Command cmd = new SetCommand( editingDomain, attributeValue, attributeValue.eClass()
-                    .getEStructuralFeature( ErfPackage.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE ), editorValue );
+            Command cmd = new SetCommand(
+                editingDomain,
+                attributeValue,
+                attributeValue.eClass().getEStructuralFeature( ErfPackage.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE ),
+                editorValue );
 
             basicCommandStack.execute( cmd );
         }
     }
 
     /**
-     * get the string representation of a spec object for a certain attribute
-     * Definition
+     * get the string representation of a spec object for a certain attribute Definition
      * 
-     * in case no attribute value has been set search for the default value
-     * given for the attribute definition
+     * in case no attribute value has been set search for the default value given for the attribute definition
      * 
      * in case no default value is specified return the empty string.
      * 
-     * @param value
-     *            the value
-     * @param attributeDefinition
-     *            of which the value is taken
+     * @param value the value
+     * @param attributeDefinition of which the value is taken
      * @return String holding the value of spec object
      */
     private String getSpecObjectValueString( AttributeValue value, AttributeDefinition attributeDefinition ) {
@@ -321,12 +310,12 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
 
             // if value is not set try to use default value (if available)
             if( value == null ) {
-                value = ( (AttributeDefinitionSimple)attributeDefinition ).getDefaultValue();
+                value = ((AttributeDefinitionSimple)attributeDefinition).getDefaultValue();
             }
 
             // get string if value object is defined
             if( value != null ) {
-                valueString = ( (AttributeValueSimple)value ).getTheValue();
+                valueString = ((AttributeValueSimple)value).getTheValue();
             }
         }
 
@@ -334,13 +323,10 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
     }
 
     /**
-     * Find the attribte value object of SpecObject for a certain attribute
-     * definition.
+     * Find the attribte value object of SpecObject for a certain attribute definition.
      * 
-     * @param specObject
-     *            the spec object
-     * @param attributeDefinition
-     *            the attribute definition
+     * @param specObject the spec object
+     * @param attributeDefinition the attribute definition
      * @return <ul>
      *         <li>attribute value</li>
      *         <li><code>null</code> in case on attribute value has been found</li>
@@ -351,7 +337,7 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
         // check if the spec object provides a value for this column/attribute
         for( AttributeValue valueIter : specObject.getValues() ) {
             if( valueIter instanceof AttributeValueSimple ) {
-                if( attributeDefinition.equals( ( (AttributeValueSimple)valueIter ).getDefinition() ) ) {
+                if( attributeDefinition.equals( ((AttributeValueSimple)valueIter).getDefinition() ) ) {
                     value = valueIter;
                 }
             }
@@ -373,10 +359,8 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
         /**
          * Instantiates a new nebula demanded spec object row control.
          * 
-         * @param parent
-         *            the parent
-         * @param style
-         *            the style
+         * @param parent the parent
+         * @param style the style
          */
         public NebulaDemandedSpecObjectRowControl( Composite parent, int style ) {
             super( parent, style | SWT.BORDER );
@@ -387,12 +371,10 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
 
             // search hierachy for the ancestor that is a
             // NebulaBasedSpecObjectsViewer
-            assert ( parent instanceof CompositeTable );
+            assert (parent instanceof CompositeTable);
             Composite ancestor = parent;
-            for( ; ( ancestor != null ) && !( ancestor instanceof NebulaBasedSpecObjectsViewer ); ancestor = ancestor
-                    .getParent() )
-                ;
-            assert ( ancestor != null );
+            for( ; (ancestor != null) && !(ancestor instanceof NebulaBasedSpecObjectsViewer); ancestor = ancestor.getParent() );
+            assert (ancestor != null);
             NebulaBasedSpecObjectsViewer myViewer = (NebulaBasedSpecObjectsViewer)ancestor;
 
             // initialize members
@@ -403,11 +385,10 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
 
             if( specAttributeList.size() == 0 ) return;
 
-            // Sort attribs in visual order
+            // Sort attribs in visual order (row first, index in list second)
             final List<AttributeDefinition> visAttributes = new ArrayList<AttributeDefinition>();
             visAttributes.addAll( specAttributeList );
             Collections.sort( visAttributes, new Comparator<AttributeDefinition>() {
-
                 @Override
                 public int compare( AttributeDefinition o1, AttributeDefinition o2 ) {
                     int row1 = o1.getUiProperties().getEditorRowNumber();
@@ -415,33 +396,63 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
                     return row1 != row2 ? row1 - row2 : visAttributes.indexOf( o1 ) - visAttributes.indexOf( o2 );
                 }
             } );
-            
+
+            // we must always begin row count with the first element's row number:
+            int firstRow = visAttributes.get( 0 ).getUiProperties().getEditorRowNumber();
+
             // calc maxColumnSpan
             int maxColumnSpan = 0;
-            int curRow = 0;
+            int curRow = firstRow;
             int curSpan = 0;
             for( AttributeDefinition a : visAttributes ) {
                 int r = a.getUiProperties().getEditorRowNumber();
-                if( curRow != r ) {
-                    if( maxColumnSpan < curSpan ) maxColumnSpan = curSpan;
+                // do we have a row switch at this point of iteration?
+                if( r > curRow ) {
+                    // WARNING: this code block is not executed for the end of the last line!
+                    // reset
                     curRow = r;
                     curSpan = 0;
                 }
                 curSpan += a.getUiProperties().getEditorColumnSpan()
-                        + ( a.getUiProperties().isEditorShowLabel() ? 1 : 0 );
-            }            
-            
-            this.dataFields = new HashMap<String, Control>( specAttributeList.size() );
-            
-            setLayout( new GridLayout( maxColumnSpan, false ) );
+                    + (a.getUiProperties().isEditorShowLabel() ? 1 : 0);
+                // always check the column count: is it a new maximum?
+                if( maxColumnSpan < curSpan ) maxColumnSpan = curSpan;
+            }
 
-            curRow = 0;
+            this.dataFields = new HashMap<String, Control>( specAttributeList.size() );
+
+            GridLayout gridLayout = new GridLayout( maxColumnSpan, false );
+            setLayout( gridLayout );
+
+            curRow = firstRow;
             curSpan = 0;
             for( AttributeDefinition attrDef : visAttributes ) {
                 final int r = attrDef.getUiProperties().getEditorRowNumber();
-                if( r > curRow ) curRow = 0; 
-                final int c = attrDef.getUiProperties().getEditorColumnSpan();
-                curSpan += c;
+                // do we have a row switch at this point of iteration?
+                if( r > curRow ) {
+                    // WARNING: this code block is not executed for the end of the last line!
+                    // 1) finalize intermediate rows:
+                    int paddingColumnSpan = maxColumnSpan - curSpan;
+                    if( paddingColumnSpan > 0 ) {
+                        // padding: fill up this line with an empty label
+                        Label labelLongName = new Label( this, SWT.NULL );
+                        labelLongName.setText( "" );
+                        labelLongName.setLayoutData( new GridData(
+                            SWT.FILL,
+                            SWT.CENTER,
+                            false,
+                            false,
+                            paddingColumnSpan,
+                            1 ) );
+                    }
+                    // 2) reset for new row
+                    curRow = r;
+                    curSpan = 0;
+                }
+                
+                // track current row span for the "end of row" padding above
+                final int controlSpan = attrDef.getUiProperties().getEditorColumnSpan();
+                curSpan += controlSpan;
 
                 // initialize label
                 if( attrDef.getUiProperties().isEditorShowLabel() ) {
@@ -452,31 +463,21 @@ public class NebulaBasedSpecObjectsViewer extends Composite {
                 }
 
                 Control currentControl = null;
-                switch( attrDef.getType().eClass().getClassifierID() ) {
-                    case ErfPackage.DATATYPE_DEFINITION_INTEGER:
-                    case ErfPackage.DATATYPE_DEFINITION_STRING:
-                        currentControl = new Text( this, SWT.BORDER );
-                        // taddListener(new Listener(a))
-                        break;
-                    default:
-                        throw new IllegalStateException( "not implemented" );
+                switch (attrDef.getType().eClass().getClassifierID()) {
+                case ErfPackage.DATATYPE_DEFINITION_INTEGER:
+                case ErfPackage.DATATYPE_DEFINITION_STRING:
+                    currentControl = new Text( this, SWT.BORDER );
+                    // taddListener(new Listener(a))
+                    break;
+                default:
+                    throw new IllegalStateException( "not implemented" );
                 }
-                assert ( currentControl != null );
+                assert (currentControl != null);
 
-                currentControl.setLayoutData( new GridData( SWT.FILL, SWT.CENTER, true, false, c, 1 ) );
+                currentControl.setLayoutData( new GridData( SWT.FILL, SWT.CENTER, true, false, controlSpan, 1 ) );
 
                 dataFields.put( attrDef.getID(), currentControl );
-                
-                // TODO: Add row end and empty line padding
             }
-
-            int paddingColumnSpan = maxColumnSpan - curSpan;
-            if( paddingColumnSpan > 0 ) {
-                Label labelLongName = new Label( this, SWT.NULL );
-                labelLongName.setText( "" );
-                labelLongName.setLayoutData( new GridData( SWT.FILL, SWT.CENTER, false, false, paddingColumnSpan, 1 ) );
-            }
-
         }
     }
 
