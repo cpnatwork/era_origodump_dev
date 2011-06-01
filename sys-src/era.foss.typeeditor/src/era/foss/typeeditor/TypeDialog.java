@@ -1,21 +1,21 @@
 /**************************************************************************
-* ERA - Eclipse Requirements Analysis
-* ==============================================
-* Copyright (C) 2009-2011 by Georg Blaschke, Christoph P. Neumann
-* and Bernd Haberstumpf (http://era.origo.ethz.ch)
-**************************************************************************
-* Licensed under the Eclipse Public License - v 1.0 (the "License");
-* you may not use this file except in compliance with
-* the License. You may obtain a copy of the License at
-* http://www.eclipse.org/org/documents/epl-v10.html
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-**************************************************************************
-* $Id$
-*************************************************************************/
+ * ERA - Eclipse Requirements Analysis
+ * ==============================================
+ * Copyright (C) 2009-2011 by Georg Blaschke, Christoph P. Neumann
+ * and Bernd Haberstumpf (http://era.origo.ethz.ch)
+ **************************************************************************
+ * Licensed under the Eclipse Public License - v 1.0 (the "License");
+ * you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.eclipse.org/org/documents/epl-v10.html
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ **************************************************************************
+ * $Id$
+ *************************************************************************/
 package era.foss.typeeditor;
 
 import org.eclipse.emf.common.ui.viewer.IViewerProvider;
@@ -48,13 +48,13 @@ public class TypeDialog extends Dialog {
 
     /** The editor. */
     private IEditorPart editor = null;
-    
+
     /** The editing domain. */
     private EditingDomain editingDomain = null;
     // commandStack is required for Ok and Cancel Buttons
     /** The era command stack. */
     private EraCommandStack eraCommandStack = null;
-    
+
     /** The type editor activator. */
     private Activator typeEditorActivator = null;
 
@@ -132,9 +132,11 @@ public class TypeDialog extends Dialog {
         eraCommandStack.inhibitUndos();
 
         // redraw the SpecObject editor
-        Viewer viewer = ((IViewerProvider)editor).getViewer();
-        if( viewer instanceof SpecObjectsViewer ) {
-            ((SpecObjectsViewer)viewer).recreate_columns();
+        if( editor instanceof IViewerProvider ) {
+            Viewer viewer = ((IViewerProvider)editor).getViewer();
+            if( viewer instanceof SpecObjectsViewer ) {
+                ((SpecObjectsViewer)viewer).recreate_columns();
+            }
         }
         // FIXME recreate_columns abstraction needed at okPressed for NebulaBasedSpecObjectsXY
     }
