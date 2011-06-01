@@ -32,9 +32,9 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
-import org.eclipse.jface.viewers.IInputSelectionProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
@@ -64,7 +64,7 @@ import era.foss.erf.impl.ErfFactoryImpl;
 /**
  * FIXME (cpn) rename to NebulaBasedSpecObjectsComposite.
  */
-public class NebulaBasedSpecObjectsComposite extends Composite implements IInputSelectionProvider {
+public class NebulaBasedSpecObjectsComposite extends Composite implements ISelectionProvider {
 
     /** EditingDomain, being required for the Command creation. */
     protected AdapterFactoryEditingDomain editingDomain = null;
@@ -352,13 +352,6 @@ public class NebulaBasedSpecObjectsComposite extends Composite implements IInput
         int objIdx = specobjList.indexOf( selectedSpecObject );
         // re-focus the composite table to correct position
         compositeTable.setCurrentRow( objIdx );
-    }
-    
-
-    @Override
-    public Object getInput() {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     /**

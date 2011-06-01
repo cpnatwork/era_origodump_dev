@@ -33,7 +33,7 @@ import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.ui.IEditorPart;
 
 import era.foss.objecteditor.EraCommandStack;
-import era.foss.objecteditor.SpecObjectsViewer;
+import era.foss.objecteditor.IAllowViewerSchemaChange;
 
 /**
  * The topmost UI class of the typeeditor plug-in: representing the overall dialog.
@@ -134,11 +134,10 @@ public class TypeDialog extends Dialog {
         // redraw the SpecObject editor
         if( editor instanceof IViewerProvider ) {
             Viewer viewer = ((IViewerProvider)editor).getViewer();
-            if( viewer instanceof SpecObjectsViewer ) {
-                ((SpecObjectsViewer)viewer).recreate_columns();
+            if( viewer instanceof IAllowViewerSchemaChange ) {
+                ((IAllowViewerSchemaChange)viewer).recreateViewerSchema();
             }
         }
-        // FIXME recreate_columns abstraction needed at okPressed for NebulaBasedSpecObjectsXY
     }
 
     /**

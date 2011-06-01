@@ -52,6 +52,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.ui.MarkerHelper;
 import org.eclipse.emf.common.ui.ViewerPane;
+import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
@@ -83,6 +84,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -105,7 +107,7 @@ import era.foss.erf.provider.ErfItemProviderAdapterFactory;
  * This is an example of a Erf model editor.
  */
 public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditingDomainProvider, ISelectionProvider,
-         IGotoMarker, IAdapterFactoryProvider {
+        IGotoMarker, IAdapterFactoryProvider, IViewerProvider {
 
     /**
      * This keeps track of the editing domain that is used to track all changes to the model.
@@ -570,7 +572,6 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
      * 
      * @param action the action
      */
-    // TODO: CPN-wtf? - fire property changes
     @Override
     protected void firePropertyChange( int action ) {
         super.firePropertyChange( action );
@@ -604,7 +605,7 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
                     if( currentViewer != null && !specObjectList.isEmpty() ) {
                         currentViewer.setSelection( new StructuredSelection( specObjectList.toArray() ) );
                         // OLD
-//                        currentViewer.setSelection( new StructuredSelection( specObjectList.toArray() ), true );
+                        // currentViewer.setSelection( new StructuredSelection( specObjectList.toArray() ), true );
                     }
                 }
             };
@@ -1127,7 +1128,10 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
             // This is the page for the table viewer.
             //
             {
-                specObjectViewerPane = new SpecObjectsViewerPane( getSite().getPage(), ErfObjectEditor.this, parent ) {
+                // specObjectViewerPane = new SpecObjectsViewerPane(getSite().getPage(),ErfObjectEditor.this,parent){
+                specObjectViewerPane = new NebulaBasedSpecObjectsViewerPane( getSite().getPage(),
+                                                                             ErfObjectEditor.this,
+                                                                             parent ) {
                     @Override
                     public void requestActivation() {
                         super.requestActivation();
@@ -1143,5 +1147,10 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
                 updateProblemIndication();
             }
         } );
+    }
+
+    @Override
+    public Viewer getViewer() {
+        return specObjectViewerPane.getViewer();
     }
 }

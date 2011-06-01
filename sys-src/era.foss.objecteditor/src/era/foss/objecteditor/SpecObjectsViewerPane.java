@@ -18,27 +18,15 @@
  *************************************************************************/
 package era.foss.objecteditor;
 
-import org.eclipse.emf.common.ui.ViewerPane;
-import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
-import org.eclipse.emf.edit.domain.IEditingDomainProvider;
-import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 
-import era.foss.erf.ERF;
-
 /**
  * The Class SpecObjectsViewerPane.
  */
-public class SpecObjectsViewerPane extends ViewerPane {
-
-    /** EditingDomain, being required for the Command creation. */
-    protected AdapterFactoryEditingDomain editingDomain = null;
-
-    /** The erf model. */
-    protected ERF erfModel = null;
+public class SpecObjectsViewerPane extends AbstractSpecObjectsViewerPane {
 
     /**
      * Instantiates a new spec objects viewer pane.
@@ -48,22 +36,7 @@ public class SpecObjectsViewerPane extends ViewerPane {
      * @param parent the parent
      */
     public SpecObjectsViewerPane( IWorkbenchPage page, IEditorPart erfEditor, Composite parent ) {
-        super( page, erfEditor );
-
-        this.editingDomain = (AdapterFactoryEditingDomain)((IEditingDomainProvider)erfEditor).getEditingDomain();
-        this.erfModel = (ERF)((IEditingDomainProvider)erfEditor).getEditingDomain()
-                                                                             .getResourceSet()
-                                                                             .getResource( EditUIUtil.getURI( erfEditor.getEditorInput() ),
-                                                                                           true )
-                                                                             .getContents()
-                                                                             .get( 0 );
-        
-        // Create Viewer, i.e. implicitly calls createViewer(..) below
-        this.createControl( parent ); // this 
-        
-        // OLD VIEWER
-//        ((SpecObjectsViewer)this.getViewer()).setup();
-        ((SpecObjectsViewer)this.getViewer()).setup();
+        super( page, erfEditor, parent );
     }
 
     /*
@@ -72,8 +45,10 @@ public class SpecObjectsViewerPane extends ViewerPane {
      * @see org.eclipse.emf.common.ui.ViewerPane#createViewer(org.eclipse.swt.widgets.Composite)
      */
     @Override
-    public Viewer createViewer( Composite composite ) {
-        return new SpecObjectsViewer( composite, editingDomain, erfModel );
+    public Viewer createViewer( Composite parent ) {
+        SpecObjectsViewer viewer = new SpecObjectsViewer( parent, editingDomain, erfModel );
+        viewer.setup();
+        return viewer;
     }
 
 }
