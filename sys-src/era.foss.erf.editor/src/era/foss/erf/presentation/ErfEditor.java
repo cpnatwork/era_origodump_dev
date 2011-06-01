@@ -137,7 +137,7 @@ import era.foss.erf.ERF;
 import era.foss.erf.provider.ErfItemProviderAdapterFactory;
 import era.foss.objecteditor.EraCommandStack;
 import era.foss.objecteditor.IAdapterFactoryProvider;
-import era.foss.objecteditor.NebulaBasedSpecObjectsViewer;
+import era.foss.objecteditor.NebulaBasedSpecObjectsComposite;
 import era.foss.objecteditor.SpecObjectsViewerPane;
 
 /**
@@ -965,7 +965,7 @@ public class ErfEditor extends MultiPageEditorPart implements IEditingDomainProv
             //
             {
 
-                int pageIndex = addPage( new NebulaBasedSpecObjectsViewer( getContainer(), editingDomain, erfModel ) );
+                int pageIndex = addPage( new NebulaBasedSpecObjectsComposite( getContainer(), editingDomain, erfModel ) );
                 setPageText( pageIndex, "Nebula CompositeTable" );
             }
 
