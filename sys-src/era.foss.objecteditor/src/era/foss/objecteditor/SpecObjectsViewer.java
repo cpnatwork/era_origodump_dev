@@ -24,16 +24,12 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.Diagnostician;
-import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
-import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
-import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -63,7 +59,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
@@ -92,20 +87,12 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
     /** The editing domain. */
     protected AdapterFactoryEditingDomain editingDomain = null;
     
-    /** The erf resource. */
-    protected Resource erfResource = null;
-    
     /** The erf model. */
     protected ERF erfModel = null;
     
     /** The era command stack. */
     protected EraCommandStack eraCommandStack = null;
     
-    /** The adapter factory. */
-    protected AdapterFactory adapterFactory = null;
-    
-
-
     /** The active column. */
     protected int activeColumn;
 
@@ -115,15 +102,11 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
      * @param parent the parent
      * @param erfObjectEditor the erf object editor
      */
-    public SpecObjectsViewer( Composite parent, IEditorPart erfObjectEditor ) {
+    public SpecObjectsViewer( Composite parent, AdapterFactoryEditingDomain editingDomain, ERF erfModel ) {
         super( parent, SWT.MULTI | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
         // CPN: use casts to avoid direct dependencies to the generated Erf*Editor class(es)
-        this.editingDomain = (AdapterFactoryEditingDomain) ((IEditingDomainProvider)erfObjectEditor).getEditingDomain();
-        this.adapterFactory = ((IAdapterFactoryProvider)erfObjectEditor).getAdapterFactory();
-        this.erfResource = (XMIResource)editingDomain.getResourceSet()
-                                                     .getResource( EditUIUtil.getURI( erfObjectEditor.getEditorInput() ),
-                                                                   true );
-        this.erfModel = (ERF)(erfResource).getContents().get( 0 );
+        this.editingDomain = editingDomain;
+        this.erfModel = erfModel;
     }
    
     
@@ -156,7 +139,7 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn {
         // create columns
         create_columns();
 
-        this.setContentProvider( new SpecObjectContentProvider( this.adapterFactory ) );
+        this.setContentProvider( new SpecObjectContentProvider( this.editingDomain.getAdapterFactory() ) );
 
         //enable tooltips
         ColumnViewerToolTipSupport.enableFor(this,ToolTip.NO_RECREATE);

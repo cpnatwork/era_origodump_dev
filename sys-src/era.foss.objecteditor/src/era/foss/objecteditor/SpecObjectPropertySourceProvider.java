@@ -97,7 +97,7 @@ public class SpecObjectPropertySourceProvider implements IPropertySourceProvider
          */
         @Override
         public Object getEditableValue() {
-            // TODO Auto-generated method stub
+            // Auto-generated method stub
             return null;
         }
 
@@ -147,7 +147,7 @@ public class SpecObjectPropertySourceProvider implements IPropertySourceProvider
          */
         @Override
         public boolean isPropertySet( Object id ) {
-            // TODO Auto-generated method stub
+            // Auto-generated method stub
             return false;
         }
 
@@ -156,7 +156,7 @@ public class SpecObjectPropertySourceProvider implements IPropertySourceProvider
          */
         @Override
         public void resetPropertyValue( Object id ) {
-            // TODO Auto-generated method stub
+            // Auto-generated method stub
         }
 
         /* (non-Javadoc)
@@ -164,7 +164,7 @@ public class SpecObjectPropertySourceProvider implements IPropertySourceProvider
          */
         @Override
         public void setPropertyValue( Object id, Object value ) {
-            // TODO Auto-generated method stub
+            // Auto-generated method stub
         }
 
     }

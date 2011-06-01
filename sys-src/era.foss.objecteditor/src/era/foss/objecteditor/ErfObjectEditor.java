@@ -1,21 +1,21 @@
 /**************************************************************************
-* ERA - Eclipse Requirements Analysis
-* ==============================================
-* Copyright (C) 2009-2011 by Georg Blaschke, Christoph P. Neumann
-* and Bernd Haberstumpf (http://era.origo.ethz.ch)
-**************************************************************************
-* Licensed under the Eclipse Public License - v 1.0 (the "License");
-* you may not use this file except in compliance with
-* the License. You may obtain a copy of the License at
-* http://www.eclipse.org/org/documents/epl-v10.html
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-**************************************************************************
-* $Id$
-*************************************************************************/
+ * ERA - Eclipse Requirements Analysis
+ * ==============================================
+ * Copyright (C) 2009-2011 by Georg Blaschke, Christoph P. Neumann
+ * and Bernd Haberstumpf (http://era.origo.ethz.ch)
+ **************************************************************************
+ * Licensed under the Eclipse Public License - v 1.0 (the "License");
+ * you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.eclipse.org/org/documents/epl-v10.html
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ **************************************************************************
+ * $Id$
+ *************************************************************************/
 package era.foss.objecteditor;
 
 import java.io.IOException;
@@ -52,7 +52,6 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.ui.MarkerHelper;
 import org.eclipse.emf.common.ui.ViewerPane;
-import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
@@ -84,7 +83,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -107,7 +105,7 @@ import era.foss.erf.provider.ErfItemProviderAdapterFactory;
  * This is an example of a Erf model editor.
  */
 public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditingDomainProvider, ISelectionProvider,
-        IViewerProvider, IGotoMarker, IAdapterFactoryProvider {
+         IGotoMarker, IAdapterFactoryProvider {
 
     /**
      * This keeps track of the editing domain that is used to track all changes to the model.
@@ -150,7 +148,7 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
      * This keeps track of the active content viewer, which may be either one of the viewers in the pages or the content
      * outline viewer.
      */
-    protected Viewer currentViewer;
+    protected ISelectionProvider currentViewer;
 
     /**
      * This listens to which ever viewer is active.
@@ -331,7 +329,9 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
      */
     public class ViewerRefreshEContentAdapter extends EContentAdapter {
 
-        /* (non-Javadoc)
+        /*
+         * (non-Javadoc)
+         * 
          * @see org.eclipse.emf.ecore.util.EContentAdapter#notifyChanged(org.eclipse.emf.common.notify.Notification)
          */
         @Override
@@ -602,7 +602,9 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
                     }
 
                     if( currentViewer != null && !specObjectList.isEmpty() ) {
-                        currentViewer.setSelection( new StructuredSelection( specObjectList.toArray() ), true );
+                        currentViewer.setSelection( new StructuredSelection( specObjectList.toArray() ) );
+                        // OLD
+//                        currentViewer.setSelection( new StructuredSelection( specObjectList.toArray() ), true );
                     }
                 }
             };
@@ -626,7 +628,7 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
      * 
      * @param viewer the new current viewer
      */
-    public void setCurrentViewer( Viewer viewer ) {
+    public void setCurrentViewer( ISelectionProvider viewer ) {
         // If it is changing...
         //
         if( currentViewer != viewer ) {
@@ -662,15 +664,6 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
             //
             setSelection( currentViewer == null ? StructuredSelection.EMPTY : currentViewer.getSelection() );
         }
-    }
-
-    /**
-     * This returns the viewer as required by the {@link IViewerProvider} interface.
-     * 
-     * @return the viewer
-     */
-    public Viewer getViewer() {
-        return currentViewer;
     }
 
     /**
@@ -1116,7 +1109,9 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
         return true;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
      */
     @Override
