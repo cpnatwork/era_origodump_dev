@@ -155,6 +155,20 @@ public class ErfValidator extends EObjectValidator {
             return validateAttributeDefinitionUiProperties( (AttributeDefinitionUiProperties)value,
                                                             diagnostics,
                                                             context );
+        case ErfPackage.EMBEDDED_VALUE:
+            return validateEmbeddedValue( (EmbeddedValue)value, diagnostics, context );
+        case ErfPackage.ENUM_VALUE:
+            return validateEnumValue( (EnumValue)value, diagnostics, context );
+        case ErfPackage.DATATYPE_DEFINITION_ENUMERATION:
+            return validateDatatypeDefinitionEnumeration( (DatatypeDefinitionEnumeration)value, diagnostics, context );
+        case ErfPackage.ATTRIBUTE_DEFINITION_ENUMERATION:
+            return validateAttributeDefinitionEnumeration( (AttributeDefinitionEnumeration)value,
+                                                           diagnostics,
+                                                           context );
+        case ErfPackage.ATTRIBUTE_VALUE_ENUMERATION:
+            return validateAttributeValueEnumeration( (AttributeValueEnumeration)value, diagnostics, context );
+        case ErfPackage.DIAGNOSTIC_CHAIN:
+            return validateDiagnosticChain( (DiagnosticChain)value, diagnostics, context );
         default:
             return true;
         }
@@ -231,6 +245,7 @@ public class ErfValidator extends EObjectValidator {
     public boolean validateAttributeValueSimple( AttributeValueSimple attributeValueSimple,
                                                  DiagnosticChain diagnostics,
                                                  Map<Object, Object> context ) {
+        if( !validate_NoCircularContainment( attributeValueSimple, diagnostics, context ) ) return false;
         boolean result = validate_EveryMultiplicityConforms( attributeValueSimple, diagnostics, context );
         if( result || diagnostics != null ) result &= validate_EveryDataValueConforms( attributeValueSimple,
                                                                                        diagnostics,
@@ -238,6 +253,9 @@ public class ErfValidator extends EObjectValidator {
         if( result || diagnostics != null ) result &= validate_EveryReferenceIsContained( attributeValueSimple,
                                                                                           diagnostics,
                                                                                           context );
+        if( result || diagnostics != null ) result &= validate_EveryBidirectionalReferenceIsPaired( attributeValueSimple,
+                                                                                                    diagnostics,
+                                                                                                    context );
         if( result || diagnostics != null ) result &= validate_EveryProxyResolves( attributeValueSimple,
                                                                                    diagnostics,
                                                                                    context );
@@ -324,6 +342,7 @@ public class ErfValidator extends EObjectValidator {
     public boolean validateDatatypeDefinitionInteger( DatatypeDefinitionInteger datatypeDefinitionInteger,
                                                       DiagnosticChain diagnostics,
                                                       Map<Object, Object> context ) {
+        if( !validate_NoCircularContainment( datatypeDefinitionInteger, diagnostics, context ) ) return false;
         boolean result = validate_EveryMultiplicityConforms( datatypeDefinitionInteger, diagnostics, context );
         if( result || diagnostics != null ) result &= validate_EveryDataValueConforms( datatypeDefinitionInteger,
                                                                                        diagnostics,
@@ -331,6 +350,9 @@ public class ErfValidator extends EObjectValidator {
         if( result || diagnostics != null ) result &= validate_EveryReferenceIsContained( datatypeDefinitionInteger,
                                                                                           diagnostics,
                                                                                           context );
+        if( result || diagnostics != null ) result &= validate_EveryBidirectionalReferenceIsPaired( datatypeDefinitionInteger,
+                                                                                                    diagnostics,
+                                                                                                    context );
         if( result || diagnostics != null ) result &= validate_EveryProxyResolves( datatypeDefinitionInteger,
                                                                                    diagnostics,
                                                                                    context );
@@ -481,6 +503,70 @@ public class ErfValidator extends EObjectValidator {
                                                             DiagnosticChain diagnostics,
                                                             Map<Object, Object> context ) {
         return validate_EveryDefaultConstraint( attributeDefinitionUiProperties, diagnostics, context );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean validateEmbeddedValue( EmbeddedValue embeddedValue,
+                                          DiagnosticChain diagnostics,
+                                          Map<Object, Object> context ) {
+        return validate_EveryDefaultConstraint( embeddedValue, diagnostics, context );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean validateEnumValue( EnumValue enumValue, DiagnosticChain diagnostics, Map<Object, Object> context ) {
+        return validate_EveryDefaultConstraint( enumValue, diagnostics, context );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean validateDatatypeDefinitionEnumeration( DatatypeDefinitionEnumeration datatypeDefinitionEnumeration,
+                                                          DiagnosticChain diagnostics,
+                                                          Map<Object, Object> context ) {
+        return validate_EveryDefaultConstraint( datatypeDefinitionEnumeration, diagnostics, context );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean validateAttributeDefinitionEnumeration( AttributeDefinitionEnumeration attributeDefinitionEnumeration,
+                                                           DiagnosticChain diagnostics,
+                                                           Map<Object, Object> context ) {
+        return validate_EveryDefaultConstraint( attributeDefinitionEnumeration, diagnostics, context );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean validateAttributeValueEnumeration( AttributeValueEnumeration attributeValueEnumeration,
+                                                      DiagnosticChain diagnostics,
+                                                      Map<Object, Object> context ) {
+        return validate_EveryDefaultConstraint( attributeValueEnumeration, diagnostics, context );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean validateDiagnosticChain( DiagnosticChain diagnosticChain,
+                                            DiagnosticChain diagnostics,
+                                            Map<Object, Object> context ) {
+        return true;
     }
 
     /**

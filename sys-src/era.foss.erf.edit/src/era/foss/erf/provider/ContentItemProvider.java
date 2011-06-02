@@ -169,6 +169,9 @@ public class ContentItemProvider extends ItemProviderAdapter implements IEditing
         newChildDescriptors.add( createChildParameter( ErfPackage.Literals.CONTENT__DATA_TYPES,
                                                        ErfFactory.eINSTANCE.createDatatypeDefinitionString() ) );
 
+        newChildDescriptors.add( createChildParameter( ErfPackage.Literals.CONTENT__DATA_TYPES,
+                                                       ErfFactory.eINSTANCE.createDatatypeDefinitionEnumeration() ) );
+
         newChildDescriptors.add( createChildParameter( ErfPackage.Literals.CONTENT__SPEC_RELATIONS,
                                                        ErfFactory.eINSTANCE.createSpecRelation() ) );
     }

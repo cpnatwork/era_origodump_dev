@@ -129,6 +129,51 @@ public interface ErfFactory extends EFactory {
     AttributeDefinitionUiProperties createAttributeDefinitionUiProperties();
 
     /**
+     * Returns a new object of class '<em>Embedded Value</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Embedded Value</em>'.
+     * @generated
+     */
+    EmbeddedValue createEmbeddedValue();
+
+    /**
+     * Returns a new object of class '<em>Enum Value</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Enum Value</em>'.
+     * @generated
+     */
+    EnumValue createEnumValue();
+
+    /**
+     * Returns a new object of class '<em>Datatype Definition Enumeration</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Datatype Definition Enumeration</em>'.
+     * @generated
+     */
+    DatatypeDefinitionEnumeration createDatatypeDefinitionEnumeration();
+
+    /**
+     * Returns a new object of class '<em>Attribute Definition Enumeration</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Attribute Definition Enumeration</em>'.
+     * @generated
+     */
+    AttributeDefinitionEnumeration createAttributeDefinitionEnumeration();
+
+    /**
+     * Returns a new object of class '<em>Attribute Value Enumeration</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Attribute Value Enumeration</em>'.
+     * @generated
+     */
+    AttributeValueEnumeration createAttributeValueEnumeration();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

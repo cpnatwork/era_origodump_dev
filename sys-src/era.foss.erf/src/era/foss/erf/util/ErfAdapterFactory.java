@@ -170,6 +170,31 @@ public class ErfAdapterFactory extends AdapterFactoryImpl {
         }
 
         @Override
+        public Adapter caseEmbeddedValue( EmbeddedValue object ) {
+            return createEmbeddedValueAdapter();
+        }
+
+        @Override
+        public Adapter caseEnumValue( EnumValue object ) {
+            return createEnumValueAdapter();
+        }
+
+        @Override
+        public Adapter caseDatatypeDefinitionEnumeration( DatatypeDefinitionEnumeration object ) {
+            return createDatatypeDefinitionEnumerationAdapter();
+        }
+
+        @Override
+        public Adapter caseAttributeDefinitionEnumeration( AttributeDefinitionEnumeration object ) {
+            return createAttributeDefinitionEnumerationAdapter();
+        }
+
+        @Override
+        public Adapter caseAttributeValueEnumeration( AttributeValueEnumeration object ) {
+            return createAttributeValueEnumerationAdapter();
+        }
+
+        @Override
         public Adapter defaultCase( EObject object ) {
             return createEObjectAdapter();
         }
@@ -423,6 +448,76 @@ public class ErfAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createAttributeDefinitionUiPropertiesAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link era.foss.erf.EmbeddedValue <em>Embedded Value</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see era.foss.erf.EmbeddedValue
+     * @generated
+     */
+    public Adapter createEmbeddedValueAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link era.foss.erf.EnumValue <em>Enum Value</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see era.foss.erf.EnumValue
+     * @generated
+     */
+    public Adapter createEnumValueAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link era.foss.erf.DatatypeDefinitionEnumeration <em>Datatype Definition Enumeration</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see era.foss.erf.DatatypeDefinitionEnumeration
+     * @generated
+     */
+    public Adapter createDatatypeDefinitionEnumerationAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link era.foss.erf.AttributeDefinitionEnumeration <em>Attribute Definition Enumeration</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see era.foss.erf.AttributeDefinitionEnumeration
+     * @generated
+     */
+    public Adapter createAttributeDefinitionEnumerationAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link era.foss.erf.AttributeValueEnumeration <em>Attribute Value Enumeration</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see era.foss.erf.AttributeValueEnumeration
+     * @generated
+     */
+    public Adapter createAttributeValueEnumerationAdapter() {
         return null;
     }
 

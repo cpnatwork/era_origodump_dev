@@ -22,23 +22,16 @@ import java.util.Arrays;
 
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.observable.map.IObservableMap;
-import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.property.value.IValueProperty;
 import org.eclipse.emf.databinding.EMFDataBindingContext;
 import org.eclipse.emf.databinding.EMFProperties;
-import org.eclipse.emf.databinding.EMFUpdateValueStrategy;
 import org.eclipse.emf.databinding.FeaturePath;
 import org.eclipse.emf.databinding.IEMFListProperty;
 import org.eclipse.emf.databinding.edit.EMFEditProperties;
-import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.databinding.viewers.CellEditorProperties;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
@@ -52,13 +45,8 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
 
-import era.foss.erf.ERF;
 import era.foss.erf.provider.ErfEditPlugin;
 import era.foss.ui.contrib.ComboBoxViewerCellEditorSp;
 
@@ -75,69 +63,15 @@ public class Ui {
     /** The data bind context. */
     private DataBindingContext dataBindContext;
 
-    // The model we are in...
-    /** The erf model. */
-    private ERF erfModel = null;
-
     /**
      * Create Ui Please call the dispose method when an object of this type is not required anymore.
      * 
      * @param editingDomain used for binding the UI elements to
      * @param erfModel the erf model
      */
-    public Ui( EditingDomain editingDomain, ERF erfModel ) {
+    public Ui( EditingDomain editingDomain ) {
         this.editingDomain = editingDomain;
-        this.erfModel = erfModel;
         dataBindContext = new EMFDataBindingContext();
-    }
-
-    /**
-     * Create a text field with a label The information about the element is retrieved from the Ecore model.
-     * 
-     * @param parent the parent
-     * @param eAttribute the e attribute
-     * @param master the master
-     */
-    public void createText( Composite parent, FeaturePath featurePath, IObservableValue master ) {
-        //
-        EStructuralFeature eStructuralFeature = featurePath.getFeaturePath()[featurePath.getFeaturePath().length - 1];
-
-        // create label
-        Label label = new Label( parent, SWT.NONE );
-        label.setText( Ui.getUiName( eStructuralFeature ) );
-        label.setLayoutData( new GridData( SWT.LEFT, SWT.DEFAULT, true, false ) );
-
-        // create text field
-        Text text = new Text( parent, SWT.BORDER );
-        text.setLayoutData( new GridData( SWT.FILL, SWT.DEFAULT, true, false ) );
-
-        // bind values
-        dataBindContext.bindValue( WidgetProperties.text( SWT.Modify ).observeDelayed( 400, text ),
-                                   EMFEditProperties.value( editingDomain, featurePath ).observeDetail( master ),
-                                   new UnsettableEMFUpdateValueStrategy( eStructuralFeature ),
-                                   new EMFUpdateValueStrategy() );
-    }
-
-    /**
-     * Create a checkbox with a label The information about the element is retrieved from the Ecore model.
-     * 
-     * @param parent the parent
-     * @param eAttribute the e attribute
-     * @param master the master
-     */
-    public void createCheckbox( Composite parent, FeaturePath featurePath, IObservableValue master ) {
-        // create label
-        Label label = new Label( parent, SWT.NONE );
-        label.setText( Ui.getUiName( featurePath.getFeaturePath()[featurePath.getFeaturePath().length - 1] ) );
-        label.setLayoutData( new GridData( SWT.LEFT, SWT.DEFAULT, true, false ) );
-
-        // create checkbox
-        Button checkbox = new Button( parent, SWT.CHECK );
-        checkbox.setLayoutData( new GridData( SWT.LEFT, SWT.DEFAULT, true, false ) );
-
-        // bind values
-        dataBindContext.bindValue( SWTObservables.observeSelection( checkbox ),
-                                   EMFEditProperties.value( editingDomain, featurePath ).observeDetail( master ) );
     }
 
     /**
@@ -173,6 +107,10 @@ public class Ui {
         return (name == null) ? eStructuralFeature.getName() : name;
     }
 
+    public void bindColumn( TableViewerColumn column, EStructuralFeature[] eStructuralFeatureList ) {
+        bindColumn( column, eStructuralFeatureList, null, null );
+    }
+
     /**
      * Create a column with EMF databinding for a table viewer
      * 
@@ -183,7 +121,10 @@ public class Ui {
      * @param tableViewer the table viewer
      * @param eStructuralFeatureList list to create a feature path from
      */
-    public void bindColumn( TableViewerColumn column, EStructuralFeature[] eStructuralFeatureList ) {
+    public void bindColumn( TableViewerColumn column,
+                            EStructuralFeature[] eStructuralFeatureList,
+                            EObject refObservedObject,
+                            EStructuralFeature[] refEStructuralFeatureList ) {
 
         TableViewer tableViewer = (TableViewer)column.getViewer();
         ObservableListContentProvider cp = (ObservableListContentProvider)tableViewer.getContentProvider();
@@ -200,25 +141,8 @@ public class Ui {
 
         EditingSupport editingSupport = null;
 
-        // Reference
-        if( topStructuralFeature instanceof EReference && (!((EReference)topStructuralFeature).isContainment()) ) {
-
-            // get object and structural feature to observe to
-            // get posssible targets for this reference
-            String eStructuralFeatureStringList = ((EReference)topStructuralFeature).getEAnnotation( "UI" )
-                                                                                    .getDetails()
-                                                                                    .get( "ObservedStructuralFeature" );
-
-            Object objectToObserve = erfModel;
-            EStructuralFeature featureToObserve = null;
-            for( String sfs : eStructuralFeatureStringList.split( ":" ) ) {
-                if( objectToObserve instanceof EObject ) {
-                    if( featureToObserve != null ) {
-                        objectToObserve = ((EObject)objectToObserve).eGet( featureToObserve );
-                    }
-                    featureToObserve = ((EObject)objectToObserve).eClass().getEStructuralFeature( sfs );
-                }
-            }
+        // Show combo box for references
+        if( refObservedObject != null && refEStructuralFeatureList != null ) {
 
             // Combo box: Create combo box to select choices for the reference
             ComboBoxViewerCellEditor combo = new ComboBoxViewerCellEditorSp(
@@ -236,8 +160,8 @@ public class Ui {
                                                             .observeDetail( comboContentProvider.getKnownElements() );
             combo.setLabelProvider( new ObservableMapLabelProvider( comboAttributeMap ) );
             // Combo box: set input
-            IEMFListProperty dataTypeDefinitions = EMFProperties.list( featureToObserve );
-            combo.setInput( dataTypeDefinitions.observe( objectToObserve ) );
+            IEMFListProperty dataTypeDefinitions = EMFProperties.list( FeaturePath.fromList( refEStructuralFeatureList ) );
+            combo.setInput( dataTypeDefinitions.observe( refObservedObject ) );
 
             // Set editing support of table cell
             IValueProperty editorElementProperty = EMFEditProperties.value( editingDomain, topStructuralFeature );
@@ -248,15 +172,6 @@ public class Ui {
                                                                    combo,
                                                                    cellEditorProperty,
                                                                    editorElementProperty );
-
-        }
-        // Containment Reference
-        else if( topStructuralFeature instanceof EReference && (((EReference)topStructuralFeature).isContainment()) ) {
-            IValueProperty cellEditorProperty = CellEditorProperties.control()
-                                                                    .value( WidgetProperties.text( SWT.Modify ) );
-
-            editingSupport = ObservableValueEditingSupport.create( tableViewer, dataBindContext, new TextCellEditor(
-                tableViewer.getTable() ), cellEditorProperty, elementProperty );
 
         }
         // Simple text
@@ -270,56 +185,6 @@ public class Ui {
 
         column.setEditingSupport( editingSupport );
 
-    }
-
-    /**
-     * Get annotation detail for Model annotation 'UI'
-     * 
-     * @param eModelElement model element to get the annotation from
-     * @param detail name of the annotation detail
-     * @return <li>the value of the annotation detail if annotation detail exists</li> <li><tt>null</tt> otherwise</li>
-     */
-    static String getUIAnnotationDetail( EModelElement eModelElement, String detail ) {
-        EAnnotation uiAnnotation = eModelElement.getEAnnotation( "UI" );
-        if( (uiAnnotation != null) && (uiAnnotation.getDetails() != null) ) {
-            return uiAnnotation.getDetails().get( detail );
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * The purpose of this class is to handle the update of String values which are 'unsettable' (see
-     * {@link EStructuralFeature#isUnsettable()})
-     */
-    private class UnsettableEMFUpdateValueStrategy extends EMFUpdateValueStrategy {
-        /**
-         * Structural feature of the observed value
-         */
-        private EStructuralFeature eStructuralFeature;
-
-        /**
-         * Constructor
-         * 
-         * @param eStructuralFeature structural feature of the value to the conversion is applied
-         */
-        public UnsettableEMFUpdateValueStrategy( EStructuralFeature eStructuralFeature ) {
-            super();
-            this.eStructuralFeature = eStructuralFeature;
-        }
-
-        @Override
-        /**
-         * In case the value sting is empty and the observed feature is 'unsettable' 
-         * then return {@link SetCommand.UNSET_VALUE}
-         * Otherwise leave the value as it is
-         */
-        public Object convert( Object value ) {
-            if( ((String)value).isEmpty() && this.eStructuralFeature.isUnsettable() ) {
-                return SetCommand.UNSET_VALUE;
-            }
-            return super.convert( value );
-        }
     }
 
 }

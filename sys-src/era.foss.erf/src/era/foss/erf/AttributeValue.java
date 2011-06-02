@@ -21,8 +21,24 @@ package era.foss.erf;
 /**
  * @model abstract="true"
  * @author poldi
- *
+ * 
  */
 public interface AttributeValue extends Identifiable {
+
+    /**
+     * @model lowerBound="1"
+     * @return
+     */
+    public AttributeDefinition getDefinition();
+
+    /**
+     * Sets the value of the '{@link era.foss.erf.AttributeValue#getDefinition <em>Definition</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Definition</em>' reference.
+     * @see #getDefinition()
+     * @generated
+     */
+    void setDefinition( AttributeDefinition value );
 
 }

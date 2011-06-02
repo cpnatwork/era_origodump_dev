@@ -9,15 +9,20 @@
   <foreignModel>@model</foreignModel>
   <genPackages prefix="Erf" basePackage="era.foss" disposableProviderFactory="true"
       ecorePackage="erf.ecore#/">
+    <genDataTypes ecoreDataType="erf.ecore#//DiagnosticChain"/>
     <genClasses image="false" ecoreClass="erf.ecore#//AttributeDefinition">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference erf.ecore#//AttributeDefinition/type"/>
+      <genFeatures createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference erf.ecore#//AttributeDefinition/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute erf.ecore#//AttributeDefinition/ident"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute erf.ecore#//AttributeDefinition/unique"/>
       <genFeatures property="None" children="true" createChild="true" propertyCategory=""
           propertyDescription="" ecoreFeature="ecore:EReference erf.ecore#//AttributeDefinition/uiProperties"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute erf.ecore#//AttributeDefinition/unique"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="erf.ecore#//AttributeValue"/>
-    <genClasses image="false" ecoreClass="erf.ecore#//DatatypeDefinition"/>
+    <genClasses image="false" ecoreClass="erf.ecore#//AttributeValue">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference erf.ecore#//AttributeValue/definition"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="erf.ecore#//DatatypeDefinition">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference erf.ecore#//DatatypeDefinition/attributeDefinitions"/>
+    </genClasses>
     <genClasses image="false" ecoreClass="erf.ecore#//SpecElementWithUserDefinedAttributes">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference erf.ecore#//SpecElementWithUserDefinedAttributes/values"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference erf.ecore#//SpecElementWithUserDefinedAttributes/type"/>
@@ -35,7 +40,6 @@
     </genClasses>
     <genClasses ecoreClass="erf.ecore#//AttributeValueSimple">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute erf.ecore#//AttributeValueSimple/theValue"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference erf.ecore#//AttributeValueSimple/definition"/>
     </genClasses>
     <genClasses ecoreClass="erf.ecore#//DatatypeDefinitionInteger">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute erf.ecore#//DatatypeDefinitionInteger/max"/>
@@ -70,6 +74,23 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute erf.ecore#//AttributeDefinitionUiProperties/editorShowLabel"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute erf.ecore#//AttributeDefinitionUiProperties/editorRowNumber"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute erf.ecore#//AttributeDefinitionUiProperties/editorColumnSpan"/>
+    </genClasses>
+    <genClasses ecoreClass="erf.ecore#//EmbeddedValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute erf.ecore#//EmbeddedValue/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute erf.ecore#//EmbeddedValue/otherContent"/>
+    </genClasses>
+    <genClasses ecoreClass="erf.ecore#//EnumValue">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference erf.ecore#//EnumValue/properties"/>
+    </genClasses>
+    <genClasses ecoreClass="erf.ecore#//DatatypeDefinitionEnumeration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference erf.ecore#//DatatypeDefinitionEnumeration/specifiedValues"/>
+    </genClasses>
+    <genClasses ecoreClass="erf.ecore#//AttributeDefinitionEnumeration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute erf.ecore#//AttributeDefinitionEnumeration/multiValued"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference erf.ecore#//AttributeDefinitionEnumeration/defaultValue"/>
+    </genClasses>
+    <genClasses ecoreClass="erf.ecore#//AttributeValueEnumeration">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference erf.ecore#//AttributeValueEnumeration/values"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -20,6 +20,7 @@ package era.foss.erf;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -274,22 +275,22 @@ public interface ErfPackage extends EPackage {
     int ATTRIBUTE_DEFINITION__IDENT = IDENTIFIABLE_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Unique</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ATTRIBUTE_DEFINITION__UNIQUE = IDENTIFIABLE_FEATURE_COUNT + 2;
-
-    /**
      * The feature id for the '<em><b>Ui Properties</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ATTRIBUTE_DEFINITION__UI_PROPERTIES = IDENTIFIABLE_FEATURE_COUNT + 3;
+    int ATTRIBUTE_DEFINITION__UI_PROPERTIES = IDENTIFIABLE_FEATURE_COUNT + 2;
+
+    /**
+     * The feature id for the '<em><b>Unique</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION__UNIQUE = IDENTIFIABLE_FEATURE_COUNT + 3;
 
     /**
      * The number of structural features of the '<em>Attribute Definition</em>' class.
@@ -328,13 +329,22 @@ public interface ErfPackage extends EPackage {
     int ATTRIBUTE_VALUE__LONG_NAME = IDENTIFIABLE__LONG_NAME;
 
     /**
+     * The feature id for the '<em><b>Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_VALUE__DEFINITION = IDENTIFIABLE_FEATURE_COUNT + 0;
+
+    /**
      * The number of structural features of the '<em>Attribute Value</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ATTRIBUTE_VALUE_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 0;
+    int ATTRIBUTE_VALUE_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 1;
 
     /**
      * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -364,13 +374,22 @@ public interface ErfPackage extends EPackage {
     int DATATYPE_DEFINITION__LONG_NAME = IDENTIFIABLE__LONG_NAME;
 
     /**
+     * The feature id for the '<em><b>Attribute Definitions</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATATYPE_DEFINITION__ATTRIBUTE_DEFINITIONS = IDENTIFIABLE_FEATURE_COUNT + 0;
+
+    /**
      * The number of structural features of the '<em>Datatype Definition</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int DATATYPE_DEFINITION_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 0;
+    int DATATYPE_DEFINITION_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 1;
 
     /**
      * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -580,6 +599,15 @@ public interface ErfPackage extends EPackage {
     int ATTRIBUTE_VALUE_SIMPLE__LONG_NAME = ATTRIBUTE_VALUE__LONG_NAME;
 
     /**
+     * The feature id for the '<em><b>Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_VALUE_SIMPLE__DEFINITION = ATTRIBUTE_VALUE__DEFINITION;
+
+    /**
      * The feature id for the '<em><b>The Value</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -589,22 +617,13 @@ public interface ErfPackage extends EPackage {
     int ATTRIBUTE_VALUE_SIMPLE__THE_VALUE = ATTRIBUTE_VALUE_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Definition</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ATTRIBUTE_VALUE_SIMPLE__DEFINITION = ATTRIBUTE_VALUE_FEATURE_COUNT + 1;
-
-    /**
      * The number of structural features of the '<em>Attribute Value Simple</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ATTRIBUTE_VALUE_SIMPLE_FEATURE_COUNT = ATTRIBUTE_VALUE_FEATURE_COUNT + 2;
+    int ATTRIBUTE_VALUE_SIMPLE_FEATURE_COUNT = ATTRIBUTE_VALUE_FEATURE_COUNT + 1;
 
     /**
      * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -632,6 +651,15 @@ public interface ErfPackage extends EPackage {
      * @ordered
      */
     int DATATYPE_DEFINITION_SIMPLE__LONG_NAME = DATATYPE_DEFINITION__LONG_NAME;
+
+    /**
+     * The feature id for the '<em><b>Attribute Definitions</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATATYPE_DEFINITION_SIMPLE__ATTRIBUTE_DEFINITIONS = DATATYPE_DEFINITION__ATTRIBUTE_DEFINITIONS;
 
     /**
      * The number of structural features of the '<em>Datatype Definition Simple</em>' class.
@@ -668,6 +696,15 @@ public interface ErfPackage extends EPackage {
      * @ordered
      */
     int DATATYPE_DEFINITION_INTEGER__LONG_NAME = DATATYPE_DEFINITION_SIMPLE__LONG_NAME;
+
+    /**
+     * The feature id for the '<em><b>Attribute Definitions</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATATYPE_DEFINITION_INTEGER__ATTRIBUTE_DEFINITIONS = DATATYPE_DEFINITION_SIMPLE__ATTRIBUTE_DEFINITIONS;
 
     /**
      * The feature id for the '<em><b>Max</b></em>' attribute.
@@ -722,6 +759,15 @@ public interface ErfPackage extends EPackage {
      * @ordered
      */
     int DATATYPE_DEFINITION_STRING__LONG_NAME = DATATYPE_DEFINITION_SIMPLE__LONG_NAME;
+
+    /**
+     * The feature id for the '<em><b>Attribute Definitions</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATATYPE_DEFINITION_STRING__ATTRIBUTE_DEFINITIONS = DATATYPE_DEFINITION_SIMPLE__ATTRIBUTE_DEFINITIONS;
 
     /**
      * The feature id for the '<em><b>Max Length</b></em>' attribute.
@@ -797,15 +843,6 @@ public interface ErfPackage extends EPackage {
     int ATTRIBUTE_DEFINITION_SIMPLE__IDENT = ATTRIBUTE_DEFINITION__IDENT;
 
     /**
-     * The feature id for the '<em><b>Unique</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ATTRIBUTE_DEFINITION_SIMPLE__UNIQUE = ATTRIBUTE_DEFINITION__UNIQUE;
-
-    /**
      * The feature id for the '<em><b>Ui Properties</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -813,6 +850,15 @@ public interface ErfPackage extends EPackage {
      * @ordered
      */
     int ATTRIBUTE_DEFINITION_SIMPLE__UI_PROPERTIES = ATTRIBUTE_DEFINITION__UI_PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Unique</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_SIMPLE__UNIQUE = ATTRIBUTE_DEFINITION__UNIQUE;
 
     /**
      * The feature id for the '<em><b>Default Value</b></em>' containment reference.
@@ -1044,6 +1090,336 @@ public interface ErfPackage extends EPackage {
     int ATTRIBUTE_DEFINITION_UI_PROPERTIES_FEATURE_COUNT = 3;
 
     /**
+     * The meta object id for the '{@link era.foss.erf.impl.EmbeddedValueImpl <em>Embedded Value</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see era.foss.erf.impl.EmbeddedValueImpl
+     * @see era.foss.erf.impl.ErfPackageImpl#getEmbeddedValue()
+     * @generated
+     */
+    int EMBEDDED_VALUE = 17;
+
+    /**
+     * The feature id for the '<em><b>Key</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EMBEDDED_VALUE__KEY = 0;
+
+    /**
+     * The feature id for the '<em><b>Other Content</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EMBEDDED_VALUE__OTHER_CONTENT = 1;
+
+    /**
+     * The number of structural features of the '<em>Embedded Value</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EMBEDDED_VALUE_FEATURE_COUNT = 2;
+
+    /**
+     * The meta object id for the '{@link era.foss.erf.impl.EnumValueImpl <em>Enum Value</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see era.foss.erf.impl.EnumValueImpl
+     * @see era.foss.erf.impl.ErfPackageImpl#getEnumValue()
+     * @generated
+     */
+    int ENUM_VALUE = 18;
+
+    /**
+     * The feature id for the '<em><b>ID</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ENUM_VALUE__ID = IDENTIFIABLE__ID;
+
+    /**
+     * The feature id for the '<em><b>Desc</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ENUM_VALUE__DESC = IDENTIFIABLE__DESC;
+
+    /**
+     * The feature id for the '<em><b>Long Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ENUM_VALUE__LONG_NAME = IDENTIFIABLE__LONG_NAME;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ENUM_VALUE__PROPERTIES = IDENTIFIABLE_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>Enum Value</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ENUM_VALUE_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 1;
+
+    /**
+     * The meta object id for the '{@link era.foss.erf.impl.DatatypeDefinitionEnumerationImpl <em>Datatype Definition Enumeration</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see era.foss.erf.impl.DatatypeDefinitionEnumerationImpl
+     * @see era.foss.erf.impl.ErfPackageImpl#getDatatypeDefinitionEnumeration()
+     * @generated
+     */
+    int DATATYPE_DEFINITION_ENUMERATION = 19;
+
+    /**
+     * The feature id for the '<em><b>ID</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATATYPE_DEFINITION_ENUMERATION__ID = DATATYPE_DEFINITION__ID;
+
+    /**
+     * The feature id for the '<em><b>Desc</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATATYPE_DEFINITION_ENUMERATION__DESC = DATATYPE_DEFINITION__DESC;
+
+    /**
+     * The feature id for the '<em><b>Long Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATATYPE_DEFINITION_ENUMERATION__LONG_NAME = DATATYPE_DEFINITION__LONG_NAME;
+
+    /**
+     * The feature id for the '<em><b>Attribute Definitions</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATATYPE_DEFINITION_ENUMERATION__ATTRIBUTE_DEFINITIONS = DATATYPE_DEFINITION__ATTRIBUTE_DEFINITIONS;
+
+    /**
+     * The feature id for the '<em><b>Specified Values</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATATYPE_DEFINITION_ENUMERATION__SPECIFIED_VALUES = DATATYPE_DEFINITION_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>Datatype Definition Enumeration</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATATYPE_DEFINITION_ENUMERATION_FEATURE_COUNT = DATATYPE_DEFINITION_FEATURE_COUNT + 1;
+
+    /**
+     * The meta object id for the '{@link era.foss.erf.impl.AttributeDefinitionEnumerationImpl <em>Attribute Definition Enumeration</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see era.foss.erf.impl.AttributeDefinitionEnumerationImpl
+     * @see era.foss.erf.impl.ErfPackageImpl#getAttributeDefinitionEnumeration()
+     * @generated
+     */
+    int ATTRIBUTE_DEFINITION_ENUMERATION = 20;
+
+    /**
+     * The feature id for the '<em><b>ID</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_ENUMERATION__ID = ATTRIBUTE_DEFINITION__ID;
+
+    /**
+     * The feature id for the '<em><b>Desc</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_ENUMERATION__DESC = ATTRIBUTE_DEFINITION__DESC;
+
+    /**
+     * The feature id for the '<em><b>Long Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_ENUMERATION__LONG_NAME = ATTRIBUTE_DEFINITION__LONG_NAME;
+
+    /**
+     * The feature id for the '<em><b>Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_ENUMERATION__TYPE = ATTRIBUTE_DEFINITION__TYPE;
+
+    /**
+     * The feature id for the '<em><b>Ident</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_ENUMERATION__IDENT = ATTRIBUTE_DEFINITION__IDENT;
+
+    /**
+     * The feature id for the '<em><b>Ui Properties</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_ENUMERATION__UI_PROPERTIES = ATTRIBUTE_DEFINITION__UI_PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Unique</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_ENUMERATION__UNIQUE = ATTRIBUTE_DEFINITION__UNIQUE;
+
+    /**
+     * The feature id for the '<em><b>Multi Valued</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_ENUMERATION__MULTI_VALUED = ATTRIBUTE_DEFINITION_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Default Value</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_ENUMERATION__DEFAULT_VALUE = ATTRIBUTE_DEFINITION_FEATURE_COUNT + 1;
+
+    /**
+     * The number of structural features of the '<em>Attribute Definition Enumeration</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_ENUMERATION_FEATURE_COUNT = ATTRIBUTE_DEFINITION_FEATURE_COUNT + 2;
+
+    /**
+     * The meta object id for the '{@link era.foss.erf.impl.AttributeValueEnumerationImpl <em>Attribute Value Enumeration</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see era.foss.erf.impl.AttributeValueEnumerationImpl
+     * @see era.foss.erf.impl.ErfPackageImpl#getAttributeValueEnumeration()
+     * @generated
+     */
+    int ATTRIBUTE_VALUE_ENUMERATION = 21;
+
+    /**
+     * The feature id for the '<em><b>ID</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_VALUE_ENUMERATION__ID = ATTRIBUTE_VALUE__ID;
+
+    /**
+     * The feature id for the '<em><b>Desc</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_VALUE_ENUMERATION__DESC = ATTRIBUTE_VALUE__DESC;
+
+    /**
+     * The feature id for the '<em><b>Long Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_VALUE_ENUMERATION__LONG_NAME = ATTRIBUTE_VALUE__LONG_NAME;
+
+    /**
+     * The feature id for the '<em><b>Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_VALUE_ENUMERATION__DEFINITION = ATTRIBUTE_VALUE__DEFINITION;
+
+    /**
+     * The feature id for the '<em><b>Values</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_VALUE_ENUMERATION__VALUES = ATTRIBUTE_VALUE_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>Attribute Value Enumeration</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_VALUE_ENUMERATION_FEATURE_COUNT = ATTRIBUTE_VALUE_FEATURE_COUNT + 1;
+
+    /**
+     * The meta object id for the '<em>Diagnostic Chain</em>' data type.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.common.util.DiagnosticChain
+     * @see era.foss.erf.impl.ErfPackageImpl#getDiagnosticChain()
+     * @generated
+     */
+    int DIAGNOSTIC_CHAIN = 22;
+
+    /**
      * Returns the meta object for class '{@link era.foss.erf.AttributeDefinition <em>Attribute Definition</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1108,6 +1484,17 @@ public interface ErfPackage extends EPackage {
     EClass getAttributeValue();
 
     /**
+     * Returns the meta object for the reference '{@link era.foss.erf.AttributeValue#getDefinition <em>Definition</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Definition</em>'.
+     * @see era.foss.erf.AttributeValue#getDefinition()
+     * @see #getAttributeValue()
+     * @generated
+     */
+    EReference getAttributeValue_Definition();
+
+    /**
      * Returns the meta object for class '{@link era.foss.erf.DatatypeDefinition <em>Datatype Definition</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1116,6 +1503,17 @@ public interface ErfPackage extends EPackage {
      * @generated
      */
     EClass getDatatypeDefinition();
+
+    /**
+     * Returns the meta object for the reference list '{@link era.foss.erf.DatatypeDefinition#getAttributeDefinitions <em>Attribute Definitions</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference list '<em>Attribute Definitions</em>'.
+     * @see era.foss.erf.DatatypeDefinition#getAttributeDefinitions()
+     * @see #getDatatypeDefinition()
+     * @generated
+     */
+    EReference getDatatypeDefinition_AttributeDefinitions();
 
     /**
      * Returns the meta object for class '{@link era.foss.erf.SpecElementWithUserDefinedAttributes <em>Spec Element With User Defined Attributes</em>}'.
@@ -1233,17 +1631,6 @@ public interface ErfPackage extends EPackage {
      * @generated
      */
     EAttribute getAttributeValueSimple_TheValue();
-
-    /**
-     * Returns the meta object for the reference '{@link era.foss.erf.AttributeValueSimple#getDefinition <em>Definition</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Definition</em>'.
-     * @see era.foss.erf.AttributeValueSimple#getDefinition()
-     * @see #getAttributeValueSimple()
-     * @generated
-     */
-    EReference getAttributeValueSimple_Definition();
 
     /**
      * Returns the meta object for class '{@link era.foss.erf.DatatypeDefinitionInteger <em>Datatype Definition Integer</em>}'.
@@ -1523,6 +1910,144 @@ public interface ErfPackage extends EPackage {
     EAttribute getAttributeDefinitionUiProperties_EditorColumnSpan();
 
     /**
+     * Returns the meta object for class '{@link era.foss.erf.EmbeddedValue <em>Embedded Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Embedded Value</em>'.
+     * @see era.foss.erf.EmbeddedValue
+     * @generated
+     */
+    EClass getEmbeddedValue();
+
+    /**
+     * Returns the meta object for the attribute '{@link era.foss.erf.EmbeddedValue#getKey <em>Key</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Key</em>'.
+     * @see era.foss.erf.EmbeddedValue#getKey()
+     * @see #getEmbeddedValue()
+     * @generated
+     */
+    EAttribute getEmbeddedValue_Key();
+
+    /**
+     * Returns the meta object for the attribute '{@link era.foss.erf.EmbeddedValue#getOtherContent <em>Other Content</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Other Content</em>'.
+     * @see era.foss.erf.EmbeddedValue#getOtherContent()
+     * @see #getEmbeddedValue()
+     * @generated
+     */
+    EAttribute getEmbeddedValue_OtherContent();
+
+    /**
+     * Returns the meta object for class '{@link era.foss.erf.EnumValue <em>Enum Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Enum Value</em>'.
+     * @see era.foss.erf.EnumValue
+     * @generated
+     */
+    EClass getEnumValue();
+
+    /**
+     * Returns the meta object for the containment reference '{@link era.foss.erf.EnumValue#getProperties <em>Properties</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Properties</em>'.
+     * @see era.foss.erf.EnumValue#getProperties()
+     * @see #getEnumValue()
+     * @generated
+     */
+    EReference getEnumValue_Properties();
+
+    /**
+     * Returns the meta object for class '{@link era.foss.erf.DatatypeDefinitionEnumeration <em>Datatype Definition Enumeration</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Datatype Definition Enumeration</em>'.
+     * @see era.foss.erf.DatatypeDefinitionEnumeration
+     * @generated
+     */
+    EClass getDatatypeDefinitionEnumeration();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link era.foss.erf.DatatypeDefinitionEnumeration#getSpecifiedValues <em>Specified Values</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Specified Values</em>'.
+     * @see era.foss.erf.DatatypeDefinitionEnumeration#getSpecifiedValues()
+     * @see #getDatatypeDefinitionEnumeration()
+     * @generated
+     */
+    EReference getDatatypeDefinitionEnumeration_SpecifiedValues();
+
+    /**
+     * Returns the meta object for class '{@link era.foss.erf.AttributeDefinitionEnumeration <em>Attribute Definition Enumeration</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Attribute Definition Enumeration</em>'.
+     * @see era.foss.erf.AttributeDefinitionEnumeration
+     * @generated
+     */
+    EClass getAttributeDefinitionEnumeration();
+
+    /**
+     * Returns the meta object for the attribute '{@link era.foss.erf.AttributeDefinitionEnumeration#isMultiValued <em>Multi Valued</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Multi Valued</em>'.
+     * @see era.foss.erf.AttributeDefinitionEnumeration#isMultiValued()
+     * @see #getAttributeDefinitionEnumeration()
+     * @generated
+     */
+    EAttribute getAttributeDefinitionEnumeration_MultiValued();
+
+    /**
+     * Returns the meta object for the containment reference '{@link era.foss.erf.AttributeDefinitionEnumeration#getDefaultValue <em>Default Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Default Value</em>'.
+     * @see era.foss.erf.AttributeDefinitionEnumeration#getDefaultValue()
+     * @see #getAttributeDefinitionEnumeration()
+     * @generated
+     */
+    EReference getAttributeDefinitionEnumeration_DefaultValue();
+
+    /**
+     * Returns the meta object for class '{@link era.foss.erf.AttributeValueEnumeration <em>Attribute Value Enumeration</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Attribute Value Enumeration</em>'.
+     * @see era.foss.erf.AttributeValueEnumeration
+     * @generated
+     */
+    EClass getAttributeValueEnumeration();
+
+    /**
+     * Returns the meta object for the reference list '{@link era.foss.erf.AttributeValueEnumeration#getValues <em>Values</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference list '<em>Values</em>'.
+     * @see era.foss.erf.AttributeValueEnumeration#getValues()
+     * @see #getAttributeValueEnumeration()
+     * @generated
+     */
+    EReference getAttributeValueEnumeration_Values();
+
+    /**
+     * Returns the meta object for data type '{@link org.eclipse.emf.common.util.DiagnosticChain <em>Diagnostic Chain</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for data type '<em>Diagnostic Chain</em>'.
+     * @see org.eclipse.emf.common.util.DiagnosticChain
+     * @model instanceClass="org.eclipse.emf.common.util.DiagnosticChain"
+     * @generated
+     */
+    EDataType getDiagnosticChain();
+
+    /**
      * Returns the factory that creates the instances of the model.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1592,6 +2117,13 @@ public interface ErfPackage extends EPackage {
          */
         EClass ATTRIBUTE_VALUE = eINSTANCE.getAttributeValue();
         /**
+         * The meta object literal for the '<em><b>Definition</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference ATTRIBUTE_VALUE__DEFINITION = eINSTANCE.getAttributeValue_Definition();
+        /**
          * The meta object literal for the '{@link era.foss.erf.impl.DatatypeDefinitionImpl <em>Datatype Definition</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -1600,6 +2132,13 @@ public interface ErfPackage extends EPackage {
          * @generated
          */
         EClass DATATYPE_DEFINITION = eINSTANCE.getDatatypeDefinition();
+        /**
+         * The meta object literal for the '<em><b>Attribute Definitions</b></em>' reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference DATATYPE_DEFINITION__ATTRIBUTE_DEFINITIONS = eINSTANCE.getDatatypeDefinition_AttributeDefinitions();
         /**
          * The meta object literal for the '{@link era.foss.erf.impl.SpecElementWithUserDefinedAttributesImpl <em>Spec Element With User Defined Attributes</em>}' class.
          * <!-- begin-user-doc -->
@@ -1687,13 +2226,6 @@ public interface ErfPackage extends EPackage {
          * @generated
          */
         EAttribute ATTRIBUTE_VALUE_SIMPLE__THE_VALUE = eINSTANCE.getAttributeValueSimple_TheValue();
-        /**
-         * The meta object literal for the '<em><b>Definition</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference ATTRIBUTE_VALUE_SIMPLE__DEFINITION = eINSTANCE.getAttributeValueSimple_Definition();
         /**
          * The meta object literal for the '{@link era.foss.erf.impl.DatatypeDefinitionIntegerImpl <em>Datatype Definition Integer</em>}' class.
          * <!-- begin-user-doc -->
@@ -1894,6 +2426,109 @@ public interface ErfPackage extends EPackage {
          * @generated
          */
         EAttribute ATTRIBUTE_DEFINITION_UI_PROPERTIES__EDITOR_COLUMN_SPAN = eINSTANCE.getAttributeDefinitionUiProperties_EditorColumnSpan();
+        /**
+         * The meta object literal for the '{@link era.foss.erf.impl.EmbeddedValueImpl <em>Embedded Value</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see era.foss.erf.impl.EmbeddedValueImpl
+         * @see era.foss.erf.impl.ErfPackageImpl#getEmbeddedValue()
+         * @generated
+         */
+        EClass EMBEDDED_VALUE = eINSTANCE.getEmbeddedValue();
+        /**
+         * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EMBEDDED_VALUE__KEY = eINSTANCE.getEmbeddedValue_Key();
+        /**
+         * The meta object literal for the '<em><b>Other Content</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EMBEDDED_VALUE__OTHER_CONTENT = eINSTANCE.getEmbeddedValue_OtherContent();
+        /**
+         * The meta object literal for the '{@link era.foss.erf.impl.EnumValueImpl <em>Enum Value</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see era.foss.erf.impl.EnumValueImpl
+         * @see era.foss.erf.impl.ErfPackageImpl#getEnumValue()
+         * @generated
+         */
+        EClass ENUM_VALUE = eINSTANCE.getEnumValue();
+        /**
+         * The meta object literal for the '<em><b>Properties</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference ENUM_VALUE__PROPERTIES = eINSTANCE.getEnumValue_Properties();
+        /**
+         * The meta object literal for the '{@link era.foss.erf.impl.DatatypeDefinitionEnumerationImpl <em>Datatype Definition Enumeration</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see era.foss.erf.impl.DatatypeDefinitionEnumerationImpl
+         * @see era.foss.erf.impl.ErfPackageImpl#getDatatypeDefinitionEnumeration()
+         * @generated
+         */
+        EClass DATATYPE_DEFINITION_ENUMERATION = eINSTANCE.getDatatypeDefinitionEnumeration();
+        /**
+         * The meta object literal for the '<em><b>Specified Values</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference DATATYPE_DEFINITION_ENUMERATION__SPECIFIED_VALUES = eINSTANCE.getDatatypeDefinitionEnumeration_SpecifiedValues();
+        /**
+         * The meta object literal for the '{@link era.foss.erf.impl.AttributeDefinitionEnumerationImpl <em>Attribute Definition Enumeration</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see era.foss.erf.impl.AttributeDefinitionEnumerationImpl
+         * @see era.foss.erf.impl.ErfPackageImpl#getAttributeDefinitionEnumeration()
+         * @generated
+         */
+        EClass ATTRIBUTE_DEFINITION_ENUMERATION = eINSTANCE.getAttributeDefinitionEnumeration();
+        /**
+         * The meta object literal for the '<em><b>Multi Valued</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ATTRIBUTE_DEFINITION_ENUMERATION__MULTI_VALUED = eINSTANCE.getAttributeDefinitionEnumeration_MultiValued();
+        /**
+         * The meta object literal for the '<em><b>Default Value</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference ATTRIBUTE_DEFINITION_ENUMERATION__DEFAULT_VALUE = eINSTANCE.getAttributeDefinitionEnumeration_DefaultValue();
+        /**
+         * The meta object literal for the '{@link era.foss.erf.impl.AttributeValueEnumerationImpl <em>Attribute Value Enumeration</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see era.foss.erf.impl.AttributeValueEnumerationImpl
+         * @see era.foss.erf.impl.ErfPackageImpl#getAttributeValueEnumeration()
+         * @generated
+         */
+        EClass ATTRIBUTE_VALUE_ENUMERATION = eINSTANCE.getAttributeValueEnumeration();
+        /**
+         * The meta object literal for the '<em><b>Values</b></em>' reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference ATTRIBUTE_VALUE_ENUMERATION__VALUES = eINSTANCE.getAttributeValueEnumeration_Values();
+        /**
+         * The meta object literal for the '<em>Diagnostic Chain</em>' data type.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.eclipse.emf.common.util.DiagnosticChain
+         * @see era.foss.erf.impl.ErfPackageImpl#getDiagnosticChain()
+         * @generated
+         */
+        EDataType DIAGNOSTIC_CHAIN = eINSTANCE.getDiagnosticChain();
 
     }
 

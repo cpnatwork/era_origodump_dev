@@ -18,31 +18,39 @@
  *************************************************************************/
 package era.foss.typeeditor;
 
-import org.eclipse.emf.common.command.BasicCommandStack;
-import org.eclipse.emf.common.command.Command;
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.observable.map.IObservableMap;
+import org.eclipse.core.databinding.property.value.IValueProperty;
 import org.eclipse.emf.databinding.EMFProperties;
+import org.eclipse.emf.databinding.FeaturePath;
 import org.eclipse.emf.databinding.IEMFListProperty;
+import org.eclipse.emf.databinding.edit.EMFEditProperties;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.edit.command.AddCommand;
-import org.eclipse.emf.edit.command.RemoveCommand;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IMenuListener;
-import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.databinding.swt.WidgetProperties;
+import org.eclipse.jface.databinding.viewers.CellEditorProperties;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
+import org.eclipse.jface.databinding.viewers.ObservableMapCellLabelProvider;
+import org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider;
+import org.eclipse.jface.databinding.viewers.ObservableValueEditingSupport;
 import org.eclipse.jface.databinding.viewers.ViewerProperties;
 import org.eclipse.jface.layout.TableColumnLayout;
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
-import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.ComboBoxViewerCellEditor;
+import org.eclipse.jface.viewers.EditingSupport;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorPart;
 
 import era.foss.erf.AttributeDefinition;
-import era.foss.erf.AttributeDefinitionSimple;
 import era.foss.erf.AttributeValueSimple;
 import era.foss.erf.DatatypeDefinition;
 import era.foss.erf.ErfPackage;
@@ -55,10 +63,8 @@ import era.foss.erf.impl.ErfFactoryImpl;
  * At the moment there exists exactly one {@link SpecType} in an ERA ERF model. The form holds a reference to this
  * single {@link SpecType}.
  * <p>
- * Each {@link SpecType} essentially consists of list of {@link AttributeDefinition}s which have a
- * {@link DatatypeDefinition} as well as an optional defaultValue in form of an {@link AttributeValueSimple}.
- * <p>
- * From the perspective of presentation & editing, the three classes are visually merged into a three-column table.
+ * Each {@link SpecType} essentially consists of list of {@link AttributeDefinition}s which are linked to a
+ * {@link DatatypeDefinition}.
  * <p>
  * The inner class {@link .AttributesAdapterFactoryContentProvider} is registered to the {@link AddDeleteTableViewer}
  * and extracts all {@link AttributeDefinition}s for a {@link SpecType} from the ERF model -- by the {@link SpecType}'s
@@ -73,15 +79,11 @@ import era.foss.erf.impl.ErfFactoryImpl;
  */
 public class SpecTypeForm extends AbstractErfTypesForm {
 
-    // for now the one and only spec type
-    /** The one and only spec type. */
-    private SpecType theOneAndOnlySpecType;
-
     /** Table viewer holding the attributes of a spec type. */
     private AddDeleteTableViewer tableViewer;
 
-    /** object for creating and binding ui elements. */
-    private Ui ui;
+    /** object for create data binding from model to UI widgets */
+    private DataBindingContext dataBindContext;
 
     /**
      * Instantiates a new spec type form.
@@ -92,10 +94,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
     public SpecTypeForm( Composite parent, IEditorPart editor ) {
         super( parent, editor, SWT.NONE );
 
-        ui = new Ui( editingDomain, erfModel );
-
-        // check for and eventually initialize the sole SpecType
-        theOneAndOnlySpecType = (SpecType)erfModel.getCoreContent().getSpecTypes().get( 0 );
+        dataBindContext = new DataBindingContext();
 
         // set-up layout
         GridLayout gridLayout = new GridLayout( 2, true );
@@ -106,9 +105,6 @@ public class SpecTypeForm extends AbstractErfTypesForm {
 
         // set up viewer for details
         createDetailViewer();
-
-        // Context menu for creating Elements of default values
-        createContextMenu();
     }
 
     /**
@@ -123,40 +119,73 @@ public class SpecTypeForm extends AbstractErfTypesForm {
         tableViewer.setAddCommandParameter( theOneAndOnlySpecType,
                                             ErfFactoryImpl.eINSTANCE.createAttributeDefinitionSimple().eClass() );
 
-        ObservableListContentProvider cp = new ObservableListContentProvider();
-        tableViewer.setContentProvider( cp );
+        ObservableListContentProvider contentProvider = new ObservableListContentProvider();
+        tableViewer.setContentProvider( contentProvider );
 
-        // set column data
-        EStructuralFeature[][] colEStructuralFeatures = {
-            {ErfPackage.Literals.IDENTIFIABLE__LONG_NAME},
-            {ErfPackage.Literals.ATTRIBUTE_DEFINITION__TYPE, ErfPackage.Literals.IDENTIFIABLE__LONG_NAME},
-            {
-                ErfPackage.Literals.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE,
-                ErfPackage.Literals.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE}};
+        TableColumnLayout columnLayout = (TableColumnLayout)tableViewer.getTable().getParent().getLayout();
 
-        int[] colMinWidth = {100, 100, 100};
-        int[] colWeigth = {34, 33, 33};
-        boolean[] colResize = {true, true, false};
+        // create column with name of attribute definition
+        createNameColumn( contentProvider, columnLayout );
 
-        // create columns
-        for( int colNr = 0; colNr < colEStructuralFeatures.length; colNr++ ) {
-            TableColumnLayout columnLayout = (TableColumnLayout)tableViewer.getTable().getParent().getLayout();
-
-            // column settings
-            TableViewerColumn column = new TableViewerColumn( tableViewer, SWT.NONE );
-            column.getColumn().setText( Ui.getUiName( colEStructuralFeatures[colNr][0] ) );
-            column.getColumn().setResizable( colResize[colNr] );
-            column.getColumn().setMoveable( false );
-            columnLayout.setColumnData( column.getColumn(), new ColumnWeightData(
-                colWeigth[colNr],
-                colMinWidth[colNr] ) );
-            ui.bindColumn( column, colEStructuralFeatures[colNr] );
-
-        }
+        // create column with reference to datatype defintion
+        createTypeColumn( contentProvider, columnLayout );
 
         // provide input for the table
         IEMFListProperty specAttributesProperty = EMFProperties.list( ErfPackage.Literals.SPEC_TYPE__SPEC_ATTRIBUTES );
         tableViewer.setInput( specAttributesProperty.observe( theOneAndOnlySpecType ) );
+
+    }
+
+    /** Create column for selecting the DatatypeDefinition associated with the AttributeDefinition */
+    private void createNameColumn( ObservableListContentProvider contentProvider, TableColumnLayout columnLayout ) {
+        //
+
+        //
+        TableViewerColumn nameColumn = new TableViewerColumn( tableViewer, SWT.NONE );
+
+        nameColumn.getColumn().setText( Ui.getUiName( ErfPackage.Literals.IDENTIFIABLE__LONG_NAME ) );
+        nameColumn.getColumn().setResizable( true );
+        nameColumn.getColumn().setMoveable( false );
+        columnLayout.setColumnData( nameColumn.getColumn(), new ColumnWeightData( 34, 100 ) );
+        IValueProperty nameColumnElementProperty = EMFEditProperties.value( editingDomain,
+                                                                            ErfPackage.Literals.IDENTIFIABLE__LONG_NAME );
+        // add label provider
+        IObservableMap nameColumnAttributeMap = nameColumnElementProperty.observeDetail( contentProvider.getKnownElements() );
+        nameColumn.setLabelProvider( new ObservableMapCellLabelProvider( nameColumnAttributeMap ) );
+
+        // add editing support
+        IValueProperty nameColumnCellEditorProperty = CellEditorProperties.control()
+                                                                          .value( WidgetProperties.text( SWT.Modify ) );
+        EditingSupport editingSupport = ObservableValueEditingSupport.create( tableViewer,
+                                                                              dataBindContext,
+                                                                              new TextCellEditor(
+                                                                                  tableViewer.getTable() ),
+                                                                              nameColumnCellEditorProperty,
+                                                                              nameColumnElementProperty );
+        nameColumn.setEditingSupport( editingSupport );
+
+    }
+
+    /** Create column for selecting the DatatypeDefinition associated with the AttributeDefinition */
+    private void createTypeColumn( ObservableListContentProvider contentProvider, TableColumnLayout columnLayout ) {
+
+        TableViewerColumn dataTypeColumn = new TableViewerColumn( tableViewer, SWT.NONE );
+        dataTypeColumn.getColumn().setText( Ui.getUiName( ErfPackage.Literals.ATTRIBUTE_DEFINITION__TYPE ) );
+        dataTypeColumn.getColumn().setResizable( false );
+        dataTypeColumn.getColumn().setMoveable( false );
+        columnLayout.setColumnData( dataTypeColumn.getColumn(), new ColumnWeightData( 33, 100 ) );
+        IValueProperty dataTypeNameProperty = EMFEditProperties.value( editingDomain,
+                                                                       FeaturePath.fromList( new EStructuralFeature[]{
+                                                                           ErfPackage.Literals.ATTRIBUTE_DEFINITION__TYPE,
+                                                                           ErfPackage.Literals.IDENTIFIABLE__LONG_NAME} ) );
+
+        // add label provider
+        ObservableMapCellLabelProvider labelProvider = new ObservableMapCellLabelProvider(
+            dataTypeNameProperty.observeDetail( contentProvider.getKnownElements() ) );
+        dataTypeColumn.setLabelProvider( labelProvider );
+
+        // add editing support
+        dataTypeColumn.setEditingSupport( new AttributeDefinitionTypeEditingSupport( tableViewer ) );
 
     }
 
@@ -165,7 +194,7 @@ public class SpecTypeForm extends AbstractErfTypesForm {
      */
     private void createDetailViewer() {
         // setup Data type properties viewer
-        DetailViewer detailViewer = new DetailViewer(
+        AttributeDefinitionDetailViewer detailViewer = new AttributeDefinitionDetailViewer(
             this,
             SWT.NONE,
             editingDomain,
@@ -175,126 +204,99 @@ public class SpecTypeForm extends AbstractErfTypesForm {
     }
 
     /**
-     * create context menu for -Adding and removing Dafatult values.
+     * The Class DatatypeDefinitionEditingSupport.
      */
-    private void createContextMenu() {
+    private class AttributeDefinitionTypeEditingSupport extends EditingSupport {
 
-        final class DefaultValueAction extends Action {
-            /** remove Default value instead of adding */
-            private AttributeDefinitionSimple attribute;
+        /** The cell editor. */
+        private CellEditor cellEditor;
 
-            @Override
-            public void run() {
-                if( attribute.getDefaultValue() == null )
-                // add default value (-> empty string)
-                {
-                    addDefaultValue( attribute );
-                } else
-                // remove default value
-                {
-                    removeDefaultValue( attribute );
-                }
+        /**
+         * Instantiates a new datatype definition editing support.
+         * 
+         * @param viewer the viewer
+         * @param column the column
+         */
+        public AttributeDefinitionTypeEditingSupport( ColumnViewer viewer ) {
+            super( viewer );
+            ComboBoxViewerCellEditor comboCellEditor = new ComboBoxViewerCellEditor(
+                ((TableViewer)viewer).getTable(),
+                SWT.READ_ONLY );
+            // set content provider
+            ObservableListContentProvider contentProvider = new ObservableListContentProvider();
+            comboCellEditor.setContenProvider( contentProvider );
+            // set label provider
+            comboCellEditor.setLabelProvider( new ObservableMapLabelProvider(
+                EMFProperties.value( ErfPackage.Literals.IDENTIFIABLE__LONG_NAME )
+                             .observeDetail( contentProvider.getKnownElements() ) ) );
+            IEMFListProperty dataTypeDefinitions = EMFProperties.list( ErfPackage.Literals.CONTENT__DATA_TYPES );
+            comboCellEditor.setInput( dataTypeDefinitions.observe( erfModel.getCoreContent() ) );
+
+            this.cellEditor = comboCellEditor;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.EditingSupport#canEdit(java.lang.Object)
+         */
+        @Override
+        protected boolean canEdit( Object element ) {
+            return true;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.EditingSupport#getCellEditor(java.lang.Object)
+         */
+        @Override
+        protected CellEditor getCellEditor( Object element ) {
+            return this.cellEditor;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.EditingSupport#getValue(java.lang.Object)
+         */
+        @Override
+        protected Object getValue( Object element ) {
+            return ((AttributeDefinition)element).getType();
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.EditingSupport#setValue(java.lang.Object, java.lang.Object)
+         */
+        @Override
+        protected void setValue( Object element, Object value ) {
+            assert (element instanceof AttributeDefinition);
+            AttributeDefinition attributeDefinition = (AttributeDefinition)element;
+
+            assert (value instanceof DatatypeDefinition);
+            DatatypeDefinition datatypeDefinition = (DatatypeDefinition)value;
+
+            // set selected DatatypeDefintion
+            attributeDefinition.setType( datatypeDefinition );
+
+            // adapt AttributeDefintion to selected datatypeDefinition
+            AttributeDefinition newAttributeDefinition = adaptAttributeDefintion( attributeDefinition );
+
+            if( attributeDefinition.eClass().getClassifierID() != newAttributeDefinition.eClass().getClassifierID() ) {
+                // reset the cellEditor (remember: there is only one object, which handles all cell in its row)
+                // because the selected value must not propagate if another row is selected
+                ((ComboBoxViewerCellEditor)this.cellEditor).setValue( null );
+                ((CCombo)((ComboBoxViewerCellEditor)this.cellEditor).getControl()).clearSelection();
+
+                // set the selection of the viewer to the newly created AttributeDefintion object
+                super.getViewer().setSelection( new StructuredSelection( newAttributeDefinition ) );
+                // refresh the tableViewer
+                super.getViewer().refresh();
             }
 
-            public void setAttribute( AttributeDefinitionSimple attribute ) {
-                this.attribute = attribute;
-                if( attribute.getDefaultValue() == null ) {
-                    this.setText( "Add Default Value" );
-                } else {
-                    this.setText( "Remove Default Value" );
-                }
-            }
         }
-
-        final DefaultValueAction defaultValueAction = new DefaultValueAction();
-
-        final MenuManager menuMgr = new MenuManager();
-        menuMgr.setRemoveAllWhenShown( true );
-
-        menuMgr.addMenuListener( new IMenuListener() {
-
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.jface.action.IMenuListener#menuAboutToShow(org.eclipse.jface.action.IMenuManager)
-             */
-            public void menuAboutToShow( IMenuManager manager ) {
-                IStructuredSelection selection = (IStructuredSelection)tableViewer.getSelection();
-                // pass the first element of the row, the attribute definition, to the handler
-                AttributeDefinitionSimple attribute = getAttributeDefForColumn( selection,
-                                                                                typeEditorActivator.getString( "_UI_AttributeDefinitionDefaultValue_label" ) );
-                if( attribute == null ) {
-                    return;
-                }
-
-                defaultValueAction.setAttribute( attribute );
-                menuMgr.add( defaultValueAction );
-            }
-        } );
-        // register menu at the table viewer
-        tableViewer.getControl().setMenu( menuMgr.createContextMenu( tableViewer.getControl() ) );
-    }
-
-    /**
-     * Add a default value for a simple Attribute Definition.
-     * 
-     * @param attribute Attribute definition for which the default value shall be added
-     */
-    private void addDefaultValue( AttributeDefinitionSimple attribute ) {
-        BasicCommandStack basicCommandStack = (BasicCommandStack)editingDomain.getCommandStack();
-        if( attribute.getDefaultValue() == null )
-        // add default value (-> empty string)
-        {
-            AttributeValueSimple addCommandValue = ErfFactoryImpl.eINSTANCE.createAttributeValueSimple();
-            addCommandValue.setTheValue( "" );
-            addCommandValue.setDefinition( attribute );
-            Command cmd = AddCommand.create( editingDomain,
-                                             attribute,
-                                             ErfPackage.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE,
-                                             addCommandValue );
-            basicCommandStack.execute( cmd );
-            tableViewer.refresh();
-        }
-
-    }
-
-    /**
-     * remove a default value from a simple attribute definition.
-     * 
-     * @param attribute AttributeDefintion from which the default value shall be removed
-     */
-    private void removeDefaultValue( AttributeDefinitionSimple attribute ) {
-        BasicCommandStack basicCommandStack = (BasicCommandStack)editingDomain.getCommandStack();
-        Command cmd = RemoveCommand.create( editingDomain, attribute.getDefaultValue() );
-        basicCommandStack.execute( cmd );
-        tableViewer.refresh();
-    }
-
-    /**
-     * Get attribute definition in case the column for the default value is selected.
-     * 
-     * @param selection the selection
-     * @param columnName the column name
-     * @return the attribute def for column
-     * @selection the selection of Attributes
-     */
-    private AttributeDefinitionSimple getAttributeDefForColumn( IStructuredSelection selection, String columnName ) {
-        // Check if an element is selected and if we are in the column
-        // for the default value
-        if( selection.isEmpty()
-            || !tableViewer.getTable().getColumn( tableViewer.getActiveColumn() ).getText().equals( columnName ) ) {
-            return null;
-        }
-
-        // get first attribute definition of selection
-        AttributeDefinitionSimple attributeDef = (AttributeDefinitionSimple)selection.getFirstElement();
-
-        // check if the row type is correct (at the moment this is implicitly always true)
-        if( !(selection.getFirstElement() instanceof AttributeDefinitionSimple) ) {
-            return null;
-        }
-
-        return attributeDef;
     }
 
 }

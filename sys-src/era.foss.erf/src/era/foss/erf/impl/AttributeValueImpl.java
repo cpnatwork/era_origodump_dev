@@ -18,21 +18,39 @@
  *************************************************************************/
 package era.foss.erf.impl;
 
+import era.foss.erf.AttributeDefinition;
 import era.foss.erf.AttributeValue;
 import era.foss.erf.ErfPackage;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Attribute Value</b></em>'.
  * <!-- end-user-doc -->
  * <p>
+ * The following features are implemented:
+ * <ul>
+ *   <li>{@link era.foss.erf.impl.AttributeValueImpl#getDefinition <em>Definition</em>}</li>
+ * </ul>
  * </p>
  *
  * @generated
  */
 public abstract class AttributeValueImpl extends IdentifiableImpl implements AttributeValue {
+
+    /**
+     * The cached value of the '{@link #getDefinition() <em>Definition</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDefinition()
+     * @generated
+     * @ordered
+     */
+    protected AttributeDefinition definition;
 
     /**
      * <!-- begin-user-doc -->
@@ -51,6 +69,111 @@ public abstract class AttributeValueImpl extends IdentifiableImpl implements Att
     @Override
     protected EClass eStaticClass() {
         return ErfPackage.Literals.ATTRIBUTE_VALUE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public AttributeDefinition getDefinition() {
+        if( definition != null && definition.eIsProxy() ) {
+            InternalEObject oldDefinition = (InternalEObject)definition;
+            definition = (AttributeDefinition)eResolveProxy( oldDefinition );
+            if( definition != oldDefinition ) {
+                if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+                    this,
+                    Notification.RESOLVE,
+                    ErfPackage.ATTRIBUTE_VALUE__DEFINITION,
+                    oldDefinition,
+                    definition ) );
+            }
+        }
+        return definition;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public AttributeDefinition basicGetDefinition() {
+        return definition;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDefinition( AttributeDefinition newDefinition ) {
+        AttributeDefinition oldDefinition = definition;
+        definition = newDefinition;
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            ErfPackage.ATTRIBUTE_VALUE__DEFINITION,
+            oldDefinition,
+            definition ) );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Object eGet( int featureID, boolean resolve, boolean coreType ) {
+        switch (featureID) {
+        case ErfPackage.ATTRIBUTE_VALUE__DEFINITION:
+            if( resolve ) return getDefinition();
+            return basicGetDefinition();
+        }
+        return super.eGet( featureID, resolve, coreType );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public void eSet( int featureID, Object newValue ) {
+        switch (featureID) {
+        case ErfPackage.ATTRIBUTE_VALUE__DEFINITION:
+            setDefinition( (AttributeDefinition)newValue );
+            return;
+        }
+        super.eSet( featureID, newValue );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public void eUnset( int featureID ) {
+        switch (featureID) {
+        case ErfPackage.ATTRIBUTE_VALUE__DEFINITION:
+            setDefinition( (AttributeDefinition)null );
+            return;
+        }
+        super.eUnset( featureID );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public boolean eIsSet( int featureID ) {
+        switch (featureID) {
+        case ErfPackage.ATTRIBUTE_VALUE__DEFINITION:
+            return definition != null;
+        }
+        return super.eIsSet( featureID );
     }
 
 } //AttributeValueImpl

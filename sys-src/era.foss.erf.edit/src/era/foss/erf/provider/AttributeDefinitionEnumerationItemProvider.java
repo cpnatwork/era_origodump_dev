@@ -1,26 +1,14 @@
-/**************************************************************************
- * ERA - Eclipse Requirements Analysis
- * ==============================================
- * Copyright (C) 2009-2011 by Georg Blaschke, Christoph P. Neumann
- * and Bernd Haberstumpf (http://era.origo.ethz.ch)
- **************************************************************************
- * Licensed under the Eclipse Public License - v 1.0 (the "License");
- * you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
- * http://www.eclipse.org/org/documents/epl-v10.html
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- **************************************************************************
+/**
+ * <copyright>
+ * </copyright>
+ *
  * $Id$
- *************************************************************************/
+ */
 package era.foss.erf.provider;
 
+import era.foss.erf.AttributeDefinitionEnumeration;
 import era.foss.erf.ErfFactory;
 import era.foss.erf.ErfPackage;
-import era.foss.erf.SpecElementWithUserDefinedAttributes;
 
 import java.util.Collection;
 import java.util.List;
@@ -37,15 +25,16 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link era.foss.erf.SpecElementWithUserDefinedAttributes} object.
+ * This is the item provider adapter for a {@link era.foss.erf.AttributeDefinitionEnumeration} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class SpecElementWithUserDefinedAttributesItemProvider extends IdentifiableItemProvider implements
+public class AttributeDefinitionEnumerationItemProvider extends AttributeDefinitionItemProvider implements
         IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
         IItemPropertySource {
     /**
@@ -54,7 +43,7 @@ public class SpecElementWithUserDefinedAttributesItemProvider extends Identifiab
      * <!-- end-user-doc -->
      * @generated
      */
-    public SpecElementWithUserDefinedAttributesItemProvider( AdapterFactory adapterFactory ) {
+    public AttributeDefinitionEnumerationItemProvider( AdapterFactory adapterFactory ) {
         super( adapterFactory );
     }
 
@@ -69,29 +58,29 @@ public class SpecElementWithUserDefinedAttributesItemProvider extends Identifiab
         if( itemPropertyDescriptors == null ) {
             super.getPropertyDescriptors( object );
 
-            addTypePropertyDescriptor( object );
+            addMultiValuedPropertyDescriptor( object );
         }
         return itemPropertyDescriptors;
     }
 
     /**
-     * This adds a property descriptor for the Type feature.
+     * This adds a property descriptor for the Multi Valued feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addTypePropertyDescriptor( Object object ) {
+    protected void addMultiValuedPropertyDescriptor( Object object ) {
         itemPropertyDescriptors.add( createItemPropertyDescriptor( ((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                                                                    getResourceLocator(),
-                                                                   getString( "_UI_SpecElementWithUserDefinedAttributes_type_feature" ),
+                                                                   getString( "_UI_AttributeDefinitionEnumeration_multiValued_feature" ),
                                                                    getString( "_UI_PropertyDescriptor_description",
-                                                                              "_UI_SpecElementWithUserDefinedAttributes_type_feature",
-                                                                              "_UI_SpecElementWithUserDefinedAttributes_type" ),
-                                                                   ErfPackage.Literals.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__TYPE,
+                                                                              "_UI_AttributeDefinitionEnumeration_multiValued_feature",
+                                                                              "_UI_AttributeDefinitionEnumeration_type" ),
+                                                                   ErfPackage.Literals.ATTRIBUTE_DEFINITION_ENUMERATION__MULTI_VALUED,
                                                                    true,
                                                                    false,
-                                                                   true,
-                                                                   null,
+                                                                   false,
+                                                                   ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
                                                                    null,
                                                                    null ) );
     }
@@ -108,7 +97,7 @@ public class SpecElementWithUserDefinedAttributesItemProvider extends Identifiab
     public Collection<? extends EStructuralFeature> getChildrenFeatures( Object object ) {
         if( childrenFeatures == null ) {
             super.getChildrenFeatures( object );
-            childrenFeatures.add( ErfPackage.Literals.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES );
+            childrenFeatures.add( ErfPackage.Literals.ATTRIBUTE_DEFINITION_ENUMERATION__DEFAULT_VALUE );
         }
         return childrenFeatures;
     }
@@ -127,6 +116,17 @@ public class SpecElementWithUserDefinedAttributesItemProvider extends Identifiab
     }
 
     /**
+     * This returns AttributeDefinitionEnumeration.gif.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Object getImage( Object object ) {
+        return overlayImage( object, getResourceLocator().getImage( "full/obj16/AttributeDefinitionEnumeration" ) );
+    }
+
+    /**
      * This returns the label text for the adapted class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -134,10 +134,10 @@ public class SpecElementWithUserDefinedAttributesItemProvider extends Identifiab
      */
     @Override
     public String getText( Object object ) {
-        String label = ((SpecElementWithUserDefinedAttributes)object).getID();
+        String label = ((AttributeDefinitionEnumeration)object).getID();
         return label == null || label.length() == 0
-            ? getString( "_UI_SpecElementWithUserDefinedAttributes_type" )
-            : getString( "_UI_SpecElementWithUserDefinedAttributes_type" ) + " " + label;
+            ? getString( "_UI_AttributeDefinitionEnumeration_type" )
+            : getString( "_UI_AttributeDefinitionEnumeration_type" ) + " " + label;
     }
 
     /**
@@ -151,8 +151,11 @@ public class SpecElementWithUserDefinedAttributesItemProvider extends Identifiab
     public void notifyChanged( Notification notification ) {
         updateChildren( notification );
 
-        switch (notification.getFeatureID( SpecElementWithUserDefinedAttributes.class )) {
-        case ErfPackage.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES:
+        switch (notification.getFeatureID( AttributeDefinitionEnumeration.class )) {
+        case ErfPackage.ATTRIBUTE_DEFINITION_ENUMERATION__MULTI_VALUED:
+            fireNotifyChanged( new ViewerNotification( notification, notification.getNotifier(), false, true ) );
+            return;
+        case ErfPackage.ATTRIBUTE_DEFINITION_ENUMERATION__DEFAULT_VALUE:
             fireNotifyChanged( new ViewerNotification( notification, notification.getNotifier(), true, false ) );
             return;
         }
@@ -170,10 +173,7 @@ public class SpecElementWithUserDefinedAttributesItemProvider extends Identifiab
     protected void collectNewChildDescriptors( Collection<Object> newChildDescriptors, Object object ) {
         super.collectNewChildDescriptors( newChildDescriptors, object );
 
-        newChildDescriptors.add( createChildParameter( ErfPackage.Literals.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES,
-                                                       ErfFactory.eINSTANCE.createAttributeValueSimple() ) );
-
-        newChildDescriptors.add( createChildParameter( ErfPackage.Literals.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES,
+        newChildDescriptors.add( createChildParameter( ErfPackage.Literals.ATTRIBUTE_DEFINITION_ENUMERATION__DEFAULT_VALUE,
                                                        ErfFactory.eINSTANCE.createAttributeValueEnumeration() ) );
     }
 

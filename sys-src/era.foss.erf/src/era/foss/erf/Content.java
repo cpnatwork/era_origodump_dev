@@ -23,8 +23,6 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * @model
- * @author schorsch
- *
  */
 public interface Content extends EObject {
 

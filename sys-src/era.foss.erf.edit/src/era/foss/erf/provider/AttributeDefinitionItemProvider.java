@@ -197,6 +197,7 @@ public class AttributeDefinitionItemProvider extends IdentifiableItemProvider im
         updateChildren( notification );
 
         switch (notification.getFeatureID( AttributeDefinition.class )) {
+        case ErfPackage.ATTRIBUTE_DEFINITION__TYPE:
         case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
         case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
             fireNotifyChanged( new ViewerNotification( notification, notification.getNotifier(), false, true ) );

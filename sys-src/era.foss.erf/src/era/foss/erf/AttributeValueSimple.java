@@ -40,20 +40,4 @@ public interface AttributeValueSimple extends AttributeValue {
      */
     void setTheValue( String value );
 
-    /**
-     * @model lowerBound="1"
-     * @return
-     */
-    public AttributeDefinitionSimple getDefinition();
-
-    /**
-     * Sets the value of the '{@link era.foss.erf.AttributeValueSimple#getDefinition <em>Definition</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Definition</em>' reference.
-     * @see #getDefinition()
-     * @generated
-     */
-    void setDefinition( AttributeDefinitionSimple value );
-
 }

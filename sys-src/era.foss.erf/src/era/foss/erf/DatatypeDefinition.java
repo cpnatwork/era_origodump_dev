@@ -18,11 +18,18 @@
  *************************************************************************/
 package era.foss.erf;
 
+import org.eclipse.emf.common.util.EList;
+
 /**
  * @model abstract="true"
  * @author poldi
- *
+ * 
  */
 public interface DatatypeDefinition extends Identifiable {
+
+    /**
+     * @model kind="reference" opposite="type" required="false"
+     */
+    EList<AttributeDefinition> getAttributeDefinitions();
 
 }

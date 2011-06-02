@@ -20,7 +20,9 @@ package era.foss.erf.impl;
 
 import era.foss.erf.*;
 
+import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -92,8 +94,52 @@ public class ErfFactoryImpl extends EFactoryImpl implements ErfFactory {
             return createSpecRelation();
         case ErfPackage.ATTRIBUTE_DEFINITION_UI_PROPERTIES:
             return createAttributeDefinitionUiProperties();
+        case ErfPackage.EMBEDDED_VALUE:
+            return createEmbeddedValue();
+        case ErfPackage.ENUM_VALUE:
+            return createEnumValue();
+        case ErfPackage.DATATYPE_DEFINITION_ENUMERATION:
+            return createDatatypeDefinitionEnumeration();
+        case ErfPackage.ATTRIBUTE_DEFINITION_ENUMERATION:
+            return createAttributeDefinitionEnumeration();
+        case ErfPackage.ATTRIBUTE_VALUE_ENUMERATION:
+            return createAttributeValueEnumeration();
         default:
             throw new IllegalArgumentException( "The class '" + eClass.getName() + "' is not a valid classifier" );
+        }
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Object createFromString( EDataType eDataType, String initialValue ) {
+        switch (eDataType.getClassifierID()) {
+        case ErfPackage.DIAGNOSTIC_CHAIN:
+            return createDiagnosticChainFromString( eDataType, initialValue );
+        default:
+            throw new IllegalArgumentException( "The datatype '"
+                + eDataType.getName()
+                + "' is not a valid classifier" );
+        }
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public String convertToString( EDataType eDataType, Object instanceValue ) {
+        switch (eDataType.getClassifierID()) {
+        case ErfPackage.DIAGNOSTIC_CHAIN:
+            return convertDiagnosticChainToString( eDataType, instanceValue );
+        default:
+            throw new IllegalArgumentException( "The datatype '"
+                + eDataType.getName()
+                + "' is not a valid classifier" );
         }
     }
 
@@ -195,6 +241,74 @@ public class ErfFactoryImpl extends EFactoryImpl implements ErfFactory {
     public AttributeDefinitionUiProperties createAttributeDefinitionUiProperties() {
         AttributeDefinitionUiPropertiesImpl attributeDefinitionUiProperties = new AttributeDefinitionUiPropertiesImpl();
         return attributeDefinitionUiProperties;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EmbeddedValue createEmbeddedValue() {
+        EmbeddedValueImpl embeddedValue = new EmbeddedValueImpl();
+        return embeddedValue;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EnumValue createEnumValue() {
+        EnumValueImpl enumValue = new EnumValueImpl();
+        return enumValue;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public DatatypeDefinitionEnumeration createDatatypeDefinitionEnumeration() {
+        DatatypeDefinitionEnumerationImpl datatypeDefinitionEnumeration = new DatatypeDefinitionEnumerationImpl();
+        return datatypeDefinitionEnumeration;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public AttributeDefinitionEnumeration createAttributeDefinitionEnumeration() {
+        AttributeDefinitionEnumerationImpl attributeDefinitionEnumeration = new AttributeDefinitionEnumerationImpl();
+        return attributeDefinitionEnumeration;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public AttributeValueEnumeration createAttributeValueEnumeration() {
+        AttributeValueEnumerationImpl attributeValueEnumeration = new AttributeValueEnumerationImpl();
+        return attributeValueEnumeration;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public DiagnosticChain createDiagnosticChainFromString( EDataType eDataType, String initialValue ) {
+        return (DiagnosticChain)super.createFromString( eDataType, initialValue );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertDiagnosticChainToString( EDataType eDataType, Object instanceValue ) {
+        return super.convertToString( eDataType, instanceValue );
     }
 
     /**

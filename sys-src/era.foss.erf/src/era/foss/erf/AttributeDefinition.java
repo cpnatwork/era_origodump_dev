@@ -25,7 +25,7 @@ package era.foss.erf;
 public interface AttributeDefinition extends Identifiable {
 
     /**
-     * @model lowerBound="1" annotation="UI ObservedStructuralFeature='coreContent:dataTypes'"
+     * @model lowerBound="1" opposite="attributeDefinitions"
      * @Not generated
      * @return
      */
@@ -34,7 +34,7 @@ public interface AttributeDefinition extends Identifiable {
     /**
      * The value assigned to this attribute definition is used as ID
      * 
-     * @model unique="true" default="false" required="true" ordered="false" annotation="UI Detail='true'"
+     * @model unique="true" default="false" required="true" ordered="false"
      * @Not generated
      */
     boolean isIdent();
@@ -42,7 +42,7 @@ public interface AttributeDefinition extends Identifiable {
     /**
      * The value assigned to this attribute definition must be unique
      * 
-     * @model unique="false" default="false" required="true" ordered="false" annotation="UI Detail='true'"
+     * @model unique="false" default="false" required="true" ordered="false"
      * @Not generated
      */
     boolean isUnique();
@@ -78,7 +78,7 @@ public interface AttributeDefinition extends Identifiable {
     void setType( DatatypeDefinition value );
 
     /**
-     * @model changeable='true' containment='true' required="true" ordered="false" annotation="UI Detail='true'"
+     * @model containment='true' required="true" ordered="false"
      */
     public AttributeDefinitionUiProperties getUiProperties();
 

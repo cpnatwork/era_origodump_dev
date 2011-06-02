@@ -153,6 +153,9 @@ public class SpecTypeItemProvider extends IdentifiableItemProvider implements IE
 
         newChildDescriptors.add( createChildParameter( ErfPackage.Literals.SPEC_TYPE__SPEC_ATTRIBUTES,
                                                        ErfFactory.eINSTANCE.createAttributeDefinitionSimple() ) );
+
+        newChildDescriptors.add( createChildParameter( ErfPackage.Literals.SPEC_TYPE__SPEC_ATTRIBUTES,
+                                                       ErfFactory.eINSTANCE.createAttributeDefinitionEnumeration() ) );
     }
 
     protected Command createRemoveCommand( EditingDomain domain,

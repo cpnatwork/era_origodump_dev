@@ -214,6 +214,43 @@ public class ErfSwitch<T2> {
             if( result == null ) result = defaultCase( theEObject );
             return result;
         }
+        case ErfPackage.EMBEDDED_VALUE: {
+            EmbeddedValue embeddedValue = (EmbeddedValue)theEObject;
+            T2 result = caseEmbeddedValue( embeddedValue );
+            if( result == null ) result = defaultCase( theEObject );
+            return result;
+        }
+        case ErfPackage.ENUM_VALUE: {
+            EnumValue enumValue = (EnumValue)theEObject;
+            T2 result = caseEnumValue( enumValue );
+            if( result == null ) result = caseIdentifiable( enumValue );
+            if( result == null ) result = defaultCase( theEObject );
+            return result;
+        }
+        case ErfPackage.DATATYPE_DEFINITION_ENUMERATION: {
+            DatatypeDefinitionEnumeration datatypeDefinitionEnumeration = (DatatypeDefinitionEnumeration)theEObject;
+            T2 result = caseDatatypeDefinitionEnumeration( datatypeDefinitionEnumeration );
+            if( result == null ) result = caseDatatypeDefinition( datatypeDefinitionEnumeration );
+            if( result == null ) result = caseIdentifiable( datatypeDefinitionEnumeration );
+            if( result == null ) result = defaultCase( theEObject );
+            return result;
+        }
+        case ErfPackage.ATTRIBUTE_DEFINITION_ENUMERATION: {
+            AttributeDefinitionEnumeration attributeDefinitionEnumeration = (AttributeDefinitionEnumeration)theEObject;
+            T2 result = caseAttributeDefinitionEnumeration( attributeDefinitionEnumeration );
+            if( result == null ) result = caseAttributeDefinition( attributeDefinitionEnumeration );
+            if( result == null ) result = caseIdentifiable( attributeDefinitionEnumeration );
+            if( result == null ) result = defaultCase( theEObject );
+            return result;
+        }
+        case ErfPackage.ATTRIBUTE_VALUE_ENUMERATION: {
+            AttributeValueEnumeration attributeValueEnumeration = (AttributeValueEnumeration)theEObject;
+            T2 result = caseAttributeValueEnumeration( attributeValueEnumeration );
+            if( result == null ) result = caseAttributeValue( attributeValueEnumeration );
+            if( result == null ) result = caseIdentifiable( attributeValueEnumeration );
+            if( result == null ) result = defaultCase( theEObject );
+            return result;
+        }
         default:
             return defaultCase( theEObject );
         }
@@ -471,6 +508,81 @@ public class ErfSwitch<T2> {
      * @generated
      */
     public T2 caseAttributeDefinitionUiProperties( AttributeDefinitionUiProperties object ) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Embedded Value</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Embedded Value</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T2 caseEmbeddedValue( EmbeddedValue object ) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Enum Value</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Enum Value</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T2 caseEnumValue( EnumValue object ) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Datatype Definition Enumeration</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Datatype Definition Enumeration</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T2 caseDatatypeDefinitionEnumeration( DatatypeDefinitionEnumeration object ) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Attribute Definition Enumeration</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Attribute Definition Enumeration</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T2 caseAttributeDefinitionEnumeration( AttributeDefinitionEnumeration object ) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Attribute Value Enumeration</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Attribute Value Enumeration</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T2 caseAttributeValueEnumeration( AttributeValueEnumeration object ) {
         return null;
     }
 

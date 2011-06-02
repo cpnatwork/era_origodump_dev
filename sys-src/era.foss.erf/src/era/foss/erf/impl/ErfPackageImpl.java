@@ -18,172 +18,193 @@
  *************************************************************************/
 package era.foss.erf.impl;
 
+import java.util.Map;
+
+import org.eclipse.emf.common.util.DiagnosticChain;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EValidator;
+import org.eclipse.emf.ecore.impl.EPackageImpl;
+
 import era.foss.erf.AttributeDefinition;
+import era.foss.erf.AttributeDefinitionEnumeration;
 import era.foss.erf.AttributeDefinitionSimple;
 import era.foss.erf.AttributeDefinitionUiProperties;
 import era.foss.erf.AttributeValue;
+import era.foss.erf.AttributeValueEnumeration;
 import era.foss.erf.AttributeValueSimple;
+import era.foss.erf.Content;
 import era.foss.erf.DatatypeDefinition;
+import era.foss.erf.DatatypeDefinitionEnumeration;
 import era.foss.erf.DatatypeDefinitionInteger;
 import era.foss.erf.DatatypeDefinitionSimple;
 import era.foss.erf.DatatypeDefinitionString;
-import era.foss.erf.Identifiable;
-import era.foss.erf.Content;
+import era.foss.erf.EmbeddedValue;
+import era.foss.erf.EnumValue;
 import era.foss.erf.ErfFactory;
 import era.foss.erf.ErfPackage;
+import era.foss.erf.Identifiable;
 import era.foss.erf.SpecElementWithUserDefinedAttributes;
 import era.foss.erf.SpecObject;
 import era.foss.erf.SpecRelation;
 import era.foss.erf.SpecType;
 import era.foss.erf.util.ErfValidator;
 
-import java.util.Map;
-
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
-
-import org.eclipse.emf.ecore.EValidator;
-import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Package</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!-- end-user-doc -->
  * @generated
  */
 public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass attributeDefinitionEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass attributeValueEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass datatypeDefinitionEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass specElementWithUserDefinedAttributesEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass specObjectEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass specTypeEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass mapEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass attributeValueSimpleEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass datatypeDefinitionIntegerEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass datatypeDefinitionSimpleEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass datatypeDefinitionStringEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass identifiableEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass attributeDefinitionSimpleEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass erfEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass contentEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass specRelationEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass attributeDefinitionUiPropertiesEClass = null;
 
     /**
-     * Creates an instance of the model <b>Package</b>, registered with
-     * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
-     * package URI value.
-     * <p>Note: the correct way to create the package is via the static
-     * factory method {@link #init init()}, which also performs
-     * initialization of the package, or returns the registered package,
-     * if one already exists.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass embeddedValueEClass = null;
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass enumValueEClass = null;
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass datatypeDefinitionEnumerationEClass = null;
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass attributeDefinitionEnumerationEClass = null;
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass attributeValueEnumerationEClass = null;
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    private EDataType diagnosticChainEDataType = null;
+
+    /**
+     * Creates an instance of the model <b>Package</b>, registered with {@link org.eclipse.emf.ecore.EPackage.Registry
+     * EPackage.Registry} by the package package URI value.
+     * <p>
+     * Note: the correct way to create the package is via the static factory method {@link #init init()}, which also
+     * performs initialization of the package, or returns the registered package, if one already exists. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see org.eclipse.emf.ecore.EPackage.Registry
      * @see era.foss.erf.ErfPackage#eNS_URI
      * @see #init()
@@ -194,8 +215,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private static boolean isInited = false;
@@ -244,8 +264,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getAttributeDefinition() {
@@ -253,8 +272,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getAttributeDefinition_Type() {
@@ -262,8 +280,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getAttributeDefinition_Ident() {
@@ -271,26 +288,23 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getAttributeDefinition_Unique() {
-        return (EAttribute)attributeDefinitionEClass.getEStructuralFeatures().get( 2 );
+        return (EAttribute)attributeDefinitionEClass.getEStructuralFeatures().get( 3 );
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getAttributeDefinition_UiProperties() {
-        return (EReference)attributeDefinitionEClass.getEStructuralFeatures().get( 3 );
+        return (EReference)attributeDefinitionEClass.getEStructuralFeatures().get( 2 );
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getAttributeValue() {
@@ -302,6 +316,14 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getAttributeValue_Definition() {
+        return (EReference)attributeValueEClass.getEStructuralFeatures().get( 0 );
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getDatatypeDefinition() {
         return datatypeDefinitionEClass;
     }
@@ -311,13 +333,20 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getDatatypeDefinition_AttributeDefinitions() {
+        return (EReference)datatypeDefinitionEClass.getEStructuralFeatures().get( 0 );
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getSpecElementWithUserDefinedAttributes() {
         return specElementWithUserDefinedAttributesEClass;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getSpecElementWithUserDefinedAttributes_Values() {
@@ -325,8 +354,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getSpecElementWithUserDefinedAttributes_Type() {
@@ -334,8 +362,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getSpecObject() {
@@ -343,8 +370,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getSpecObject_Sources() {
@@ -352,8 +378,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getSpecObject_Targets() {
@@ -361,8 +386,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getSpecType() {
@@ -370,8 +394,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getSpecType_SpecAttributes() {
@@ -379,8 +402,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getMap() {
@@ -388,8 +410,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getAttributeValueSimple() {
@@ -397,8 +418,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getAttributeValueSimple_TheValue() {
@@ -406,17 +426,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getAttributeValueSimple_Definition() {
-        return (EReference)attributeValueSimpleEClass.getEStructuralFeatures().get( 1 );
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getDatatypeDefinitionInteger() {
@@ -424,8 +434,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDatatypeDefinitionInteger_Max() {
@@ -433,8 +442,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDatatypeDefinitionInteger_Min() {
@@ -442,8 +450,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getDatatypeDefinitionSimple() {
@@ -451,8 +458,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getDatatypeDefinitionString() {
@@ -460,8 +466,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDatatypeDefinitionString_MaxLength() {
@@ -469,8 +474,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getIdentifiable() {
@@ -478,8 +482,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getIdentifiable_ID() {
@@ -487,8 +490,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getIdentifiable_Desc() {
@@ -496,8 +498,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getIdentifiable_LongName() {
@@ -505,8 +506,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getAttributeDefinitionSimple() {
@@ -514,8 +514,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getAttributeDefinitionSimple_DefaultValue() {
@@ -523,8 +522,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getERF() {
@@ -532,8 +530,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getERF_CoreContent() {
@@ -541,8 +538,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getContent() {
@@ -550,8 +546,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getContent_SpecObjects() {
@@ -559,8 +554,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getContent_SpecTypes() {
@@ -568,8 +562,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getContent_DataTypes() {
@@ -577,8 +570,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getContent_SpecRelations() {
@@ -586,8 +578,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getSpecRelation() {
@@ -595,8 +586,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getSpecRelation_Source() {
@@ -604,8 +594,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getSpecRelation_Target() {
@@ -613,8 +602,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getAttributeDefinitionUiProperties() {
@@ -622,8 +610,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getAttributeDefinitionUiProperties_EditorShowLabel() {
@@ -631,8 +618,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getAttributeDefinitionUiProperties_EditorRowNumber() {
@@ -640,8 +626,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getAttributeDefinitionUiProperties_EditorColumnSpan() {
@@ -649,8 +634,111 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getEmbeddedValue() {
+        return embeddedValueEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getEmbeddedValue_Key() {
+        return (EAttribute)embeddedValueEClass.getEStructuralFeatures().get( 0 );
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getEmbeddedValue_OtherContent() {
+        return (EAttribute)embeddedValueEClass.getEStructuralFeatures().get( 1 );
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getEnumValue() {
+        return enumValueEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getEnumValue_Properties() {
+        return (EReference)enumValueEClass.getEStructuralFeatures().get( 0 );
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getDatatypeDefinitionEnumeration() {
+        return datatypeDefinitionEnumerationEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getDatatypeDefinitionEnumeration_SpecifiedValues() {
+        return (EReference)datatypeDefinitionEnumerationEClass.getEStructuralFeatures().get( 0 );
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getAttributeDefinitionEnumeration() {
+        return attributeDefinitionEnumerationEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAttributeDefinitionEnumeration_MultiValued() {
+        return (EAttribute)attributeDefinitionEnumerationEClass.getEStructuralFeatures().get( 0 );
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getAttributeDefinitionEnumeration_DefaultValue() {
+        return (EReference)attributeDefinitionEnumerationEClass.getEStructuralFeatures().get( 1 );
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getAttributeValueEnumeration() {
+        return attributeValueEnumerationEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getAttributeValueEnumeration_Values() {
+        return (EReference)attributeValueEnumerationEClass.getEStructuralFeatures().get( 0 );
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public EDataType getDiagnosticChain() {
+        return diagnosticChainEDataType;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ErfFactory getErfFactory() {
@@ -658,8 +746,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private boolean isCreated = false;
@@ -667,8 +754,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     /**
      * Creates the meta-model objects for the package.  This method is
      * guarded to have no affect on any invocation but its first.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void createPackageContents() {
@@ -679,12 +765,14 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         attributeDefinitionEClass = createEClass( ATTRIBUTE_DEFINITION );
         createEReference( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__TYPE );
         createEAttribute( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__IDENT );
-        createEAttribute( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__UNIQUE );
         createEReference( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__UI_PROPERTIES );
+        createEAttribute( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__UNIQUE );
 
         attributeValueEClass = createEClass( ATTRIBUTE_VALUE );
+        createEReference( attributeValueEClass, ATTRIBUTE_VALUE__DEFINITION );
 
         datatypeDefinitionEClass = createEClass( DATATYPE_DEFINITION );
+        createEReference( datatypeDefinitionEClass, DATATYPE_DEFINITION__ATTRIBUTE_DEFINITIONS );
 
         specElementWithUserDefinedAttributesEClass = createEClass( SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES );
         createEReference( specElementWithUserDefinedAttributesEClass,
@@ -702,7 +790,6 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
 
         attributeValueSimpleEClass = createEClass( ATTRIBUTE_VALUE_SIMPLE );
         createEAttribute( attributeValueSimpleEClass, ATTRIBUTE_VALUE_SIMPLE__THE_VALUE );
-        createEReference( attributeValueSimpleEClass, ATTRIBUTE_VALUE_SIMPLE__DEFINITION );
 
         datatypeDefinitionIntegerEClass = createEClass( DATATYPE_DEFINITION_INTEGER );
         createEAttribute( datatypeDefinitionIntegerEClass, DATATYPE_DEFINITION_INTEGER__MAX );
@@ -741,11 +828,30 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                           ATTRIBUTE_DEFINITION_UI_PROPERTIES__EDITOR_ROW_NUMBER );
         createEAttribute( attributeDefinitionUiPropertiesEClass,
                           ATTRIBUTE_DEFINITION_UI_PROPERTIES__EDITOR_COLUMN_SPAN );
+
+        embeddedValueEClass = createEClass( EMBEDDED_VALUE );
+        createEAttribute( embeddedValueEClass, EMBEDDED_VALUE__KEY );
+        createEAttribute( embeddedValueEClass, EMBEDDED_VALUE__OTHER_CONTENT );
+
+        enumValueEClass = createEClass( ENUM_VALUE );
+        createEReference( enumValueEClass, ENUM_VALUE__PROPERTIES );
+
+        datatypeDefinitionEnumerationEClass = createEClass( DATATYPE_DEFINITION_ENUMERATION );
+        createEReference( datatypeDefinitionEnumerationEClass, DATATYPE_DEFINITION_ENUMERATION__SPECIFIED_VALUES );
+
+        attributeDefinitionEnumerationEClass = createEClass( ATTRIBUTE_DEFINITION_ENUMERATION );
+        createEAttribute( attributeDefinitionEnumerationEClass, ATTRIBUTE_DEFINITION_ENUMERATION__MULTI_VALUED );
+        createEReference( attributeDefinitionEnumerationEClass, ATTRIBUTE_DEFINITION_ENUMERATION__DEFAULT_VALUE );
+
+        attributeValueEnumerationEClass = createEClass( ATTRIBUTE_VALUE_ENUMERATION );
+        createEReference( attributeValueEnumerationEClass, ATTRIBUTE_VALUE_ENUMERATION__VALUES );
+
+        // Create data types
+        diagnosticChainEDataType = createEDataType( DIAGNOSTIC_CHAIN );
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private boolean isInitialized = false;
@@ -753,8 +859,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     /**
      * Complete the initialization of the package and its meta-model.  This
      * method is guarded to have no affect on any invocation but its first.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void initializePackageContents() {
@@ -785,6 +890,10 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         datatypeDefinitionStringEClass.getESuperTypes().add( this.getDatatypeDefinitionSimple() );
         attributeDefinitionSimpleEClass.getESuperTypes().add( this.getAttributeDefinition() );
         specRelationEClass.getESuperTypes().add( this.getSpecElementWithUserDefinedAttributes() );
+        enumValueEClass.getESuperTypes().add( this.getIdentifiable() );
+        datatypeDefinitionEnumerationEClass.getESuperTypes().add( this.getDatatypeDefinition() );
+        attributeDefinitionEnumerationEClass.getESuperTypes().add( this.getAttributeDefinition() );
+        attributeValueEnumerationEClass.getESuperTypes().add( this.getAttributeValue() );
 
         // Initialize classes and features; add operations and parameters
         initEClass( attributeDefinitionEClass,
@@ -795,7 +904,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                     IS_GENERATED_INSTANCE_CLASS );
         initEReference( getAttributeDefinition_Type(),
                         this.getDatatypeDefinition(),
-                        null,
+                        this.getDatatypeDefinition_AttributeDefinitions(),
                         "type",
                         null,
                         1,
@@ -825,21 +934,6 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         IS_UNIQUE,
                         !IS_DERIVED,
                         !IS_ORDERED );
-        initEAttribute( getAttributeDefinition_Unique(),
-                        ecorePackage.getEBoolean(),
-                        "unique",
-                        "false",
-                        1,
-                        1,
-                        AttributeDefinition.class,
-                        !IS_TRANSIENT,
-                        !IS_VOLATILE,
-                        IS_CHANGEABLE,
-                        !IS_UNSETTABLE,
-                        !IS_ID,
-                        !IS_UNIQUE,
-                        !IS_DERIVED,
-                        !IS_ORDERED );
         initEReference( getAttributeDefinition_UiProperties(),
                         this.getAttributeDefinitionUiProperties(),
                         null,
@@ -857,6 +951,21 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         IS_UNIQUE,
                         !IS_DERIVED,
                         !IS_ORDERED );
+        initEAttribute( getAttributeDefinition_Unique(),
+                        ecorePackage.getEBoolean(),
+                        "unique",
+                        "false",
+                        1,
+                        1,
+                        AttributeDefinition.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_UNSETTABLE,
+                        !IS_ID,
+                        !IS_UNIQUE,
+                        !IS_DERIVED,
+                        !IS_ORDERED );
 
         initEClass( attributeValueEClass,
                     AttributeValue.class,
@@ -864,6 +973,23 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                     IS_ABSTRACT,
                     !IS_INTERFACE,
                     IS_GENERATED_INSTANCE_CLASS );
+        initEReference( getAttributeValue_Definition(),
+                        this.getAttributeDefinition(),
+                        null,
+                        "definition",
+                        null,
+                        1,
+                        1,
+                        AttributeValue.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_COMPOSITE,
+                        IS_RESOLVE_PROXIES,
+                        !IS_UNSETTABLE,
+                        IS_UNIQUE,
+                        !IS_DERIVED,
+                        IS_ORDERED );
 
         initEClass( datatypeDefinitionEClass,
                     DatatypeDefinition.class,
@@ -871,6 +997,23 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                     IS_ABSTRACT,
                     !IS_INTERFACE,
                     IS_GENERATED_INSTANCE_CLASS );
+        initEReference( getDatatypeDefinition_AttributeDefinitions(),
+                        this.getAttributeDefinition(),
+                        this.getAttributeDefinition_Type(),
+                        "attributeDefinitions",
+                        null,
+                        0,
+                        -1,
+                        DatatypeDefinition.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_COMPOSITE,
+                        IS_RESOLVE_PROXIES,
+                        !IS_UNSETTABLE,
+                        IS_UNIQUE,
+                        !IS_DERIVED,
+                        IS_ORDERED );
 
         initEClass( specElementWithUserDefinedAttributesEClass,
                     SpecElementWithUserDefinedAttributes.class,
@@ -998,23 +1141,6 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         IS_CHANGEABLE,
                         !IS_UNSETTABLE,
                         !IS_ID,
-                        IS_UNIQUE,
-                        !IS_DERIVED,
-                        IS_ORDERED );
-        initEReference( getAttributeValueSimple_Definition(),
-                        this.getAttributeDefinitionSimple(),
-                        null,
-                        "definition",
-                        null,
-                        1,
-                        1,
-                        AttributeValueSimple.class,
-                        !IS_TRANSIENT,
-                        !IS_VOLATILE,
-                        IS_CHANGEABLE,
-                        !IS_COMPOSITE,
-                        IS_RESOLVE_PROXIES,
-                        !IS_UNSETTABLE,
                         IS_UNIQUE,
                         !IS_DERIVED,
                         IS_ORDERED );
@@ -1156,10 +1282,10 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         IS_CHANGEABLE,
                         IS_COMPOSITE,
                         !IS_RESOLVE_PROXIES,
-                        !IS_UNSETTABLE,
+                        IS_UNSETTABLE,
                         IS_UNIQUE,
                         !IS_DERIVED,
-                        IS_ORDERED );
+                        !IS_ORDERED );
 
         initEClass( erfEClass,
                     era.foss.erf.ERF.class,
@@ -1348,42 +1474,173 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         !IS_DERIVED,
                         !IS_ORDERED );
 
+        initEClass( embeddedValueEClass,
+                    EmbeddedValue.class,
+                    "EmbeddedValue",
+                    !IS_ABSTRACT,
+                    !IS_INTERFACE,
+                    IS_GENERATED_INSTANCE_CLASS );
+        initEAttribute( getEmbeddedValue_Key(),
+                        ecorePackage.getEInt(),
+                        "key",
+                        "0",
+                        1,
+                        1,
+                        EmbeddedValue.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_UNSETTABLE,
+                        !IS_ID,
+                        !IS_UNIQUE,
+                        !IS_DERIVED,
+                        !IS_ORDERED );
+        initEAttribute( getEmbeddedValue_OtherContent(),
+                        ecorePackage.getEString(),
+                        "otherContent",
+                        "",
+                        1,
+                        1,
+                        EmbeddedValue.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_UNSETTABLE,
+                        !IS_ID,
+                        !IS_UNIQUE,
+                        !IS_DERIVED,
+                        !IS_ORDERED );
+
+        initEClass( enumValueEClass,
+                    EnumValue.class,
+                    "EnumValue",
+                    !IS_ABSTRACT,
+                    !IS_INTERFACE,
+                    IS_GENERATED_INSTANCE_CLASS );
+        initEReference( getEnumValue_Properties(),
+                        this.getEmbeddedValue(),
+                        null,
+                        "properties",
+                        null,
+                        1,
+                        1,
+                        EnumValue.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        IS_COMPOSITE,
+                        !IS_RESOLVE_PROXIES,
+                        !IS_UNSETTABLE,
+                        IS_UNIQUE,
+                        !IS_DERIVED,
+                        IS_ORDERED );
+
+        initEClass( datatypeDefinitionEnumerationEClass,
+                    DatatypeDefinitionEnumeration.class,
+                    "DatatypeDefinitionEnumeration",
+                    !IS_ABSTRACT,
+                    !IS_INTERFACE,
+                    IS_GENERATED_INSTANCE_CLASS );
+        initEReference( getDatatypeDefinitionEnumeration_SpecifiedValues(),
+                        this.getEnumValue(),
+                        null,
+                        "specifiedValues",
+                        null,
+                        0,
+                        -1,
+                        DatatypeDefinitionEnumeration.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        IS_COMPOSITE,
+                        !IS_RESOLVE_PROXIES,
+                        !IS_UNSETTABLE,
+                        IS_UNIQUE,
+                        !IS_DERIVED,
+                        IS_ORDERED );
+
+        initEClass( attributeDefinitionEnumerationEClass,
+                    AttributeDefinitionEnumeration.class,
+                    "AttributeDefinitionEnumeration",
+                    !IS_ABSTRACT,
+                    !IS_INTERFACE,
+                    IS_GENERATED_INSTANCE_CLASS );
+        initEAttribute( getAttributeDefinitionEnumeration_MultiValued(),
+                        ecorePackage.getEBoolean(),
+                        "multiValued",
+                        "false",
+                        0,
+                        1,
+                        AttributeDefinitionEnumeration.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_UNSETTABLE,
+                        !IS_ID,
+                        IS_UNIQUE,
+                        !IS_DERIVED,
+                        IS_ORDERED );
+        initEReference( getAttributeDefinitionEnumeration_DefaultValue(),
+                        this.getAttributeValueEnumeration(),
+                        null,
+                        "defaultValue",
+                        null,
+                        0,
+                        1,
+                        AttributeDefinitionEnumeration.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        IS_COMPOSITE,
+                        !IS_RESOLVE_PROXIES,
+                        IS_UNSETTABLE,
+                        IS_UNIQUE,
+                        !IS_DERIVED,
+                        !IS_ORDERED );
+
+        initEClass( attributeValueEnumerationEClass,
+                    AttributeValueEnumeration.class,
+                    "AttributeValueEnumeration",
+                    !IS_ABSTRACT,
+                    !IS_INTERFACE,
+                    IS_GENERATED_INSTANCE_CLASS );
+        initEReference( getAttributeValueEnumeration_Values(),
+                        this.getEnumValue(),
+                        null,
+                        "values",
+                        null,
+                        1,
+                        -1,
+                        AttributeValueEnumeration.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_COMPOSITE,
+                        IS_RESOLVE_PROXIES,
+                        !IS_UNSETTABLE,
+                        IS_UNIQUE,
+                        !IS_DERIVED,
+                        IS_ORDERED );
+
+        // Initialize data types
+        initEDataType( diagnosticChainEDataType,
+                       DiagnosticChain.class,
+                       "DiagnosticChain",
+                       IS_SERIALIZABLE,
+                       !IS_GENERATED_INSTANCE_CLASS );
+
         // Create resource
         createResource( eNS_URI );
 
         // Create annotations
-        // UI
-        createUIAnnotations();
         // http://www.eclipse.org/emf/2002/Ecore
         createEcoreAnnotations();
     }
 
     /**
-     * Initializes the annotations for <b>UI</b>.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void createUIAnnotations() {
-        String source = "UI";
-        addAnnotation( getAttributeDefinition_Type(), source, new String[]{
-            "ObservedStructuralFeature",
-            "coreContent:dataTypes"} );
-        addAnnotation( getAttributeDefinition_Ident(), source, new String[]{"Detail", "true"} );
-        addAnnotation( getAttributeDefinition_Unique(), source, new String[]{"Detail", "true"} );
-        addAnnotation( getAttributeDefinition_UiProperties(), source, new String[]{"Detail", "true"} );
-        addAnnotation( getDatatypeDefinitionInteger_Max(), source, new String[]{"Detail", "true"} );
-        addAnnotation( getDatatypeDefinitionInteger_Min(), source, new String[]{"Detail", "true"} );
-        addAnnotation( getDatatypeDefinitionString_MaxLength(), source, new String[]{"Detail", "true"} );
-        addAnnotation( getAttributeDefinitionUiProperties_EditorShowLabel(), source, new String[]{"Detail", "true"} );
-        addAnnotation( getAttributeDefinitionUiProperties_EditorRowNumber(), source, new String[]{"Detail", "true"} );
-        addAnnotation( getAttributeDefinitionUiProperties_EditorColumnSpan(), source, new String[]{"Detail", "true"} );
-    }
-
-    /**
      * Initializes the annotations for <b>http://www.eclipse.org/emf/2002/Ecore</b>.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      */
     protected void createEcoreAnnotations() {
@@ -1396,4 +1653,4 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
             "NonNegative MaxGreaterThanMin"} );
     }
 
-} //ErfPackageImpl
+} // ErfPackageImpl

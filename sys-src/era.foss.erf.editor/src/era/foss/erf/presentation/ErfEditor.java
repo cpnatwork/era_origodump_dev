@@ -969,7 +969,7 @@ public class ErfEditor extends MultiPageEditorPart implements IEditingDomainProv
                 int pageIndex = addPage( new NebulaBasedSpecObjectsComposite( getContainer(), editingDomain, erfModel ) );
                 setPageText( pageIndex, "Nebula as Composite" );
             }
-            
+
             // Create a page for the ERA SpecObjectViewerPane / TableViewer-based
             //
             {
@@ -980,7 +980,7 @@ public class ErfEditor extends MultiPageEditorPart implements IEditingDomainProv
                 int pageIndex = addPage( viewerPane.getControl() );
                 setPageText( pageIndex, "Nebula as Viewer[Pane]" );
             }
-            
+
             // Create a page for the ERA SpecObjectViewerPane / TableViewer-based
             //
             {

@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.EObject;
 public interface AttributeDefinitionUiProperties extends EObject {
 
     /**
-     * @model unique="false" default="true" required="true" ordered="false" annotation="UI Detail='true'"
+     * @model unique="false" default="true" required="true" ordered="false"
      * @Not generated
      * @return
      */
@@ -25,7 +25,7 @@ public interface AttributeDefinitionUiProperties extends EObject {
     void setEditorShowLabel( boolean value );
 
     /**
-     * @model unique="false" default="1" lowerBound="1" upperBound="1" ordered="false" annotation="UI Detail='true'"
+     * @model unique="false" default="1" lowerBound="1" upperBound="1" ordered="false"
      * @Not generated
      * @return
      */
@@ -41,7 +41,7 @@ public interface AttributeDefinitionUiProperties extends EObject {
     void setEditorRowNumber( int value );
 
     /**
-     * @model unique="false" default="1" lowerBound="1" upperBound="1" ordered="false" annotation="UI Detail='true'"
+     * @model unique="false" default="1" lowerBound="1" upperBound="1" ordered="false"
      * @Not generated
      * @return
      */

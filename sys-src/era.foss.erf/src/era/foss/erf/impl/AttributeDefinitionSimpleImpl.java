@@ -54,6 +54,15 @@ public class AttributeDefinitionSimpleImpl extends AttributeDefinitionImpl imple
     protected AttributeValueSimple defaultValue;
 
     /**
+     * This is true if the Default Value containment reference has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean defaultValueESet;
+
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -89,13 +98,16 @@ public class AttributeDefinitionSimpleImpl extends AttributeDefinitionImpl imple
     public NotificationChain basicSetDefaultValue( AttributeValueSimple newDefaultValue, NotificationChain msgs ) {
         AttributeValueSimple oldDefaultValue = defaultValue;
         defaultValue = newDefaultValue;
+        boolean oldDefaultValueESet = defaultValueESet;
+        defaultValueESet = true;
         if( eNotificationRequired() ) {
             ENotificationImpl notification = new ENotificationImpl(
                 this,
                 Notification.SET,
                 ErfPackage.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE,
                 oldDefaultValue,
-                newDefaultValue );
+                newDefaultValue,
+                !oldDefaultValueESet );
             if( msgs == null ) msgs = notification;
             else msgs.add( notification );
         }
@@ -122,12 +134,75 @@ public class AttributeDefinitionSimpleImpl extends AttributeDefinitionImpl imple
                                                                                                  msgs );
             msgs = basicSetDefaultValue( newDefaultValue, msgs );
             if( msgs != null ) msgs.dispatch();
-        } else if( eNotificationRequired() ) eNotify( new ENotificationImpl(
-            this,
-            Notification.SET,
-            ErfPackage.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE,
-            newDefaultValue,
-            newDefaultValue ) );
+        } else {
+            boolean oldDefaultValueESet = defaultValueESet;
+            defaultValueESet = true;
+            if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+                this,
+                Notification.SET,
+                ErfPackage.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE,
+                newDefaultValue,
+                newDefaultValue,
+                !oldDefaultValueESet ) );
+        }
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicUnsetDefaultValue( NotificationChain msgs ) {
+        AttributeValueSimple oldDefaultValue = defaultValue;
+        defaultValue = null;
+        boolean oldDefaultValueESet = defaultValueESet;
+        defaultValueESet = false;
+        if( eNotificationRequired() ) {
+            ENotificationImpl notification = new ENotificationImpl(
+                this,
+                Notification.UNSET,
+                ErfPackage.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE,
+                oldDefaultValue,
+                null,
+                oldDefaultValueESet );
+            if( msgs == null ) msgs = notification;
+            else msgs.add( notification );
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetDefaultValue() {
+        if( defaultValue != null ) {
+            NotificationChain msgs = null;
+            msgs = ((InternalEObject)defaultValue).eInverseRemove( this, EOPPOSITE_FEATURE_BASE
+                - ErfPackage.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE, null, msgs );
+            msgs = basicUnsetDefaultValue( msgs );
+            if( msgs != null ) msgs.dispatch();
+        } else {
+            boolean oldDefaultValueESet = defaultValueESet;
+            defaultValueESet = false;
+            if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+                this,
+                Notification.UNSET,
+                ErfPackage.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE,
+                null,
+                null,
+                oldDefaultValueESet ) );
+        }
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetDefaultValue() {
+        return defaultValueESet;
     }
 
     /**
@@ -139,7 +214,7 @@ public class AttributeDefinitionSimpleImpl extends AttributeDefinitionImpl imple
     public NotificationChain eInverseRemove( InternalEObject otherEnd, int featureID, NotificationChain msgs ) {
         switch (featureID) {
         case ErfPackage.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE:
-            return basicSetDefaultValue( null, msgs );
+            return basicUnsetDefaultValue( msgs );
         }
         return super.eInverseRemove( otherEnd, featureID, msgs );
     }
@@ -182,7 +257,7 @@ public class AttributeDefinitionSimpleImpl extends AttributeDefinitionImpl imple
     public void eUnset( int featureID ) {
         switch (featureID) {
         case ErfPackage.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE:
-            setDefaultValue( (AttributeValueSimple)null );
+            unsetDefaultValue();
             return;
         }
         super.eUnset( featureID );
@@ -197,7 +272,7 @@ public class AttributeDefinitionSimpleImpl extends AttributeDefinitionImpl imple
     public boolean eIsSet( int featureID ) {
         switch (featureID) {
         case ErfPackage.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE:
-            return defaultValue != null;
+            return isSetDefaultValue();
         }
         return super.eIsSet( featureID );
     }

@@ -1,21 +1,21 @@
 /**************************************************************************
-* ERA - Eclipse Requirements Analysis
-* ==============================================
-* Copyright (C) 2009-2011 by Georg Blaschke, Christoph P. Neumann
-* and Bernd Haberstumpf (http://era.origo.ethz.ch)
-**************************************************************************
-* Licensed under the Eclipse Public License - v 1.0 (the "License");
-* you may not use this file except in compliance with
-* the License. You may obtain a copy of the License at
-* http://www.eclipse.org/org/documents/epl-v10.html
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-**************************************************************************
-* $Id$
-*************************************************************************/
+ * ERA - Eclipse Requirements Analysis
+ * ==============================================
+ * Copyright (C) 2009-2011 by Georg Blaschke, Christoph P. Neumann
+ * and Bernd Haberstumpf (http://era.origo.ethz.ch)
+ **************************************************************************
+ * Licensed under the Eclipse Public License - v 1.0 (the "License");
+ * you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.eclipse.org/org/documents/epl-v10.html
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ **************************************************************************
+ * $Id$
+ *************************************************************************/
 package era.foss.typeeditor;
 
 import org.eclipse.core.databinding.DataBindingContext;
@@ -76,7 +76,7 @@ import era.foss.erf.impl.ErfFactoryImpl;
 public class AddDeleteTableViewer extends TableViewer {
 
     /**
-     * Composite holding the table, the element description ({@link #descriptionText}) and the button bar (.
+     * Composite holding the table, the element description ({@link #descriptionText}) and the button bar (
      * {@link #buttonBar})
      */
     private Composite composite;
@@ -86,10 +86,10 @@ public class AddDeleteTableViewer extends TableViewer {
 
     /** The table. */
     protected Table table;
-    
+
     /** The editing domain. */
     protected EditingDomain editingDomain;
-    
+
     /** The type editor activator. */
     protected Activator typeEditorActivator;
 
@@ -108,14 +108,14 @@ public class AddDeleteTableViewer extends TableViewer {
     // standard add and remove button
     /** The remove elements button. */
     Button removeElementsButton;
-    
+
     /** The add element button. */
     Button addElementButton;
 
     // parameters for add Command
     /** The add command owner. */
     private EObject addCommandOwner;
-    
+
     /** The add command value default type. */
     private EClass addCommandValueDefaultType;
 
@@ -125,7 +125,7 @@ public class AddDeleteTableViewer extends TableViewer {
     //
     /** The data bind context. */
     private DataBindingContext dataBindContext;
-    
+
     /** The master. */
     private IObservableValue master;
 
@@ -162,6 +162,7 @@ public class AddDeleteTableViewer extends TableViewer {
         super( new Composite( new Composite( parent, SWT.NONE ), SWT.NONE ), style );
         table = this.getTable();
         this.typeEditorActivator = era.foss.typeeditor.Activator.INSTANCE;
+
         layoutComposite();
         createButtonBar();
         setupTable();
@@ -200,9 +201,12 @@ public class AddDeleteTableViewer extends TableViewer {
 
         // set column layout of table composite
         tableComposite.setLayout( new TableColumnLayout() );
-        tableComposite.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
-
-        composite.setLayout( new GridLayout( 1, false ) );
+        GridData gridData = new GridData( SWT.FILL, SWT.FILL, true, true );
+        // always show a mimimum of 5 rows
+        gridData.minimumHeight = table.getItemHeight() * 5 + 5;
+        tableComposite.setLayoutData( gridData );
+        GridLayout gridLayout = new GridLayout( 1, true );
+        composite.setLayout( gridLayout );
 
     }
 
@@ -240,7 +244,7 @@ public class AddDeleteTableViewer extends TableViewer {
             }
         };
 
-        // create table viewer editor (*?*)
+        // define strategy how table cells are traversed and activated with the keyboard
         TableViewerEditor.create( this, actStrategy, ColumnViewerEditor.TABBING_HORIZONTAL
             | ColumnViewerEditor.TABBING_MOVE_TO_ROW_NEIGHBOR
             | ColumnViewerEditor.TABBING_VERTICAL
@@ -256,13 +260,17 @@ public class AddDeleteTableViewer extends TableViewer {
         // Label for description
         Label descriptionLabel = new Label( composite, SWT.NONE );
         descriptionLabel.setText( typeEditorActivator.getString( "_UI_Description_label" ) + ":" );
-        descriptionLabel.setLayoutData( new GridData( SWT.LEFT, SWT.BOTTOM, false, false, 0, 0 ) );
+        descriptionLabel.setLayoutData( new GridData( SWT.LEFT, SWT.BOTTOM, false, false ) );
 
         // Text widget for the general Description attribute of any ERF-Identifiable
-        // descriptionText = new Text( composite, SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL );
-        descriptionText = new Text( composite, SWT.BORDER | SWT.MULTI );
-        descriptionText.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true, 0, 0 ) );
+        descriptionText = new Text( composite, SWT.BORDER | SWT.MULTI | SWT.WRAP );
+
+        GridData gridData = new GridData( SWT.FILL, SWT.FILL, true, true );
+        // always show a mimimum of 2 lines of Text
+        gridData.minimumHeight = descriptionText.getLineHeight() * 2 + 10;
+        descriptionText.setLayoutData( gridData );
         descriptionText.setEnabled( false );
+
         // bind values
         master = ViewerProperties.singleSelection().observe( this );
 
@@ -316,8 +324,8 @@ public class AddDeleteTableViewer extends TableViewer {
         addElementButton.setText( "Add" );
         addElementButton.addSelectionListener( new SelectionAdapter() {
             public void widgetSelected( SelectionEvent event ) {
-                addElement();
-                refresh();
+                AddDeleteTableViewer.this.addElement();
+                AddDeleteTableViewer.this.refresh();
             }
         } );
 

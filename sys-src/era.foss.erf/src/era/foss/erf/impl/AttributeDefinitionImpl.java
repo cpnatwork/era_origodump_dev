@@ -37,8 +37,8 @@ import era.foss.erf.ErfPackage;
  * <ul>
  *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#getType <em>Type</em>}</li>
  *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#isIdent <em>Ident</em>}</li>
- *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#isUnique <em>Unique</em>}</li>
  *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#getUiProperties <em>Ui Properties</em>}</li>
+ *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#isUnique <em>Unique</em>}</li>
  * </ul>
  * </p>
  *
@@ -77,6 +77,16 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     protected boolean ident = IDENT_EDEFAULT;
 
     /**
+     * The cached value of the '{@link #getUiProperties() <em>Ui Properties</em>}' containment reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @see #getUiProperties()
+     * @generated
+     * @ordered
+     */
+    protected AttributeDefinitionUiProperties uiProperties;
+
+    /**
      * The default value of the '{@link #isUnique() <em>Unique</em>}' attribute.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
@@ -95,16 +105,6 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
      * @ordered
      */
     protected boolean unique = UNIQUE_EDEFAULT;
-
-    /**
-     * The cached value of the '{@link #getUiProperties() <em>Ui Properties</em>}' containment reference. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @see #getUiProperties()
-     * @generated
-     * @ordered
-     */
-    protected AttributeDefinitionUiProperties uiProperties;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -157,15 +157,45 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public void setType( DatatypeDefinition newType ) {
+    public NotificationChain basicSetType( DatatypeDefinition newType, NotificationChain msgs ) {
         DatatypeDefinition oldType = type;
         type = newType;
-        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+        if( eNotificationRequired() ) {
+            ENotificationImpl notification = new ENotificationImpl(
+                this,
+                Notification.SET,
+                ErfPackage.ATTRIBUTE_DEFINITION__TYPE,
+                oldType,
+                newType );
+            if( msgs == null ) msgs = notification;
+            else msgs.add( notification );
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public void setType( DatatypeDefinition newType ) {
+        if( newType != type ) {
+            NotificationChain msgs = null;
+            if( type != null ) msgs = ((InternalEObject)type).eInverseRemove( this,
+                                                                              ErfPackage.DATATYPE_DEFINITION__ATTRIBUTE_DEFINITIONS,
+                                                                              DatatypeDefinition.class,
+                                                                              msgs );
+            if( newType != null ) msgs = ((InternalEObject)newType).eInverseAdd( this,
+                                                                                 ErfPackage.DATATYPE_DEFINITION__ATTRIBUTE_DEFINITIONS,
+                                                                                 DatatypeDefinition.class,
+                                                                                 msgs );
+            msgs = basicSetType( newType, msgs );
+            if( msgs != null ) msgs.dispatch();
+        } else if( eNotificationRequired() ) eNotify( new ENotificationImpl(
             this,
             Notification.SET,
             ErfPackage.ATTRIBUTE_DEFINITION__TYPE,
-            oldType,
-            type ) );
+            newType,
+            newType ) );
     }
 
     /**
@@ -212,6 +242,23 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
             ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE,
             oldUnique,
             unique ) );
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public NotificationChain eInverseAdd( InternalEObject otherEnd, int featureID, NotificationChain msgs ) {
+        switch (featureID) {
+        case ErfPackage.ATTRIBUTE_DEFINITION__TYPE:
+            if( type != null ) msgs = ((InternalEObject)type).eInverseRemove( this,
+                                                                              ErfPackage.DATATYPE_DEFINITION__ATTRIBUTE_DEFINITIONS,
+                                                                              DatatypeDefinition.class,
+                                                                              msgs );
+            return basicSetType( (DatatypeDefinition)otherEnd, msgs );
+        }
+        return super.eInverseAdd( otherEnd, featureID, msgs );
     }
 
     /**
@@ -278,6 +325,8 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     @Override
     public NotificationChain eInverseRemove( InternalEObject otherEnd, int featureID, NotificationChain msgs ) {
         switch (featureID) {
+        case ErfPackage.ATTRIBUTE_DEFINITION__TYPE:
+            return basicSetType( null, msgs );
         case ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES:
             return basicSetUiProperties( null, msgs );
         }
@@ -296,10 +345,10 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
             return basicGetType();
         case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
             return isIdent();
-        case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
-            return isUnique();
         case ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES:
             return getUiProperties();
+        case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
+            return isUnique();
         }
         return super.eGet( featureID, resolve, coreType );
     }
@@ -317,11 +366,11 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
         case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
             setIdent( (Boolean)newValue );
             return;
-        case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
-            setUnique( (Boolean)newValue );
-            return;
         case ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES:
             setUiProperties( (AttributeDefinitionUiProperties)newValue );
+            return;
+        case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
+            setUnique( (Boolean)newValue );
             return;
         }
         super.eSet( featureID, newValue );
@@ -340,11 +389,11 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
         case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
             setIdent( IDENT_EDEFAULT );
             return;
-        case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
-            setUnique( UNIQUE_EDEFAULT );
-            return;
         case ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES:
             setUiProperties( (AttributeDefinitionUiProperties)null );
+            return;
+        case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
+            setUnique( UNIQUE_EDEFAULT );
             return;
         }
         super.eUnset( featureID );
@@ -361,10 +410,10 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
             return type != null;
         case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
             return ident != IDENT_EDEFAULT;
-        case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
-            return unique != UNIQUE_EDEFAULT;
         case ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES:
             return uiProperties != null;
+        case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
+            return unique != UNIQUE_EDEFAULT;
         }
         return super.eIsSet( featureID );
     }

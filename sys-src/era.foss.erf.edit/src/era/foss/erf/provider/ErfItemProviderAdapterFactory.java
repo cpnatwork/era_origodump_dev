@@ -319,6 +319,121 @@ public class ErfItemProviderAdapterFactory extends ErfAdapterFactory implements 
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link era.foss.erf.EmbeddedValue} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected EmbeddedValueItemProvider embeddedValueItemProvider;
+
+    /**
+     * This creates an adapter for a {@link era.foss.erf.EmbeddedValue}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createEmbeddedValueAdapter() {
+        if( embeddedValueItemProvider == null ) {
+            embeddedValueItemProvider = new EmbeddedValueItemProvider( this );
+        }
+
+        return embeddedValueItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link era.foss.erf.EnumValue} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected EnumValueItemProvider enumValueItemProvider;
+
+    /**
+     * This creates an adapter for a {@link era.foss.erf.EnumValue}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createEnumValueAdapter() {
+        if( enumValueItemProvider == null ) {
+            enumValueItemProvider = new EnumValueItemProvider( this );
+        }
+
+        return enumValueItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link era.foss.erf.DatatypeDefinitionEnumeration} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected DatatypeDefinitionEnumerationItemProvider datatypeDefinitionEnumerationItemProvider;
+
+    /**
+     * This creates an adapter for a {@link era.foss.erf.DatatypeDefinitionEnumeration}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createDatatypeDefinitionEnumerationAdapter() {
+        if( datatypeDefinitionEnumerationItemProvider == null ) {
+            datatypeDefinitionEnumerationItemProvider = new DatatypeDefinitionEnumerationItemProvider( this );
+        }
+
+        return datatypeDefinitionEnumerationItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link era.foss.erf.AttributeDefinitionEnumeration} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected AttributeDefinitionEnumerationItemProvider attributeDefinitionEnumerationItemProvider;
+
+    /**
+     * This creates an adapter for a {@link era.foss.erf.AttributeDefinitionEnumeration}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createAttributeDefinitionEnumerationAdapter() {
+        if( attributeDefinitionEnumerationItemProvider == null ) {
+            attributeDefinitionEnumerationItemProvider = new AttributeDefinitionEnumerationItemProvider( this );
+        }
+
+        return attributeDefinitionEnumerationItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link era.foss.erf.AttributeValueEnumeration} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected AttributeValueEnumerationItemProvider attributeValueEnumerationItemProvider;
+
+    /**
+     * This creates an adapter for a {@link era.foss.erf.AttributeValueEnumeration}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createAttributeValueEnumerationAdapter() {
+        if( attributeValueEnumerationItemProvider == null ) {
+            attributeValueEnumerationItemProvider = new AttributeValueEnumerationItemProvider( this );
+        }
+
+        return attributeValueEnumerationItemProvider;
+    }
+
+    /**
      * This returns the root adapter factory that contains this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -427,6 +542,11 @@ public class ErfItemProviderAdapterFactory extends ErfAdapterFactory implements 
         if( contentItemProvider != null ) contentItemProvider.dispose();
         if( specRelationItemProvider != null ) specRelationItemProvider.dispose();
         if( attributeDefinitionUiPropertiesItemProvider != null ) attributeDefinitionUiPropertiesItemProvider.dispose();
+        if( embeddedValueItemProvider != null ) embeddedValueItemProvider.dispose();
+        if( enumValueItemProvider != null ) enumValueItemProvider.dispose();
+        if( datatypeDefinitionEnumerationItemProvider != null ) datatypeDefinitionEnumerationItemProvider.dispose();
+        if( attributeDefinitionEnumerationItemProvider != null ) attributeDefinitionEnumerationItemProvider.dispose();
+        if( attributeValueEnumerationItemProvider != null ) attributeValueEnumerationItemProvider.dispose();
     }
 
 }

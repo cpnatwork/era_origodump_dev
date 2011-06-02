@@ -1,24 +1,12 @@
-/**************************************************************************
- * ERA - Eclipse Requirements Analysis
- * ==============================================
- * Copyright (C) 2009-2011 by Georg Blaschke, Christoph P. Neumann
- * and Bernd Haberstumpf (http://era.origo.ethz.ch)
- **************************************************************************
- * Licensed under the Eclipse Public License - v 1.0 (the "License");
- * you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
- * http://www.eclipse.org/org/documents/epl-v10.html
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- **************************************************************************
+/**
+ * <copyright>
+ * </copyright>
+ *
  * $Id$
- *************************************************************************/
+ */
 package era.foss.erf.provider;
 
-import era.foss.erf.AttributeValueSimple;
+import era.foss.erf.EmbeddedValue;
 import era.foss.erf.ErfPackage;
 
 import java.util.Collection;
@@ -26,6 +14,8 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
@@ -35,24 +25,24 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link era.foss.erf.AttributeValueSimple} object.
+ * This is the item provider adapter for a {@link era.foss.erf.EmbeddedValue} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class AttributeValueSimpleItemProvider extends AttributeValueItemProvider implements
-        IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-        IItemPropertySource {
+public class EmbeddedValueItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+        IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
     /**
      * This constructs an instance from a factory and a notifier.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    public AttributeValueSimpleItemProvider( AdapterFactory adapterFactory ) {
+    public EmbeddedValueItemProvider( AdapterFactory adapterFactory ) {
         super( adapterFactory );
     }
 
@@ -67,25 +57,48 @@ public class AttributeValueSimpleItemProvider extends AttributeValueItemProvider
         if( itemPropertyDescriptors == null ) {
             super.getPropertyDescriptors( object );
 
-            addTheValuePropertyDescriptor( object );
+            addKeyPropertyDescriptor( object );
+            addOtherContentPropertyDescriptor( object );
         }
         return itemPropertyDescriptors;
     }
 
     /**
-     * This adds a property descriptor for the The Value feature.
+     * This adds a property descriptor for the Key feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addTheValuePropertyDescriptor( Object object ) {
+    protected void addKeyPropertyDescriptor( Object object ) {
         itemPropertyDescriptors.add( createItemPropertyDescriptor( ((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                                                                    getResourceLocator(),
-                                                                   getString( "_UI_AttributeValueSimple_theValue_feature" ),
+                                                                   getString( "_UI_EmbeddedValue_key_feature" ),
                                                                    getString( "_UI_PropertyDescriptor_description",
-                                                                              "_UI_AttributeValueSimple_theValue_feature",
-                                                                              "_UI_AttributeValueSimple_type" ),
-                                                                   ErfPackage.Literals.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE,
+                                                                              "_UI_EmbeddedValue_key_feature",
+                                                                              "_UI_EmbeddedValue_type" ),
+                                                                   ErfPackage.Literals.EMBEDDED_VALUE__KEY,
+                                                                   true,
+                                                                   false,
+                                                                   false,
+                                                                   ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+                                                                   null,
+                                                                   null ) );
+    }
+
+    /**
+     * This adds a property descriptor for the Other Content feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addOtherContentPropertyDescriptor( Object object ) {
+        itemPropertyDescriptors.add( createItemPropertyDescriptor( ((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                                                                   getResourceLocator(),
+                                                                   getString( "_UI_EmbeddedValue_otherContent_feature" ),
+                                                                   getString( "_UI_PropertyDescriptor_description",
+                                                                              "_UI_EmbeddedValue_otherContent_feature",
+                                                                              "_UI_EmbeddedValue_type" ),
+                                                                   ErfPackage.Literals.EMBEDDED_VALUE__OTHER_CONTENT,
                                                                    true,
                                                                    false,
                                                                    false,
@@ -95,14 +108,14 @@ public class AttributeValueSimpleItemProvider extends AttributeValueItemProvider
     }
 
     /**
-     * This returns AttributeValueSimple.gif.
+     * This returns EmbeddedValue.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object getImage( Object object ) {
-        return overlayImage( object, getResourceLocator().getImage( "full/obj16/AttributeValueSimple" ) );
+        return overlayImage( object, getResourceLocator().getImage( "full/obj16/EmbeddedValue" ) );
     }
 
     /**
@@ -113,10 +126,8 @@ public class AttributeValueSimpleItemProvider extends AttributeValueItemProvider
      */
     @Override
     public String getText( Object object ) {
-        String label = ((AttributeValueSimple)object).getID();
-        return label == null || label.length() == 0
-            ? getString( "_UI_AttributeValueSimple_type" )
-            : getString( "_UI_AttributeValueSimple_type" ) + " " + label;
+        EmbeddedValue embeddedValue = (EmbeddedValue)object;
+        return getString( "_UI_EmbeddedValue_type" ) + " " + embeddedValue.getKey();
     }
 
     /**
@@ -130,8 +141,9 @@ public class AttributeValueSimpleItemProvider extends AttributeValueItemProvider
     public void notifyChanged( Notification notification ) {
         updateChildren( notification );
 
-        switch (notification.getFeatureID( AttributeValueSimple.class )) {
-        case ErfPackage.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE:
+        switch (notification.getFeatureID( EmbeddedValue.class )) {
+        case ErfPackage.EMBEDDED_VALUE__KEY:
+        case ErfPackage.EMBEDDED_VALUE__OTHER_CONTENT:
             fireNotifyChanged( new ViewerNotification( notification, notification.getNotifier(), false, true ) );
             return;
         }
@@ -148,6 +160,17 @@ public class AttributeValueSimpleItemProvider extends AttributeValueItemProvider
     @Override
     protected void collectNewChildDescriptors( Collection<Object> newChildDescriptors, Object object ) {
         super.collectNewChildDescriptors( newChildDescriptors, object );
+    }
+
+    /**
+     * Return the resource locator for this item provider's resources.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public ResourceLocator getResourceLocator() {
+        return ErfEditPlugin.INSTANCE;
     }
 
 }

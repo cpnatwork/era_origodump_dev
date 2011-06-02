@@ -21,18 +21,17 @@ package era.foss.erf;
 /**
  * @model
  * @author schorsch
- *
+ * 
  */
 public interface DatatypeDefinitionString extends DatatypeDefinitionSimple {
     /**
-     * @model unsettable="true" ordered="false" annotation="UI Detail='true'"
+     * @model unsettable="true" ordered="false"
      */
     public Integer getMaxLength();
 
     /**
      * Sets the value of the '{@link era.foss.erf.DatatypeDefinitionString#getMaxLength <em>Max Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Max Length</em>' attribute.
      * @see #isSetMaxLength()
      * @see #unsetMaxLength()
@@ -43,8 +42,7 @@ public interface DatatypeDefinitionString extends DatatypeDefinitionSimple {
 
     /**
      * Unsets the value of the '{@link era.foss.erf.DatatypeDefinitionString#getMaxLength <em>Max Length</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isSetMaxLength()
      * @see #getMaxLength()
      * @see #setMaxLength(Integer)
@@ -54,8 +52,7 @@ public interface DatatypeDefinitionString extends DatatypeDefinitionSimple {
 
     /**
      * Returns whether the value of the '{@link era.foss.erf.DatatypeDefinitionString#getMaxLength <em>Max Length</em>}' attribute is set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return whether the value of the '<em>Max Length</em>' attribute is set.
      * @see #unsetMaxLength()
      * @see #getMaxLength()

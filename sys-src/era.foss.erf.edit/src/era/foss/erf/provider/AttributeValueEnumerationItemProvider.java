@@ -1,26 +1,14 @@
-/**************************************************************************
- * ERA - Eclipse Requirements Analysis
- * ==============================================
- * Copyright (C) 2009-2011 by Georg Blaschke, Christoph P. Neumann
- * and Bernd Haberstumpf (http://era.origo.ethz.ch)
- **************************************************************************
- * Licensed under the Eclipse Public License - v 1.0 (the "License");
- * you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
- * http://www.eclipse.org/org/documents/epl-v10.html
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- **************************************************************************
+/**
+ * <copyright>
+ * </copyright>
+ *
  * $Id$
- *************************************************************************/
+ */
 package era.foss.erf.provider;
 
-import era.foss.erf.AttributeValue;
-
+import era.foss.erf.AttributeValueEnumeration;
 import era.foss.erf.ErfPackage;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -36,20 +24,21 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 
 /**
- * This is the item provider adapter for a {@link era.foss.erf.AttributeValue} object.
+ * This is the item provider adapter for a {@link era.foss.erf.AttributeValueEnumeration} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class AttributeValueItemProvider extends IdentifiableItemProvider implements IEditingDomainItemProvider,
-        IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class AttributeValueEnumerationItemProvider extends AttributeValueItemProvider implements
+        IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
+        IItemPropertySource {
     /**
      * This constructs an instance from a factory and a notifier.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    public AttributeValueItemProvider( AdapterFactory adapterFactory ) {
+    public AttributeValueEnumerationItemProvider( AdapterFactory adapterFactory ) {
         super( adapterFactory );
     }
 
@@ -64,31 +53,42 @@ public class AttributeValueItemProvider extends IdentifiableItemProvider impleme
         if( itemPropertyDescriptors == null ) {
             super.getPropertyDescriptors( object );
 
-            addDefinitionPropertyDescriptor( object );
+            addValuesPropertyDescriptor( object );
         }
         return itemPropertyDescriptors;
     }
 
     /**
-     * This adds a property descriptor for the Definition feature.
+     * This adds a property descriptor for the Values feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addDefinitionPropertyDescriptor( Object object ) {
+    protected void addValuesPropertyDescriptor( Object object ) {
         itemPropertyDescriptors.add( createItemPropertyDescriptor( ((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                                                                    getResourceLocator(),
-                                                                   getString( "_UI_AttributeValue_definition_feature" ),
+                                                                   getString( "_UI_AttributeValueEnumeration_values_feature" ),
                                                                    getString( "_UI_PropertyDescriptor_description",
-                                                                              "_UI_AttributeValue_definition_feature",
-                                                                              "_UI_AttributeValue_type" ),
-                                                                   ErfPackage.Literals.ATTRIBUTE_VALUE__DEFINITION,
+                                                                              "_UI_AttributeValueEnumeration_values_feature",
+                                                                              "_UI_AttributeValueEnumeration_type" ),
+                                                                   ErfPackage.Literals.ATTRIBUTE_VALUE_ENUMERATION__VALUES,
                                                                    true,
                                                                    false,
                                                                    true,
                                                                    null,
                                                                    null,
                                                                    null ) );
+    }
+
+    /**
+     * This returns AttributeValueEnumeration.gif.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Object getImage( Object object ) {
+        return overlayImage( object, getResourceLocator().getImage( "full/obj16/AttributeValueEnumeration" ) );
     }
 
     /**
@@ -99,10 +99,10 @@ public class AttributeValueItemProvider extends IdentifiableItemProvider impleme
      */
     @Override
     public String getText( Object object ) {
-        String label = ((AttributeValue)object).getID();
+        String label = ((AttributeValueEnumeration)object).getID();
         return label == null || label.length() == 0
-            ? getString( "_UI_AttributeValue_type" )
-            : getString( "_UI_AttributeValue_type" ) + " " + label;
+            ? getString( "_UI_AttributeValueEnumeration_type" )
+            : getString( "_UI_AttributeValueEnumeration_type" ) + " " + label;
     }
 
     /**
