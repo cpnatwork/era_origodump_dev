@@ -1,5 +1,6 @@
 package era.foss.typeeditor.ui;
 
+import org.eclipse.core.databinding.Binding;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.emf.databinding.EMFUpdateValueStrategy;
@@ -18,24 +19,30 @@ import org.eclipse.swt.widgets.Text;
  */
 public class BindingText extends Text {
 
-    DataBindingContext dataBindContext;
+    private DataBindingContext dataBindContext;
+    private Binding binding;
 
     public BindingText( Composite parent, int style ) {
         super( parent, style );
         dataBindContext = new DataBindingContext();
     }
 
-    public void bind( EditingDomain editingDomain,
-                      EStructuralFeature[] eStructuralFeatureList,
-                      IObservableValue master ) {
+    public void bind( EditingDomain editingDomain, EStructuralFeature[] eStructuralFeatureList,
 
-        dataBindContext.bindValue( WidgetProperties.text( SWT.Modify ).observeDelayed( 400, this ),
-                                   EMFEditProperties.value( editingDomain,
-                                                            FeaturePath.fromList( eStructuralFeatureList ) )
-                                                    .observeDetail( master ),
-                                   new UnsettableEMFUpdateValueStrategy(
-                                       eStructuralFeatureList[eStructuralFeatureList.length - 1] ),
-                                   new EMFUpdateValueStrategy() );
+    IObservableValue master ) {
+
+        // remove old binding (if exist)
+        if( binding != null ) {
+            dataBindContext.removeBinding( binding );
+        }
+
+        binding = dataBindContext.bindValue( WidgetProperties.text( SWT.Modify ).observeDelayed( 400, this ),
+                                             EMFEditProperties.value( editingDomain,
+                                                                      FeaturePath.fromList( eStructuralFeatureList ) )
+                                                              .observeDetail( master ),
+                                             new UnsettableEMFUpdateValueStrategy(
+                                                 eStructuralFeatureList[eStructuralFeatureList.length - 1] ),
+                                             new EMFUpdateValueStrategy() );
     }
 
     @Override
@@ -49,4 +56,5 @@ public class BindingText extends Text {
     // OK in here.
     protected void checkSubclass() {
     }
+
 }

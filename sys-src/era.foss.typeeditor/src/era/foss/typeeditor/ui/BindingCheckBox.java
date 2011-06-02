@@ -1,5 +1,6 @@
 package era.foss.typeeditor.ui;
 
+import org.eclipse.core.databinding.Binding;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.emf.databinding.FeaturePath;
@@ -18,6 +19,7 @@ import org.eclipse.swt.widgets.Composite;
 public class BindingCheckBox extends Button {
 
     DataBindingContext dataBindContext;
+    private Binding binding;
 
     public BindingCheckBox( Composite parent, int style ) {
         super( parent, style | SWT.CHECK );
@@ -28,10 +30,15 @@ public class BindingCheckBox extends Button {
                       EStructuralFeature[] eStructuralFeatureList,
                       IObservableValue master ) {
 
-        dataBindContext.bindValue( SWTObservables.observeSelection( this ),
-                                   EMFEditProperties.value( editingDomain,
-                                                            FeaturePath.fromList( eStructuralFeatureList ) )
-                                                    .observeDetail( master ) );
+        // remove old binding (if exist)
+        if( binding != null ) {
+            dataBindContext.removeBinding( binding );
+        }
+
+        binding = dataBindContext.bindValue( SWTObservables.observeSelection( this ),
+                                             EMFEditProperties.value( editingDomain,
+                                                                      FeaturePath.fromList( eStructuralFeatureList ) )
+                                                              .observeDetail( master ) );
     }
 
     @Override

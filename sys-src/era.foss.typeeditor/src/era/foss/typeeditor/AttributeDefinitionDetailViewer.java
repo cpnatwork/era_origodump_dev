@@ -19,16 +19,25 @@
 package era.foss.typeeditor;
 
 import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.edit.command.AddCommand;
+import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 
 import era.foss.erf.AttributeDefinition;
+import era.foss.erf.AttributeDefinitionSimple;
+import era.foss.erf.AttributeValueSimple;
 import era.foss.erf.ErfPackage;
+import era.foss.erf.impl.ErfFactoryImpl;
 import era.foss.typeeditor.ui.BindingCheckBox;
 import era.foss.typeeditor.ui.BindingText;
 
@@ -82,20 +91,53 @@ public class AttributeDefinitionDetailViewer extends AbstractDetailViewer {
      * Show UI elements for DatatypeDefintionInteger
      */
     private void createDetailsSimple() {
-        // assert (master.getValue() instanceof AttributeDefinitionSimple);
-        // DatatypeDefinitionSimple dataTypeDefintionSimple = (DatatypeDefinitionSimple)master.getValue();
+        assert (master.getValue() instanceof AttributeDefinitionSimple);
+        final AttributeDefinitionSimple attributeDefinitionSimple = (AttributeDefinitionSimple)master.getValue();
 
-        // label for default value
+        // label for enabling default value
         Label label = new Label( detailComposite, SWT.NONE );
-        label.setText( Ui.getUiName( ErfPackage.Literals.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE ) );
+        label.setText( "Use Default value" );
         label.setLayoutData( new GridData( SWT.LEFT, SWT.CENTER, true, false ) );
 
+        // checkbox for enabling default value
+        // when the checkbox is set a default value object will be created
+        Button defaultValueCheckbox = new Button( detailComposite, SWT.CHECK );
+        defaultValueCheckbox.setSelection( attributeDefinitionSimple.getDefaultValue() != null );
+        defaultValueCheckbox.addListener( SWT.Selection, new Listener() {
+
+            @Override
+            public void handleEvent( Event event ) {
+                Button defaultValueCheckbox = (Button)event.widget;
+                AttributeValueSimple defaultValue = attributeDefinitionSimple.getDefaultValue();
+
+                if( defaultValueCheckbox.getSelection() == false && defaultValue != null ) {
+                    Command defaultValueRemoveCommand = RemoveCommand.create( editingDomain, defaultValue );;
+                    editingDomain.getCommandStack().execute( defaultValueRemoveCommand );
+                }
+                if( defaultValueCheckbox.getSelection() == true && defaultValue == null ) {
+                    AttributeValueSimple newDefaultValue = ErfFactoryImpl.eINSTANCE.createAttributeValueSimple();
+                    newDefaultValue.setTheValue( "" );
+                    newDefaultValue.setDefinition( attributeDefinitionSimple );
+                    Command defaultValueAddCommand = AddCommand.create( editingDomain,
+                                                                        attributeDefinitionSimple,
+                                                                        ErfPackage.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE,
+                                                                        newDefaultValue );
+                    editingDomain.getCommandStack().execute( defaultValueAddCommand );
+                }
+            }
+        } );
+
+        // label for default value
+        Label defaultValutLabel = new Label( detailComposite, SWT.NONE );
+        defaultValutLabel.setText( Ui.getUiName( ErfPackage.Literals.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE ) );
+        defaultValutLabel.setLayoutData( new GridData( SWT.LEFT, SWT.CENTER, true, false ) );
+
         // text field for default value
-        EStructuralFeature[] defaultValue = {
+        EStructuralFeature[] defaultValueTextfield = {
             ErfPackage.Literals.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE,
             ErfPackage.Literals.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE};
         BindingText text = new BindingText( detailComposite, SWT.BORDER );
-        text.bind( editingDomain, defaultValue, master );
+        text.bind( editingDomain, defaultValueTextfield, master );
         text.setLayoutData( new GridData( SWT.FILL, SWT.CENTER, true, false ) );
 
     }
