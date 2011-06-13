@@ -11,8 +11,8 @@
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="uiProperties" ordered="false"
-        lowerBound="1" eType="#//AttributeDefinitionUiProperties" containment="true"
-        resolveProxies="false"/>
+        lowerBound="1" eType="#//AttributeDefinitionUiProperties" changeable="false"
+        containment="true" resolveProxies="false"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="unique" ordered="false"
         unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
@@ -52,7 +52,7 @@
       <details key="constraints" value="DatatypeDefinitionConstraints"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="theValue" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral=""/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DatatypeDefinitionInteger" eSuperTypes="#//DatatypeDefinitionSimple">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">

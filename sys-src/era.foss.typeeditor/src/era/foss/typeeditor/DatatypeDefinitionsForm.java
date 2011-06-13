@@ -19,7 +19,9 @@
 
 package era.foss.typeeditor;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -28,6 +30,7 @@ import org.eclipse.emf.databinding.IEMFListProperty;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.command.ReplaceCommand;
+import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
 import org.eclipse.jface.databinding.viewers.ViewerProperties;
@@ -188,14 +191,28 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
                 return;
             }
 
+            // List holding all AttributeDefinitions having this the DatatypeDefinition as type
+            List<AttributeDefinition> attributeDefintions = new ArrayList<AttributeDefinition>(
+                dataTypeDefinition.getAttributeDefinitions() );
+
+            // clear all adapters of the attribute definition, as these might belong to observables
+            // trying to access the elements of the wrong AttributeDefinition
+            for( AttributeDefinition attributeDefinition : attributeDefintions ) {
+                attributeDefinition.eAdapters().clear();
+            }
+
             // create new a datatypeDefinition based on the value
             DatatypeDefinition newDataTypeDefinition = (DatatypeDefinition)ErfFactoryImpl.eINSTANCE.create( (EClass)value );
 
             // copy all properties common for all subclasses of DataTypeDefinition
-            for( EStructuralFeature eStrcuEStructuralFeature : ErfPackage.Literals.DATATYPE_DEFINITION.getEAllStructuralFeatures() ) {
-                if( eStrcuEStructuralFeature.isChangeable() == true ) {
-                    newDataTypeDefinition.eSet( eStrcuEStructuralFeature,
-                                                dataTypeDefinition.eGet( eStrcuEStructuralFeature ) );
+            for( EStructuralFeature datatypeDefinitionEStructuralFeature : ErfPackage.Literals.DATATYPE_DEFINITION.getEAllStructuralFeatures() ) {
+                if( datatypeDefinitionEStructuralFeature.isChangeable() == true ) {
+                    Command setCommand = new SetCommand(
+                        editingDomain,
+                        newDataTypeDefinition,
+                        datatypeDefinitionEStructuralFeature,
+                        dataTypeDefinition.eGet( datatypeDefinitionEStructuralFeature ) );
+                    editingDomain.getCommandStack().execute( setCommand );
                 }
             }
 
@@ -206,11 +223,19 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
                                                             ErfPackage.Literals.CONTENT__DATA_TYPES,
                                                             dataTypeDefinition,
                                                             Collections.singleton( newDataTypeDefinition ) );
+
             editingDomain.getCommandStack().execute( replaceCommand );
 
             // adapt all AttributeDefintions refering to this DatatypeDefinition
-            for( AttributeDefinition attributeDefinition : newDataTypeDefinition.getAttributeDefinitions() ) {
+            for( AttributeDefinition attributeDefinition : attributeDefintions ) {
+                Command setCommand = new SetCommand(
+                    editingDomain,
+                    attributeDefinition,
+                    ErfPackage.Literals.ATTRIBUTE_DEFINITION__TYPE,
+                    newDataTypeDefinition );
+                editingDomain.getCommandStack().execute( setCommand );
                 // attributeDefinition.setType( newDataTypeDefinition );
+
                 adaptAttributeDefintion( attributeDefinition );
             }
 

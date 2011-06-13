@@ -18,6 +18,7 @@
  *************************************************************************/
 package era.foss.typeeditor;
 
+import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.observable.value.IValueChangeListener;
 import org.eclipse.core.databinding.observable.value.ValueChangeEvent;
@@ -56,6 +57,9 @@ public abstract class AbstractDetailViewer extends ScrolledComposite {
     /** Composite holding the UI Elements for editing the DatatypeDefintions */
     protected Composite detailComposite;
 
+    /** The databinding context used in the forms */
+    protected DataBindingContext dataBindingContext;
+
     /**
      * Create a new detail viewer
      * 
@@ -68,7 +72,8 @@ public abstract class AbstractDetailViewer extends ScrolledComposite {
         super( parent, style | SWT.V_SCROLL | SWT.H_SCROLL );
         this.editingDomain = editingDomain;
         this.master = master;
-        this.setAlwaysShowScrollBars( true );
+        // this.setAlwaysShowScrollBars( true );
+        dataBindingContext = new DataBindingContext();
 
         // set-up layout
         GridLayout gridLayout = new GridLayout( 1, true );
@@ -113,6 +118,7 @@ public abstract class AbstractDetailViewer extends ScrolledComposite {
                 detailComposite.layout();
             }
         } );
+
     }
 
     /**
@@ -145,6 +151,7 @@ public abstract class AbstractDetailViewer extends ScrolledComposite {
         super.dispose();
         this.disposeDetails();
         master.dispose();
+        dataBindingContext.dispose();
     }
 
 }

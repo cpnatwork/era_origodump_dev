@@ -47,9 +47,9 @@ import era.foss.erf.ErfPackage;
 public abstract class AttributeDefinitionImpl extends IdentifiableImpl implements AttributeDefinition {
 
     /**
-     * The cached value of the '{@link #getType() <em>Type</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
+     * The cached value of the '{@link #getType() <em>Type</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getType()
      * @generated
      * @ordered
@@ -154,7 +154,8 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetType( DatatypeDefinition newType, NotificationChain msgs ) {
@@ -245,7 +246,8 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -288,34 +290,6 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
             else msgs.add( notification );
         }
         return msgs;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setUiProperties( AttributeDefinitionUiProperties newUiProperties ) {
-        if( newUiProperties != uiProperties ) {
-            NotificationChain msgs = null;
-            if( uiProperties != null ) msgs = ((InternalEObject)uiProperties).eInverseRemove( this,
-                                                                                              EOPPOSITE_FEATURE_BASE
-                                                                                                  - ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES,
-                                                                                              null,
-                                                                                              msgs );
-            if( newUiProperties != null ) msgs = ((InternalEObject)newUiProperties).eInverseAdd( this,
-                                                                                                 EOPPOSITE_FEATURE_BASE
-                                                                                                     - ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES,
-                                                                                                 null,
-                                                                                                 msgs );
-            msgs = basicSetUiProperties( newUiProperties, msgs );
-            if( msgs != null ) msgs.dispatch();
-        } else if( eNotificationRequired() ) eNotify( new ENotificationImpl(
-            this,
-            Notification.SET,
-            ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES,
-            newUiProperties,
-            newUiProperties ) );
     }
 
     /**
@@ -366,9 +340,6 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
         case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
             setIdent( (Boolean)newValue );
             return;
-        case ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES:
-            setUiProperties( (AttributeDefinitionUiProperties)newValue );
-            return;
         case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
             setUnique( (Boolean)newValue );
             return;
@@ -388,9 +359,6 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
             return;
         case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
             setIdent( IDENT_EDEFAULT );
-            return;
-        case ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES:
-            setUiProperties( (AttributeDefinitionUiProperties)null );
             return;
         case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
             setUnique( UNIQUE_EDEFAULT );

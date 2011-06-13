@@ -55,6 +55,7 @@ import era.foss.erf.AttributeDefinition;
 import era.foss.erf.AttributeDefinitionSimple;
 import era.foss.erf.AttributeValue;
 import era.foss.erf.AttributeValueSimple;
+import era.foss.erf.DatatypeDefinition;
 import era.foss.erf.ERF;
 import era.foss.erf.ErfPackage;
 import era.foss.erf.SpecObject;
@@ -258,7 +259,7 @@ public class NebulaBasedSpecObjectsComposite extends Composite implements ISelec
             Command cmd = new SetCommand(
                 editingDomain,
                 attributeValue,
-                attributeValue.eClass().getEStructuralFeature( ErfPackage.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE ),
+                ErfPackage.Literals.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE,
                 editorValue );
 
             basicCommandStack.execute( cmd );
@@ -474,27 +475,28 @@ public class NebulaBasedSpecObjectsComposite extends Composite implements ISelec
                 }
 
                 Control currentControl = null;
-                switch (attrDef.getType().eClass().getClassifierID()) {
-                case ErfPackage.DATATYPE_DEFINITION_INTEGER:
-                case ErfPackage.DATATYPE_DEFINITION_STRING:
-                    final Text textField = new Text( this, SWT.BORDER );
-                    textField.addModifyListener( new ModifyListener() {
-                        @Override
-                        public void modifyText( ModifyEvent e ) {
-                            if( myViewer.selectedSpecObject == null ) return;
-                            myViewer.setValue( myViewer.selectedSpecObject, attrDef, textField.getText() );
-                        }
-                    } );
-                    currentControl = textField;
-                    break;
-                default:
-                    throw new IllegalStateException( "not implemented" );
+                DatatypeDefinition dataTypeDefinition = attrDef.getType();
+                if( dataTypeDefinition != null ) {
+                    switch (dataTypeDefinition.eClass().getClassifierID()) {
+                    case ErfPackage.DATATYPE_DEFINITION_INTEGER:
+                    case ErfPackage.DATATYPE_DEFINITION_STRING:
+                        final Text textField = new Text( this, SWT.BORDER );
+                        textField.addModifyListener( new ModifyListener() {
+                            @Override
+                            public void modifyText( ModifyEvent e ) {
+                                if( myViewer.selectedSpecObject == null ) return;
+                                myViewer.setValue( myViewer.selectedSpecObject, attrDef, textField.getText() );
+                            }
+                        } );
+                        currentControl = textField;
+                        break;
+                    }
                 }
-                assert (currentControl != null);
 
-                currentControl.setLayoutData( new GridData( SWT.FILL, SWT.CENTER, true, false, controlSpan, 1 ) );
-
-                dataFields.put( attrDef.getID(), currentControl );
+                if( currentControl != null ) {
+                    currentControl.setLayoutData( new GridData( SWT.FILL, SWT.CENTER, true, false, controlSpan, 1 ) );
+                    dataFields.put( attrDef.getID(), currentControl );
+                }
             }
         }
 

@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.command.AddCommand;
-import org.eclipse.emf.edit.command.RemoveCommand;
+import org.eclipse.emf.edit.command.DeleteCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.databinding.viewers.ViewerProperties;
@@ -394,12 +394,15 @@ public class AddDeleteTableViewer extends TableViewer {
 
     /**
      * Remove selected elements from this table.
+     * 
+     * Use a {@link DeleteCommand}, instead of a {@link REmoveCommand} as the first one also deletes references to the
+     * removed objects
      */
     public void removeElements() {
         if( getSelection().isEmpty() == false ) {
-            Command removeCommand = RemoveCommand.create( editingDomain,
-                                                          ((IStructuredSelection)getSelection()).toList() );
-            editingDomain.getCommandStack().execute( removeCommand );
+            DeleteCommand deleteCommand = (DeleteCommand)DeleteCommand.create( editingDomain,
+                                                                               ((IStructuredSelection)getSelection()).toList() );
+            editingDomain.getCommandStack().execute( deleteCommand );
         }
 
     }

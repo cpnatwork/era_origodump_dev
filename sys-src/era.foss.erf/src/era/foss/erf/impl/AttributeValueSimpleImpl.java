@@ -50,7 +50,7 @@ public class AttributeValueSimpleImpl extends AttributeValueImpl implements Attr
      * @generated
      * @ordered
      */
-    protected static final String THE_VALUE_EDEFAULT = null;
+    protected static final String THE_VALUE_EDEFAULT = "";
 
     /**
      * The cached value of the '{@link #getTheValue() <em>The Value</em>}' attribute.

@@ -19,8 +19,6 @@
 
 package era.foss.typeeditor;
 
-import java.util.Collections;
-
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -28,7 +26,9 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMIResource;
-import org.eclipse.emf.edit.command.ReplaceCommand;
+import org.eclipse.emf.edit.command.AddCommand;
+import org.eclipse.emf.edit.command.DeleteCommand;
+import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
@@ -148,29 +148,33 @@ public abstract class AbstractErfTypesForm extends Composite {
             return attributeDefinition;
         }
 
+        // attributeDefinition.setType( null );
         // The current AttributeDefitinion does not match the selected DatatypeDefintion.
         // Therefore we have to create a new AttributeDefition
         AttributeDefinition newAttributeDefinition = (AttributeDefinition)ErfFactoryImpl.eINSTANCE.create( newAttributeDefintionEClass );
 
-        attributeDefinition.setType( null );
-
         // copy all properties common for all subclasses of AttributeDefintion
-        for( EStructuralFeature eStrcuEStructuralFeature : ErfPackage.Literals.ATTRIBUTE_DEFINITION.getEAllStructuralFeatures() ) {
-            if( eStrcuEStructuralFeature.isChangeable() == true ) {
-                newAttributeDefinition.eSet( eStrcuEStructuralFeature,
-                                             attributeDefinition.eGet( eStrcuEStructuralFeature ) );
+        for( EStructuralFeature attributeDefinitionEStructuralFeature : ErfPackage.Literals.ATTRIBUTE_DEFINITION.getEAllStructuralFeatures() ) {
+            if( attributeDefinitionEStructuralFeature.isChangeable() == true ) {
+                Command setCommand = new SetCommand(
+                    editingDomain,
+                    newAttributeDefinition,
+                    attributeDefinitionEStructuralFeature,
+                    attributeDefinition.eGet( attributeDefinitionEStructuralFeature ) );
+                editingDomain.getCommandStack().execute( setCommand );
             }
         }
-        newAttributeDefinition.setType( datatypeDefinition );
 
-        // perform the REPLACE
-        // remark: the ReplaceCommand issues an REMOVE and ADD notification
-        Command replaceCommand = ReplaceCommand.create( editingDomain,
-                                                        theOneAndOnlySpecType,
-                                                        ErfPackage.Literals.SPEC_TYPE__SPEC_ATTRIBUTES,
-                                                        attributeDefinition,
-                                                        Collections.singleton( newAttributeDefinition ) );
-        editingDomain.getCommandStack().execute( replaceCommand );
+        Command deleteCommand = DeleteCommand.create( editingDomain, attributeDefinition );
+        Command addCommand = AddCommand.create( editingDomain,
+                                                theOneAndOnlySpecType,
+                                                ErfPackage.Literals.SPEC_TYPE__SPEC_ATTRIBUTES,
+                                                newAttributeDefinition,
+                                                theOneAndOnlySpecType.getSpecAttributes()
+                                                                     .indexOf( attributeDefinition ) );
+        editingDomain.getCommandStack().execute( deleteCommand );
+
+        editingDomain.getCommandStack().execute( addCommand );
         return newAttributeDefinition;
     }
 }

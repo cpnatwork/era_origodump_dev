@@ -21,11 +21,16 @@ package era.foss.typeeditor;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.property.value.IValueProperty;
+import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.databinding.EMFProperties;
 import org.eclipse.emf.databinding.FeaturePath;
 import org.eclipse.emf.databinding.IEMFListProperty;
 import org.eclipse.emf.databinding.edit.EMFEditProperties;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.databinding.viewers.CellEditorProperties;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
@@ -138,7 +143,6 @@ public class SpecTypeForm extends AbstractErfTypesForm {
 
     /** Create column for selecting the DatatypeDefinition associated with the AttributeDefinition */
     private void createNameColumn( ObservableListContentProvider contentProvider, TableColumnLayout columnLayout ) {
-        //
 
         //
         TableViewerColumn nameColumn = new TableViewerColumn( tableViewer, SWT.NONE );
@@ -276,10 +280,23 @@ public class SpecTypeForm extends AbstractErfTypesForm {
             AttributeDefinition attributeDefinition = (AttributeDefinition)element;
 
             assert (value instanceof DatatypeDefinition);
-            DatatypeDefinition datatypeDefinition = (DatatypeDefinition)value;
+            DatatypeDefinition newDatatypeDefinition = (DatatypeDefinition)value;
 
+            if( newDatatypeDefinition != null
+                && attributeDefinition.getType() != null
+                && attributeDefinition.getType().getID() == newDatatypeDefinition.getID() ) {
+                // do nothing as exactly the same Datatype has been set as it was before
+                return;
+            }
+            EList<Adapter> l = new BasicEList<Adapter>( attributeDefinition.eAdapters() );
+            attributeDefinition.eAdapters().clear();
             // set selected DatatypeDefintion
-            attributeDefinition.setType( datatypeDefinition );
+            Command setCommand = new SetCommand(
+                editingDomain,
+                attributeDefinition,
+                ErfPackage.Literals.ATTRIBUTE_DEFINITION__TYPE,
+                newDatatypeDefinition );
+            editingDomain.getCommandStack().execute( setCommand );
 
             // adapt AttributeDefintion to selected datatypeDefinition
             AttributeDefinition newAttributeDefinition = adaptAttributeDefintion( attributeDefinition );
@@ -292,9 +309,13 @@ public class SpecTypeForm extends AbstractErfTypesForm {
 
                 // set the selection of the viewer to the newly created AttributeDefintion object
                 super.getViewer().setSelection( new StructuredSelection( newAttributeDefinition ) );
-                // refresh the tableViewer
-                super.getViewer().refresh();
+
+            } else {
+                attributeDefinition.eAdapters().addAll( l );
             }
+
+            // refresh the tableViewer
+            super.getViewer().refresh();
 
         }
     }
