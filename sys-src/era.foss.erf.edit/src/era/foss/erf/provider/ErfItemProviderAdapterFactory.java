@@ -434,6 +434,75 @@ public class ErfItemProviderAdapterFactory extends ErfAdapterFactory implements 
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link era.foss.erf.DatatypeDefinitionBoolean} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected DatatypeDefinitionBooleanItemProvider datatypeDefinitionBooleanItemProvider;
+
+    /**
+     * This creates an adapter for a {@link era.foss.erf.DatatypeDefinitionBoolean}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createDatatypeDefinitionBooleanAdapter() {
+        if( datatypeDefinitionBooleanItemProvider == null ) {
+            datatypeDefinitionBooleanItemProvider = new DatatypeDefinitionBooleanItemProvider( this );
+        }
+
+        return datatypeDefinitionBooleanItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link era.foss.erf.AttributeDefinitionBoolean} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected AttributeDefinitionBooleanItemProvider attributeDefinitionBooleanItemProvider;
+
+    /**
+     * This creates an adapter for a {@link era.foss.erf.AttributeDefinitionBoolean}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createAttributeDefinitionBooleanAdapter() {
+        if( attributeDefinitionBooleanItemProvider == null ) {
+            attributeDefinitionBooleanItemProvider = new AttributeDefinitionBooleanItemProvider( this );
+        }
+
+        return attributeDefinitionBooleanItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link era.foss.erf.AttributeValueBoolean} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected AttributeValueBooleanItemProvider attributeValueBooleanItemProvider;
+
+    /**
+     * This creates an adapter for a {@link era.foss.erf.AttributeValueBoolean}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createAttributeValueBooleanAdapter() {
+        if( attributeValueBooleanItemProvider == null ) {
+            attributeValueBooleanItemProvider = new AttributeValueBooleanItemProvider( this );
+        }
+
+        return attributeValueBooleanItemProvider;
+    }
+
+    /**
      * This returns the root adapter factory that contains this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -547,6 +616,9 @@ public class ErfItemProviderAdapterFactory extends ErfAdapterFactory implements 
         if( datatypeDefinitionEnumerationItemProvider != null ) datatypeDefinitionEnumerationItemProvider.dispose();
         if( attributeDefinitionEnumerationItemProvider != null ) attributeDefinitionEnumerationItemProvider.dispose();
         if( attributeValueEnumerationItemProvider != null ) attributeValueEnumerationItemProvider.dispose();
+        if( datatypeDefinitionBooleanItemProvider != null ) datatypeDefinitionBooleanItemProvider.dispose();
+        if( attributeDefinitionBooleanItemProvider != null ) attributeDefinitionBooleanItemProvider.dispose();
+        if( attributeValueBooleanItemProvider != null ) attributeValueBooleanItemProvider.dispose();
     }
 
 }

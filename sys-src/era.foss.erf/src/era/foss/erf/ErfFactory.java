@@ -174,6 +174,33 @@ public interface ErfFactory extends EFactory {
     AttributeValueEnumeration createAttributeValueEnumeration();
 
     /**
+     * Returns a new object of class '<em>Datatype Definition Boolean</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Datatype Definition Boolean</em>'.
+     * @generated
+     */
+    DatatypeDefinitionBoolean createDatatypeDefinitionBoolean();
+
+    /**
+     * Returns a new object of class '<em>Attribute Definition Boolean</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Attribute Definition Boolean</em>'.
+     * @generated
+     */
+    AttributeDefinitionBoolean createAttributeDefinitionBoolean();
+
+    /**
+     * Returns a new object of class '<em>Attribute Value Boolean</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Attribute Value Boolean</em>'.
+     * @generated
+     */
+    AttributeValueBoolean createAttributeValueBoolean();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

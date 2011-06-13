@@ -134,12 +134,18 @@ public abstract class AbstractErfTypesForm extends Composite {
             return attributeDefinition;
         }
 
-        // EClass of new AttributeDefinition
-        EClass newAttributeDefintionEClass = ErfPackage.Literals.ATTRIBUTE_DEFINITION_SIMPLE;
-
         // determine the respective AttributeDefinition according to selected DatatypeDefinition
-        if( datatypeDefinition.eClass().getClassifierID() == ErfPackage.DATATYPE_DEFINITION_ENUMERATION ) {
+        EClass newAttributeDefintionEClass = null;
+        switch (datatypeDefinition.eClass().getClassifierID()) {
+
+        case ErfPackage.DATATYPE_DEFINITION_ENUMERATION:
             newAttributeDefintionEClass = ErfPackage.Literals.ATTRIBUTE_DEFINITION_ENUMERATION;
+            break;
+        case ErfPackage.DATATYPE_DEFINITION_BOOLEAN:
+            newAttributeDefintionEClass = ErfPackage.Literals.ATTRIBUTE_DEFINITION_BOOLEAN;
+            break;
+        default:
+            newAttributeDefintionEClass = ErfPackage.Literals.ATTRIBUTE_DEFINITION_SIMPLE;
         }
 
         // in case the new AttributeDefinition has the same type as the old one

@@ -293,6 +293,7 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
             EClass supportedDatatypes[] = {
                 ErfPackage.Literals.DATATYPE_DEFINITION_INTEGER,
                 ErfPackage.Literals.DATATYPE_DEFINITION_STRING,
+                ErfPackage.Literals.DATATYPE_DEFINITION_BOOLEAN,
                 ErfPackage.Literals.DATATYPE_DEFINITION_ENUMERATION};
             return supportedDatatypes;
         }

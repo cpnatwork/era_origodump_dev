@@ -30,14 +30,17 @@ import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import era.foss.erf.AttributeDefinition;
+import era.foss.erf.AttributeDefinitionBoolean;
 import era.foss.erf.AttributeDefinitionEnumeration;
 import era.foss.erf.AttributeDefinitionSimple;
 import era.foss.erf.AttributeDefinitionUiProperties;
 import era.foss.erf.AttributeValue;
+import era.foss.erf.AttributeValueBoolean;
 import era.foss.erf.AttributeValueEnumeration;
 import era.foss.erf.AttributeValueSimple;
 import era.foss.erf.Content;
 import era.foss.erf.DatatypeDefinition;
+import era.foss.erf.DatatypeDefinitionBoolean;
 import era.foss.erf.DatatypeDefinitionEnumeration;
 import era.foss.erf.DatatypeDefinitionInteger;
 import era.foss.erf.DatatypeDefinitionSimple;
@@ -190,6 +193,27 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
      * @generated
      */
     private EClass attributeValueEnumerationEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass datatypeDefinitionBooleanEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass attributeDefinitionBooleanEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass attributeValueBooleanEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -730,6 +754,51 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getDatatypeDefinitionBoolean() {
+        return datatypeDefinitionBooleanEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getAttributeDefinitionBoolean() {
+        return attributeDefinitionBooleanEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getAttributeDefinitionBoolean_DefaultValue() {
+        return (EReference)attributeDefinitionBooleanEClass.getEStructuralFeatures().get( 0 );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getAttributeValueBoolean() {
+        return attributeValueBooleanEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAttributeValueBoolean_TheValue() {
+        return (EAttribute)attributeValueBooleanEClass.getEStructuralFeatures().get( 0 );
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -846,6 +915,14 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         attributeValueEnumerationEClass = createEClass( ATTRIBUTE_VALUE_ENUMERATION );
         createEReference( attributeValueEnumerationEClass, ATTRIBUTE_VALUE_ENUMERATION__VALUES );
 
+        datatypeDefinitionBooleanEClass = createEClass( DATATYPE_DEFINITION_BOOLEAN );
+
+        attributeDefinitionBooleanEClass = createEClass( ATTRIBUTE_DEFINITION_BOOLEAN );
+        createEReference( attributeDefinitionBooleanEClass, ATTRIBUTE_DEFINITION_BOOLEAN__DEFAULT_VALUE );
+
+        attributeValueBooleanEClass = createEClass( ATTRIBUTE_VALUE_BOOLEAN );
+        createEAttribute( attributeValueBooleanEClass, ATTRIBUTE_VALUE_BOOLEAN__THE_VALUE );
+
         // Create data types
         diagnosticChainEDataType = createEDataType( DIAGNOSTIC_CHAIN );
     }
@@ -894,6 +971,9 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         datatypeDefinitionEnumerationEClass.getESuperTypes().add( this.getDatatypeDefinition() );
         attributeDefinitionEnumerationEClass.getESuperTypes().add( this.getAttributeDefinition() );
         attributeValueEnumerationEClass.getESuperTypes().add( this.getAttributeValue() );
+        datatypeDefinitionBooleanEClass.getESuperTypes().add( this.getDatatypeDefinition() );
+        attributeDefinitionBooleanEClass.getESuperTypes().add( this.getAttributeDefinition() );
+        attributeValueBooleanEClass.getESuperTypes().add( this.getAttributeValue() );
 
         // Initialize classes and features; add operations and parameters
         initEClass( attributeDefinitionEClass,
@@ -1622,6 +1702,59 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         !IS_DERIVED,
                         IS_ORDERED );
 
+        initEClass( datatypeDefinitionBooleanEClass,
+                    DatatypeDefinitionBoolean.class,
+                    "DatatypeDefinitionBoolean",
+                    !IS_ABSTRACT,
+                    !IS_INTERFACE,
+                    IS_GENERATED_INSTANCE_CLASS );
+
+        initEClass( attributeDefinitionBooleanEClass,
+                    AttributeDefinitionBoolean.class,
+                    "AttributeDefinitionBoolean",
+                    !IS_ABSTRACT,
+                    !IS_INTERFACE,
+                    IS_GENERATED_INSTANCE_CLASS );
+        initEReference( getAttributeDefinitionBoolean_DefaultValue(),
+                        this.getAttributeValueBoolean(),
+                        null,
+                        "defaultValue",
+                        null,
+                        0,
+                        1,
+                        AttributeDefinitionBoolean.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        IS_COMPOSITE,
+                        !IS_RESOLVE_PROXIES,
+                        IS_UNSETTABLE,
+                        IS_UNIQUE,
+                        !IS_DERIVED,
+                        !IS_ORDERED );
+
+        initEClass( attributeValueBooleanEClass,
+                    AttributeValueBoolean.class,
+                    "AttributeValueBoolean",
+                    !IS_ABSTRACT,
+                    !IS_INTERFACE,
+                    IS_GENERATED_INSTANCE_CLASS );
+        initEAttribute( getAttributeValueBoolean_TheValue(),
+                        ecorePackage.getEBooleanObject(),
+                        "theValue",
+                        "false",
+                        1,
+                        1,
+                        AttributeValueBoolean.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_UNSETTABLE,
+                        !IS_ID,
+                        IS_UNIQUE,
+                        !IS_DERIVED,
+                        IS_ORDERED );
+
         // Initialize data types
         initEDataType( diagnosticChainEDataType,
                        DiagnosticChain.class,
@@ -1651,6 +1784,9 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         addAnnotation( datatypeDefinitionIntegerEClass, source, new String[]{
             "constraints",
             "NonNegative MaxGreaterThanMin"} );
+        addAnnotation( attributeValueBooleanEClass, source, new String[]{
+            "constraints",
+            "DatatypeDefinitionConstraints"} );
     }
 
 } // ErfPackageImpl

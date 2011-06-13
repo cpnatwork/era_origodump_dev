@@ -85,6 +85,11 @@ public class DataTypeDefinitionDetailViewer extends AbstractDetailViewer {
         case ErfPackage.DATATYPE_DEFINITION_ENUMERATION:
             createDetailsEnumeration();
             break;
+
+        default:
+            /*
+             * nothing to be done for: ErfPackage.DATATYPE_DEFINITION_BOOLEAN
+             */
         }
     }
 

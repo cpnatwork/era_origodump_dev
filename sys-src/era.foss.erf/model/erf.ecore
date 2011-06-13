@@ -140,5 +140,18 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="values" lowerBound="1"
         upperBound="-1" eType="#//EnumValue"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DatatypeDefinitionBoolean" eSuperTypes="#//DatatypeDefinition"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AttributeDefinitionBoolean" eSuperTypes="#//AttributeDefinition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultValue" ordered="false"
+        eType="#//AttributeValueBoolean" unsettable="true" containment="true" resolveProxies="false"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AttributeValueBoolean" eSuperTypes="#//AttributeValue">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="DatatypeDefinitionConstraints"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="theValue" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"
+        defaultValueLiteral="false"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="DiagnosticChain" instanceClassName="org.eclipse.emf.common.util.DiagnosticChain"/>
 </ecore:EPackage>

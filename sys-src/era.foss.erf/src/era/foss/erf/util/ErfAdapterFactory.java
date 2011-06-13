@@ -195,6 +195,21 @@ public class ErfAdapterFactory extends AdapterFactoryImpl {
         }
 
         @Override
+        public Adapter caseDatatypeDefinitionBoolean( DatatypeDefinitionBoolean object ) {
+            return createDatatypeDefinitionBooleanAdapter();
+        }
+
+        @Override
+        public Adapter caseAttributeDefinitionBoolean( AttributeDefinitionBoolean object ) {
+            return createAttributeDefinitionBooleanAdapter();
+        }
+
+        @Override
+        public Adapter caseAttributeValueBoolean( AttributeValueBoolean object ) {
+            return createAttributeValueBooleanAdapter();
+        }
+
+        @Override
         public Adapter defaultCase( EObject object ) {
             return createEObjectAdapter();
         }
@@ -518,6 +533,48 @@ public class ErfAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createAttributeValueEnumerationAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link era.foss.erf.DatatypeDefinitionBoolean <em>Datatype Definition Boolean</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see era.foss.erf.DatatypeDefinitionBoolean
+     * @generated
+     */
+    public Adapter createDatatypeDefinitionBooleanAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link era.foss.erf.AttributeDefinitionBoolean <em>Attribute Definition Boolean</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see era.foss.erf.AttributeDefinitionBoolean
+     * @generated
+     */
+    public Adapter createAttributeDefinitionBooleanAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link era.foss.erf.AttributeValueBoolean <em>Attribute Value Boolean</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see era.foss.erf.AttributeValueBoolean
+     * @generated
+     */
+    public Adapter createAttributeValueBooleanAdapter() {
         return null;
     }
 

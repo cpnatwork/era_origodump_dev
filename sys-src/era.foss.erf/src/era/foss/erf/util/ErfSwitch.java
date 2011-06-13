@@ -251,6 +251,30 @@ public class ErfSwitch<T2> {
             if( result == null ) result = defaultCase( theEObject );
             return result;
         }
+        case ErfPackage.DATATYPE_DEFINITION_BOOLEAN: {
+            DatatypeDefinitionBoolean datatypeDefinitionBoolean = (DatatypeDefinitionBoolean)theEObject;
+            T2 result = caseDatatypeDefinitionBoolean( datatypeDefinitionBoolean );
+            if( result == null ) result = caseDatatypeDefinition( datatypeDefinitionBoolean );
+            if( result == null ) result = caseIdentifiable( datatypeDefinitionBoolean );
+            if( result == null ) result = defaultCase( theEObject );
+            return result;
+        }
+        case ErfPackage.ATTRIBUTE_DEFINITION_BOOLEAN: {
+            AttributeDefinitionBoolean attributeDefinitionBoolean = (AttributeDefinitionBoolean)theEObject;
+            T2 result = caseAttributeDefinitionBoolean( attributeDefinitionBoolean );
+            if( result == null ) result = caseAttributeDefinition( attributeDefinitionBoolean );
+            if( result == null ) result = caseIdentifiable( attributeDefinitionBoolean );
+            if( result == null ) result = defaultCase( theEObject );
+            return result;
+        }
+        case ErfPackage.ATTRIBUTE_VALUE_BOOLEAN: {
+            AttributeValueBoolean attributeValueBoolean = (AttributeValueBoolean)theEObject;
+            T2 result = caseAttributeValueBoolean( attributeValueBoolean );
+            if( result == null ) result = caseAttributeValue( attributeValueBoolean );
+            if( result == null ) result = caseIdentifiable( attributeValueBoolean );
+            if( result == null ) result = defaultCase( theEObject );
+            return result;
+        }
         default:
             return defaultCase( theEObject );
         }
@@ -583,6 +607,51 @@ public class ErfSwitch<T2> {
      * @generated
      */
     public T2 caseAttributeValueEnumeration( AttributeValueEnumeration object ) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Datatype Definition Boolean</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Datatype Definition Boolean</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T2 caseDatatypeDefinitionBoolean( DatatypeDefinitionBoolean object ) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Attribute Definition Boolean</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Attribute Definition Boolean</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T2 caseAttributeDefinitionBoolean( AttributeDefinitionBoolean object ) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Attribute Value Boolean</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Attribute Value Boolean</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T2 caseAttributeValueBoolean( AttributeValueBoolean object ) {
         return null;
     }
 

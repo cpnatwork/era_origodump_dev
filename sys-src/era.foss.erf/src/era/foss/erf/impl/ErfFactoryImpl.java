@@ -104,6 +104,12 @@ public class ErfFactoryImpl extends EFactoryImpl implements ErfFactory {
             return createAttributeDefinitionEnumeration();
         case ErfPackage.ATTRIBUTE_VALUE_ENUMERATION:
             return createAttributeValueEnumeration();
+        case ErfPackage.DATATYPE_DEFINITION_BOOLEAN:
+            return createDatatypeDefinitionBoolean();
+        case ErfPackage.ATTRIBUTE_DEFINITION_BOOLEAN:
+            return createAttributeDefinitionBoolean();
+        case ErfPackage.ATTRIBUTE_VALUE_BOOLEAN:
+            return createAttributeValueBoolean();
         default:
             throw new IllegalArgumentException( "The class '" + eClass.getName() + "' is not a valid classifier" );
         }
@@ -291,6 +297,36 @@ public class ErfFactoryImpl extends EFactoryImpl implements ErfFactory {
     public AttributeValueEnumeration createAttributeValueEnumeration() {
         AttributeValueEnumerationImpl attributeValueEnumeration = new AttributeValueEnumerationImpl();
         return attributeValueEnumeration;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public DatatypeDefinitionBoolean createDatatypeDefinitionBoolean() {
+        DatatypeDefinitionBooleanImpl datatypeDefinitionBoolean = new DatatypeDefinitionBooleanImpl();
+        return datatypeDefinitionBoolean;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public AttributeDefinitionBoolean createAttributeDefinitionBoolean() {
+        AttributeDefinitionBooleanImpl attributeDefinitionBoolean = new AttributeDefinitionBooleanImpl();
+        return attributeDefinitionBoolean;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public AttributeValueBoolean createAttributeValueBoolean() {
+        AttributeValueBooleanImpl attributeValueBoolean = new AttributeValueBooleanImpl();
+        return attributeValueBoolean;
     }
 
     /**

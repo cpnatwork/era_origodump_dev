@@ -1410,6 +1410,216 @@ public interface ErfPackage extends EPackage {
     int ATTRIBUTE_VALUE_ENUMERATION_FEATURE_COUNT = ATTRIBUTE_VALUE_FEATURE_COUNT + 1;
 
     /**
+     * The meta object id for the '{@link era.foss.erf.impl.DatatypeDefinitionBooleanImpl <em>Datatype Definition Boolean</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see era.foss.erf.impl.DatatypeDefinitionBooleanImpl
+     * @see era.foss.erf.impl.ErfPackageImpl#getDatatypeDefinitionBoolean()
+     * @generated
+     */
+    int DATATYPE_DEFINITION_BOOLEAN = 22;
+
+    /**
+     * The feature id for the '<em><b>ID</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATATYPE_DEFINITION_BOOLEAN__ID = DATATYPE_DEFINITION__ID;
+
+    /**
+     * The feature id for the '<em><b>Desc</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATATYPE_DEFINITION_BOOLEAN__DESC = DATATYPE_DEFINITION__DESC;
+
+    /**
+     * The feature id for the '<em><b>Long Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATATYPE_DEFINITION_BOOLEAN__LONG_NAME = DATATYPE_DEFINITION__LONG_NAME;
+
+    /**
+     * The feature id for the '<em><b>Attribute Definitions</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATATYPE_DEFINITION_BOOLEAN__ATTRIBUTE_DEFINITIONS = DATATYPE_DEFINITION__ATTRIBUTE_DEFINITIONS;
+
+    /**
+     * The number of structural features of the '<em>Datatype Definition Boolean</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATATYPE_DEFINITION_BOOLEAN_FEATURE_COUNT = DATATYPE_DEFINITION_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link era.foss.erf.impl.AttributeDefinitionBooleanImpl <em>Attribute Definition Boolean</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see era.foss.erf.impl.AttributeDefinitionBooleanImpl
+     * @see era.foss.erf.impl.ErfPackageImpl#getAttributeDefinitionBoolean()
+     * @generated
+     */
+    int ATTRIBUTE_DEFINITION_BOOLEAN = 23;
+
+    /**
+     * The feature id for the '<em><b>ID</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_BOOLEAN__ID = ATTRIBUTE_DEFINITION__ID;
+
+    /**
+     * The feature id for the '<em><b>Desc</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_BOOLEAN__DESC = ATTRIBUTE_DEFINITION__DESC;
+
+    /**
+     * The feature id for the '<em><b>Long Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_BOOLEAN__LONG_NAME = ATTRIBUTE_DEFINITION__LONG_NAME;
+
+    /**
+     * The feature id for the '<em><b>Type</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_BOOLEAN__TYPE = ATTRIBUTE_DEFINITION__TYPE;
+
+    /**
+     * The feature id for the '<em><b>Ident</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_BOOLEAN__IDENT = ATTRIBUTE_DEFINITION__IDENT;
+
+    /**
+     * The feature id for the '<em><b>Ui Properties</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_BOOLEAN__UI_PROPERTIES = ATTRIBUTE_DEFINITION__UI_PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Unique</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_BOOLEAN__UNIQUE = ATTRIBUTE_DEFINITION__UNIQUE;
+
+    /**
+     * The feature id for the '<em><b>Default Value</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_BOOLEAN__DEFAULT_VALUE = ATTRIBUTE_DEFINITION_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>Attribute Definition Boolean</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_BOOLEAN_FEATURE_COUNT = ATTRIBUTE_DEFINITION_FEATURE_COUNT + 1;
+
+    /**
+     * The meta object id for the '{@link era.foss.erf.impl.AttributeValueBooleanImpl <em>Attribute Value Boolean</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see era.foss.erf.impl.AttributeValueBooleanImpl
+     * @see era.foss.erf.impl.ErfPackageImpl#getAttributeValueBoolean()
+     * @generated
+     */
+    int ATTRIBUTE_VALUE_BOOLEAN = 24;
+
+    /**
+     * The feature id for the '<em><b>ID</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_VALUE_BOOLEAN__ID = ATTRIBUTE_VALUE__ID;
+
+    /**
+     * The feature id for the '<em><b>Desc</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_VALUE_BOOLEAN__DESC = ATTRIBUTE_VALUE__DESC;
+
+    /**
+     * The feature id for the '<em><b>Long Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_VALUE_BOOLEAN__LONG_NAME = ATTRIBUTE_VALUE__LONG_NAME;
+
+    /**
+     * The feature id for the '<em><b>Definition</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_VALUE_BOOLEAN__DEFINITION = ATTRIBUTE_VALUE__DEFINITION;
+
+    /**
+     * The feature id for the '<em><b>The Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_VALUE_BOOLEAN__THE_VALUE = ATTRIBUTE_VALUE_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>Attribute Value Boolean</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_VALUE_BOOLEAN_FEATURE_COUNT = ATTRIBUTE_VALUE_FEATURE_COUNT + 1;
+
+    /**
      * The meta object id for the '<em>Diagnostic Chain</em>' data type.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1417,7 +1627,7 @@ public interface ErfPackage extends EPackage {
      * @see era.foss.erf.impl.ErfPackageImpl#getDiagnosticChain()
      * @generated
      */
-    int DIAGNOSTIC_CHAIN = 22;
+    int DIAGNOSTIC_CHAIN = 25;
 
     /**
      * Returns the meta object for class '{@link era.foss.erf.AttributeDefinition <em>Attribute Definition</em>}'.
@@ -2037,6 +2247,58 @@ public interface ErfPackage extends EPackage {
     EReference getAttributeValueEnumeration_Values();
 
     /**
+     * Returns the meta object for class '{@link era.foss.erf.DatatypeDefinitionBoolean <em>Datatype Definition Boolean</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Datatype Definition Boolean</em>'.
+     * @see era.foss.erf.DatatypeDefinitionBoolean
+     * @generated
+     */
+    EClass getDatatypeDefinitionBoolean();
+
+    /**
+     * Returns the meta object for class '{@link era.foss.erf.AttributeDefinitionBoolean <em>Attribute Definition Boolean</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Attribute Definition Boolean</em>'.
+     * @see era.foss.erf.AttributeDefinitionBoolean
+     * @generated
+     */
+    EClass getAttributeDefinitionBoolean();
+
+    /**
+     * Returns the meta object for the containment reference '{@link era.foss.erf.AttributeDefinitionBoolean#getDefaultValue <em>Default Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Default Value</em>'.
+     * @see era.foss.erf.AttributeDefinitionBoolean#getDefaultValue()
+     * @see #getAttributeDefinitionBoolean()
+     * @generated
+     */
+    EReference getAttributeDefinitionBoolean_DefaultValue();
+
+    /**
+     * Returns the meta object for class '{@link era.foss.erf.AttributeValueBoolean <em>Attribute Value Boolean</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Attribute Value Boolean</em>'.
+     * @see era.foss.erf.AttributeValueBoolean
+     * @generated
+     */
+    EClass getAttributeValueBoolean();
+
+    /**
+     * Returns the meta object for the attribute '{@link era.foss.erf.AttributeValueBoolean#getTheValue <em>The Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>The Value</em>'.
+     * @see era.foss.erf.AttributeValueBoolean#getTheValue()
+     * @see #getAttributeValueBoolean()
+     * @generated
+     */
+    EAttribute getAttributeValueBoolean_TheValue();
+
+    /**
      * Returns the meta object for data type '{@link org.eclipse.emf.common.util.DiagnosticChain <em>Diagnostic Chain</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2520,6 +2782,47 @@ public interface ErfPackage extends EPackage {
          * @generated
          */
         EReference ATTRIBUTE_VALUE_ENUMERATION__VALUES = eINSTANCE.getAttributeValueEnumeration_Values();
+        /**
+         * The meta object literal for the '{@link era.foss.erf.impl.DatatypeDefinitionBooleanImpl <em>Datatype Definition Boolean</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see era.foss.erf.impl.DatatypeDefinitionBooleanImpl
+         * @see era.foss.erf.impl.ErfPackageImpl#getDatatypeDefinitionBoolean()
+         * @generated
+         */
+        EClass DATATYPE_DEFINITION_BOOLEAN = eINSTANCE.getDatatypeDefinitionBoolean();
+        /**
+         * The meta object literal for the '{@link era.foss.erf.impl.AttributeDefinitionBooleanImpl <em>Attribute Definition Boolean</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see era.foss.erf.impl.AttributeDefinitionBooleanImpl
+         * @see era.foss.erf.impl.ErfPackageImpl#getAttributeDefinitionBoolean()
+         * @generated
+         */
+        EClass ATTRIBUTE_DEFINITION_BOOLEAN = eINSTANCE.getAttributeDefinitionBoolean();
+        /**
+         * The meta object literal for the '<em><b>Default Value</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference ATTRIBUTE_DEFINITION_BOOLEAN__DEFAULT_VALUE = eINSTANCE.getAttributeDefinitionBoolean_DefaultValue();
+        /**
+         * The meta object literal for the '{@link era.foss.erf.impl.AttributeValueBooleanImpl <em>Attribute Value Boolean</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see era.foss.erf.impl.AttributeValueBooleanImpl
+         * @see era.foss.erf.impl.ErfPackageImpl#getAttributeValueBoolean()
+         * @generated
+         */
+        EClass ATTRIBUTE_VALUE_BOOLEAN = eINSTANCE.getAttributeValueBoolean();
+        /**
+         * The meta object literal for the '<em><b>The Value</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ATTRIBUTE_VALUE_BOOLEAN__THE_VALUE = eINSTANCE.getAttributeValueBoolean_TheValue();
         /**
          * The meta object literal for the '<em>Diagnostic Chain</em>' data type.
          * <!-- begin-user-doc -->

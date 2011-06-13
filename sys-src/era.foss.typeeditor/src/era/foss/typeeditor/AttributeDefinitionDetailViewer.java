@@ -51,6 +51,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 
 import era.foss.erf.AttributeDefinition;
+import era.foss.erf.AttributeDefinitionBoolean;
 import era.foss.erf.AttributeDefinitionEnumeration;
 import era.foss.erf.AttributeDefinitionSimple;
 import era.foss.erf.AttributeValue;
@@ -100,6 +101,10 @@ public class AttributeDefinitionDetailViewer extends AbstractDetailViewer {
             createDetailsSimple();
             break;
 
+        case ErfPackage.ATTRIBUTE_DEFINITION_BOOLEAN:
+            createDetailsBoolean();
+            break;
+
         case ErfPackage.ATTRIBUTE_DEFINITION_ENUMERATION:
             createDetailsEnumeration();
             break;
@@ -110,7 +115,6 @@ public class AttributeDefinitionDetailViewer extends AbstractDetailViewer {
      * Show UI elements for DatatypeDefintionInteger
      */
     private void createDetailsSimple() {
-        assert (master.getValue() instanceof AttributeDefinitionSimple);
         AttributeDefinitionSimple attributeDefinitionSimple = (AttributeDefinitionSimple)master.getValue();
 
         Button defaultValueCheckbox = createDefaultValueCheckbox( attributeDefinitionSimple,
@@ -135,10 +139,36 @@ public class AttributeDefinitionDetailViewer extends AbstractDetailViewer {
     }
 
     /**
+     * Show UI elements for DatatypeDefintionBoolean
+     */
+    private void createDetailsBoolean() {
+        AttributeDefinitionBoolean attributeDefinitionBoolean = (AttributeDefinitionBoolean)master.getValue();
+
+        Button defaultValueEnableCheckbox = createDefaultValueCheckbox( attributeDefinitionBoolean,
+                                                                        ErfPackage.Literals.ATTRIBUTE_DEFINITION_BOOLEAN__DEFAULT_VALUE );
+
+        // label for default value
+        Label defaultValueLabel = new Label( detailComposite, SWT.NONE );
+        defaultValueLabel.setText( Ui.getUiName( ErfPackage.Literals.ATTRIBUTE_DEFINITION_BOOLEAN__DEFAULT_VALUE ) );
+        defaultValueLabel.setLayoutData( new GridData( SWT.LEFT, SWT.CENTER, true, false ) );
+
+        // text field for default value
+        BindingCheckBox defaultValueCheckBox = new BindingCheckBox( detailComposite, SWT.NONE );
+        defaultValueCheckBox.bind( editingDomain, new EStructuralFeature[]{
+            ErfPackage.Literals.ATTRIBUTE_DEFINITION_BOOLEAN__DEFAULT_VALUE,
+            ErfPackage.Literals.ATTRIBUTE_VALUE_BOOLEAN__THE_VALUE}, master );
+        defaultValueCheckBox.setLayoutData( new GridData( SWT.FILL, SWT.CENTER, true, false ) );
+
+        // only enable textfield in case the checkbox is set
+        dataBindingContext.bindValue( SWTObservables.observeEnabled( defaultValueCheckBox ),
+                                      SWTObservables.observeSelection( defaultValueEnableCheckbox ) );
+
+    }
+
+    /**
      * Show UI elements for DatatypeDefintionEnumeration
      */
     private void createDetailsEnumeration() {
-        assert (master.getValue() instanceof AttributeDefinitionEnumeration);
         final AttributeDefinitionEnumeration attributeDefinitionEnum = (AttributeDefinitionEnumeration)master.getValue();
 
         // create label for multiValued property

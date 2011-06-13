@@ -175,6 +175,9 @@ public class SpecElementWithUserDefinedAttributesItemProvider extends Identifiab
 
         newChildDescriptors.add( createChildParameter( ErfPackage.Literals.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES,
                                                        ErfFactory.eINSTANCE.createAttributeValueEnumeration() ) );
+
+        newChildDescriptors.add( createChildParameter( ErfPackage.Literals.SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES__VALUES,
+                                                       ErfFactory.eINSTANCE.createAttributeValueBoolean() ) );
     }
 
 }

@@ -167,6 +167,12 @@ public class ErfValidator extends EObjectValidator {
                                                            context );
         case ErfPackage.ATTRIBUTE_VALUE_ENUMERATION:
             return validateAttributeValueEnumeration( (AttributeValueEnumeration)value, diagnostics, context );
+        case ErfPackage.DATATYPE_DEFINITION_BOOLEAN:
+            return validateDatatypeDefinitionBoolean( (DatatypeDefinitionBoolean)value, diagnostics, context );
+        case ErfPackage.ATTRIBUTE_DEFINITION_BOOLEAN:
+            return validateAttributeDefinitionBoolean( (AttributeDefinitionBoolean)value, diagnostics, context );
+        case ErfPackage.ATTRIBUTE_VALUE_BOOLEAN:
+            return validateAttributeValueBoolean( (AttributeValueBoolean)value, diagnostics, context );
         case ErfPackage.DIAGNOSTIC_CHAIN:
             return validateDiagnosticChain( (DiagnosticChain)value, diagnostics, context );
         default:
@@ -556,6 +562,93 @@ public class ErfValidator extends EObjectValidator {
                                                       DiagnosticChain diagnostics,
                                                       Map<Object, Object> context ) {
         return validate_EveryDefaultConstraint( attributeValueEnumeration, diagnostics, context );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean validateDatatypeDefinitionBoolean( DatatypeDefinitionBoolean datatypeDefinitionBoolean,
+                                                      DiagnosticChain diagnostics,
+                                                      Map<Object, Object> context ) {
+        return validate_EveryDefaultConstraint( datatypeDefinitionBoolean, diagnostics, context );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean validateAttributeDefinitionBoolean( AttributeDefinitionBoolean attributeDefinitionBoolean,
+                                                       DiagnosticChain diagnostics,
+                                                       Map<Object, Object> context ) {
+        return validate_EveryDefaultConstraint( attributeDefinitionBoolean, diagnostics, context );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean validateAttributeValueBoolean( AttributeValueBoolean attributeValueBoolean,
+                                                  DiagnosticChain diagnostics,
+                                                  Map<Object, Object> context ) {
+        if( !validate_NoCircularContainment( attributeValueBoolean, diagnostics, context ) ) return false;
+        boolean result = validate_EveryMultiplicityConforms( attributeValueBoolean, diagnostics, context );
+        if( result || diagnostics != null ) result &= validate_EveryDataValueConforms( attributeValueBoolean,
+                                                                                       diagnostics,
+                                                                                       context );
+        if( result || diagnostics != null ) result &= validate_EveryReferenceIsContained( attributeValueBoolean,
+                                                                                          diagnostics,
+                                                                                          context );
+        if( result || diagnostics != null ) result &= validate_EveryBidirectionalReferenceIsPaired( attributeValueBoolean,
+                                                                                                    diagnostics,
+                                                                                                    context );
+        if( result || diagnostics != null ) result &= validate_EveryProxyResolves( attributeValueBoolean,
+                                                                                   diagnostics,
+                                                                                   context );
+        if( result || diagnostics != null ) result &= validate_UniqueID( attributeValueBoolean, diagnostics, context );
+        if( result || diagnostics != null ) result &= validate_EveryKeyUnique( attributeValueBoolean,
+                                                                               diagnostics,
+                                                                               context );
+        if( result || diagnostics != null ) result &= validate_EveryMapEntryUnique( attributeValueBoolean,
+                                                                                    diagnostics,
+                                                                                    context );
+        if( result || diagnostics != null ) result &= validateAttributeValueBoolean_DatatypeDefinitionConstraints( attributeValueBoolean,
+                                                                                                                   diagnostics,
+                                                                                                                   context );
+        return result;
+    }
+
+    /**
+     * Validates the DatatypeDefinitionConstraints constraint of '<em>Attribute Value Boolean</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean validateAttributeValueBoolean_DatatypeDefinitionConstraints( AttributeValueBoolean attributeValueBoolean,
+                                                                                DiagnosticChain diagnostics,
+                                                                                Map<Object, Object> context ) {
+        // TODO implement the constraint
+        // -> specify the condition that violates the constraint
+        // -> verify the diagnostic details, including severity, code, and message
+        // Ensure that you remove @generated or mark it @generated NOT
+        if( false ) {
+            if( diagnostics != null ) {
+                diagnostics.add( createDiagnostic( Diagnostic.ERROR,
+                                                   DIAGNOSTIC_SOURCE,
+                                                   0,
+                                                   "_UI_GenericConstraint_diagnostic",
+                                                   new Object[]{
+                                                       "DatatypeDefinitionConstraints",
+                                                       getObjectLabel( attributeValueBoolean, context )},
+                                                   new Object[]{attributeValueBoolean},
+                                                   context ) );
+            }
+            return false;
+        }
+        return true;
     }
 
     /**
