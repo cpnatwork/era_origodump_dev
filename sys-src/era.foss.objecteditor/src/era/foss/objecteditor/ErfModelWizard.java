@@ -1,21 +1,21 @@
 /**************************************************************************
-* ERA - Eclipse Requirements Analysis
-* ==============================================
-* Copyright (C) 2009-2011 by Georg Blaschke, Christoph P. Neumann
-* and Bernd Haberstumpf (http://era.origo.ethz.ch)
-**************************************************************************
-* Licensed under the Eclipse Public License - v 1.0 (the "License");
-* you may not use this file except in compliance with
-* the License. You may obtain a copy of the License at
-* http://www.eclipse.org/org/documents/epl-v10.html
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-**************************************************************************
-* $Id$
-*************************************************************************/
+ * ERA - Eclipse Requirements Analysis
+ * ==============================================
+ * Copyright (C) 2009-2011 by Georg Blaschke, Christoph P. Neumann
+ * and Bernd Haberstumpf (http://era.origo.ethz.ch)
+ **************************************************************************
+ * Licensed under the Eclipse Public License - v 1.0 (the "License");
+ * you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.eclipse.org/org/documents/epl-v10.html
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ **************************************************************************
+ * $Id$
+ *************************************************************************/
 package era.foss.objecteditor;
 
 import java.util.ArrayList;
@@ -28,59 +28,46 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.StringTokenizer;
 
-import org.eclipse.emf.common.CommonPlugin;
-
-import org.eclipse.emf.common.util.URI;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
-
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-
-import org.eclipse.emf.ecore.EObject;
-
-import org.eclipse.emf.ecore.xmi.XMLResource;
-
-import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
-
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
-
 import org.eclipse.core.runtime.IProgressMonitor;
-
+import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.CommonPlugin;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.jface.dialogs.MessageDialog;
-
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
-
 import org.eclipse.swt.SWT;
-
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.ModifyEvent;
-
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
-
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
-
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
 
@@ -89,93 +76,77 @@ import era.foss.erf.ErfFactory;
 import era.foss.erf.ErfPackage;
 import era.foss.erf.provider.ErfEditPlugin;
 
-import org.eclipse.core.runtime.Path;
-
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.StructuredSelection;
-
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PartInitException;
-
 /**
- * This is a simple wizard for creating a new model file.
- * <!-- begin-user-doc -->
- * <!-- end-user-doc -->
+ * This is a simple wizard for creating a new model file. <!-- begin-user-doc --> <!-- end-user-doc -->
+ * 
  * @not generated
  */
 public class ErfModelWizard extends Wizard implements INewWizard {
     /**
-     * The supported extensions for created files.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The supported extensions for created files. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public static final List<String> FILE_EXTENSIONS = Collections.unmodifiableList( Arrays.asList( ErfObjectsEditorPlugin.INSTANCE.getString( "_UI_ErfEditorFilenameExtensions" )
-                                                                                                                            .split( "\\s*,\\s*" ) ) );
+                                                                                                                                   .split( "\\s*,\\s*" ) ) );
 
     /**
-     * A formatted list of supported file extensions, suitable for display.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * A formatted list of supported file extensions, suitable for display. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      */
     public static final String FORMATTED_FILE_EXTENSIONS = ErfObjectsEditorPlugin.INSTANCE.getString( "_UI_ErfEditorFilenameExtensions" )
-                                                                                   .replaceAll( "\\s*,\\s*", ", " );
+                                                                                          .replaceAll( "\\s*,\\s*",
+                                                                                                       ", " );
 
     /**
-     * This caches an instance of the model package.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This caches an instance of the model package. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected ErfPackage erfPackage = ErfPackage.eINSTANCE;
 
     /**
-     * This caches an instance of the model factory.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This caches an instance of the model factory. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected ErfFactory erfFactory = erfPackage.getErfFactory();
 
     /**
-     * This is the file creation page.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This is the file creation page. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected ErfModelWizardNewFileCreationPage newFileCreationPage;
 
     /**
-     * This is the initial object creation page.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This is the initial object creation page. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected ErfModelWizardInitialObjectCreationPage initialObjectCreationPage;
 
     /**
-     * Remember the selection during initialization for populating the default container.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Remember the selection during initialization for populating the default container. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @generated
      */
     protected IStructuredSelection selection;
 
     /**
-     * Remember the workbench during initialization.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Remember the workbench during initialization. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected IWorkbench workbench;
 
     /**
-     * Caches the names of the types that can be created as the root object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Caches the names of the types that can be created as the root object. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      */
     protected List<String> initialObjectNames;
@@ -228,6 +199,9 @@ public class ErfModelWizard extends Wizard implements INewWizard {
 
         // The core content has to be created in any case
         erfModel.setCoreContent( erfFactory.createContent() );
+
+        // The toolextension
+        erfModel.getToolExtensions().add( erfFactory.createErfToolExtension() );
 
         // Right now we support only one spec type for a single document
         erfModel.getCoreContent().getSpecTypes().add( erfFactory.createSpecType() );
@@ -323,13 +297,12 @@ public class ErfModelWizard extends Wizard implements INewWizard {
     }
 
     /**
-     * This is the one page of the wizard.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This is the one page of the wizard. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public class ErfModelWizardNewFileCreationPage extends WizardNewFileCreationPage {
-        
+
         /**
          * Pass in the selection. <!-- begin-user-doc --> <!-- end-user-doc -->
          * 
@@ -353,7 +326,8 @@ public class ErfModelWizard extends Wizard implements INewWizard {
                 String extension = new Path( getFileName() ).getFileExtension();
                 if( extension == null || !FILE_EXTENSIONS.contains( extension ) ) {
                     String key = FILE_EXTENSIONS.size() > 1 ? "_WARN_FilenameExtensions" : "_WARN_FilenameExtension";
-                    setErrorMessage( ErfObjectsEditorPlugin.INSTANCE.getString( key, new Object[]{FORMATTED_FILE_EXTENSIONS} ) );
+                    setErrorMessage( ErfObjectsEditorPlugin.INSTANCE.getString( key,
+                                                                                new Object[]{FORMATTED_FILE_EXTENSIONS} ) );
                     return false;
                 }
                 return true;
@@ -373,9 +347,8 @@ public class ErfModelWizard extends Wizard implements INewWizard {
     }
 
     /**
-     * This is the page where the type of object to create is selected.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This is the page where the type of object to create is selected. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @not generated
      */
     public class ErfModelWizardInitialObjectCreationPage extends WizardPage {
@@ -529,9 +502,8 @@ public class ErfModelWizard extends Wizard implements INewWizard {
     }
 
     /**
-     * The framework calls this to create the contents of the wizard.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The framework calls this to create the contents of the wizard. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override

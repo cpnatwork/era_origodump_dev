@@ -1,26 +1,14 @@
-/**************************************************************************
- * ERA - Eclipse Requirements Analysis
- * ==============================================
- * Copyright (C) 2009-2011 by Georg Blaschke, Christoph P. Neumann
- * and Bernd Haberstumpf (http://era.origo.ethz.ch)
- **************************************************************************
- * Licensed under the Eclipse Public License - v 1.0 (the "License");
- * you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
- * http://www.eclipse.org/org/documents/epl-v10.html
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- **************************************************************************
+/**
+ * <copyright>
+ * </copyright>
+ *
  * $Id$
- *************************************************************************/
+ */
 package era.foss.erf.provider;
 
-import era.foss.erf.ERF;
 import era.foss.erf.ErfFactory;
 import era.foss.erf.ErfPackage;
+import era.foss.erf.View;
 
 import java.util.Collection;
 import java.util.List;
@@ -42,12 +30,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link era.foss.erf.ERF} object.
+ * This is the item provider adapter for a {@link era.foss.erf.View} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ERFItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+public class ViewItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
         IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
     /**
      * This constructs an instance from a factory and a notifier.
@@ -55,7 +43,7 @@ public class ERFItemProvider extends ItemProviderAdapter implements IEditingDoma
      * <!-- end-user-doc -->
      * @generated
      */
-    public ERFItemProvider( AdapterFactory adapterFactory ) {
+    public ViewItemProvider( AdapterFactory adapterFactory ) {
         super( adapterFactory );
     }
 
@@ -86,8 +74,7 @@ public class ERFItemProvider extends ItemProviderAdapter implements IEditingDoma
     public Collection<? extends EStructuralFeature> getChildrenFeatures( Object object ) {
         if( childrenFeatures == null ) {
             super.getChildrenFeatures( object );
-            childrenFeatures.add( ErfPackage.Literals.ERF__CORE_CONTENT );
-            childrenFeatures.add( ErfPackage.Literals.ERF__TOOL_EXTENSIONS );
+            childrenFeatures.add( ErfPackage.Literals.VIEW__VIEW_ELEMENTS );
         }
         return childrenFeatures;
     }
@@ -106,14 +93,14 @@ public class ERFItemProvider extends ItemProviderAdapter implements IEditingDoma
     }
 
     /**
-     * This returns ERF.gif.
+     * This returns View.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object getImage( Object object ) {
-        return overlayImage( object, getResourceLocator().getImage( "full/obj16/ERF" ) );
+        return overlayImage( object, getResourceLocator().getImage( "full/obj16/View" ) );
     }
 
     /**
@@ -124,7 +111,7 @@ public class ERFItemProvider extends ItemProviderAdapter implements IEditingDoma
      */
     @Override
     public String getText( Object object ) {
-        return getString( "_UI_ERF_type" );
+        return getString( "_UI_View_type" );
     }
 
     /**
@@ -138,9 +125,8 @@ public class ERFItemProvider extends ItemProviderAdapter implements IEditingDoma
     public void notifyChanged( Notification notification ) {
         updateChildren( notification );
 
-        switch (notification.getFeatureID( ERF.class )) {
-        case ErfPackage.ERF__CORE_CONTENT:
-        case ErfPackage.ERF__TOOL_EXTENSIONS:
+        switch (notification.getFeatureID( View.class )) {
+        case ErfPackage.VIEW__VIEW_ELEMENTS:
             fireNotifyChanged( new ViewerNotification( notification, notification.getNotifier(), true, false ) );
             return;
         }
@@ -158,11 +144,8 @@ public class ERFItemProvider extends ItemProviderAdapter implements IEditingDoma
     protected void collectNewChildDescriptors( Collection<Object> newChildDescriptors, Object object ) {
         super.collectNewChildDescriptors( newChildDescriptors, object );
 
-        newChildDescriptors.add( createChildParameter( ErfPackage.Literals.ERF__CORE_CONTENT,
-                                                       ErfFactory.eINSTANCE.createContent() ) );
-
-        newChildDescriptors.add( createChildParameter( ErfPackage.Literals.ERF__TOOL_EXTENSIONS,
-                                                       ErfFactory.eINSTANCE.createErfToolExtension() ) );
+        newChildDescriptors.add( createChildParameter( ErfPackage.Literals.VIEW__VIEW_ELEMENTS,
+                                                       ErfFactory.eINSTANCE.createViewElement() ) );
     }
 
     /**

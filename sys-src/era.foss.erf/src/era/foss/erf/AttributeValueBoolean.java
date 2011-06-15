@@ -1,7 +1,7 @@
 package era.foss.erf;
 
 /**
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='DatatypeDefinitionConstraints'"
+ * @model
  */
 public interface AttributeValueBoolean extends AttributeValue {
 
@@ -11,9 +11,9 @@ public interface AttributeValueBoolean extends AttributeValue {
     public Boolean getTheValue();
 
     /**
-     * Sets the value of the '{@link era.foss.erf.AttributeValueBoolean#getTheValue <em>The Value</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Sets the value of the '{@link era.foss.erf.AttributeValueBoolean#getTheValue <em>The Value</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @param value the new value of the '<em>The Value</em>' attribute.
      * @see #getTheValue()
      * @generated

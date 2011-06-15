@@ -59,6 +59,7 @@
     </genClasses>
     <genClasses ecoreClass="erf.ecore#//ERF">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference erf.ecore#//ERF/coreContent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference erf.ecore#//ERF/toolExtensions"/>
     </genClasses>
     <genClasses ecoreClass="erf.ecore#//Content">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference erf.ecore#//Content/specObjects"/>
@@ -98,6 +99,18 @@
     </genClasses>
     <genClasses ecoreClass="erf.ecore#//AttributeValueBoolean">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute erf.ecore#//AttributeValueBoolean/theValue"/>
+    </genClasses>
+    <genClasses ecoreClass="erf.ecore#//ErfToolExtension">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference erf.ecore#//ErfToolExtension/views"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="erf.ecore#//ToolExtension"/>
+    <genClasses ecoreClass="erf.ecore#//View">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference erf.ecore#//View/viewElements"/>
+    </genClasses>
+    <genClasses ecoreClass="erf.ecore#//ViewElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute erf.ecore#//ViewElement/editorShowLabel"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute erf.ecore#//ViewElement/editorRowNumber"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute erf.ecore#//ViewElement/editorColumnSpan"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

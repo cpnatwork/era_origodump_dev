@@ -110,6 +110,12 @@ public class ErfFactoryImpl extends EFactoryImpl implements ErfFactory {
             return createAttributeDefinitionBoolean();
         case ErfPackage.ATTRIBUTE_VALUE_BOOLEAN:
             return createAttributeValueBoolean();
+        case ErfPackage.ERF_TOOL_EXTENSION:
+            return createErfToolExtension();
+        case ErfPackage.VIEW:
+            return createView();
+        case ErfPackage.VIEW_ELEMENT:
+            return createViewElement();
         default:
             throw new IllegalArgumentException( "The class '" + eClass.getName() + "' is not a valid classifier" );
         }
@@ -327,6 +333,36 @@ public class ErfFactoryImpl extends EFactoryImpl implements ErfFactory {
     public AttributeValueBoolean createAttributeValueBoolean() {
         AttributeValueBooleanImpl attributeValueBoolean = new AttributeValueBooleanImpl();
         return attributeValueBoolean;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ErfToolExtension createErfToolExtension() {
+        ErfToolExtensionImpl erfToolExtension = new ErfToolExtensionImpl();
+        return erfToolExtension;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public View createView() {
+        ViewImpl view = new ViewImpl();
+        return view;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ViewElement createViewElement() {
+        ViewElementImpl viewElement = new ViewElementImpl();
+        return viewElement;
     }
 
     /**

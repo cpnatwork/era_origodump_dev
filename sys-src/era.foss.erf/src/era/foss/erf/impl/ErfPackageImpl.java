@@ -49,11 +49,15 @@ import era.foss.erf.EmbeddedValue;
 import era.foss.erf.EnumValue;
 import era.foss.erf.ErfFactory;
 import era.foss.erf.ErfPackage;
+import era.foss.erf.ErfToolExtension;
 import era.foss.erf.Identifiable;
 import era.foss.erf.SpecElementWithUserDefinedAttributes;
 import era.foss.erf.SpecObject;
 import era.foss.erf.SpecRelation;
 import era.foss.erf.SpecType;
+import era.foss.erf.ToolExtension;
+import era.foss.erf.View;
+import era.foss.erf.ViewElement;
 import era.foss.erf.util.ErfValidator;
 
 /**
@@ -214,6 +218,34 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
      * @generated
      */
     private EClass attributeValueBooleanEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass erfToolExtensionEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass toolExtensionEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass viewEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass viewElementEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -562,6 +594,15 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getERF_ToolExtensions() {
+        return (EReference)erfEClass.getEStructuralFeatures().get( 1 );
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -799,6 +840,87 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getErfToolExtension() {
+        return erfToolExtensionEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getErfToolExtension_Views() {
+        return (EReference)erfToolExtensionEClass.getEStructuralFeatures().get( 0 );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getToolExtension() {
+        return toolExtensionEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getView() {
+        return viewEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getView_ViewElements() {
+        return (EReference)viewEClass.getEStructuralFeatures().get( 0 );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getViewElement() {
+        return viewElementEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getViewElement_EditorShowLabel() {
+        return (EAttribute)viewElementEClass.getEStructuralFeatures().get( 0 );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getViewElement_EditorRowNumber() {
+        return (EAttribute)viewElementEClass.getEStructuralFeatures().get( 1 );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getViewElement_EditorColumnSpan() {
+        return (EAttribute)viewElementEClass.getEStructuralFeatures().get( 2 );
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -879,6 +1001,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
 
         erfEClass = createEClass( ERF );
         createEReference( erfEClass, ERF__CORE_CONTENT );
+        createEReference( erfEClass, ERF__TOOL_EXTENSIONS );
 
         contentEClass = createEClass( CONTENT );
         createEReference( contentEClass, CONTENT__SPEC_OBJECTS );
@@ -922,6 +1045,19 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
 
         attributeValueBooleanEClass = createEClass( ATTRIBUTE_VALUE_BOOLEAN );
         createEAttribute( attributeValueBooleanEClass, ATTRIBUTE_VALUE_BOOLEAN__THE_VALUE );
+
+        erfToolExtensionEClass = createEClass( ERF_TOOL_EXTENSION );
+        createEReference( erfToolExtensionEClass, ERF_TOOL_EXTENSION__VIEWS );
+
+        toolExtensionEClass = createEClass( TOOL_EXTENSION );
+
+        viewEClass = createEClass( VIEW );
+        createEReference( viewEClass, VIEW__VIEW_ELEMENTS );
+
+        viewElementEClass = createEClass( VIEW_ELEMENT );
+        createEAttribute( viewElementEClass, VIEW_ELEMENT__EDITOR_SHOW_LABEL );
+        createEAttribute( viewElementEClass, VIEW_ELEMENT__EDITOR_ROW_NUMBER );
+        createEAttribute( viewElementEClass, VIEW_ELEMENT__EDITOR_COLUMN_SPAN );
 
         // Create data types
         diagnosticChainEDataType = createEDataType( DIAGNOSTIC_CHAIN );
@@ -974,6 +1110,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         datatypeDefinitionBooleanEClass.getESuperTypes().add( this.getDatatypeDefinition() );
         attributeDefinitionBooleanEClass.getESuperTypes().add( this.getAttributeDefinition() );
         attributeValueBooleanEClass.getESuperTypes().add( this.getAttributeValue() );
+        erfToolExtensionEClass.getESuperTypes().add( this.getToolExtension() );
 
         // Initialize classes and features; add operations and parameters
         initEClass( attributeDefinitionEClass,
@@ -1390,6 +1527,23 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         IS_UNIQUE,
                         !IS_DERIVED,
                         IS_ORDERED );
+        initEReference( getERF_ToolExtensions(),
+                        this.getToolExtension(),
+                        null,
+                        "toolExtensions",
+                        null,
+                        0,
+                        -1,
+                        era.foss.erf.ERF.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        IS_COMPOSITE,
+                        !IS_RESOLVE_PROXIES,
+                        !IS_UNSETTABLE,
+                        IS_UNIQUE,
+                        !IS_DERIVED,
+                        IS_ORDERED );
 
         initEClass( contentEClass, Content.class, "Content", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS );
         initEReference( getContent_SpecObjects(),
@@ -1755,6 +1909,108 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         !IS_DERIVED,
                         IS_ORDERED );
 
+        initEClass( erfToolExtensionEClass,
+                    ErfToolExtension.class,
+                    "ErfToolExtension",
+                    !IS_ABSTRACT,
+                    !IS_INTERFACE,
+                    IS_GENERATED_INSTANCE_CLASS );
+        initEReference( getErfToolExtension_Views(),
+                        this.getView(),
+                        null,
+                        "views",
+                        null,
+                        0,
+                        -1,
+                        ErfToolExtension.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        IS_COMPOSITE,
+                        !IS_RESOLVE_PROXIES,
+                        !IS_UNSETTABLE,
+                        IS_UNIQUE,
+                        !IS_DERIVED,
+                        IS_ORDERED );
+
+        initEClass( toolExtensionEClass,
+                    ToolExtension.class,
+                    "ToolExtension",
+                    IS_ABSTRACT,
+                    !IS_INTERFACE,
+                    IS_GENERATED_INSTANCE_CLASS );
+
+        initEClass( viewEClass, View.class, "View", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS );
+        initEReference( getView_ViewElements(),
+                        this.getViewElement(),
+                        null,
+                        "viewElements",
+                        null,
+                        0,
+                        -1,
+                        View.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        IS_COMPOSITE,
+                        !IS_RESOLVE_PROXIES,
+                        !IS_UNSETTABLE,
+                        IS_UNIQUE,
+                        !IS_DERIVED,
+                        IS_ORDERED );
+
+        initEClass( viewElementEClass,
+                    ViewElement.class,
+                    "ViewElement",
+                    !IS_ABSTRACT,
+                    !IS_INTERFACE,
+                    IS_GENERATED_INSTANCE_CLASS );
+        initEAttribute( getViewElement_EditorShowLabel(),
+                        ecorePackage.getEBoolean(),
+                        "editorShowLabel",
+                        "true",
+                        1,
+                        1,
+                        ViewElement.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_UNSETTABLE,
+                        !IS_ID,
+                        !IS_UNIQUE,
+                        !IS_DERIVED,
+                        IS_ORDERED );
+        initEAttribute( getViewElement_EditorRowNumber(),
+                        ecorePackage.getEInt(),
+                        "editorRowNumber",
+                        "1",
+                        1,
+                        1,
+                        ViewElement.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_UNSETTABLE,
+                        !IS_ID,
+                        !IS_UNIQUE,
+                        !IS_DERIVED,
+                        IS_ORDERED );
+        initEAttribute( getViewElement_EditorColumnSpan(),
+                        ecorePackage.getEInt(),
+                        "editorColumnSpan",
+                        "1",
+                        1,
+                        1,
+                        ViewElement.class,
+                        !IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_UNSETTABLE,
+                        !IS_ID,
+                        !IS_UNIQUE,
+                        !IS_DERIVED,
+                        IS_ORDERED );
+
         // Initialize data types
         initEDataType( diagnosticChainEDataType,
                        DiagnosticChain.class,
@@ -1784,9 +2040,6 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         addAnnotation( datatypeDefinitionIntegerEClass, source, new String[]{
             "constraints",
             "NonNegative MaxGreaterThanMin"} );
-        addAnnotation( attributeValueBooleanEClass, source, new String[]{
-            "constraints",
-            "DatatypeDefinitionConstraints"} );
     }
 
 } // ErfPackageImpl

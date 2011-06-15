@@ -22,8 +22,7 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * @model abstract="true"
- * @author schorsch
- *
+ * 
  */
 public interface Identifiable extends EObject {
 
@@ -56,9 +55,9 @@ public interface Identifiable extends EObject {
     void unsetID();
 
     /**
-     * Returns whether the value of the '{@link era.foss.erf.Identifiable#getID <em>ID</em>}' attribute is set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns whether the value of the '{@link era.foss.erf.Identifiable#getID <em>ID</em>}' attribute is set. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return whether the value of the '<em>ID</em>' attribute is set.
      * @see #unsetID()
      * @see #getID()
@@ -74,8 +73,8 @@ public interface Identifiable extends EObject {
 
     /**
      * Sets the value of the '{@link era.foss.erf.Identifiable#getDesc <em>Desc</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Desc</em>' attribute.
      * @see #getDesc()
      * @generated
@@ -83,14 +82,14 @@ public interface Identifiable extends EObject {
     void setDesc( String value );
 
     /**
-     * @model default="" 
+     * @model default=""
      */
     public String getLongName();
 
     /**
-     * Sets the value of the '{@link era.foss.erf.Identifiable#getLongName <em>Long Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Sets the value of the '{@link era.foss.erf.Identifiable#getLongName <em>Long Name</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @param value the new value of the '<em>Long Name</em>' attribute.
      * @see #getLongName()
      * @generated

@@ -22,14 +22,19 @@ import era.foss.erf.ERF;
 import era.foss.erf.Content;
 import era.foss.erf.ErfPackage;
 
+import era.foss.erf.ToolExtension;
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -39,6 +44,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link era.foss.erf.impl.ERFImpl#getCoreContent <em>Core Content</em>}</li>
+ *   <li>{@link era.foss.erf.impl.ERFImpl#getToolExtensions <em>Tool Extensions</em>}</li>
  * </ul>
  * </p>
  *
@@ -55,6 +61,16 @@ public class ERFImpl extends EObjectImpl implements ERF {
      * @ordered
      */
     protected Content coreContent;
+
+    /**
+     * The cached value of the '{@link #getToolExtensions() <em>Tool Extensions</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getToolExtensions()
+     * @generated
+     * @ordered
+     */
+    protected EList<ToolExtension> toolExtensions;
 
     /**
      * <!-- begin-user-doc -->
@@ -138,11 +154,28 @@ public class ERFImpl extends EObjectImpl implements ERF {
      * <!-- end-user-doc -->
      * @generated
      */
+    public EList<ToolExtension> getToolExtensions() {
+        if( toolExtensions == null ) {
+            toolExtensions = new EObjectContainmentEList<ToolExtension>(
+                ToolExtension.class,
+                this,
+                ErfPackage.ERF__TOOL_EXTENSIONS );
+        }
+        return toolExtensions;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove( InternalEObject otherEnd, int featureID, NotificationChain msgs ) {
         switch (featureID) {
         case ErfPackage.ERF__CORE_CONTENT:
             return basicSetCoreContent( null, msgs );
+        case ErfPackage.ERF__TOOL_EXTENSIONS:
+            return ((InternalEList<?>)getToolExtensions()).basicRemove( otherEnd, msgs );
         }
         return super.eInverseRemove( otherEnd, featureID, msgs );
     }
@@ -157,6 +190,8 @@ public class ERFImpl extends EObjectImpl implements ERF {
         switch (featureID) {
         case ErfPackage.ERF__CORE_CONTENT:
             return getCoreContent();
+        case ErfPackage.ERF__TOOL_EXTENSIONS:
+            return getToolExtensions();
         }
         return super.eGet( featureID, resolve, coreType );
     }
@@ -166,11 +201,16 @@ public class ERFImpl extends EObjectImpl implements ERF {
      * <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void eSet( int featureID, Object newValue ) {
         switch (featureID) {
         case ErfPackage.ERF__CORE_CONTENT:
             setCoreContent( (Content)newValue );
+            return;
+        case ErfPackage.ERF__TOOL_EXTENSIONS:
+            getToolExtensions().clear();
+            getToolExtensions().addAll( (Collection<? extends ToolExtension>)newValue );
             return;
         }
         super.eSet( featureID, newValue );
@@ -187,6 +227,9 @@ public class ERFImpl extends EObjectImpl implements ERF {
         case ErfPackage.ERF__CORE_CONTENT:
             setCoreContent( (Content)null );
             return;
+        case ErfPackage.ERF__TOOL_EXTENSIONS:
+            getToolExtensions().clear();
+            return;
         }
         super.eUnset( featureID );
     }
@@ -201,6 +244,8 @@ public class ERFImpl extends EObjectImpl implements ERF {
         switch (featureID) {
         case ErfPackage.ERF__CORE_CONTENT:
             return coreContent != null;
+        case ErfPackage.ERF__TOOL_EXTENSIONS:
+            return toolExtensions != null && !toolExtensions.isEmpty();
         }
         return super.eIsSet( featureID );
     }

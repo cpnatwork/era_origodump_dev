@@ -22,8 +22,6 @@ import org.eclipse.emf.common.util.EList;
 
 /**
  * @model
- * @author poldi
- *
  */
 public interface SpecType extends Identifiable {
 

@@ -210,6 +210,26 @@ public class ErfAdapterFactory extends AdapterFactoryImpl {
         }
 
         @Override
+        public Adapter caseErfToolExtension( ErfToolExtension object ) {
+            return createErfToolExtensionAdapter();
+        }
+
+        @Override
+        public Adapter caseToolExtension( ToolExtension object ) {
+            return createToolExtensionAdapter();
+        }
+
+        @Override
+        public Adapter caseView( View object ) {
+            return createViewAdapter();
+        }
+
+        @Override
+        public Adapter caseViewElement( ViewElement object ) {
+            return createViewElementAdapter();
+        }
+
+        @Override
         public Adapter defaultCase( EObject object ) {
             return createEObjectAdapter();
         }
@@ -575,6 +595,62 @@ public class ErfAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createAttributeValueBooleanAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link era.foss.erf.ErfToolExtension <em>Tool Extension</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see era.foss.erf.ErfToolExtension
+     * @generated
+     */
+    public Adapter createErfToolExtensionAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link era.foss.erf.ToolExtension <em>Tool Extension</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see era.foss.erf.ToolExtension
+     * @generated
+     */
+    public Adapter createToolExtensionAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link era.foss.erf.View <em>View</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see era.foss.erf.View
+     * @generated
+     */
+    public Adapter createViewAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link era.foss.erf.ViewElement <em>View Element</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see era.foss.erf.ViewElement
+     * @generated
+     */
+    public Adapter createViewElementAdapter() {
         return null;
     }
 

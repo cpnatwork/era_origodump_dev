@@ -173,6 +173,14 @@ public class ErfValidator extends EObjectValidator {
             return validateAttributeDefinitionBoolean( (AttributeDefinitionBoolean)value, diagnostics, context );
         case ErfPackage.ATTRIBUTE_VALUE_BOOLEAN:
             return validateAttributeValueBoolean( (AttributeValueBoolean)value, diagnostics, context );
+        case ErfPackage.ERF_TOOL_EXTENSION:
+            return validateErfToolExtension( (ErfToolExtension)value, diagnostics, context );
+        case ErfPackage.TOOL_EXTENSION:
+            return validateToolExtension( (ToolExtension)value, diagnostics, context );
+        case ErfPackage.VIEW:
+            return validateView( (View)value, diagnostics, context );
+        case ErfPackage.VIEW_ELEMENT:
+            return validateViewElement( (ViewElement)value, diagnostics, context );
         case ErfPackage.DIAGNOSTIC_CHAIN:
             return validateDiagnosticChain( (DiagnosticChain)value, diagnostics, context );
         default:
@@ -594,61 +602,49 @@ public class ErfValidator extends EObjectValidator {
     public boolean validateAttributeValueBoolean( AttributeValueBoolean attributeValueBoolean,
                                                   DiagnosticChain diagnostics,
                                                   Map<Object, Object> context ) {
-        if( !validate_NoCircularContainment( attributeValueBoolean, diagnostics, context ) ) return false;
-        boolean result = validate_EveryMultiplicityConforms( attributeValueBoolean, diagnostics, context );
-        if( result || diagnostics != null ) result &= validate_EveryDataValueConforms( attributeValueBoolean,
-                                                                                       diagnostics,
-                                                                                       context );
-        if( result || diagnostics != null ) result &= validate_EveryReferenceIsContained( attributeValueBoolean,
-                                                                                          diagnostics,
-                                                                                          context );
-        if( result || diagnostics != null ) result &= validate_EveryBidirectionalReferenceIsPaired( attributeValueBoolean,
-                                                                                                    diagnostics,
-                                                                                                    context );
-        if( result || diagnostics != null ) result &= validate_EveryProxyResolves( attributeValueBoolean,
-                                                                                   diagnostics,
-                                                                                   context );
-        if( result || diagnostics != null ) result &= validate_UniqueID( attributeValueBoolean, diagnostics, context );
-        if( result || diagnostics != null ) result &= validate_EveryKeyUnique( attributeValueBoolean,
-                                                                               diagnostics,
-                                                                               context );
-        if( result || diagnostics != null ) result &= validate_EveryMapEntryUnique( attributeValueBoolean,
-                                                                                    diagnostics,
-                                                                                    context );
-        if( result || diagnostics != null ) result &= validateAttributeValueBoolean_DatatypeDefinitionConstraints( attributeValueBoolean,
-                                                                                                                   diagnostics,
-                                                                                                                   context );
-        return result;
+        return validate_EveryDefaultConstraint( attributeValueBoolean, diagnostics, context );
     }
 
     /**
-     * Validates the DatatypeDefinitionConstraints constraint of '<em>Attribute Value Boolean</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    public boolean validateAttributeValueBoolean_DatatypeDefinitionConstraints( AttributeValueBoolean attributeValueBoolean,
-                                                                                DiagnosticChain diagnostics,
-                                                                                Map<Object, Object> context ) {
-        // TODO implement the constraint
-        // -> specify the condition that violates the constraint
-        // -> verify the diagnostic details, including severity, code, and message
-        // Ensure that you remove @generated or mark it @generated NOT
-        if( false ) {
-            if( diagnostics != null ) {
-                diagnostics.add( createDiagnostic( Diagnostic.ERROR,
-                                                   DIAGNOSTIC_SOURCE,
-                                                   0,
-                                                   "_UI_GenericConstraint_diagnostic",
-                                                   new Object[]{
-                                                       "DatatypeDefinitionConstraints",
-                                                       getObjectLabel( attributeValueBoolean, context )},
-                                                   new Object[]{attributeValueBoolean},
-                                                   context ) );
-            }
-            return false;
-        }
-        return true;
+    public boolean validateErfToolExtension( ErfToolExtension erfToolExtension,
+                                             DiagnosticChain diagnostics,
+                                             Map<Object, Object> context ) {
+        return validate_EveryDefaultConstraint( erfToolExtension, diagnostics, context );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean validateToolExtension( ToolExtension toolExtension,
+                                          DiagnosticChain diagnostics,
+                                          Map<Object, Object> context ) {
+        return validate_EveryDefaultConstraint( toolExtension, diagnostics, context );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean validateView( View view, DiagnosticChain diagnostics, Map<Object, Object> context ) {
+        return validate_EveryDefaultConstraint( view, diagnostics, context );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean validateViewElement( ViewElement viewElement,
+                                        DiagnosticChain diagnostics,
+                                        Map<Object, Object> context ) {
+        return validate_EveryDefaultConstraint( viewElement, diagnostics, context );
     }
 
     /**
