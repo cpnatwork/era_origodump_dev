@@ -6,41 +6,35 @@
  */
 package era.foss.erf.provider;
 
-import era.foss.erf.ErfFactory;
-import era.foss.erf.ErfPackage;
-import era.foss.erf.View;
-
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
+import era.foss.erf.ErfFactory;
+import era.foss.erf.ErfPackage;
+import era.foss.erf.View;
+
 /**
- * This is the item provider adapter for a {@link era.foss.erf.View} object.
- * <!-- begin-user-doc -->
- * <!-- end-user-doc -->
+ * This is the item provider adapter for a {@link era.foss.erf.View} object. <!-- begin-user-doc --> <!-- end-user-doc
+ * -->
+ * 
  * @generated
  */
-public class ViewItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+public class ViewItemProvider extends IdentifiableItemProvider implements IEditingDomainItemProvider,
         IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
     /**
-     * This constructs an instance from a factory and a notifier.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This constructs an instance from a factory and a notifier. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public ViewItemProvider( AdapterFactory adapterFactory ) {
@@ -48,9 +42,8 @@ public class ViewItemProvider extends ItemProviderAdapter implements IEditingDom
     }
 
     /**
-     * This returns the property descriptors for the adapted class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This returns the property descriptors for the adapted class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -65,9 +58,9 @@ public class ViewItemProvider extends ItemProviderAdapter implements IEditingDom
     /**
      * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
      * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-     * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -80,8 +73,8 @@ public class ViewItemProvider extends ItemProviderAdapter implements IEditingDom
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -93,9 +86,8 @@ public class ViewItemProvider extends ItemProviderAdapter implements IEditingDom
     }
 
     /**
-     * This returns View.gif.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This returns View.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -104,21 +96,23 @@ public class ViewItemProvider extends ItemProviderAdapter implements IEditingDom
     }
 
     /**
-     * This returns the label text for the adapted class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This returns the label text for the adapted class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public String getText( Object object ) {
-        return getString( "_UI_View_type" );
+        String label = ((View)object).getID();
+        return label == null || label.length() == 0 ? getString( "_UI_View_type" ) : getString( "_UI_View_type" )
+            + " "
+            + label;
     }
 
     /**
-     * This handles model notifications by calling {@link #updateChildren} to update any cached
-     * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This handles model notifications by calling {@link #updateChildren} to update any cached children and by creating
+     * a viewer notification, which it passes to {@link #fireNotifyChanged}. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      */
     @Override
@@ -134,10 +128,9 @@ public class ViewItemProvider extends ItemProviderAdapter implements IEditingDom
     }
 
     /**
-     * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
-     * that can be created under this object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children that can be created
+     * under this object. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -146,17 +139,6 @@ public class ViewItemProvider extends ItemProviderAdapter implements IEditingDom
 
         newChildDescriptors.add( createChildParameter( ErfPackage.Literals.VIEW__VIEW_ELEMENTS,
                                                        ErfFactory.eINSTANCE.createViewElement() ) );
-    }
-
-    /**
-     * Return the resource locator for this item provider's resources.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public ResourceLocator getResourceLocator() {
-        return ErfEditPlugin.INSTANCE;
     }
 
 }

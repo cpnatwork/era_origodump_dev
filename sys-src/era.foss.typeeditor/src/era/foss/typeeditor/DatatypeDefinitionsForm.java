@@ -320,7 +320,7 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
         tableViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
         tableViewer.setEditingDomain( editingDomain );
         tableViewer.setAddCommandParameter( erfModel.getCoreContent(),
-                                            ErfFactoryImpl.eINSTANCE.createDatatypeDefinitionInteger().eClass() );
+                                            ErfPackage.Literals.DATATYPE_DEFINITION_INTEGER );
 
         ObservableListContentProvider cp = new ObservableListContentProvider();
         tableViewer.setContentProvider( cp );

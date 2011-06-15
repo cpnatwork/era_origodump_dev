@@ -1120,6 +1120,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         datatypeDefinitionBooleanEClass.getESuperTypes().add( this.getDatatypeDefinition() );
         attributeDefinitionBooleanEClass.getESuperTypes().add( this.getAttributeDefinition() );
         attributeValueBooleanEClass.getESuperTypes().add( this.getAttributeValue() );
+        viewEClass.getESuperTypes().add( this.getIdentifiable() );
         eraToolExtensionEClass.getESuperTypes().add( this.getToolExtension() );
 
         // Initialize classes and features; add operations and parameters

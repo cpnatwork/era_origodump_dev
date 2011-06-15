@@ -32,7 +32,7 @@
             locationURI="menu:era.menu">
          <command
                commandId="era.command.openTypeEditor"
-               label="Type Editor"
+               label="%_UI_Type_Editor_label"
                style="push"
                tooltip="Opens the type editor">
          </command>

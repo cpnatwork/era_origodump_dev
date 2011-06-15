@@ -86,7 +86,7 @@ public class TypeDialog extends Dialog {
      */
     protected void configureShell( Shell shell ) {
         super.configureShell( shell );
-        shell.setText( "Type Editor" );
+        shell.setText( typeEditorActivator.getString( "_UI_Type_Editor_label" ) );
         shell.setMinimumSize( 600, 400 );
     }
 

@@ -6,42 +6,35 @@
  */
 package era.foss.erf.impl;
 
+import java.util.Collection;
+
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import era.foss.erf.ErfPackage;
 import era.foss.erf.View;
 import era.foss.erf.ViewElement;
 
-import java.util.Collection;
-
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.EObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>View</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>View</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link era.foss.erf.impl.ViewImpl#getViewElements <em>View Elements</em>}</li>
+ * <li>{@link era.foss.erf.impl.ViewImpl#getViewElements <em>View Elements</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
-public class ViewImpl extends EObjectImpl implements View {
+public class ViewImpl extends IdentifiableImpl implements View {
     /**
-     * The cached value of the '{@link #getViewElements() <em>View Elements</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getViewElements() <em>View Elements</em>}' containment reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getViewElements()
      * @generated
      * @ordered
@@ -49,8 +42,8 @@ public class ViewImpl extends EObjectImpl implements View {
     protected EList<ViewElement> viewElements;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected ViewImpl() {
@@ -58,8 +51,8 @@ public class ViewImpl extends EObjectImpl implements View {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -68,8 +61,8 @@ public class ViewImpl extends EObjectImpl implements View {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList<ViewElement> getViewElements() {
@@ -83,8 +76,8 @@ public class ViewImpl extends EObjectImpl implements View {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -97,8 +90,8 @@ public class ViewImpl extends EObjectImpl implements View {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -111,8 +104,8 @@ public class ViewImpl extends EObjectImpl implements View {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -128,8 +121,8 @@ public class ViewImpl extends EObjectImpl implements View {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -143,8 +136,8 @@ public class ViewImpl extends EObjectImpl implements View {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -156,4 +149,4 @@ public class ViewImpl extends EObjectImpl implements View {
         return super.eIsSet( featureID );
     }
 
-} //ViewImpl
+} // ViewImpl

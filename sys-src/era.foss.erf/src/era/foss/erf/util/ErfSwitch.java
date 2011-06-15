@@ -284,6 +284,7 @@ public class ErfSwitch<T2> {
         case ErfPackage.VIEW: {
             View view = (View)theEObject;
             T2 result = caseView( view );
+            if( result == null ) result = caseIdentifiable( view );
             if( result == null ) result = defaultCase( theEObject );
             return result;
         }

@@ -1658,13 +1658,40 @@ public interface ErfPackage extends EPackage {
     int VIEW = 26;
 
     /**
+     * The feature id for the '<em><b>ID</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VIEW__ID = IDENTIFIABLE__ID;
+
+    /**
+     * The feature id for the '<em><b>Desc</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VIEW__DESC = IDENTIFIABLE__DESC;
+
+    /**
+     * The feature id for the '<em><b>Long Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VIEW__LONG_NAME = IDENTIFIABLE__LONG_NAME;
+
+    /**
      * The feature id for the '<em><b>View Elements</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int VIEW__VIEW_ELEMENTS = 0;
+    int VIEW__VIEW_ELEMENTS = IDENTIFIABLE_FEATURE_COUNT + 0;
 
     /**
      * The number of structural features of the '<em>View</em>' class.
@@ -1673,7 +1700,7 @@ public interface ErfPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int VIEW_FEATURE_COUNT = 1;
+    int VIEW_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 1;
 
     /**
      * The meta object id for the '{@link era.foss.erf.impl.ViewElementImpl <em>View Element</em>}' class.

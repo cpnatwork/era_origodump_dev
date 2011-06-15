@@ -153,7 +153,7 @@
         defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ToolExtension" abstract="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="View">
+  <eClassifiers xsi:type="ecore:EClass" name="View" eSuperTypes="#//Identifiable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="viewElements" upperBound="-1"
         eType="#//ViewElement" containment="true" resolveProxies="false"/>
   </eClassifiers>
