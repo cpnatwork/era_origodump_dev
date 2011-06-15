@@ -6,6 +6,22 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  */
 public interface ViewElement extends EObject {
+    /**
+     * @model lowerBound="1"
+     * @Not generated
+     * @return
+     */
+    public AttributeDefinition getAttributeDefintion();
+
+    /**
+     * Sets the value of the '{@link era.foss.erf.ViewElement#getAttributeDefintion <em>Attribute Defintion</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Attribute Defintion</em>' reference.
+     * @see #getAttributeDefintion()
+     * @generated
+     */
+    void setAttributeDefintion( AttributeDefinition value );
 
     /**
      * @model unique="false" default="true" required="true"

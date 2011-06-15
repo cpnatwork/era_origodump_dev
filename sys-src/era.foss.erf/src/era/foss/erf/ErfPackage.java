@@ -1636,7 +1636,7 @@ public interface ErfPackage extends EPackage {
      * @see era.foss.erf.impl.ErfPackageImpl#getToolExtension()
      * @generated
      */
-    int TOOL_EXTENSION = 26;
+    int TOOL_EXTENSION = 25;
 
     /**
      * The number of structural features of the '<em>Tool Extension</em>' class.
@@ -1648,34 +1648,6 @@ public interface ErfPackage extends EPackage {
     int TOOL_EXTENSION_FEATURE_COUNT = 0;
 
     /**
-     * The meta object id for the '{@link era.foss.erf.impl.ErfToolExtensionImpl <em>Tool Extension</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see era.foss.erf.impl.ErfToolExtensionImpl
-     * @see era.foss.erf.impl.ErfPackageImpl#getErfToolExtension()
-     * @generated
-     */
-    int ERF_TOOL_EXTENSION = 25;
-
-    /**
-     * The feature id for the '<em><b>Views</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ERF_TOOL_EXTENSION__VIEWS = TOOL_EXTENSION_FEATURE_COUNT + 0;
-
-    /**
-     * The number of structural features of the '<em>Tool Extension</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ERF_TOOL_EXTENSION_FEATURE_COUNT = TOOL_EXTENSION_FEATURE_COUNT + 1;
-
-    /**
      * The meta object id for the '{@link era.foss.erf.impl.ViewImpl <em>View</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1683,7 +1655,7 @@ public interface ErfPackage extends EPackage {
      * @see era.foss.erf.impl.ErfPackageImpl#getView()
      * @generated
      */
-    int VIEW = 27;
+    int VIEW = 26;
 
     /**
      * The feature id for the '<em><b>View Elements</b></em>' containment reference list.
@@ -1711,7 +1683,7 @@ public interface ErfPackage extends EPackage {
      * @see era.foss.erf.impl.ErfPackageImpl#getViewElement()
      * @generated
      */
-    int VIEW_ELEMENT = 28;
+    int VIEW_ELEMENT = 27;
 
     /**
      * The feature id for the '<em><b>Editor Show Label</b></em>' attribute.
@@ -1741,13 +1713,50 @@ public interface ErfPackage extends EPackage {
     int VIEW_ELEMENT__EDITOR_COLUMN_SPAN = 2;
 
     /**
+     * The feature id for the '<em><b>Attribute Defintion</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int VIEW_ELEMENT__ATTRIBUTE_DEFINTION = 3;
+
+    /**
      * The number of structural features of the '<em>View Element</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int VIEW_ELEMENT_FEATURE_COUNT = 3;
+    int VIEW_ELEMENT_FEATURE_COUNT = 4;
+
+    /**
+     * The meta object id for the '{@link era.foss.erf.impl.EraToolExtensionImpl <em>Era Tool Extension</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see era.foss.erf.impl.EraToolExtensionImpl
+     * @see era.foss.erf.impl.ErfPackageImpl#getEraToolExtension()
+     * @generated
+     */
+    int ERA_TOOL_EXTENSION = 28;
+
+    /**
+     * The feature id for the '<em><b>Views</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ERA_TOOL_EXTENSION__VIEWS = TOOL_EXTENSION_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>Era Tool Extension</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ERA_TOOL_EXTENSION_FEATURE_COUNT = TOOL_EXTENSION_FEATURE_COUNT + 1;
 
     /**
      * The meta object id for the '<em>Diagnostic Chain</em>' data type.
@@ -2440,27 +2449,6 @@ public interface ErfPackage extends EPackage {
     EAttribute getAttributeValueBoolean_TheValue();
 
     /**
-     * Returns the meta object for class '{@link era.foss.erf.ErfToolExtension <em>Tool Extension</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Tool Extension</em>'.
-     * @see era.foss.erf.ErfToolExtension
-     * @generated
-     */
-    EClass getErfToolExtension();
-
-    /**
-     * Returns the meta object for the containment reference list '{@link era.foss.erf.ErfToolExtension#getViews <em>Views</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Views</em>'.
-     * @see era.foss.erf.ErfToolExtension#getViews()
-     * @see #getErfToolExtension()
-     * @generated
-     */
-    EReference getErfToolExtension_Views();
-
-    /**
      * Returns the meta object for class '{@link era.foss.erf.ToolExtension <em>Tool Extension</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2533,6 +2521,38 @@ public interface ErfPackage extends EPackage {
      * @generated
      */
     EAttribute getViewElement_EditorColumnSpan();
+
+    /**
+     * Returns the meta object for the reference '{@link era.foss.erf.ViewElement#getAttributeDefintion <em>Attribute Defintion</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Attribute Defintion</em>'.
+     * @see era.foss.erf.ViewElement#getAttributeDefintion()
+     * @see #getViewElement()
+     * @generated
+     */
+    EReference getViewElement_AttributeDefintion();
+
+    /**
+     * Returns the meta object for class '{@link era.foss.erf.EraToolExtension <em>Era Tool Extension</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Era Tool Extension</em>'.
+     * @see era.foss.erf.EraToolExtension
+     * @generated
+     */
+    EClass getEraToolExtension();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link era.foss.erf.EraToolExtension#getViews <em>Views</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Views</em>'.
+     * @see era.foss.erf.EraToolExtension#getViews()
+     * @see #getEraToolExtension()
+     * @generated
+     */
+    EReference getEraToolExtension_Views();
 
     /**
      * Returns the meta object for data type '{@link org.eclipse.emf.common.util.DiagnosticChain <em>Diagnostic Chain</em>}'.
@@ -3067,22 +3087,6 @@ public interface ErfPackage extends EPackage {
          */
         EAttribute ATTRIBUTE_VALUE_BOOLEAN__THE_VALUE = eINSTANCE.getAttributeValueBoolean_TheValue();
         /**
-         * The meta object literal for the '{@link era.foss.erf.impl.ErfToolExtensionImpl <em>Tool Extension</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @see era.foss.erf.impl.ErfToolExtensionImpl
-         * @see era.foss.erf.impl.ErfPackageImpl#getErfToolExtension()
-         * @generated
-         */
-        EClass ERF_TOOL_EXTENSION = eINSTANCE.getErfToolExtension();
-        /**
-         * The meta object literal for the '<em><b>Views</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference ERF_TOOL_EXTENSION__VIEWS = eINSTANCE.getErfToolExtension_Views();
-        /**
          * The meta object literal for the '{@link era.foss.erf.impl.ToolExtensionImpl <em>Tool Extension</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -3137,6 +3141,29 @@ public interface ErfPackage extends EPackage {
          * @generated
          */
         EAttribute VIEW_ELEMENT__EDITOR_COLUMN_SPAN = eINSTANCE.getViewElement_EditorColumnSpan();
+        /**
+         * The meta object literal for the '<em><b>Attribute Defintion</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference VIEW_ELEMENT__ATTRIBUTE_DEFINTION = eINSTANCE.getViewElement_AttributeDefintion();
+        /**
+         * The meta object literal for the '{@link era.foss.erf.impl.EraToolExtensionImpl <em>Era Tool Extension</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see era.foss.erf.impl.EraToolExtensionImpl
+         * @see era.foss.erf.impl.ErfPackageImpl#getEraToolExtension()
+         * @generated
+         */
+        EClass ERA_TOOL_EXTENSION = eINSTANCE.getEraToolExtension();
+        /**
+         * The meta object literal for the '<em><b>Views</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference ERA_TOOL_EXTENSION__VIEWS = eINSTANCE.getEraToolExtension_Views();
         /**
          * The meta object literal for the '<em>Diagnostic Chain</em>' data type.
          * <!-- begin-user-doc -->

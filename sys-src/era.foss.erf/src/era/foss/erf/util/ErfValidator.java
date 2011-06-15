@@ -173,14 +173,14 @@ public class ErfValidator extends EObjectValidator {
             return validateAttributeDefinitionBoolean( (AttributeDefinitionBoolean)value, diagnostics, context );
         case ErfPackage.ATTRIBUTE_VALUE_BOOLEAN:
             return validateAttributeValueBoolean( (AttributeValueBoolean)value, diagnostics, context );
-        case ErfPackage.ERF_TOOL_EXTENSION:
-            return validateErfToolExtension( (ErfToolExtension)value, diagnostics, context );
         case ErfPackage.TOOL_EXTENSION:
             return validateToolExtension( (ToolExtension)value, diagnostics, context );
         case ErfPackage.VIEW:
             return validateView( (View)value, diagnostics, context );
         case ErfPackage.VIEW_ELEMENT:
             return validateViewElement( (ViewElement)value, diagnostics, context );
+        case ErfPackage.ERA_TOOL_EXTENSION:
+            return validateEraToolExtension( (EraToolExtension)value, diagnostics, context );
         case ErfPackage.DIAGNOSTIC_CHAIN:
             return validateDiagnosticChain( (DiagnosticChain)value, diagnostics, context );
         default:
@@ -610,17 +610,6 @@ public class ErfValidator extends EObjectValidator {
      * <!-- end-user-doc -->
      * @generated
      */
-    public boolean validateErfToolExtension( ErfToolExtension erfToolExtension,
-                                             DiagnosticChain diagnostics,
-                                             Map<Object, Object> context ) {
-        return validate_EveryDefaultConstraint( erfToolExtension, diagnostics, context );
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public boolean validateToolExtension( ToolExtension toolExtension,
                                           DiagnosticChain diagnostics,
                                           Map<Object, Object> context ) {
@@ -645,6 +634,17 @@ public class ErfValidator extends EObjectValidator {
                                         DiagnosticChain diagnostics,
                                         Map<Object, Object> context ) {
         return validate_EveryDefaultConstraint( viewElement, diagnostics, context );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean validateEraToolExtension( EraToolExtension eraToolExtension,
+                                             DiagnosticChain diagnostics,
+                                             Map<Object, Object> context ) {
+        return validate_EveryDefaultConstraint( eraToolExtension, diagnostics, context );
     }
 
     /**

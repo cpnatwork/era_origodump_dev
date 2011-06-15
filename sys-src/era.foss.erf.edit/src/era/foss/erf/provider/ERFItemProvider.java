@@ -162,7 +162,7 @@ public class ERFItemProvider extends ItemProviderAdapter implements IEditingDoma
                                                        ErfFactory.eINSTANCE.createContent() ) );
 
         newChildDescriptors.add( createChildParameter( ErfPackage.Literals.ERF__TOOL_EXTENSIONS,
-                                                       ErfFactory.eINSTANCE.createErfToolExtension() ) );
+                                                       ErfFactory.eINSTANCE.createEraToolExtension() ) );
     }
 
     /**

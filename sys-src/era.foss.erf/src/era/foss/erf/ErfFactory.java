@@ -201,15 +201,6 @@ public interface ErfFactory extends EFactory {
     AttributeValueBoolean createAttributeValueBoolean();
 
     /**
-     * Returns a new object of class '<em>Tool Extension</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>Tool Extension</em>'.
-     * @generated
-     */
-    ErfToolExtension createErfToolExtension();
-
-    /**
      * Returns a new object of class '<em>View</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -226,6 +217,15 @@ public interface ErfFactory extends EFactory {
      * @generated
      */
     ViewElement createViewElement();
+
+    /**
+     * Returns a new object of class '<em>Era Tool Extension</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Era Tool Extension</em>'.
+     * @generated
+     */
+    EraToolExtension createEraToolExtension();
 
     /**
      * Returns the package supported by this factory.

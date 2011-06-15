@@ -8,7 +8,7 @@ package era.foss.erf.provider;
 
 import era.foss.erf.ErfFactory;
 import era.foss.erf.ErfPackage;
-import era.foss.erf.ErfToolExtension;
+import era.foss.erf.EraToolExtension;
 
 import java.util.Collection;
 import java.util.List;
@@ -27,12 +27,12 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link era.foss.erf.ErfToolExtension} object.
+ * This is the item provider adapter for a {@link era.foss.erf.EraToolExtension} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ErfToolExtensionItemProvider extends ToolExtensionItemProvider implements IEditingDomainItemProvider,
+public class EraToolExtensionItemProvider extends ToolExtensionItemProvider implements IEditingDomainItemProvider,
         IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
     /**
      * This constructs an instance from a factory and a notifier.
@@ -40,7 +40,7 @@ public class ErfToolExtensionItemProvider extends ToolExtensionItemProvider impl
      * <!-- end-user-doc -->
      * @generated
      */
-    public ErfToolExtensionItemProvider( AdapterFactory adapterFactory ) {
+    public EraToolExtensionItemProvider( AdapterFactory adapterFactory ) {
         super( adapterFactory );
     }
 
@@ -71,7 +71,7 @@ public class ErfToolExtensionItemProvider extends ToolExtensionItemProvider impl
     public Collection<? extends EStructuralFeature> getChildrenFeatures( Object object ) {
         if( childrenFeatures == null ) {
             super.getChildrenFeatures( object );
-            childrenFeatures.add( ErfPackage.Literals.ERF_TOOL_EXTENSION__VIEWS );
+            childrenFeatures.add( ErfPackage.Literals.ERA_TOOL_EXTENSION__VIEWS );
         }
         return childrenFeatures;
     }
@@ -90,14 +90,14 @@ public class ErfToolExtensionItemProvider extends ToolExtensionItemProvider impl
     }
 
     /**
-     * This returns ErfToolExtension.gif.
+     * This returns EraToolExtension.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object getImage( Object object ) {
-        return overlayImage( object, getResourceLocator().getImage( "full/obj16/ErfToolExtension" ) );
+        return overlayImage( object, getResourceLocator().getImage( "full/obj16/EraToolExtension" ) );
     }
 
     /**
@@ -108,7 +108,7 @@ public class ErfToolExtensionItemProvider extends ToolExtensionItemProvider impl
      */
     @Override
     public String getText( Object object ) {
-        return getString( "_UI_ErfToolExtension_type" );
+        return getString( "_UI_EraToolExtension_type" );
     }
 
     /**
@@ -122,8 +122,8 @@ public class ErfToolExtensionItemProvider extends ToolExtensionItemProvider impl
     public void notifyChanged( Notification notification ) {
         updateChildren( notification );
 
-        switch (notification.getFeatureID( ErfToolExtension.class )) {
-        case ErfPackage.ERF_TOOL_EXTENSION__VIEWS:
+        switch (notification.getFeatureID( EraToolExtension.class )) {
+        case ErfPackage.ERA_TOOL_EXTENSION__VIEWS:
             fireNotifyChanged( new ViewerNotification( notification, notification.getNotifier(), true, false ) );
             return;
         }
@@ -141,7 +141,7 @@ public class ErfToolExtensionItemProvider extends ToolExtensionItemProvider impl
     protected void collectNewChildDescriptors( Collection<Object> newChildDescriptors, Object object ) {
         super.collectNewChildDescriptors( newChildDescriptors, object );
 
-        newChildDescriptors.add( createChildParameter( ErfPackage.Literals.ERF_TOOL_EXTENSION__VIEWS,
+        newChildDescriptors.add( createChildParameter( ErfPackage.Literals.ERA_TOOL_EXTENSION__VIEWS,
                                                        ErfFactory.eINSTANCE.createView() ) );
     }
 

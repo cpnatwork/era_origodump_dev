@@ -60,6 +60,7 @@ public class ViewElementItemProvider extends ItemProviderAdapter implements IEdi
             addEditorShowLabelPropertyDescriptor( object );
             addEditorRowNumberPropertyDescriptor( object );
             addEditorColumnSpanPropertyDescriptor( object );
+            addAttributeDefintionPropertyDescriptor( object );
         }
         return itemPropertyDescriptors;
     }
@@ -126,6 +127,28 @@ public class ViewElementItemProvider extends ItemProviderAdapter implements IEdi
                                                                    false,
                                                                    false,
                                                                    ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+                                                                   null,
+                                                                   null ) );
+    }
+
+    /**
+     * This adds a property descriptor for the Attribute Defintion feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addAttributeDefintionPropertyDescriptor( Object object ) {
+        itemPropertyDescriptors.add( createItemPropertyDescriptor( ((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                                                                   getResourceLocator(),
+                                                                   getString( "_UI_ViewElement_attributeDefintion_feature" ),
+                                                                   getString( "_UI_PropertyDescriptor_description",
+                                                                              "_UI_ViewElement_attributeDefintion_feature",
+                                                                              "_UI_ViewElement_type" ),
+                                                                   ErfPackage.Literals.VIEW_ELEMENT__ATTRIBUTE_DEFINTION,
+                                                                   true,
+                                                                   false,
+                                                                   true,
+                                                                   null,
                                                                    null,
                                                                    null ) );
     }

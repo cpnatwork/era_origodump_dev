@@ -201,7 +201,7 @@ public class ErfModelWizard extends Wizard implements INewWizard {
         erfModel.setCoreContent( erfFactory.createContent() );
 
         // The toolextension
-        erfModel.getToolExtensions().add( erfFactory.createErfToolExtension() );
+        erfModel.getToolExtensions().add( erfFactory.createEraToolExtension() );
 
         // Right now we support only one spec type for a single document
         erfModel.getCoreContent().getSpecTypes().add( erfFactory.createSpecType() );

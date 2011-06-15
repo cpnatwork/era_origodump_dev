@@ -6,6 +6,7 @@
  */
 package era.foss.erf.impl;
 
+import era.foss.erf.AttributeDefinition;
 import era.foss.erf.ErfPackage;
 import era.foss.erf.ViewElement;
 
@@ -13,6 +14,7 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
@@ -26,6 +28,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link era.foss.erf.impl.ViewElementImpl#isEditorShowLabel <em>Editor Show Label</em>}</li>
  *   <li>{@link era.foss.erf.impl.ViewElementImpl#getEditorRowNumber <em>Editor Row Number</em>}</li>
  *   <li>{@link era.foss.erf.impl.ViewElementImpl#getEditorColumnSpan <em>Editor Column Span</em>}</li>
+ *   <li>{@link era.foss.erf.impl.ViewElementImpl#getAttributeDefintion <em>Attribute Defintion</em>}</li>
  * </ul>
  * </p>
  *
@@ -91,6 +94,16 @@ public class ViewElementImpl extends EObjectImpl implements ViewElement {
      * @ordered
      */
     protected int editorColumnSpan = EDITOR_COLUMN_SPAN_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getAttributeDefintion() <em>Attribute Defintion</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getAttributeDefintion()
+     * @generated
+     * @ordered
+     */
+    protected AttributeDefinition attributeDefintion;
 
     /**
      * <!-- begin-user-doc -->
@@ -191,6 +204,52 @@ public class ViewElementImpl extends EObjectImpl implements ViewElement {
      * <!-- end-user-doc -->
      * @generated
      */
+    public AttributeDefinition getAttributeDefintion() {
+        if( attributeDefintion != null && attributeDefintion.eIsProxy() ) {
+            InternalEObject oldAttributeDefintion = (InternalEObject)attributeDefintion;
+            attributeDefintion = (AttributeDefinition)eResolveProxy( oldAttributeDefintion );
+            if( attributeDefintion != oldAttributeDefintion ) {
+                if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+                    this,
+                    Notification.RESOLVE,
+                    ErfPackage.VIEW_ELEMENT__ATTRIBUTE_DEFINTION,
+                    oldAttributeDefintion,
+                    attributeDefintion ) );
+            }
+        }
+        return attributeDefintion;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public AttributeDefinition basicGetAttributeDefintion() {
+        return attributeDefintion;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setAttributeDefintion( AttributeDefinition newAttributeDefintion ) {
+        AttributeDefinition oldAttributeDefintion = attributeDefintion;
+        attributeDefintion = newAttributeDefintion;
+        if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            ErfPackage.VIEW_ELEMENT__ATTRIBUTE_DEFINTION,
+            oldAttributeDefintion,
+            attributeDefintion ) );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public Object eGet( int featureID, boolean resolve, boolean coreType ) {
         switch (featureID) {
@@ -200,6 +259,9 @@ public class ViewElementImpl extends EObjectImpl implements ViewElement {
             return getEditorRowNumber();
         case ErfPackage.VIEW_ELEMENT__EDITOR_COLUMN_SPAN:
             return getEditorColumnSpan();
+        case ErfPackage.VIEW_ELEMENT__ATTRIBUTE_DEFINTION:
+            if( resolve ) return getAttributeDefintion();
+            return basicGetAttributeDefintion();
         }
         return super.eGet( featureID, resolve, coreType );
     }
@@ -220,6 +282,9 @@ public class ViewElementImpl extends EObjectImpl implements ViewElement {
             return;
         case ErfPackage.VIEW_ELEMENT__EDITOR_COLUMN_SPAN:
             setEditorColumnSpan( (Integer)newValue );
+            return;
+        case ErfPackage.VIEW_ELEMENT__ATTRIBUTE_DEFINTION:
+            setAttributeDefintion( (AttributeDefinition)newValue );
             return;
         }
         super.eSet( featureID, newValue );
@@ -242,6 +307,9 @@ public class ViewElementImpl extends EObjectImpl implements ViewElement {
         case ErfPackage.VIEW_ELEMENT__EDITOR_COLUMN_SPAN:
             setEditorColumnSpan( EDITOR_COLUMN_SPAN_EDEFAULT );
             return;
+        case ErfPackage.VIEW_ELEMENT__ATTRIBUTE_DEFINTION:
+            setAttributeDefintion( (AttributeDefinition)null );
+            return;
         }
         super.eUnset( featureID );
     }
@@ -260,6 +328,8 @@ public class ViewElementImpl extends EObjectImpl implements ViewElement {
             return editorRowNumber != EDITOR_ROW_NUMBER_EDEFAULT;
         case ErfPackage.VIEW_ELEMENT__EDITOR_COLUMN_SPAN:
             return editorColumnSpan != EDITOR_COLUMN_SPAN_EDEFAULT;
+        case ErfPackage.VIEW_ELEMENT__ATTRIBUTE_DEFINTION:
+            return attributeDefintion != null;
         }
         return super.eIsSet( featureID );
     }

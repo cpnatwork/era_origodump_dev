@@ -5,7 +5,7 @@ import org.eclipse.emf.common.util.EList;
 /**
  * @model
  */
-public interface ErfToolExtension extends ToolExtension {
+public interface EraToolExtension extends ToolExtension {
 
     /**
      * @model containment="true"

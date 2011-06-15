@@ -503,29 +503,6 @@ public class ErfItemProviderAdapterFactory extends ErfAdapterFactory implements 
     }
 
     /**
-     * This keeps track of the one adapter used for all {@link era.foss.erf.ErfToolExtension} instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected ErfToolExtensionItemProvider erfToolExtensionItemProvider;
-
-    /**
-     * This creates an adapter for a {@link era.foss.erf.ErfToolExtension}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public Adapter createErfToolExtensionAdapter() {
-        if( erfToolExtensionItemProvider == null ) {
-            erfToolExtensionItemProvider = new ErfToolExtensionItemProvider( this );
-        }
-
-        return erfToolExtensionItemProvider;
-    }
-
-    /**
      * This keeps track of the one adapter used for all {@link era.foss.erf.View} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -569,6 +546,29 @@ public class ErfItemProviderAdapterFactory extends ErfAdapterFactory implements 
         }
 
         return viewElementItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link era.foss.erf.EraToolExtension} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected EraToolExtensionItemProvider eraToolExtensionItemProvider;
+
+    /**
+     * This creates an adapter for a {@link era.foss.erf.EraToolExtension}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createEraToolExtensionAdapter() {
+        if( eraToolExtensionItemProvider == null ) {
+            eraToolExtensionItemProvider = new EraToolExtensionItemProvider( this );
+        }
+
+        return eraToolExtensionItemProvider;
     }
 
     /**
@@ -688,9 +688,9 @@ public class ErfItemProviderAdapterFactory extends ErfAdapterFactory implements 
         if( datatypeDefinitionBooleanItemProvider != null ) datatypeDefinitionBooleanItemProvider.dispose();
         if( attributeDefinitionBooleanItemProvider != null ) attributeDefinitionBooleanItemProvider.dispose();
         if( attributeValueBooleanItemProvider != null ) attributeValueBooleanItemProvider.dispose();
-        if( erfToolExtensionItemProvider != null ) erfToolExtensionItemProvider.dispose();
         if( viewItemProvider != null ) viewItemProvider.dispose();
         if( viewElementItemProvider != null ) viewElementItemProvider.dispose();
+        if( eraToolExtensionItemProvider != null ) eraToolExtensionItemProvider.dispose();
     }
 
 }

@@ -275,13 +275,6 @@ public class ErfSwitch<T2> {
             if( result == null ) result = defaultCase( theEObject );
             return result;
         }
-        case ErfPackage.ERF_TOOL_EXTENSION: {
-            ErfToolExtension erfToolExtension = (ErfToolExtension)theEObject;
-            T2 result = caseErfToolExtension( erfToolExtension );
-            if( result == null ) result = caseToolExtension( erfToolExtension );
-            if( result == null ) result = defaultCase( theEObject );
-            return result;
-        }
         case ErfPackage.TOOL_EXTENSION: {
             ToolExtension toolExtension = (ToolExtension)theEObject;
             T2 result = caseToolExtension( toolExtension );
@@ -297,6 +290,13 @@ public class ErfSwitch<T2> {
         case ErfPackage.VIEW_ELEMENT: {
             ViewElement viewElement = (ViewElement)theEObject;
             T2 result = caseViewElement( viewElement );
+            if( result == null ) result = defaultCase( theEObject );
+            return result;
+        }
+        case ErfPackage.ERA_TOOL_EXTENSION: {
+            EraToolExtension eraToolExtension = (EraToolExtension)theEObject;
+            T2 result = caseEraToolExtension( eraToolExtension );
+            if( result == null ) result = caseToolExtension( eraToolExtension );
             if( result == null ) result = defaultCase( theEObject );
             return result;
         }
@@ -691,21 +691,6 @@ public class ErfSwitch<T2> {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T2 caseErfToolExtension( ErfToolExtension object ) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>Tool Extension</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Tool Extension</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
     public T2 caseToolExtension( ToolExtension object ) {
         return null;
     }
@@ -737,6 +722,21 @@ public class ErfSwitch<T2> {
      * @generated
      */
     public T2 caseViewElement( ViewElement object ) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Era Tool Extension</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Era Tool Extension</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T2 caseEraToolExtension( EraToolExtension object ) {
         return null;
     }
 

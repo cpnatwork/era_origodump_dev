@@ -210,11 +210,6 @@ public class ErfAdapterFactory extends AdapterFactoryImpl {
         }
 
         @Override
-        public Adapter caseErfToolExtension( ErfToolExtension object ) {
-            return createErfToolExtensionAdapter();
-        }
-
-        @Override
         public Adapter caseToolExtension( ToolExtension object ) {
             return createToolExtensionAdapter();
         }
@@ -227,6 +222,11 @@ public class ErfAdapterFactory extends AdapterFactoryImpl {
         @Override
         public Adapter caseViewElement( ViewElement object ) {
             return createViewElementAdapter();
+        }
+
+        @Override
+        public Adapter caseEraToolExtension( EraToolExtension object ) {
+            return createEraToolExtensionAdapter();
         }
 
         @Override
@@ -599,20 +599,6 @@ public class ErfAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link era.foss.erf.ErfToolExtension <em>Tool Extension</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see era.foss.erf.ErfToolExtension
-     * @generated
-     */
-    public Adapter createErfToolExtensionAdapter() {
-        return null;
-    }
-
-    /**
      * Creates a new adapter for an object of class '{@link era.foss.erf.ToolExtension <em>Tool Extension</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
@@ -651,6 +637,20 @@ public class ErfAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createViewElementAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link era.foss.erf.EraToolExtension <em>Era Tool Extension</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see era.foss.erf.EraToolExtension
+     * @generated
+     */
+    public Adapter createEraToolExtensionAdapter() {
         return null;
     }
 

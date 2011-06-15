@@ -7,7 +7,7 @@
 package era.foss.erf.impl;
 
 import era.foss.erf.ErfPackage;
-import era.foss.erf.ErfToolExtension;
+import era.foss.erf.EraToolExtension;
 import era.foss.erf.View;
 
 import java.util.Collection;
@@ -29,13 +29,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link era.foss.erf.impl.ErfToolExtensionImpl#getViews <em>Views</em>}</li>
+ *   <li>{@link era.foss.erf.impl.EraToolExtensionImpl#getViews <em>Views</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ErfToolExtensionImpl extends ToolExtensionImpl implements ErfToolExtension {
+public class EraToolExtensionImpl extends ToolExtensionImpl implements EraToolExtension {
     /**
      * The cached value of the '{@link #getViews() <em>Views</em>}' containment reference list.
      * <!-- begin-user-doc -->
@@ -51,7 +51,7 @@ public class ErfToolExtensionImpl extends ToolExtensionImpl implements ErfToolEx
      * <!-- end-user-doc -->
      * @generated
      */
-    protected ErfToolExtensionImpl() {
+    protected EraToolExtensionImpl() {
         super();
     }
 
@@ -62,7 +62,7 @@ public class ErfToolExtensionImpl extends ToolExtensionImpl implements ErfToolEx
      */
     @Override
     protected EClass eStaticClass() {
-        return ErfPackage.Literals.ERF_TOOL_EXTENSION;
+        return ErfPackage.Literals.ERA_TOOL_EXTENSION;
     }
 
     /**
@@ -72,7 +72,7 @@ public class ErfToolExtensionImpl extends ToolExtensionImpl implements ErfToolEx
      */
     public EList<View> getViews() {
         if( views == null ) {
-            views = new EObjectContainmentEList<View>( View.class, this, ErfPackage.ERF_TOOL_EXTENSION__VIEWS );
+            views = new EObjectContainmentEList<View>( View.class, this, ErfPackage.ERA_TOOL_EXTENSION__VIEWS );
         }
         return views;
     }
@@ -85,7 +85,7 @@ public class ErfToolExtensionImpl extends ToolExtensionImpl implements ErfToolEx
     @Override
     public NotificationChain eInverseRemove( InternalEObject otherEnd, int featureID, NotificationChain msgs ) {
         switch (featureID) {
-        case ErfPackage.ERF_TOOL_EXTENSION__VIEWS:
+        case ErfPackage.ERA_TOOL_EXTENSION__VIEWS:
             return ((InternalEList<?>)getViews()).basicRemove( otherEnd, msgs );
         }
         return super.eInverseRemove( otherEnd, featureID, msgs );
@@ -99,7 +99,7 @@ public class ErfToolExtensionImpl extends ToolExtensionImpl implements ErfToolEx
     @Override
     public Object eGet( int featureID, boolean resolve, boolean coreType ) {
         switch (featureID) {
-        case ErfPackage.ERF_TOOL_EXTENSION__VIEWS:
+        case ErfPackage.ERA_TOOL_EXTENSION__VIEWS:
             return getViews();
         }
         return super.eGet( featureID, resolve, coreType );
@@ -114,7 +114,7 @@ public class ErfToolExtensionImpl extends ToolExtensionImpl implements ErfToolEx
     @Override
     public void eSet( int featureID, Object newValue ) {
         switch (featureID) {
-        case ErfPackage.ERF_TOOL_EXTENSION__VIEWS:
+        case ErfPackage.ERA_TOOL_EXTENSION__VIEWS:
             getViews().clear();
             getViews().addAll( (Collection<? extends View>)newValue );
             return;
@@ -130,7 +130,7 @@ public class ErfToolExtensionImpl extends ToolExtensionImpl implements ErfToolEx
     @Override
     public void eUnset( int featureID ) {
         switch (featureID) {
-        case ErfPackage.ERF_TOOL_EXTENSION__VIEWS:
+        case ErfPackage.ERA_TOOL_EXTENSION__VIEWS:
             getViews().clear();
             return;
         }
@@ -145,7 +145,7 @@ public class ErfToolExtensionImpl extends ToolExtensionImpl implements ErfToolEx
     @Override
     public boolean eIsSet( int featureID ) {
         switch (featureID) {
-        case ErfPackage.ERF_TOOL_EXTENSION__VIEWS:
+        case ErfPackage.ERA_TOOL_EXTENSION__VIEWS:
             return views != null && !views.isEmpty();
         }
         return super.eIsSet( featureID );
