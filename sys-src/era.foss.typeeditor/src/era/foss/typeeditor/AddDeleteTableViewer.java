@@ -114,10 +114,10 @@ public class AddDeleteTableViewer extends TableViewer {
 
     // parameters for add Command
     /** The add command owner. */
-    private EObject addCommandOwner;
+    protected EObject addCommandOwner;
 
     /** The add command value default type. */
-    private EClass addCommandValueDefaultType;
+    protected EClass addCommandValueDefaultType;
 
     /** The active column. */
     private int activeColumn;
@@ -126,11 +126,16 @@ public class AddDeleteTableViewer extends TableViewer {
     /** The data bind context. */
     private DataBindingContext dataBindContext;
 
-    /** The master. */
+    /** The master object to observe the selection of the table viewer */
     private IObservableValue master;
 
+    /** Style parameter for disabling the description textfield */
+    public static final int NO_DESCRIPTION = 1 << 22;
+
     /**
-     * Instantiates a new adds the delete table viewer.
+     * Show the description private boolean showDescriptionText;
+     * 
+     * /** Instantiates a new adds the delete table viewer.
      * 
      * @param parent the parent
      * @see TableViewer
@@ -166,7 +171,9 @@ public class AddDeleteTableViewer extends TableViewer {
         layoutComposite();
         createButtonBar();
         setupTable();
-        createDescriptionField();
+        if( (style & NO_DESCRIPTION) == 0 ) {
+            createDescriptionField();
+        }
         triggerColumnSelectedColumn();
 
         parent.addDisposeListener( new DisposeListener() {
@@ -176,13 +183,16 @@ public class AddDeleteTableViewer extends TableViewer {
                 AddDeleteTableViewer.this.dispose();
             }
         } );
+
     }
 
     /**
      * Dispose observable to avoid listener leaking.
      */
     protected void dispose() {
-        master.dispose();
+        if( master != null ) {
+            master.dispose();
+        }
         if( dataBindContext != null ) {
             dataBindContext.dispose();
         }
@@ -353,24 +363,6 @@ public class AddDeleteTableViewer extends TableViewer {
     }
 
     /**
-     * Show add button.
-     * 
-     * @param enabled the enabled
-     */
-    public void showAddButton( boolean enabled ) {
-        addElementButton.setEnabled( enabled );
-    }
-
-    /**
-     * Show delete button.
-     * 
-     * @param enabled the enabled
-     */
-    public void showRemoveButton( boolean enabled ) {
-        removeElementsButton.setEnabled( enabled );
-    }
-
-    /**
      * Set the information required for adding a new element to the table with {@link #addElement()}.
      * 
      * @param addCommandOwner The element the new element is put at
@@ -387,6 +379,11 @@ public class AddDeleteTableViewer extends TableViewer {
      */
     public void addElement() {
         EObject addCommandValue = ErfFactoryImpl.eINSTANCE.create( addCommandValueDefaultType );
+        if( addCommandValue instanceof Identifiable ) {
+            ((Identifiable)addCommandValue).setLongName( Ui.getUiName( addCommandValueDefaultType )
+                + " "
+                + this.getTable().getItems().length );
+        }
         Command cmd = AddCommand.create( editingDomain, addCommandOwner, null, addCommandValue );
         BasicCommandStack basicCommandStack = (BasicCommandStack)editingDomain.getCommandStack();
         basicCommandStack.execute( cmd );

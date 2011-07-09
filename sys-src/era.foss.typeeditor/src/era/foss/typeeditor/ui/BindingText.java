@@ -9,6 +9,7 @@ import org.eclipse.emf.databinding.edit.EMFEditProperties;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
+import org.eclipse.jface.databinding.viewers.IViewerObservableValue;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
@@ -25,6 +26,13 @@ public class BindingText extends Text {
     public BindingText( Composite parent, int style ) {
         super( parent, style );
         dataBindContext = new DataBindingContext();
+    }
+
+    public void bind( EditingDomain editingDomain,
+                      EStructuralFeature eStructuralFeature,
+                      IViewerObservableValue master ) {
+        this.bind( editingDomain, new EStructuralFeature[]{eStructuralFeature}, master );
+
     }
 
     public void bind( EditingDomain editingDomain, EStructuralFeature[] eStructuralFeatureList,

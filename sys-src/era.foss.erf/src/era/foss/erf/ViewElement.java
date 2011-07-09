@@ -11,17 +11,17 @@ public interface ViewElement extends EObject {
      * @Not generated
      * @return
      */
-    public AttributeDefinition getAttributeDefintion();
+    public AttributeDefinition getAttributeDefinition();
 
     /**
-     * Sets the value of the '{@link era.foss.erf.ViewElement#getAttributeDefintion <em>Attribute Defintion</em>}' reference.
+     * Sets the value of the '{@link era.foss.erf.ViewElement#getAttributeDefinition <em>Attribute Definition</em>}' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Attribute Defintion</em>' reference.
-     * @see #getAttributeDefintion()
+     * @param value the new value of the '<em>Attribute Definition</em>' reference.
+     * @see #getAttributeDefinition()
      * @generated
      */
-    void setAttributeDefintion( AttributeDefinition value );
+    void setAttributeDefinition( AttributeDefinition value );
 
     /**
      * @model unique="false" default="true" required="true"

@@ -352,6 +352,15 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getAttributeDefinition_SpecType() {
+        return (EReference)attributeDefinitionEClass.getEStructuralFeatures().get( 4 );
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -907,7 +916,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getViewElement_AttributeDefintion() {
+    public EReference getViewElement_AttributeDefinition() {
         return (EReference)viewElementEClass.getEStructuralFeatures().get( 3 );
     }
 
@@ -967,6 +976,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         createEAttribute( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__IDENT );
         createEReference( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__UI_PROPERTIES );
         createEAttribute( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__UNIQUE );
+        createEReference( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__SPEC_TYPE );
 
         attributeValueEClass = createEClass( ATTRIBUTE_VALUE );
         createEReference( attributeValueEClass, ATTRIBUTE_VALUE__DEFINITION );
@@ -1064,7 +1074,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         createEAttribute( viewElementEClass, VIEW_ELEMENT__EDITOR_SHOW_LABEL );
         createEAttribute( viewElementEClass, VIEW_ELEMENT__EDITOR_ROW_NUMBER );
         createEAttribute( viewElementEClass, VIEW_ELEMENT__EDITOR_COLUMN_SPAN );
-        createEReference( viewElementEClass, VIEW_ELEMENT__ATTRIBUTE_DEFINTION );
+        createEReference( viewElementEClass, VIEW_ELEMENT__ATTRIBUTE_DEFINITION );
 
         eraToolExtensionEClass = createEClass( ERA_TOOL_EXTENSION );
         createEReference( eraToolExtensionEClass, ERA_TOOL_EXTENSION__VIEWS );
@@ -1194,6 +1204,23 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         !IS_UNIQUE,
                         !IS_DERIVED,
                         !IS_ORDERED );
+        initEReference( getAttributeDefinition_SpecType(),
+                        this.getSpecType(),
+                        this.getSpecType_SpecAttributes(),
+                        "specType",
+                        null,
+                        1,
+                        1,
+                        AttributeDefinition.class,
+                        IS_TRANSIENT,
+                        !IS_VOLATILE,
+                        IS_CHANGEABLE,
+                        !IS_COMPOSITE,
+                        !IS_RESOLVE_PROXIES,
+                        !IS_UNSETTABLE,
+                        IS_UNIQUE,
+                        !IS_DERIVED,
+                        IS_ORDERED );
 
         initEClass( attributeValueEClass,
                     AttributeValue.class,
@@ -1333,7 +1360,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                     IS_GENERATED_INSTANCE_CLASS );
         initEReference( getSpecType_SpecAttributes(),
                         this.getAttributeDefinition(),
-                        null,
+                        this.getAttributeDefinition_SpecType(),
                         "specAttributes",
                         null,
                         0,
@@ -1997,10 +2024,10 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         !IS_UNIQUE,
                         !IS_DERIVED,
                         IS_ORDERED );
-        initEReference( getViewElement_AttributeDefintion(),
+        initEReference( getViewElement_AttributeDefinition(),
                         this.getAttributeDefinition(),
                         null,
-                        "attributeDefintion",
+                        "attributeDefinition",
                         null,
                         1,
                         1,

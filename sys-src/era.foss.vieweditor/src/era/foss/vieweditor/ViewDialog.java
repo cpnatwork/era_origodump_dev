@@ -18,28 +18,37 @@
  *************************************************************************/
 package era.foss.vieweditor;
 
-import org.eclipse.core.databinding.observable.IObservable;
-import org.eclipse.core.databinding.observable.list.IObservableList;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.observable.map.IObservableMap;
-import org.eclipse.core.databinding.observable.masterdetail.IObservableFactory;
-import org.eclipse.core.databinding.observable.set.IObservableSet;
+import org.eclipse.core.databinding.observable.value.IValueChangeListener;
+import org.eclipse.core.databinding.observable.value.ValueChangeEvent;
+import org.eclipse.core.databinding.property.value.IValueProperty;
 import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 import org.eclipse.emf.databinding.EMFProperties;
+import org.eclipse.emf.databinding.FeaturePath;
 import org.eclipse.emf.databinding.IEMFListProperty;
+import org.eclipse.emf.databinding.edit.EMFEditProperties;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
+import org.eclipse.jface.databinding.viewers.IViewerObservableValue;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
-import org.eclipse.jface.databinding.viewers.ObservableListTreeContentProvider;
-import org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider;
-import org.eclipse.jface.databinding.viewers.TreeStructureAdvisor;
+import org.eclipse.jface.databinding.viewers.ObservableMapCellLabelProvider;
+import org.eclipse.jface.databinding.viewers.ObservableValueEditingSupport;
+import org.eclipse.jface.databinding.viewers.ViewerProperties;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.layout.TableColumnLayout;
-import org.eclipse.jface.viewers.CheckboxTreeViewer;
+import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;
+import org.eclipse.jface.viewers.ComboBoxViewerCellEditor;
+import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
@@ -49,18 +58,24 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 
+import era.foss.erf.AttributeDefinition;
 import era.foss.erf.ERF;
 import era.foss.erf.EraToolExtension;
 import era.foss.erf.ErfPackage;
 import era.foss.erf.SpecType;
 import era.foss.erf.ToolExtension;
+import era.foss.erf.View;
 import era.foss.objecteditor.EraCommandStack;
 import era.foss.objecteditor.IAllowViewerSchemaChange;
 import era.foss.typeeditor.AddDeleteTableViewer;
 import era.foss.typeeditor.Ui;
+import era.foss.typeeditor.ui.BindingCheckBox;
+import era.foss.typeeditor.ui.BindingText;
+import era.foss.ui.contrib.ComboBoxViewerCellEditorSp;
 
 /**
  * The topmost UI class of the typeeditor plug-in: representing the overall dialog.
@@ -95,6 +110,15 @@ public class ViewDialog extends Dialog {
     /** UI object for helper methods */
     Ui ui;
 
+    /** The databinding context for binding model elements to widgets show in this dialog */
+    DataBindingContext dataBindContext;
+
+    /** Master object for observing the selected {@link View}s */
+    private IViewerObservableValue viewMaster;
+
+    /** Master object for observing the selected {@link ViewElement}s */
+    private IViewerObservableValue viewElementMaster;
+
     /**
      * Creates a editor for Datatype, Attributes and Spectypes.
      * 
@@ -128,6 +152,8 @@ public class ViewDialog extends Dialog {
         }
         assert (this.toolExtension != null);
 
+        dataBindContext = new DataBindingContext();
+
     }
 
     /*
@@ -159,6 +185,7 @@ public class ViewDialog extends Dialog {
 
         createViewTableViewer( composite );
         createViewElementTableViewer( composite );
+        createDetails( composite );
 
         // (font of parent will be applied recursively to the newly added controls!)
         applyDialogFont( composite );
@@ -199,25 +226,25 @@ public class ViewDialog extends Dialog {
     }
 
     /**
-     * Creates the table viewer.
+     * Creates the table viewer for {@link View}s
      */
     private void createViewTableViewer( Composite composite ) {
 
-        AddDeleteTableViewer tableViewer = new AddDeleteTableViewer( composite, SWT.MULTI
+        AddDeleteTableViewer viewTableViewer = new AddDeleteTableViewer( composite, SWT.MULTI
             | SWT.V_SCROLL
             | SWT.BORDER
             | SWT.FULL_SELECTION );
-        tableViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
-        tableViewer.setEditingDomain( editingDomain );
-        tableViewer.setAddCommandParameter( toolExtension, ErfPackage.Literals.VIEW );
+        viewTableViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
+        viewTableViewer.setEditingDomain( editingDomain );
+        viewTableViewer.setAddCommandParameter( toolExtension, ErfPackage.Literals.VIEW );
 
         ObservableListContentProvider cp = new ObservableListContentProvider();
-        tableViewer.setContentProvider( cp );
+        viewTableViewer.setContentProvider( cp );
 
-        TableColumnLayout columnLayout = (TableColumnLayout)tableViewer.getTable().getParent().getLayout();
+        TableColumnLayout columnLayout = (TableColumnLayout)viewTableViewer.getTable().getParent().getLayout();
 
         // create column with name of the view
-        TableViewerColumn nameColumn = new TableViewerColumn( tableViewer, SWT.NONE );
+        TableViewerColumn nameColumn = new TableViewerColumn( viewTableViewer, SWT.NONE );
         columnLayout.setColumnData( nameColumn.getColumn(), new ColumnWeightData( 100, 70 ) );
         nameColumn.getColumn().setResizable( false );
         nameColumn.getColumn().setMoveable( false );
@@ -226,71 +253,211 @@ public class ViewDialog extends Dialog {
 
         // provide input for the table
         IEMFListProperty viewsProperty = EMFProperties.list( ErfPackage.Literals.ERA_TOOL_EXTENSION__VIEWS );
-        tableViewer.setInput( viewsProperty.observe( toolExtension ) );
+        viewTableViewer.setInput( viewsProperty.observe( toolExtension ) );
+        viewTableViewer.getTable().select( 0 );
 
-        // this.master = ViewerProperties.singleSelection().observe( tableViewer );
+        this.viewMaster = ViewerProperties.singleSelection().observe( viewTableViewer );
 
+    }
+
+    /**
+     * Creates the table viewer for {@link ViewElements}
+     */
+    private void createViewElementTableViewer( Composite composite ) {
+        final AddDeleteTableViewer viewElementTableViewer = new AddDeleteTableViewer( composite, SWT.MULTI
+            | SWT.V_SCROLL
+            | SWT.BORDER
+            | SWT.FULL_SELECTION
+            | AddDeleteTableViewer.NO_DESCRIPTION ) {
+
+            @Override
+            public void addElement() {
+                this.addCommandOwner = (EObject)viewMaster.getValue();
+                super.addElement();
+            }
+        };
+
+        // the owner is null as it is set in the overridden addElement() method
+        viewElementTableViewer.setAddCommandParameter( null, ErfPackage.Literals.VIEW_ELEMENT );
+
+        viewElementTableViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
+        viewElementTableViewer.setEditingDomain( editingDomain );
+
+        ObservableListContentProvider cp = new ObservableListContentProvider();
+        viewElementTableViewer.setContentProvider( cp );
+
+        TableColumnLayout columnLayout = (TableColumnLayout)viewElementTableViewer.getTable().getParent().getLayout();
+
+        // create column showing the Attribute Definition
+        TableViewerColumn attributeDefinitionColumn = new TableViewerColumn( viewElementTableViewer, SWT.NONE );
+        columnLayout.setColumnData( attributeDefinitionColumn.getColumn(), new ColumnWeightData( 100, 70 ) );
+        attributeDefinitionColumn.getColumn().setResizable( false );
+        attributeDefinitionColumn.getColumn().setMoveable( false );
+        attributeDefinitionColumn.getColumn()
+                                 .setText( Ui.getUiName( ErfPackage.Literals.VIEW_ELEMENT__ATTRIBUTE_DEFINITION ) );
+
+        // label provider for column showing the AttributeDefintion
+        IValueProperty elementProperty = EMFEditProperties.value( editingDomain,
+                                                                  FeaturePath.fromList( new EStructuralFeature[]{
+                                                                      ErfPackage.Literals.VIEW_ELEMENT__ATTRIBUTE_DEFINITION,
+                                                                      ErfPackage.Literals.IDENTIFIABLE__LONG_NAME} ) );
+        IObservableMap attributeMap = elementProperty.observeDetail( cp.getKnownElements() );
+        attributeDefinitionColumn.setLabelProvider( new ObservableMapCellLabelProvider( attributeMap ) );
+
+        // editing support column showing the AttributeDefintion
+
+        // Combo box: Create combo box to select choices for the reference
+        ComboBoxViewerCellEditor combo = new ComboBoxViewerCellEditorSp(
+            (Composite)viewElementTableViewer.getControl(),
+            SWT.READ_ONLY );
+        // Combo box: Set Content Provider;
+        combo.setContenProvider( new ArrayContentProvider() );
+
+        // Combo box: Set Label Provider
+        combo.setLabelProvider( new LabelProvider() {
+
+            @Override
+            public String getText( Object element ) {
+                String text = ((AttributeDefinition)element).getSpecType().getLongName() + ":";
+                text += ((AttributeDefinition)element).getLongName();
+                return text;
+            }
+        } );
+
+        // Combo box: set input to all attribute definitions of all spectypes
+        List<AttributeDefinition> attributeDefintionList = new ArrayList<AttributeDefinition>();
+        for( SpecType specType : erfModel.getCoreContent().getSpecTypes() ) {
+            attributeDefintionList.addAll( specType.getSpecAttributes() );
+        }
+
+        combo.setInput( attributeDefintionList.toArray() );
+
+        // Set editing support of table cell
+        IValueProperty editorElementProperty = EMFEditProperties.value( editingDomain,
+                                                                        ErfPackage.Literals.VIEW_ELEMENT__ATTRIBUTE_DEFINITION );
+        IValueProperty cellEditorProperty = ViewerProperties.singleSelection();
+
+        attributeDefinitionColumn.setEditingSupport( ObservableValueEditingSupport.create( viewElementTableViewer,
+                                                                                           dataBindContext,
+                                                                                           combo,
+                                                                                           cellEditorProperty,
+                                                                                           editorElementProperty ) );
+
+        // create column showing the SpecType of the referred AttributeDefinition
+        TableViewerColumn specTypeColumn = new TableViewerColumn( viewElementTableViewer, SWT.NONE );
+        columnLayout.setColumnData( specTypeColumn.getColumn(), new ColumnWeightData( 100, 70 ) );
+        specTypeColumn.getColumn().setResizable( false );
+        specTypeColumn.getColumn().setMoveable( false );
+        specTypeColumn.getColumn().setText( Ui.getUiName( ErfPackage.Literals.ATTRIBUTE_DEFINITION__SPEC_TYPE ) );
+
+        // label provider for column showing the SpecType
+        IValueProperty specTypeProperty = EMFEditProperties.value( editingDomain,
+                                                                   FeaturePath.fromList( new EStructuralFeature[]{
+                                                                       ErfPackage.Literals.VIEW_ELEMENT__ATTRIBUTE_DEFINITION,
+                                                                       ErfPackage.Literals.ATTRIBUTE_DEFINITION__SPEC_TYPE,
+                                                                       ErfPackage.Literals.IDENTIFIABLE__LONG_NAME} ) );
+        IObservableMap specTypeObservableMap = specTypeProperty.observeDetail( cp.getKnownElements() );
+        specTypeColumn.setLabelProvider( new ObservableMapCellLabelProvider( specTypeObservableMap ) );
+
+        // provide input for the table
+        IEMFListProperty viewsProperty = EMFProperties.list( ErfPackage.Literals.VIEW__VIEW_ELEMENTS );
+        viewElementTableViewer.setInput( viewsProperty.observeDetail( viewMaster ) );
+        viewElementTableViewer.getTable().select( 0 );
+
+        this.viewElementMaster = ViewerProperties.singleSelection().observe( viewElementTableViewer );
     }
 
     /**
      * Creates the table viewer.
      */
-    private void createViewElementTableViewer( Composite composite ) {
-        CheckboxTreeViewer specTypeTreeViewer = new CheckboxTreeViewer( composite );
-        specTypeTreeViewer.getTree().setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
+    private void createDetails( Composite parent ) {
 
-        ObservableListTreeContentProvider cp = new ObservableListTreeContentProvider(
-            new ViewElementTreeFactoryImpl(),
-            new ViewElementTreeStructureAdvisorImpl() );
+        // composite holding the label and the composite with the widgets
+        Composite detailsComposite = new Composite( parent, SWT.NONE );
+        detailsComposite.setLayout( new GridLayout( 1, true ) );
+        detailsComposite.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
 
-        specTypeTreeViewer.setContentProvider( cp );
+        // create label for detail viewer
+        Label label = new Label( detailsComposite, SWT.NONE );
+        label.setLayoutData( new GridData( SWT.LEFT, SWT.TOP, true, false ) );
+        label.setText( Activator.INSTANCE.getString( "_UI_Details_label" ) + ":" );
 
-        IObservableSet set = cp.getKnownElements();
-        IObservableMap[] map = new IObservableMap[2];
+        // Create composite holding the UI elements of the
+        final Composite widgetComposite = new Composite( detailsComposite, SWT.BORDER );
+        widgetComposite.setLayout( new GridLayout( 2, true ) );
+        widgetComposite.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
 
-        map[0] = EMFProperties.value( ErfPackage.Literals.IDENTIFIABLE__LONG_NAME ).observeDetail( set );
-
-        map[1] = EMFProperties.value( ErfPackage.Literals.SPEC_TYPE__SPEC_ATTRIBUTES ).observeDetail( set );
-
-        specTypeTreeViewer.setLabelProvider( new ObservableMapLabelProvider( map ) );
-
-        // provide input for the table
-        IEMFListProperty contentSpecTypeListProperty = EMFProperties.list( ErfPackage.Literals.CONTENT__SPEC_TYPES );
-        specTypeTreeViewer.setInput( contentSpecTypeListProperty.observe( erfModel.getCoreContent() ) );
-
-    }
-
-    private static class ViewElementTreeFactoryImpl implements IObservableFactory {
-        private IEMFListProperty specTypeAttributeListProperty = EMFProperties.list( ErfPackage.Literals.SPEC_TYPE__SPEC_ATTRIBUTES );
-
-        public IObservable createObservable( final Object target ) {
-            if( target instanceof IObservableList ) {
-                return (IObservable)target;
-            } else if( target instanceof SpecType ) {
-                return specTypeAttributeListProperty.observe( target );
-            }
-
-            return null;
+        if( viewElementMaster.getValue() != null ) {
+            createWidgets( widgetComposite );
         }
-    }
 
-    private static class ViewElementTreeStructureAdvisorImpl extends TreeStructureAdvisor {
-        // @Override
-        // public Object getParent( Object element ) {
-        // if( element instanceof Project ) {
-        // return ((Project)element).getParent();
-        // }
-        //
-        // return null;
-        // }
+        viewElementMaster.addValueChangeListener( new IValueChangeListener() {
 
-        @Override
-        public Boolean hasChildren( Object element ) {
-            if( element instanceof SpecType && ((SpecType)element).getSpecAttributes().size() > 0 ) {
-                return Boolean.TRUE;
+            /**
+             * Redraw the composite with the widgets
+             */
+            @Override
+            public void handleValueChange( ValueChangeEvent event ) {
+
+                if( event.diff.getNewValue() == null ) {
+                    for( Control control : widgetComposite.getChildren() ) {
+                        control.dispose();
+                    }
+                }
+
+                if( event.diff.getNewValue() != null && event.diff.getOldValue() == null ) {
+                    createWidgets( widgetComposite );
+                }
+
+                // we need this so that the modified content will be drawn
+                widgetComposite.layout();
+                widgetComposite.redraw();
+                widgetComposite.update();
+
+                widgetComposite.getParent().layout();
+                widgetComposite.getParent().redraw();
+                widgetComposite.getParent().update();
             }
-            return super.hasChildren( element );
-        }
+        } );
+
     }
 
+    private void createWidgets( Composite parent ) {
+
+        // create checkbox for editoShowLabel property
+        createCheckbox( parent, ErfPackage.Literals.VIEW_ELEMENT__EDITOR_SHOW_LABEL );
+
+        // text field for editorRowNumber property
+        createTextField( parent, ErfPackage.Literals.VIEW_ELEMENT__EDITOR_ROW_NUMBER );
+
+        // text field for editorColumnSpan property
+        createTextField( parent, ErfPackage.Literals.VIEW_ELEMENT__EDITOR_COLUMN_SPAN );
+    }
+
+    private void createCheckbox( Composite parent, EStructuralFeature eStructuralFeature ) {
+
+        // create label
+        Label showLabelLabel = new Label( parent, SWT.NONE );
+        showLabelLabel.setText( Ui.getUiName( eStructuralFeature ) );
+        showLabelLabel.setLayoutData( new GridData( SWT.LEFT, SWT.CENTER, true, false ) );
+
+        // create checkbox
+        BindingCheckBox showLabelCheckbox = new BindingCheckBox( parent, SWT.NONE );
+        showLabelCheckbox.bind( editingDomain, eStructuralFeature, viewElementMaster );
+        showLabelCheckbox.setLayoutData( new GridData( SWT.LEFT, SWT.DEFAULT, true, false ) );
+
+    }
+
+    private void createTextField( Composite parent, EStructuralFeature eStructuralFeature ) {
+        // label for editorRowNumber property
+        Label defaultValueLabel = new Label( parent, SWT.NONE );
+        defaultValueLabel.setText( Ui.getUiName( eStructuralFeature ) );
+        defaultValueLabel.setLayoutData( new GridData( SWT.LEFT, SWT.CENTER, true, false ) );
+
+        // text field for editorRowNumber property
+        BindingText defaultValueTextfield = new BindingText( parent, SWT.BORDER );
+        defaultValueTextfield.bind( editingDomain, eStructuralFeature, viewElementMaster );
+        defaultValueTextfield.setLayoutData( new GridData( SWT.FILL, SWT.CENTER, true, false ) );
+
+    }
 }

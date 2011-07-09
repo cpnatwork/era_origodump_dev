@@ -8,7 +8,8 @@ Bundle-Activator: era.foss.typeeditor.Activator$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: era.foss.typeeditor
+Export-Package: era.foss.typeeditor,
+ era.foss.typeeditor.ui
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.emf.edit.ui,

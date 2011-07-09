@@ -60,7 +60,7 @@ public class ViewElementItemProvider extends ItemProviderAdapter implements IEdi
             addEditorShowLabelPropertyDescriptor( object );
             addEditorRowNumberPropertyDescriptor( object );
             addEditorColumnSpanPropertyDescriptor( object );
-            addAttributeDefintionPropertyDescriptor( object );
+            addAttributeDefinitionPropertyDescriptor( object );
         }
         return itemPropertyDescriptors;
     }
@@ -132,19 +132,19 @@ public class ViewElementItemProvider extends ItemProviderAdapter implements IEdi
     }
 
     /**
-     * This adds a property descriptor for the Attribute Defintion feature.
+     * This adds a property descriptor for the Attribute Definition feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addAttributeDefintionPropertyDescriptor( Object object ) {
+    protected void addAttributeDefinitionPropertyDescriptor( Object object ) {
         itemPropertyDescriptors.add( createItemPropertyDescriptor( ((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                                                                    getResourceLocator(),
-                                                                   getString( "_UI_ViewElement_attributeDefintion_feature" ),
+                                                                   getString( "_UI_ViewElement_attributeDefinition_feature" ),
                                                                    getString( "_UI_PropertyDescriptor_description",
-                                                                              "_UI_ViewElement_attributeDefintion_feature",
+                                                                              "_UI_ViewElement_attributeDefinition_feature",
                                                                               "_UI_ViewElement_type" ),
-                                                                   ErfPackage.Literals.VIEW_ELEMENT__ATTRIBUTE_DEFINTION,
+                                                                   ErfPackage.Literals.VIEW_ELEMENT__ATTRIBUTE_DEFINITION,
                                                                    true,
                                                                    false,
                                                                    true,

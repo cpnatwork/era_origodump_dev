@@ -16,6 +16,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="unique" ordered="false"
         unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="specType" lowerBound="1"
+        eType="#//SpecType" transient="true" eOpposite="#//SpecType/specAttributes"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AttributeValue" abstract="true" eSuperTypes="#//Identifiable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="definition" lowerBound="1"
@@ -40,7 +42,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SpecType" eSuperTypes="#//Identifiable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="specAttributes" upperBound="-1"
-        eType="#//AttributeDefinition" containment="true" resolveProxies="false"/>
+        eType="#//AttributeDefinition" containment="true" resolveProxies="false" eOpposite="#//AttributeDefinition/specType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Map" instanceClassName="java.util.Map"
       abstract="true" interface="true">
@@ -167,7 +169,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="editorColumnSpan" unique="false"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="1"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="attributeDefintion" lowerBound="1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attributeDefinition" lowerBound="1"
         eType="#//AttributeDefinition"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EraToolExtension" eSuperTypes="#//ToolExtension">

@@ -24,10 +24,10 @@ import era.foss.erf.ViewElement;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link era.foss.erf.impl.ViewImpl#getViewElements <em>View Elements</em>}</li>
+ *   <li>{@link era.foss.erf.impl.ViewImpl#getViewElements <em>View Elements</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ViewImpl extends IdentifiableImpl implements View {
@@ -43,7 +43,6 @@ public class ViewImpl extends IdentifiableImpl implements View {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected ViewImpl() {
@@ -52,7 +51,6 @@ public class ViewImpl extends IdentifiableImpl implements View {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -62,7 +60,6 @@ public class ViewImpl extends IdentifiableImpl implements View {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public EList<ViewElement> getViewElements() {
@@ -77,7 +74,6 @@ public class ViewImpl extends IdentifiableImpl implements View {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -91,7 +87,6 @@ public class ViewImpl extends IdentifiableImpl implements View {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -105,7 +100,6 @@ public class ViewImpl extends IdentifiableImpl implements View {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -122,7 +116,6 @@ public class ViewImpl extends IdentifiableImpl implements View {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -137,7 +130,6 @@ public class ViewImpl extends IdentifiableImpl implements View {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override

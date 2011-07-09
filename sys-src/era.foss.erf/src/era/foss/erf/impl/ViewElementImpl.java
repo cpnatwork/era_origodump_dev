@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link era.foss.erf.impl.ViewElementImpl#isEditorShowLabel <em>Editor Show Label</em>}</li>
  *   <li>{@link era.foss.erf.impl.ViewElementImpl#getEditorRowNumber <em>Editor Row Number</em>}</li>
  *   <li>{@link era.foss.erf.impl.ViewElementImpl#getEditorColumnSpan <em>Editor Column Span</em>}</li>
- *   <li>{@link era.foss.erf.impl.ViewElementImpl#getAttributeDefintion <em>Attribute Defintion</em>}</li>
+ *   <li>{@link era.foss.erf.impl.ViewElementImpl#getAttributeDefinition <em>Attribute Definition</em>}</li>
  * </ul>
  * </p>
  *
@@ -96,14 +96,14 @@ public class ViewElementImpl extends EObjectImpl implements ViewElement {
     protected int editorColumnSpan = EDITOR_COLUMN_SPAN_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getAttributeDefintion() <em>Attribute Defintion</em>}' reference.
+     * The cached value of the '{@link #getAttributeDefinition() <em>Attribute Definition</em>}' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getAttributeDefintion()
+     * @see #getAttributeDefinition()
      * @generated
      * @ordered
      */
-    protected AttributeDefinition attributeDefintion;
+    protected AttributeDefinition attributeDefinition;
 
     /**
      * <!-- begin-user-doc -->
@@ -204,20 +204,20 @@ public class ViewElementImpl extends EObjectImpl implements ViewElement {
      * <!-- end-user-doc -->
      * @generated
      */
-    public AttributeDefinition getAttributeDefintion() {
-        if( attributeDefintion != null && attributeDefintion.eIsProxy() ) {
-            InternalEObject oldAttributeDefintion = (InternalEObject)attributeDefintion;
-            attributeDefintion = (AttributeDefinition)eResolveProxy( oldAttributeDefintion );
-            if( attributeDefintion != oldAttributeDefintion ) {
+    public AttributeDefinition getAttributeDefinition() {
+        if( attributeDefinition != null && attributeDefinition.eIsProxy() ) {
+            InternalEObject oldAttributeDefinition = (InternalEObject)attributeDefinition;
+            attributeDefinition = (AttributeDefinition)eResolveProxy( oldAttributeDefinition );
+            if( attributeDefinition != oldAttributeDefinition ) {
                 if( eNotificationRequired() ) eNotify( new ENotificationImpl(
                     this,
                     Notification.RESOLVE,
-                    ErfPackage.VIEW_ELEMENT__ATTRIBUTE_DEFINTION,
-                    oldAttributeDefintion,
-                    attributeDefintion ) );
+                    ErfPackage.VIEW_ELEMENT__ATTRIBUTE_DEFINITION,
+                    oldAttributeDefinition,
+                    attributeDefinition ) );
             }
         }
-        return attributeDefintion;
+        return attributeDefinition;
     }
 
     /**
@@ -225,8 +225,8 @@ public class ViewElementImpl extends EObjectImpl implements ViewElement {
      * <!-- end-user-doc -->
      * @generated
      */
-    public AttributeDefinition basicGetAttributeDefintion() {
-        return attributeDefintion;
+    public AttributeDefinition basicGetAttributeDefinition() {
+        return attributeDefinition;
     }
 
     /**
@@ -234,15 +234,15 @@ public class ViewElementImpl extends EObjectImpl implements ViewElement {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setAttributeDefintion( AttributeDefinition newAttributeDefintion ) {
-        AttributeDefinition oldAttributeDefintion = attributeDefintion;
-        attributeDefintion = newAttributeDefintion;
+    public void setAttributeDefinition( AttributeDefinition newAttributeDefinition ) {
+        AttributeDefinition oldAttributeDefinition = attributeDefinition;
+        attributeDefinition = newAttributeDefinition;
         if( eNotificationRequired() ) eNotify( new ENotificationImpl(
             this,
             Notification.SET,
-            ErfPackage.VIEW_ELEMENT__ATTRIBUTE_DEFINTION,
-            oldAttributeDefintion,
-            attributeDefintion ) );
+            ErfPackage.VIEW_ELEMENT__ATTRIBUTE_DEFINITION,
+            oldAttributeDefinition,
+            attributeDefinition ) );
     }
 
     /**
@@ -259,9 +259,9 @@ public class ViewElementImpl extends EObjectImpl implements ViewElement {
             return getEditorRowNumber();
         case ErfPackage.VIEW_ELEMENT__EDITOR_COLUMN_SPAN:
             return getEditorColumnSpan();
-        case ErfPackage.VIEW_ELEMENT__ATTRIBUTE_DEFINTION:
-            if( resolve ) return getAttributeDefintion();
-            return basicGetAttributeDefintion();
+        case ErfPackage.VIEW_ELEMENT__ATTRIBUTE_DEFINITION:
+            if( resolve ) return getAttributeDefinition();
+            return basicGetAttributeDefinition();
         }
         return super.eGet( featureID, resolve, coreType );
     }
@@ -283,8 +283,8 @@ public class ViewElementImpl extends EObjectImpl implements ViewElement {
         case ErfPackage.VIEW_ELEMENT__EDITOR_COLUMN_SPAN:
             setEditorColumnSpan( (Integer)newValue );
             return;
-        case ErfPackage.VIEW_ELEMENT__ATTRIBUTE_DEFINTION:
-            setAttributeDefintion( (AttributeDefinition)newValue );
+        case ErfPackage.VIEW_ELEMENT__ATTRIBUTE_DEFINITION:
+            setAttributeDefinition( (AttributeDefinition)newValue );
             return;
         }
         super.eSet( featureID, newValue );
@@ -307,8 +307,8 @@ public class ViewElementImpl extends EObjectImpl implements ViewElement {
         case ErfPackage.VIEW_ELEMENT__EDITOR_COLUMN_SPAN:
             setEditorColumnSpan( EDITOR_COLUMN_SPAN_EDEFAULT );
             return;
-        case ErfPackage.VIEW_ELEMENT__ATTRIBUTE_DEFINTION:
-            setAttributeDefintion( (AttributeDefinition)null );
+        case ErfPackage.VIEW_ELEMENT__ATTRIBUTE_DEFINITION:
+            setAttributeDefinition( (AttributeDefinition)null );
             return;
         }
         super.eUnset( featureID );
@@ -328,8 +328,8 @@ public class ViewElementImpl extends EObjectImpl implements ViewElement {
             return editorRowNumber != EDITOR_ROW_NUMBER_EDEFAULT;
         case ErfPackage.VIEW_ELEMENT__EDITOR_COLUMN_SPAN:
             return editorColumnSpan != EDITOR_COLUMN_SPAN_EDEFAULT;
-        case ErfPackage.VIEW_ELEMENT__ATTRIBUTE_DEFINTION:
-            return attributeDefintion != null;
+        case ErfPackage.VIEW_ELEMENT__ATTRIBUTE_DEFINITION:
+            return attributeDefinition != null;
         }
         return super.eIsSet( featureID );
     }

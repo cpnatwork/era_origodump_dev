@@ -18,41 +18,36 @@
  *************************************************************************/
 package era.foss.erf.impl;
 
+import java.util.Collection;
+
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import era.foss.erf.AttributeDefinition;
 import era.foss.erf.ErfPackage;
 import era.foss.erf.SpecType;
 
-import java.util.Collection;
-
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Spec Type</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Spec Type</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link era.foss.erf.impl.SpecTypeImpl#getSpecAttributes <em>Spec Attributes</em>}</li>
+ * <li>{@link era.foss.erf.impl.SpecTypeImpl#getSpecAttributes <em>Spec Attributes</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
 
     /**
-     * The cached value of the '{@link #getSpecAttributes() <em>Spec Attributes</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getSpecAttributes() <em>Spec Attributes</em>}' containment reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getSpecAttributes()
      * @generated
      * @ordered
@@ -60,8 +55,8 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
     protected EList<AttributeDefinition> specAttributes;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected SpecTypeImpl() {
@@ -69,8 +64,8 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -79,23 +74,39 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList<AttributeDefinition> getSpecAttributes() {
         if( specAttributes == null ) {
-            specAttributes = new EObjectContainmentEList<AttributeDefinition>(
+            specAttributes = new EObjectContainmentWithInverseEList<AttributeDefinition>(
                 AttributeDefinition.class,
                 this,
-                ErfPackage.SPEC_TYPE__SPEC_ATTRIBUTES );
+                ErfPackage.SPEC_TYPE__SPEC_ATTRIBUTES,
+                ErfPackage.ATTRIBUTE_DEFINITION__SPEC_TYPE );
         }
         return specAttributes;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public NotificationChain eInverseAdd( InternalEObject otherEnd, int featureID, NotificationChain msgs ) {
+        switch (featureID) {
+        case ErfPackage.SPEC_TYPE__SPEC_ATTRIBUTES:
+            return ((InternalEList<InternalEObject>)(InternalEList<?>)getSpecAttributes()).basicAdd( otherEnd, msgs );
+        }
+        return super.eInverseAdd( otherEnd, featureID, msgs );
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -108,8 +119,8 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -122,8 +133,8 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -139,8 +150,8 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -154,8 +165,8 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -167,4 +178,4 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
         return super.eIsSet( featureID );
     }
 
-} //SpecTypeImpl
+} // SpecTypeImpl

@@ -24,10 +24,12 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import era.foss.erf.AttributeDefinition;
 import era.foss.erf.AttributeDefinitionUiProperties;
 import era.foss.erf.DatatypeDefinition;
 import era.foss.erf.ErfPackage;
+import era.foss.erf.SpecType;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Attribute Definition</b></em>'. <!--
@@ -39,6 +41,7 @@ import era.foss.erf.ErfPackage;
  *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#isIdent <em>Ident</em>}</li>
  *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#getUiProperties <em>Ui Properties</em>}</li>
  *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#isUnique <em>Unique</em>}</li>
+ *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#getSpecType <em>Spec Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -250,6 +253,52 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
      * <!-- end-user-doc -->
      * @generated
      */
+    public SpecType getSpecType() {
+        if( eContainerFeatureID() != ErfPackage.ATTRIBUTE_DEFINITION__SPEC_TYPE ) return null;
+        return (SpecType)eContainer();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetSpecType( SpecType newSpecType, NotificationChain msgs ) {
+        msgs = eBasicSetContainer( (InternalEObject)newSpecType, ErfPackage.ATTRIBUTE_DEFINITION__SPEC_TYPE, msgs );
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSpecType( SpecType newSpecType ) {
+        if( newSpecType != eInternalContainer()
+            || (eContainerFeatureID() != ErfPackage.ATTRIBUTE_DEFINITION__SPEC_TYPE && newSpecType != null) ) {
+            if( EcoreUtil.isAncestor( this, newSpecType ) ) throw new IllegalArgumentException(
+                "Recursive containment not allowed for " + toString() );
+            NotificationChain msgs = null;
+            if( eInternalContainer() != null ) msgs = eBasicRemoveFromContainer( msgs );
+            if( newSpecType != null ) msgs = ((InternalEObject)newSpecType).eInverseAdd( this,
+                                                                                         ErfPackage.SPEC_TYPE__SPEC_ATTRIBUTES,
+                                                                                         SpecType.class,
+                                                                                         msgs );
+            msgs = basicSetSpecType( newSpecType, msgs );
+            if( msgs != null ) msgs.dispatch();
+        } else if( eNotificationRequired() ) eNotify( new ENotificationImpl(
+            this,
+            Notification.SET,
+            ErfPackage.ATTRIBUTE_DEFINITION__SPEC_TYPE,
+            newSpecType,
+            newSpecType ) );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseAdd( InternalEObject otherEnd, int featureID, NotificationChain msgs ) {
         switch (featureID) {
@@ -259,6 +308,9 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
                                                                               DatatypeDefinition.class,
                                                                               msgs );
             return basicSetType( (DatatypeDefinition)otherEnd, msgs );
+        case ErfPackage.ATTRIBUTE_DEFINITION__SPEC_TYPE:
+            if( eInternalContainer() != null ) msgs = eBasicRemoveFromContainer( msgs );
+            return basicSetSpecType( (SpecType)otherEnd, msgs );
         }
         return super.eInverseAdd( otherEnd, featureID, msgs );
     }
@@ -303,8 +355,27 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
             return basicSetType( null, msgs );
         case ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES:
             return basicSetUiProperties( null, msgs );
+        case ErfPackage.ATTRIBUTE_DEFINITION__SPEC_TYPE:
+            return basicSetSpecType( null, msgs );
         }
         return super.eInverseRemove( otherEnd, featureID, msgs );
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public NotificationChain eBasicRemoveFromContainerFeature( NotificationChain msgs ) {
+        switch (eContainerFeatureID()) {
+        case ErfPackage.ATTRIBUTE_DEFINITION__SPEC_TYPE:
+            return eInternalContainer().eInverseRemove( this,
+                                                        ErfPackage.SPEC_TYPE__SPEC_ATTRIBUTES,
+                                                        SpecType.class,
+                                                        msgs );
+        }
+        return super.eBasicRemoveFromContainerFeature( msgs );
     }
 
     /**
@@ -323,6 +394,8 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
             return getUiProperties();
         case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
             return isUnique();
+        case ErfPackage.ATTRIBUTE_DEFINITION__SPEC_TYPE:
+            return getSpecType();
         }
         return super.eGet( featureID, resolve, coreType );
     }
@@ -342,6 +415,9 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
             return;
         case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
             setUnique( (Boolean)newValue );
+            return;
+        case ErfPackage.ATTRIBUTE_DEFINITION__SPEC_TYPE:
+            setSpecType( (SpecType)newValue );
             return;
         }
         super.eSet( featureID, newValue );
@@ -363,6 +439,9 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
         case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
             setUnique( UNIQUE_EDEFAULT );
             return;
+        case ErfPackage.ATTRIBUTE_DEFINITION__SPEC_TYPE:
+            setSpecType( (SpecType)null );
+            return;
         }
         super.eUnset( featureID );
     }
@@ -382,6 +461,8 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
             return uiProperties != null;
         case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
             return unique != UNIQUE_EDEFAULT;
+        case ErfPackage.ATTRIBUTE_DEFINITION__SPEC_TYPE:
+            return getSpecType() != null;
         }
         return super.eIsSet( featureID );
     }

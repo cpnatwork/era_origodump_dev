@@ -48,6 +48,24 @@ public interface AttributeDefinition extends Identifiable {
     boolean isUnique();
 
     /**
+     * Back linkage to the owning SpecType.
+     * 
+     * @model kind="reference" opposite="specAttributes" required="true"
+     * @Not generated
+     */
+    SpecType getSpecType();
+
+    /**
+     * Sets the value of the '{@link era.foss.erf.AttributeDefinition#getSpecType <em>Spec Type</em>}' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Spec Type</em>' container reference.
+     * @see #getSpecType()
+     * @generated
+     */
+    void setSpecType( SpecType value );
+
+    /**
      * Sets the value of the '{@link era.foss.erf.AttributeDefinition#isUnique <em>Unique</em>}' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 

@@ -18,8 +18,6 @@
  *************************************************************************/
 package era.foss.typeeditor;
 
-import java.util.Arrays;
-
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.property.value.IValueProperty;
@@ -152,11 +150,7 @@ public class Ui {
             ObservableListContentProvider comboContentProvider = new ObservableListContentProvider();
             combo.setContenProvider( comboContentProvider );
 
-            // Show same information in Combo box as in label for the table cell
-            FeaturePath featurePath = FeaturePath.fromList( Arrays.copyOfRange( eStructuralFeatureList,
-                                                                                1,
-                                                                                eStructuralFeatureList.length ) );
-            IObservableMap comboAttributeMap = EMFProperties.value( featurePath )
+            IObservableMap comboAttributeMap = EMFProperties.value( eStructuralFeatureList[eStructuralFeatureList.length - 1] )
                                                             .observeDetail( comboContentProvider.getKnownElements() );
             combo.setLabelProvider( new ObservableMapLabelProvider( comboAttributeMap ) );
             // Combo box: set input

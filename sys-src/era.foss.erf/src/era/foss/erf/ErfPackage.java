@@ -293,13 +293,22 @@ public interface ErfPackage extends EPackage {
     int ATTRIBUTE_DEFINITION__UNIQUE = IDENTIFIABLE_FEATURE_COUNT + 3;
 
     /**
+     * The feature id for the '<em><b>Spec Type</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION__SPEC_TYPE = IDENTIFIABLE_FEATURE_COUNT + 4;
+
+    /**
      * The number of structural features of the '<em>Attribute Definition</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ATTRIBUTE_DEFINITION_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 4;
+    int ATTRIBUTE_DEFINITION_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 5;
 
     /**
      * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -861,6 +870,15 @@ public interface ErfPackage extends EPackage {
     int ATTRIBUTE_DEFINITION_SIMPLE__UNIQUE = ATTRIBUTE_DEFINITION__UNIQUE;
 
     /**
+     * The feature id for the '<em><b>Spec Type</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_SIMPLE__SPEC_TYPE = ATTRIBUTE_DEFINITION__SPEC_TYPE;
+
+    /**
      * The feature id for the '<em><b>Default Value</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1328,6 +1346,15 @@ public interface ErfPackage extends EPackage {
     int ATTRIBUTE_DEFINITION_ENUMERATION__UNIQUE = ATTRIBUTE_DEFINITION__UNIQUE;
 
     /**
+     * The feature id for the '<em><b>Spec Type</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_ENUMERATION__SPEC_TYPE = ATTRIBUTE_DEFINITION__SPEC_TYPE;
+
+    /**
      * The feature id for the '<em><b>Multi Valued</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1547,6 +1574,15 @@ public interface ErfPackage extends EPackage {
     int ATTRIBUTE_DEFINITION_BOOLEAN__UNIQUE = ATTRIBUTE_DEFINITION__UNIQUE;
 
     /**
+     * The feature id for the '<em><b>Spec Type</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE_DEFINITION_BOOLEAN__SPEC_TYPE = ATTRIBUTE_DEFINITION__SPEC_TYPE;
+
+    /**
      * The feature id for the '<em><b>Default Value</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1740,13 +1776,13 @@ public interface ErfPackage extends EPackage {
     int VIEW_ELEMENT__EDITOR_COLUMN_SPAN = 2;
 
     /**
-     * The feature id for the '<em><b>Attribute Defintion</b></em>' reference.
+     * The feature id for the '<em><b>Attribute Definition</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int VIEW_ELEMENT__ATTRIBUTE_DEFINTION = 3;
+    int VIEW_ELEMENT__ATTRIBUTE_DEFINITION = 3;
 
     /**
      * The number of structural features of the '<em>View Element</em>' class.
@@ -1837,6 +1873,17 @@ public interface ErfPackage extends EPackage {
      * @generated
      */
     EAttribute getAttributeDefinition_Unique();
+
+    /**
+     * Returns the meta object for the container reference '{@link era.foss.erf.AttributeDefinition#getSpecType <em>Spec Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the container reference '<em>Spec Type</em>'.
+     * @see era.foss.erf.AttributeDefinition#getSpecType()
+     * @see #getAttributeDefinition()
+     * @generated
+     */
+    EReference getAttributeDefinition_SpecType();
 
     /**
      * Returns the meta object for the containment reference '{@link era.foss.erf.AttributeDefinition#getUiProperties <em>Ui Properties</em>}'.
@@ -2550,15 +2597,15 @@ public interface ErfPackage extends EPackage {
     EAttribute getViewElement_EditorColumnSpan();
 
     /**
-     * Returns the meta object for the reference '{@link era.foss.erf.ViewElement#getAttributeDefintion <em>Attribute Defintion</em>}'.
+     * Returns the meta object for the reference '{@link era.foss.erf.ViewElement#getAttributeDefinition <em>Attribute Definition</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Attribute Defintion</em>'.
-     * @see era.foss.erf.ViewElement#getAttributeDefintion()
+     * @return the meta object for the reference '<em>Attribute Definition</em>'.
+     * @see era.foss.erf.ViewElement#getAttributeDefinition()
      * @see #getViewElement()
      * @generated
      */
-    EReference getViewElement_AttributeDefintion();
+    EReference getViewElement_AttributeDefinition();
 
     /**
      * Returns the meta object for class '{@link era.foss.erf.EraToolExtension <em>Era Tool Extension</em>}'.
@@ -2645,6 +2692,13 @@ public interface ErfPackage extends EPackage {
          * @generated
          */
         EAttribute ATTRIBUTE_DEFINITION__UNIQUE = eINSTANCE.getAttributeDefinition_Unique();
+        /**
+         * The meta object literal for the '<em><b>Spec Type</b></em>' container reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference ATTRIBUTE_DEFINITION__SPEC_TYPE = eINSTANCE.getAttributeDefinition_SpecType();
         /**
          * The meta object literal for the '<em><b>Ui Properties</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
@@ -3169,12 +3223,12 @@ public interface ErfPackage extends EPackage {
          */
         EAttribute VIEW_ELEMENT__EDITOR_COLUMN_SPAN = eINSTANCE.getViewElement_EditorColumnSpan();
         /**
-         * The meta object literal for the '<em><b>Attribute Defintion</b></em>' reference feature.
+         * The meta object literal for the '<em><b>Attribute Definition</b></em>' reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference VIEW_ELEMENT__ATTRIBUTE_DEFINTION = eINSTANCE.getViewElement_AttributeDefintion();
+        EReference VIEW_ELEMENT__ATTRIBUTE_DEFINITION = eINSTANCE.getViewElement_AttributeDefinition();
         /**
          * The meta object literal for the '{@link era.foss.erf.impl.EraToolExtensionImpl <em>Era Tool Extension</em>}' class.
          * <!-- begin-user-doc -->

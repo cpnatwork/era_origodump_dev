@@ -26,6 +26,10 @@ public class BindingCheckBox extends Button {
         dataBindContext = new DataBindingContext();
     }
 
+    public void bind( EditingDomain editingDomain, EStructuralFeature eStructuralFeature, IObservableValue master ) {
+        this.bind( editingDomain, new EStructuralFeature[]{eStructuralFeature}, master );
+    }
+
     public void bind( EditingDomain editingDomain,
                       EStructuralFeature[] eStructuralFeatureList,
                       IObservableValue master ) {
