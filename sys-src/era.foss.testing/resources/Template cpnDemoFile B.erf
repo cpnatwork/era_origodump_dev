@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<era.foss.erf:ERF xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:era.foss.erf="http://era/foss/erf">
+  <coreContent>
+    <specObjects iD="8be5b2b6-797b-4031-a272-c3d0a3ff9210" type="//@coreContent/@specTypes.0">
+      <values xsi:type="era.foss.erf:AttributeValueSimple" iD="29647d36-d015-454a-9f41-d68e8b4db627" definition="//@coreContent/@specTypes.0/@specAttributes.0" theValue="1"/>
+      <values xsi:type="era.foss.erf:AttributeValueSimple" iD="45dbf8e8-59a6-49e0-8590-26d065bcf2fd" definition="//@coreContent/@specTypes.0/@specAttributes.1" theValue="lol"/>
+    </specObjects>
+    <specTypes iD="ed0559b3-d787-460d-9781-95ba4374033f" longName="TheOneAndOnly">
+      <specAttributes xsi:type="era.foss.erf:AttributeDefinitionSimple" iD="6c1d40fc-a801-4165-8b37-e4fb640a60d0" longName="ProjReqID" type="//@coreContent/@dataTypes.0">
+        <uiProperties/>
+      </specAttributes>
+      <specAttributes xsi:type="era.foss.erf:AttributeDefinitionSimple" iD="cfdd30a7-37f9-428b-b8ad-6fb302cb7abf" longName="Req Description" type="//@coreContent/@dataTypes.1">
+        <uiProperties/>
+      </specAttributes>
+    </specTypes>
+    <dataTypes xsi:type="era.foss.erf:DatatypeDefinitionInteger" iD="231e77bc-4888-499a-a7b8-3a60da69e091" longName="FooIntegerDataType" attributeDefinitions="//@coreContent/@specTypes.0/@specAttributes.0"/>
+    <dataTypes xsi:type="era.foss.erf:DatatypeDefinitionString" iD="f36cf333-3833-40f5-92e6-50c71ac5a9e7" longName="GooStringDataType" attributeDefinitions="//@coreContent/@specTypes.0/@specAttributes.1"/>
+  </coreContent>
+  <toolExtensions xsi:type="era.foss.erf:EraToolExtension"/>
+</era.foss.erf:ERF>
