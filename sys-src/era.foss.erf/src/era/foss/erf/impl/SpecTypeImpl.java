@@ -36,10 +36,10 @@ import era.foss.erf.SpecType;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link era.foss.erf.impl.SpecTypeImpl#getSpecAttributes <em>Spec Attributes</em>}</li>
+ *   <li>{@link era.foss.erf.impl.SpecTypeImpl#getSpecAttributes <em>Spec Attributes</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
@@ -56,7 +56,6 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected SpecTypeImpl() {
@@ -65,7 +64,6 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -75,7 +73,6 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public EList<AttributeDefinition> getSpecAttributes() {
@@ -91,7 +88,6 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -106,7 +102,6 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -120,7 +115,6 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -134,7 +128,6 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -151,7 +144,6 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
@@ -166,7 +158,6 @@ public class SpecTypeImpl extends IdentifiableImpl implements SpecType {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     @Override
