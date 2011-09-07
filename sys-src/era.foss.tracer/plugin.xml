@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu">
+         <menu
+               id="era.foss.tracer.menu"
+               label="ERA Tracer">
+         </menu>
+      </menuContribution>
+   </extension>
+
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="era.foss.tracer.command"
+            name="ERA Tracer Command"
+             description="Run the ERA Tracer" >
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="cpn.sandbox.CpnParserA"
+            commandId="era.foss.tracer.command">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:era.foss.tracer.menu">
+         <command
+               commandId="era.foss.tracer.command"
+               label="Run: CpnParserA"
+               style="push" >
+         </command>
+      </menuContribution>
+   </extension>
+
+
+
+   <extension
+      id="mybuilder" name="Era Tracer Builder" point="org.eclipse.core.resources.builders">
+      <builder>
+         <run 
+            class="era.foss.tracer.EraIncrementalProjectBuilder">
+            <parameter name="optimize" value="true" />
+            <parameter name="comment" value="Era Tracer Incremental Builder" />
+         </run>
+      </builder>
+   </extension>
+   
+</plugin>
