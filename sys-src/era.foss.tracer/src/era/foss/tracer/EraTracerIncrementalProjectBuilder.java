@@ -11,8 +11,9 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 
-public class EraIncrementalProjectBuilder extends IncrementalProjectBuilder {
+public class EraTracerIncrementalProjectBuilder extends IncrementalProjectBuilder {
 
+    @SuppressWarnings("unchecked")
     protected IProject[] build( int kind, Map args, IProgressMonitor monitor ) throws CoreException {
         if( kind == IncrementalProjectBuilder.FULL_BUILD ) {
             fullBuild( monitor );
@@ -37,12 +38,12 @@ public class EraIncrementalProjectBuilder extends IncrementalProjectBuilder {
 
     private void fullBuild( final IProgressMonitor monitor ) throws CoreException {
         try {
-            getProject().accept( new EraBuildVisitor() );
+            getProject().accept( new EraTracerBuildVisitor() );
         } catch( CoreException e ) {
         }
     }
 
-    private static class EraBuildVisitor implements IResourceVisitor {
+    private static class EraTracerBuildVisitor implements IResourceVisitor {
         public boolean visit( IResource res ) {
             // build the specified resource.
             // return true to continue visiting children.
@@ -52,10 +53,10 @@ public class EraIncrementalProjectBuilder extends IncrementalProjectBuilder {
 
     private void incrementalBuild( IResourceDelta delta, IProgressMonitor monitor ) throws CoreException {
         // the visitor does the work.
-        delta.accept( new EraBuildDeltaVisitor() );
+        delta.accept( new EraTracerBuildDeltaVisitor() );
     }
 
-    private static class EraBuildDeltaVisitor implements IResourceDeltaVisitor {
+    private static class EraTracerBuildDeltaVisitor implements IResourceDeltaVisitor {
         public boolean visit( IResourceDelta delta ) {
             IResource res = delta.getResource();
             switch (delta.getKind()) {

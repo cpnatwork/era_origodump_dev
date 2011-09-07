@@ -12,7 +12,7 @@
 
    <extension point="org.eclipse.ui.newWizards">
       <category
-            id="era.foss.objecteditor.category.ID"
+            id="era.foss.wizardcategory"
             name="%_UI_Wizard_category"/>
       <wizard
             canFinishEarly="true"

@@ -17,7 +17,7 @@
             locationURI="menu:org.eclipse.ui.main.menu">
          <menu
                id="era.menu"
-               label="Era">
+               label="ERA">
             <visibleWhen
                   checkEnabled="false">
                <with
@@ -36,7 +36,7 @@
             locationURI="menu:org.eclipse.ui.main.menu">
          <menu
                id="era.menu"
-               label="Era">
+               label="ERA">
             <visibleWhen
                   checkEnabled="false">
                <with
