@@ -1,6 +1,5 @@
 package era.foss.tracer;
 
-import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.runtime.CoreException;
 
@@ -19,26 +18,22 @@ public class RemoveEraTracerNatureActionDelegate extends AbstractEraTracerNature
 
         try {
             IProjectDescription desc = project.getDescription();
-            ICommand[] commands = desc.getBuildSpec();
+            String[] natures = desc.getNatureIds();
             boolean found = false;
 
-            for (int i = 0; i < commands.length; ++i) {
-               if (commands[i].getBuilderName().equals(BUILDER_ID)) {
-                  found = true;
-                  break;
-               }
+            for( int i = 0; i < natures.length; ++i ) {
+                if( natures[i].equals( NATURE_ID ) ) {
+                    found = true;
+                    break;
+                }
             }
-            if (found) { 
-               //add builder to project
-               ICommand command = desc.newCommand();
-               command.setBuilderName(BUILDER_ID);
-               ICommand[] newCommands = new ICommand[commands.length - 1];
+            if( !found ) {
+                // remove builder from project
+                String[] newNatures = new String[natures.length - 1];
+                // FIXME remove it
 
-               // Remove it before other builders.
-               // FIXME implement removal
-               
-               desc.setBuildSpec(newCommands);
-               project.setDescription(desc, null);
+                // desc.setNatureIds( newNatures );
+                project.setDescription( desc, null );
             }
         } catch( CoreException e ) {
             e.printStackTrace();

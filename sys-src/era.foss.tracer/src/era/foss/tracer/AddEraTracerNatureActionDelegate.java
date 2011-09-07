@@ -1,6 +1,5 @@
 package era.foss.tracer;
 
-import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.runtime.CoreException;
 
@@ -19,26 +18,23 @@ public class AddEraTracerNatureActionDelegate extends AbstractEraTracerNatureAct
 
         try {
             IProjectDescription desc = project.getDescription();
-            ICommand[] commands = desc.getBuildSpec();
+            String[] natures = desc.getNatureIds();
             boolean found = false;
 
-            for (int i = 0; i < commands.length; ++i) {
-               if (commands[i].getBuilderName().equals(BUILDER_ID)) {
-                  found = true;
-                  break;
-               }
+            for( int i = 0; i < natures.length; ++i ) {
+                if( natures[i].equals( NATURE_ID ) ) {
+                    found = true;
+                    break;
+                }
             }
-            if (!found) { 
-               //add builder to project
-               ICommand command = desc.newCommand();
-               command.setBuilderName(BUILDER_ID);
-               ICommand[] newCommands = new ICommand[commands.length + 1];
-
-               // Add it before other builders.
-               System.arraycopy(commands, 0, newCommands, 1, commands.length);
-               newCommands[0] = command;
-               desc.setBuildSpec(newCommands);
-               project.setDescription(desc, null);
+            if( !found ) {
+                // add builder to project
+                String[] newNatures = new String[natures.length + 1];
+                // Add it before other builders.
+                System.arraycopy( natures, 0, newNatures, 1, natures.length );
+                newNatures[0] = NATURE_ID;
+                desc.setNatureIds( newNatures );
+                project.setDescription( desc, null );
             }
         } catch( CoreException e ) {
             e.printStackTrace();

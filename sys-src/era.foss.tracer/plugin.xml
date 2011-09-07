@@ -41,7 +41,7 @@
 	<extension id="eratracerbuilder" name="Era Tracer Builder"
 		point="org.eclipse.core.resources.builders">
 		<builder>
-			<run class="era.foss.tracer.EraIncrementalProjectBuilder">
+			<run class="era.foss.tracer.EraTracerIncrementalProjectBuilder">
 				<parameter name="optimize" value="true" />
 				<parameter name="comment" value="Era Tracer Incremental Builder" />
 			</run>
@@ -92,10 +92,7 @@
 		<objectContribution id="era.foss.tracer.ui.project.configure"
 			objectClass="org.eclipse.core.resources.IProject" adaptable="true">
 			<visibility>
-				<and>
-					<objectState name="projectNature" value="org.eclipse.jdt.core.javanature" />
 					<objectState name="projectNature" value="era.foss.tracer.eratracernature" />
-				</and>
 			</visibility>
 			<action class="era.foss.tracer.RemoveEraTracerNatureActionDelegate"
 				enablesFor="1" id="era.foss.tracer.RemoveEraTracerNatureActionDelegate"

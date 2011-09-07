@@ -4,6 +4,8 @@
 package era.foss.tracer.wizard;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
@@ -19,7 +21,6 @@ import org.eclipse.ui.IWorkbench;
  */
 public class TracerNewProjectWizard extends Wizard implements INewWizard {
 
-	@SuppressWarnings("unused")
     private IProject mProject;
 
 	/**
@@ -48,6 +49,8 @@ public class TracerNewProjectWizard extends Wizard implements INewWizard {
 		super.addPages();
 	}
 
+	final static protected String NATURE_ID = "era.foss.tracer.eratracernature";
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -55,8 +58,35 @@ public class TracerNewProjectWizard extends Wizard implements INewWizard {
 	 */
 	@Override
 	public boolean performFinish() {
-		// TODO: Add nature to mProject
-		return true;
+        if( mProject == null ) return false;
+
+        boolean retVal = false;
+        try {
+            IProjectDescription desc = mProject.getDescription();
+            String[] natures = desc.getNatureIds();
+            boolean found = false;
+
+            for( int i = 0; i < natures.length; ++i ) {
+                if( natures[i].equals( NATURE_ID ) ) {
+                    found = true;
+                    break;
+                }
+            }
+            if( !found ) {
+                // add builder to project
+                String[] newNatures = new String[natures.length + 1];
+                // Add it before other builders.
+                System.arraycopy( natures, 0, newNatures, 1, natures.length );
+                newNatures[0] = NATURE_ID;
+                desc.setNatureIds( newNatures );
+                mProject.setDescription( desc, null );
+            }
+            retVal = true;
+        } catch( CoreException e ) {
+            e.printStackTrace();
+            retVal = false;
+        }
+		return retVal;
 	}
 
 	public static class TracerConfigurationPage extends WizardPage {

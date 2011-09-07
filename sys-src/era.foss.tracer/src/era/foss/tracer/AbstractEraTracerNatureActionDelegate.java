@@ -27,7 +27,6 @@ abstract public class AbstractEraTracerNatureActionDelegate implements IObjectAc
     protected boolean isWindowAction = false;
 
     final static protected String NATURE_ID = "era.foss.tracer.eratracernature";
-    final static protected String BUILDER_ID = "era.foss.tracer.eratracerbuilder";
 
     @Override
     public void setActivePart( IAction action, IWorkbenchPart targetPart ) {
