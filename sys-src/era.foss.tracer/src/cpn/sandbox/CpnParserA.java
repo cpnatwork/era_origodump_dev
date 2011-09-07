@@ -31,8 +31,8 @@ public class CpnParserA extends AbstractHandler {
     }
 
     public void foo() throws JavaModelException {
-        IProject iproj = ResourcesPlugin.getWorkspace().getRoot().getProject( "annoparsing_testbed" );
-        IType itype = JavaCore.create( iproj ).findType( "annoparsing.testbed.CpnAnnotatedForTracing" );
+        IProject iproj = ResourcesPlugin.getWorkspace().getRoot().getProject( "era.foss.tracer.test" );
+        IType itype = JavaCore.create( iproj ).findType( "era.foss.tracer.test.CpnAnnotatedForTracing" );
         IMethod imeth = itype.getMethod( "toString", new String[]{} );
         IAnnotation ianno = imeth.getAnnotation( "Requirement" );
         IMemberValuePair[] imvp = ianno.getMemberValuePairs();
