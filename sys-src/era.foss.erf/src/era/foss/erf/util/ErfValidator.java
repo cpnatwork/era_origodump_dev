@@ -18,7 +18,6 @@
  *************************************************************************/
 package era.foss.erf.util;
 
-import era.foss.erf.*;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -30,41 +29,54 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.EObjectValidator;
 
 import era.foss.erf.AttributeDefinition;
+import era.foss.erf.AttributeDefinitionBoolean;
+import era.foss.erf.AttributeDefinitionEnumeration;
 import era.foss.erf.AttributeDefinitionSimple;
-import era.foss.erf.AttributeDefinitionUiProperties;
 import era.foss.erf.AttributeValue;
+import era.foss.erf.AttributeValueBoolean;
+import era.foss.erf.AttributeValueEnumeration;
 import era.foss.erf.AttributeValueSimple;
 import era.foss.erf.Content;
 import era.foss.erf.DatatypeDefinition;
+import era.foss.erf.DatatypeDefinitionBoolean;
+import era.foss.erf.DatatypeDefinitionEnumeration;
 import era.foss.erf.DatatypeDefinitionInteger;
 import era.foss.erf.DatatypeDefinitionSimple;
 import era.foss.erf.DatatypeDefinitionString;
 import era.foss.erf.ERF;
+import era.foss.erf.EmbeddedValue;
+import era.foss.erf.EnumValue;
+import era.foss.erf.EraToolExtension;
 import era.foss.erf.ErfPackage;
 import era.foss.erf.Identifiable;
 import era.foss.erf.SpecElementWithUserDefinedAttributes;
 import era.foss.erf.SpecObject;
 import era.foss.erf.SpecRelation;
 import era.foss.erf.SpecType;
+import era.foss.erf.ToolExtension;
+import era.foss.erf.View;
+import era.foss.erf.ViewElement;
 
 /**
  * <!-- begin-user-doc --> The <b>Validator</b> for the model. <!-- end-user-doc -->
+ * 
  * @see era.foss.erf.ErfPackage
  * @generated
  */
 public class ErfValidator extends EObjectValidator {
 
     /**
-     * The cached model package
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The cached model package <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public static final ErfValidator INSTANCE = new ErfValidator();
 
     /**
-     * A constant for the {@link org.eclipse.emf.common.util.Diagnostic#getSource() source} of diagnostic {@link org.eclipse.emf.common.util.Diagnostic#getCode() codes} from this package.
-     * <!-- begin-user-doc --> <!--
+     * A constant for the {@link org.eclipse.emf.common.util.Diagnostic#getSource() source} of diagnostic
+     * {@link org.eclipse.emf.common.util.Diagnostic#getCode() codes} from this package. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @see org.eclipse.emf.common.util.Diagnostic#getSource()
      * @see org.eclipse.emf.common.util.Diagnostic#getCode()
      * @generated
@@ -80,15 +92,16 @@ public class ErfValidator extends EObjectValidator {
     private static final int GENERATED_DIAGNOSTIC_CODE_COUNT = 0;
 
     /**
-     * A constant with a fixed name that can be used as the base value for additional hand written constants in a derived class.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * A constant with a fixed name that can be used as the base value for additional hand written constants in a
+     * derived class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected static final int DIAGNOSTIC_CODE_COUNT = GENERATED_DIAGNOSTIC_CODE_COUNT;
 
     /**
-     * Creates an instance of the switch.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * Creates an instance of the switch. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public ErfValidator() {
@@ -96,8 +109,8 @@ public class ErfValidator extends EObjectValidator {
     }
 
     /**
-     * Returns the package of this validator switch.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * Returns the package of this validator switch. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -106,9 +119,9 @@ public class ErfValidator extends EObjectValidator {
     }
 
     /**
-     * Calls <code>validateXXX</code> for the corresponding classifier of the model.
-     * <!-- begin-user-doc --> <!--
+     * Calls <code>validateXXX</code> for the corresponding classifier of the model. <!-- begin-user-doc --> <!--
      * end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -151,10 +164,6 @@ public class ErfValidator extends EObjectValidator {
             return validateContent( (Content)value, diagnostics, context );
         case ErfPackage.SPEC_RELATION:
             return validateSpecRelation( (SpecRelation)value, diagnostics, context );
-        case ErfPackage.ATTRIBUTE_DEFINITION_UI_PROPERTIES:
-            return validateAttributeDefinitionUiProperties( (AttributeDefinitionUiProperties)value,
-                                                            diagnostics,
-                                                            context );
         case ErfPackage.EMBEDDED_VALUE:
             return validateEmbeddedValue( (EmbeddedValue)value, diagnostics, context );
         case ErfPackage.ENUM_VALUE:
@@ -190,6 +199,7 @@ public class ErfValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateAttributeDefinition( AttributeDefinition attributeDefinition,
@@ -200,6 +210,7 @@ public class ErfValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateAttributeValue( AttributeValue attributeValue,
@@ -210,6 +221,7 @@ public class ErfValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateDatatypeDefinition( DatatypeDefinition datatypeDefinition,
@@ -220,6 +232,7 @@ public class ErfValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateSpecElementWithUserDefinedAttributes( SpecElementWithUserDefinedAttributes specElementWithUserDefinedAttributes,
@@ -230,6 +243,7 @@ public class ErfValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateSpecObject( SpecObject specObject, DiagnosticChain diagnostics, Map<Object, Object> context ) {
@@ -238,6 +252,7 @@ public class ErfValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateSpecType( SpecType specType, DiagnosticChain diagnostics, Map<Object, Object> context ) {
@@ -246,6 +261,7 @@ public class ErfValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateMap( Map<?, ?> map, DiagnosticChain diagnostics, Map<Object, Object> context ) {
@@ -254,11 +270,13 @@ public class ErfValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateAttributeValueSimple( AttributeValueSimple attributeValueSimple,
                                                  DiagnosticChain diagnostics,
                                                  Map<Object, Object> context ) {
+        if( !validate_NoCircularContainment( attributeValueSimple, diagnostics, context ) ) return false;
         boolean result = validate_EveryMultiplicityConforms( attributeValueSimple, diagnostics, context );
         if( result || diagnostics != null ) result &= validate_EveryDataValueConforms( attributeValueSimple,
                                                                                        diagnostics,
@@ -266,6 +284,9 @@ public class ErfValidator extends EObjectValidator {
         if( result || diagnostics != null ) result &= validate_EveryReferenceIsContained( attributeValueSimple,
                                                                                           diagnostics,
                                                                                           context );
+        if( result || diagnostics != null ) result &= validate_EveryBidirectionalReferenceIsPaired( attributeValueSimple,
+                                                                                                    diagnostics,
+                                                                                                    context );
         if( result || diagnostics != null ) result &= validate_EveryProxyResolves( attributeValueSimple,
                                                                                    diagnostics,
                                                                                    context );
@@ -347,11 +368,13 @@ public class ErfValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateDatatypeDefinitionInteger( DatatypeDefinitionInteger datatypeDefinitionInteger,
                                                       DiagnosticChain diagnostics,
                                                       Map<Object, Object> context ) {
+        if( !validate_NoCircularContainment( datatypeDefinitionInteger, diagnostics, context ) ) return false;
         boolean result = validate_EveryMultiplicityConforms( datatypeDefinitionInteger, diagnostics, context );
         if( result || diagnostics != null ) result &= validate_EveryDataValueConforms( datatypeDefinitionInteger,
                                                                                        diagnostics,
@@ -359,6 +382,9 @@ public class ErfValidator extends EObjectValidator {
         if( result || diagnostics != null ) result &= validate_EveryReferenceIsContained( datatypeDefinitionInteger,
                                                                                           diagnostics,
                                                                                           context );
+        if( result || diagnostics != null ) result &= validate_EveryBidirectionalReferenceIsPaired( datatypeDefinitionInteger,
+                                                                                                    diagnostics,
+                                                                                                    context );
         if( result || diagnostics != null ) result &= validate_EveryProxyResolves( datatypeDefinitionInteger,
                                                                                    diagnostics,
                                                                                    context );
@@ -437,6 +463,7 @@ public class ErfValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateDatatypeDefinitionSimple( DatatypeDefinitionSimple datatypeDefinitionSimple,
@@ -447,6 +474,7 @@ public class ErfValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateDatatypeDefinitionString( DatatypeDefinitionString datatypeDefinitionString,
@@ -457,6 +485,7 @@ public class ErfValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateIdentifiable( Identifiable identifiable,
@@ -467,6 +496,7 @@ public class ErfValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateAttributeDefinitionSimple( AttributeDefinitionSimple attributeDefinitionSimple,
@@ -477,6 +507,7 @@ public class ErfValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateERF( ERF erf, DiagnosticChain diagnostics, Map<Object, Object> context ) {
@@ -485,6 +516,7 @@ public class ErfValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateContent( Content content, DiagnosticChain diagnostics, Map<Object, Object> context ) {
@@ -493,6 +525,7 @@ public class ErfValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateSpecRelation( SpecRelation specRelation,
@@ -503,17 +536,7 @@ public class ErfValidator extends EObjectValidator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public boolean validateAttributeDefinitionUiProperties( AttributeDefinitionUiProperties attributeDefinitionUiProperties,
-                                                            DiagnosticChain diagnostics,
-                                                            Map<Object, Object> context ) {
-        return validate_EveryDefaultConstraint( attributeDefinitionUiProperties, diagnostics, context );
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateEmbeddedValue( EmbeddedValue embeddedValue,
@@ -523,8 +546,8 @@ public class ErfValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateEnumValue( EnumValue enumValue, DiagnosticChain diagnostics, Map<Object, Object> context ) {
@@ -532,8 +555,8 @@ public class ErfValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateDatatypeDefinitionEnumeration( DatatypeDefinitionEnumeration datatypeDefinitionEnumeration,
@@ -543,8 +566,8 @@ public class ErfValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateAttributeDefinitionEnumeration( AttributeDefinitionEnumeration attributeDefinitionEnumeration,
@@ -554,8 +577,8 @@ public class ErfValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateAttributeValueEnumeration( AttributeValueEnumeration attributeValueEnumeration,
@@ -565,8 +588,8 @@ public class ErfValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateDatatypeDefinitionBoolean( DatatypeDefinitionBoolean datatypeDefinitionBoolean,
@@ -576,8 +599,8 @@ public class ErfValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateAttributeDefinitionBoolean( AttributeDefinitionBoolean attributeDefinitionBoolean,
@@ -587,8 +610,8 @@ public class ErfValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateAttributeValueBoolean( AttributeValueBoolean attributeValueBoolean,
@@ -598,8 +621,8 @@ public class ErfValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateToolExtension( ToolExtension toolExtension,
@@ -609,8 +632,8 @@ public class ErfValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateView( View view, DiagnosticChain diagnostics, Map<Object, Object> context ) {
@@ -618,8 +641,8 @@ public class ErfValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateViewElement( ViewElement viewElement,
@@ -629,8 +652,8 @@ public class ErfValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateEraToolExtension( EraToolExtension eraToolExtension,
@@ -640,8 +663,8 @@ public class ErfValidator extends EObjectValidator {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean validateDiagnosticChain( DiagnosticChain diagnosticChain,

@@ -52,6 +52,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.ui.MarkerHelper;
 import org.eclipse.emf.common.ui.ViewerPane;
+import org.eclipse.emf.common.ui.editor.ProblemEditorPart;
 import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
@@ -71,9 +72,12 @@ import org.eclipse.emf.edit.provider.AdapterFactoryItemDelegator;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
+import org.eclipse.emf.edit.ui.action.EditingDomainActionBarContributor;
 import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
@@ -85,18 +89,28 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.events.ControlAdapter;
+import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.IPartListener;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.eclipse.ui.ide.IGotoMarker;
-import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.part.MultiPageEditorPart;
 import org.eclipse.ui.part.WorkbenchPart;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
+import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 
 import era.foss.erf.ERF;
@@ -106,8 +120,8 @@ import era.foss.erf.provider.ErfItemProviderAdapterFactory;
 /**
  * This is an example of a Erf model editor.
  */
-public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditingDomainProvider, ISelectionProvider,
-        IGotoMarker, IAdapterFactoryProvider, IViewerProvider {
+public class ErfObjectEditor extends MultiPageEditorPart implements IEditingDomainProvider, ISelectionProvider,
+        IMenuListener, IViewerProvider, IGotoMarker, IAdapterFactoryProvider {
 
     /**
      * This keeps track of the editing domain that is used to track all changes to the model.
@@ -130,13 +144,6 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
     protected IStatusLineManager contentOutlineStatusLineManager;
 
     /**
-     * This keeps track of the active viewer pane, in the book. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @generated
-     */
-    protected ViewerPane specObjectViewerPane;
-
-    /**
      * This is the content outline page's viewer.
      */
     protected TreeViewer contentOutlineViewer;
@@ -147,10 +154,17 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
     protected PropertySheetPage propertySheetPage;
 
     /**
+     * This keeps track of the active viewer pane, in the book. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    protected ViewerPane currentViewerPane;
+
+    /**
      * This keeps track of the active content viewer, which may be either one of the viewers in the pages or the content
      * outline viewer.
      */
-    protected ISelectionProvider currentViewer;
+    protected Viewer currentViewer;
 
     /**
      * This listens to which ever viewer is active.
@@ -172,6 +186,40 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
      * The MarkerHelper is responsible for creating workspace resource markers presented in Eclipse's Problems View.
      */
     protected MarkerHelper markerHelper = new EditUIMarkerHelper();
+
+    /**
+     * This listens for when the outline becomes active <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    protected IPartListener partListener = new IPartListener() {
+        public void partActivated( IWorkbenchPart p ) {
+            if( p instanceof PropertySheet ) {
+                if( ((PropertySheet)p).getCurrentPage() == propertySheetPage ) {
+                    getActionBarContributor().setActiveEditor( ErfObjectEditor.this );
+                    handleActivate();
+                }
+            } else if( p == ErfObjectEditor.this ) {
+                handleActivate();
+            }
+        }
+
+        public void partBroughtToTop( IWorkbenchPart p ) {
+            // Ignore.
+        }
+
+        public void partClosed( IWorkbenchPart p ) {
+            // Ignore.
+        }
+
+        public void partDeactivated( IWorkbenchPart p ) {
+            // Ignore.
+        }
+
+        public void partOpened( IWorkbenchPart p ) {
+            // Ignore.
+        }
+    };
 
     /**
      * Resources that have been removed since last activation.
@@ -323,36 +371,6 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
     };
 
     /**
-     * An Adapter that triggers viewer refreshs.
-     * <p>
-     * It is derived from EContentAdapter that auto-adapts all new objects
-     * 
-     * @author cpn
-     */
-    public class ViewerRefreshEContentAdapter extends EContentAdapter {
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.emf.ecore.util.EContentAdapter#notifyChanged(org.eclipse.emf.common.notify.Notification)
-         */
-        @Override
-        public void notifyChanged( Notification notification ) {
-            super.notifyChanged( notification );
-
-            // We need the ViewerRefreshEContentAdapter (VRCA) because
-            // the SpecObjectContentProvider (SOCP) will only be notified based on
-            // ViewerNotifications. These are wrappers around the original Notification.
-            // Yet, more important, they will only be fired if the EObject has already
-            // been selected in the Viewer once (the ItemProvider will only then be
-            // adapted to the EObject.
-
-            System.out.println( "== " + this.getClass().getCanonicalName() );
-            System.out.println( notification.toString() );
-        }
-    }
-
-    /**
      * Handles activation of the editor or it's associated views.
      */
     protected void handleActivate() {
@@ -432,27 +450,26 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
                 }
             }
 
-            // TODO: CPN-deletion - Is ProblemEditorPart of any relevance?
-            // int lastEditorPage = getPageCount() - 1;
-            // if( lastEditorPage >= 0 && getEditor( lastEditorPage ) instanceof ProblemEditorPart ) {
-            // ((ProblemEditorPart)getEditor( lastEditorPage )).setDiagnostic( diagnostic );
-            // if( diagnostic.getSeverity() != Diagnostic.OK ) {
-            // setActivePage( lastEditorPage );
-            // }
-            // } else if( diagnostic.getSeverity() != Diagnostic.OK ) {
-            // ProblemEditorPart problemEditorPart = new ProblemEditorPart();
-            // problemEditorPart.setDiagnostic( diagnostic );
-            // problemEditorPart.setMarkerHelper( markerHelper );
-            // try {
-            // addPage( ++lastEditorPage, problemEditorPart, getEditorInput() );
-            // setPageText( lastEditorPage, problemEditorPart.getPartName() );
-            // setActivePage( lastEditorPage );
-            // showTabs();
-            // } catch( PartInitException exception ) {
-            // ErfObjectEditorPlugin.INSTANCE.log( exception );
-            // }
-            // }
-            markerHelper.deleteMarkers( editingDomain.getResourceSet() );
+            int lastEditorPage = getPageCount() - 1;
+            if( lastEditorPage >= 0 && getEditor( lastEditorPage ) instanceof ProblemEditorPart ) {
+                ((ProblemEditorPart)getEditor( lastEditorPage )).setDiagnostic( diagnostic );
+                if( diagnostic.getSeverity() != Diagnostic.OK ) {
+                    setActivePage( lastEditorPage );
+                }
+            } else if( diagnostic.getSeverity() != Diagnostic.OK ) {
+                ProblemEditorPart problemEditorPart = new ProblemEditorPart();
+                problemEditorPart.setDiagnostic( diagnostic );
+                problemEditorPart.setMarkerHelper( markerHelper );
+                try {
+                    addPage( ++lastEditorPage, problemEditorPart, getEditorInput() );
+                    setPageText( lastEditorPage, problemEditorPart.getPartName() );
+                    setActivePage( lastEditorPage );
+                    showTabs();
+                } catch( PartInitException exception ) {
+                    ErfObjectsEditorPlugin.INSTANCE.log( exception );
+                }
+            }
+
             if( markerHelper.hasMarkers( editingDomain.getResourceSet() ) ) {
                 if( diagnostic.getSeverity() != Diagnostic.OK ) {
                     try {
@@ -534,7 +551,7 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
             }
 
             public void commandStackChanged( final EventObject event ) {
-                ErfObjectEditor.this.specObjectViewerPane.getControl().getDisplay().asyncExec( new Runnable() {
+                ErfObjectEditor.this.currentViewerPane.getControl().getDisplay().asyncExec( new Runnable() {
                     public void run() {
                         firePropertyChange( IEditorPart.PROP_DIRTY );
 
@@ -578,7 +595,7 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
     }
 
     /**
-     * This sets the selection into whichever viewer is active.
+     * This sets the selection of current viewer
      * 
      * @param collection the new selection to viewer
      */
@@ -597,15 +614,11 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
                             } else if( eObject.eContainer() instanceof SpecObject ) {
                                 specObjectList.add( (SpecObject)eObject.eContainer() );
                             }
-                            // TODO: if element is part of the type editor, open type editor,
-                            // navigate to correct tab and mark the respective element
                         }
                     }
 
                     if( currentViewer != null && !specObjectList.isEmpty() ) {
-                        currentViewer.setSelection( new StructuredSelection( specObjectList.toArray() ) );
-                        // OLD
-                        // currentViewer.setSelection( new StructuredSelection( specObjectList.toArray() ), true );
+                        currentViewer.setSelection( new StructuredSelection( specObjectList.toArray() ), true );
                     }
                 }
             };
@@ -624,12 +637,27 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
     }
 
     /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public void setCurrentViewerPane( ViewerPane viewerPane ) {
+        if( currentViewerPane != viewerPane ) {
+            if( currentViewerPane != null ) {
+                currentViewerPane.showFocus( false );
+            }
+            currentViewerPane = viewerPane;
+        }
+        setCurrentViewer( currentViewerPane.getViewer() );
+    }
+
+    /**
      * This makes sure that one content viewer, either for the current page or the outline view, if it has focus, is the
      * current one.
      * 
      * @param viewer the new current viewer
      */
-    public void setCurrentViewer( ISelectionProvider viewer ) {
+    public void setCurrentViewer( Viewer viewer ) {
         // If it is changing...
         //
         if( currentViewer != viewer ) {
@@ -668,31 +696,38 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
     }
 
     /**
+     * This returns the viewer as required by the {@link IViewerProvider} interface. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
+     * @generated
+     */
+    public Viewer getViewer() {
+        return currentViewer;
+    }
+
+    /**
      * This is the method called to load a resource into the editing domain's resource set based on the editor's input.
      */
     public void createModel() {
         URI resourceURI = EditUIUtil.getURI( getEditorInput() );
         Exception exception = null;
-        Resource resource = null;
+        erfResource = null;
         try {
             // Load the resource through the editing domain.
             //
-            resource = editingDomain.getResourceSet().getResource( resourceURI, true );
+            erfResource = editingDomain.getResourceSet().getResource( resourceURI, true );
         } catch( Exception e ) {
             exception = e;
-            resource = editingDomain.getResourceSet().getResource( resourceURI, false );
+            erfResource = editingDomain.getResourceSet().getResource( resourceURI, false );
         }
 
-        Diagnostic diagnostic = analyzeResourceProblems( resource, exception );
+        Diagnostic diagnostic = analyzeResourceProblems( erfResource, exception );
         if( diagnostic.getSeverity() != Diagnostic.OK ) {
-            resourceToDiagnosticMap.put( resource, analyzeResourceProblems( resource, exception ) );
+            resourceToDiagnosticMap.put( erfResource, analyzeResourceProblems( erfResource, exception ) );
         }
         editingDomain.getResourceSet().eAdapters().add( problemIndicationAdapter );
 
-        Resource erfResource = (XMIResource)editingDomain.getResourceSet()
-                                                         .getResource( EditUIUtil.getURI( getEditorInput() ), true );
-        erfModel = (ERF)(erfResource).getContents().get( 0 );
-        erfModel.getCoreContent().eAdapters().add( new ViewerRefreshEContentAdapter() );
+        erfModel = (ERF)erfResource.getContents().get( 0 );
     }
 
     /**
@@ -726,14 +761,146 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
     }
 
     /**
+     * This is the method used by the framework to install your own controls. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @not generated
+     */
+    @Override
+    public void createPages() {
+
+        // Creates the model from the editor input
+        createModel();
+
+        // Only creates the other pages if there is something that can be edited
+        if( !getEditingDomain().getResourceSet().getResources().isEmpty() ) {
+
+            // Create a page for the ERA SpecObjectViewerPane / TableViewer-based
+            {
+                ViewerPane viewerPane = new NebulaBasedSpecObjectsViewerPane( getSite().getPage(),
+                                                                              ErfObjectEditor.this,
+                                                                              getContainer() ) {
+
+                    @Override
+                    public void requestActivation() {
+                        super.requestActivation();
+                        setCurrentViewerPane( this );
+                    }
+                };
+                int pageIndex = addPage( viewerPane.getControl() );
+                setPageText( pageIndex, "Specification Objects" );
+            }
+
+            // Create a page for the ERA SpecObjectViewerPane / TableViewer-based
+            {
+                ViewerPane viewerPane = new SpecObjectsViewerPane( getSite().getPage(),
+                                                                   ErfObjectEditor.this,
+                                                                   getContainer() ) {
+                    @Override
+                    public void requestActivation() {
+                        super.requestActivation();
+                        setCurrentViewerPane( this );
+                    }
+                };
+                int pageIndex = addPage( viewerPane.getControl() );
+                setPageText( pageIndex, "Specification Objects Table" );
+            }
+            // Create a page for the selection tree view.
+            //
+            {
+                ViewerPane viewerPane = new ViewerPane( getSite().getPage(), ErfObjectEditor.this ) {
+                    @Override
+                    public Viewer createViewer( Composite composite ) {
+                        return new SpecObjectCompositeViewer( composite, editingDomain, erfModel );
+                    }
+
+                    @Override
+                    public void requestActivation() {
+                        super.requestActivation();
+                        setCurrentViewerPane( this );
+                    }
+                };
+                viewerPane.createControl( getContainer() );
+                int pageIndex = addPage( viewerPane.getControl() );
+                setPageText( pageIndex, "Nebula Binding" );
+            }
+
+        }
+
+        // Ensures that this editor will only display the page's tab
+        // area if there are more than one page
+        getContainer().addControlListener( new ControlAdapter() {
+            boolean guard = false;
+
+            @Override
+            public void controlResized( ControlEvent event ) {
+                if( !guard ) {
+                    guard = true;
+                    hideTabs();
+                    guard = false;
+                }
+            }
+        } );
+
+        getSite().getShell().getDisplay().asyncExec( new Runnable() {
+            public void run() {
+                updateProblemIndication();
+            }
+        } );
+    }
+
+    /**
+     * If there is just one page in the multi-page editor part, this hides the single tab at the bottom. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    protected void hideTabs() {
+        if( getPageCount() <= 1 ) {
+            setPageText( 0, "" );
+            if( getContainer() instanceof CTabFolder ) {
+                ((CTabFolder)getContainer()).setTabHeight( 1 );
+                Point point = getContainer().getSize();
+                getContainer().setSize( point.x, point.y + 6 );
+            }
+        }
+    }
+
+    /**
+     * If there is more than one page in the multi-page editor part, this shows the tabs at the bottom. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    protected void showTabs() {
+        if( getPageCount() > 1 ) {
+            setPageText( 0, getString( "_UI_SelectionPage_label" ) );
+            if( getContainer() instanceof CTabFolder ) {
+                ((CTabFolder)getContainer()).setTabHeight( SWT.DEFAULT );
+                Point point = getContainer().getSize();
+                getContainer().setSize( point.x, point.y - 6 );
+            }
+        }
+    }
+
+    /**
+     * This is used to track the active viewer. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    @Override
+    protected void pageChange( int pageIndex ) {
+        super.pageChange( pageIndex );
+    }
+
+    /**
      * This is how the framework determines which interfaces we implement.
      * 
      * @param key the key
      * @return the adapter
      */
-    @SuppressWarnings("unchecked")
     @Override
-    public Object getAdapter( Class key ) {
+    public Object getAdapter( @SuppressWarnings("rawtypes") Class key ) {
         if( key.equals( IContentOutlinePage.class ) ) {
             return showOutlineView() ? getContentOutlinePage() : null;
         } else if( key.equals( IPropertySheetPage.class ) ) {
@@ -947,6 +1114,7 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
         setInputWithNotify( editorInput );
         setPartName( editorInput.getName() );
         site.setSelectionProvider( this );
+        site.getPage().addPartListener( partListener );
         ResourcesPlugin.getWorkspace().addResourceChangeListener( resourceChangeListener,
                                                                   IResourceChangeEvent.POST_CHANGE );
     }
@@ -956,7 +1124,11 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
      */
     @Override
     public void setFocus() {
-        specObjectViewerPane.getControl().setFocus();
+        if( currentViewerPane != null ) {
+            currentViewerPane.setFocus();
+        } else {
+            getControl( getActivePage() ).setFocus();
+        }
     }
 
     /**
@@ -1050,37 +1222,62 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
     /**
      * This looks up a string in the plugin's plugin.properties file.
      * 
-     * @param key the key
-     * @return the string
+     * @generated
      */
     private static String getString( String key ) {
         return ErfObjectsEditorPlugin.INSTANCE.getString( key );
     }
 
     /**
-     * This looks up a string in plugin.properties, making a substitution.
+     * This looks up a string in plugin.properties, making a substitution. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
-     * @param key the key
-     * @param s1 the s1
-     * @return the string
+     * @generated
      */
     private static String getString( String key, Object s1 ) {
         return ErfObjectsEditorPlugin.INSTANCE.getString( key, new Object[]{s1} );
     }
 
     /**
-     * Gets the adapter factory.
+     * This implements {@link org.eclipse.jface.action.IMenuListener} to help fill the context menus with contributions
+     * from the Edit menu. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
-     * @return the adapter factory
-     * @see era.foss.objecteditor.IAdapterFactoryProvider#getAdapterFactory()
-     * @since Oct 28, 2010
+     * @generated
+     */
+    public void menuAboutToShow( IMenuManager menuManager ) {
+        ((IMenuListener)getEditorSite().getActionBarContributor()).menuAboutToShow( menuManager );
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public EditingDomainActionBarContributor getActionBarContributor() {
+        return (EditingDomainActionBarContributor)getEditorSite().getActionBarContributor();
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public IActionBars getActionBars() {
+        return getActionBarContributor().getActionBars();
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
      */
     public AdapterFactory getAdapterFactory() {
         return adapterFactory;
     }
 
     /**
-     * Dispose this control and controls created by this one.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
      */
     @Override
     public void dispose() {
@@ -1088,69 +1285,23 @@ public class ErfObjectEditor extends EditorPart implements IEditorPart, IEditing
 
         ResourcesPlugin.getWorkspace().removeResourceChangeListener( resourceChangeListener );
 
+        getSite().getPage().removePartListener( partListener );
+
         adapterFactory.dispose();
 
         if( propertySheetPage != null ) {
             propertySheetPage.dispose();
         }
 
-        if( contentOutlinePage != null ) {
-            contentOutlinePage.dispose();
-        }
-
         super.dispose();
     }
 
     /**
-     * Returns whether the outline view should be presented to the user. (Currently: "yes, always")
+     * Returns whether the outline view should be presented to the user. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
-     * @return true, if successful
+     * @generated
      */
     protected boolean showOutlineView() {
         return true;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
-     */
-    @Override
-    public void createPartControl( Composite parent ) {
-
-        // Creates the model from the editor input
-        //
-        createModel();
-
-        // Only creates the other pages if there is something that can be edited
-        //
-        if( !getEditingDomain().getResourceSet().getResources().isEmpty() ) {
-            // This is the page for the table viewer.
-            //
-            {
-                // specObjectViewerPane = new SpecObjectsViewerPane(getSite().getPage(),ErfObjectEditor.this,parent){
-                specObjectViewerPane = new NebulaBasedSpecObjectsViewerPane( getSite().getPage(),
-                                                                             ErfObjectEditor.this,
-                                                                             parent ) {
-                    @Override
-                    public void requestActivation() {
-                        super.requestActivation();
-                        setCurrentViewer( specObjectViewerPane.getViewer() );
-                    }
-                };
-                this.setCurrentViewer( specObjectViewerPane.getViewer() );
-            }
-        }
-
-        getSite().getShell().getDisplay().asyncExec( new Runnable() {
-            public void run() {
-                updateProblemIndication();
-            }
-        } );
-    }
-
-    @Override
-    public Viewer getViewer() {
-        return specObjectViewerPane.getViewer();
     }
 }

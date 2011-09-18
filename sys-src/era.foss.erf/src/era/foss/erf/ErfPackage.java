@@ -275,22 +275,13 @@ public interface ErfPackage extends EPackage {
     int ATTRIBUTE_DEFINITION__IDENT = IDENTIFIABLE_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Ui Properties</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ATTRIBUTE_DEFINITION__UI_PROPERTIES = IDENTIFIABLE_FEATURE_COUNT + 2;
-
-    /**
      * The feature id for the '<em><b>Unique</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ATTRIBUTE_DEFINITION__UNIQUE = IDENTIFIABLE_FEATURE_COUNT + 3;
+    int ATTRIBUTE_DEFINITION__UNIQUE = IDENTIFIABLE_FEATURE_COUNT + 2;
 
     /**
      * The feature id for the '<em><b>Spec Type</b></em>' container reference.
@@ -299,7 +290,7 @@ public interface ErfPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATTRIBUTE_DEFINITION__SPEC_TYPE = IDENTIFIABLE_FEATURE_COUNT + 4;
+    int ATTRIBUTE_DEFINITION__SPEC_TYPE = IDENTIFIABLE_FEATURE_COUNT + 3;
 
     /**
      * The number of structural features of the '<em>Attribute Definition</em>' class.
@@ -308,7 +299,7 @@ public interface ErfPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ATTRIBUTE_DEFINITION_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 5;
+    int ATTRIBUTE_DEFINITION_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 4;
 
     /**
      * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -852,15 +843,6 @@ public interface ErfPackage extends EPackage {
     int ATTRIBUTE_DEFINITION_SIMPLE__IDENT = ATTRIBUTE_DEFINITION__IDENT;
 
     /**
-     * The feature id for the '<em><b>Ui Properties</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ATTRIBUTE_DEFINITION_SIMPLE__UI_PROPERTIES = ATTRIBUTE_DEFINITION__UI_PROPERTIES;
-
-    /**
      * The feature id for the '<em><b>Unique</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1071,52 +1053,6 @@ public interface ErfPackage extends EPackage {
     int SPEC_RELATION_FEATURE_COUNT = SPEC_ELEMENT_WITH_USER_DEFINED_ATTRIBUTES_FEATURE_COUNT + 2;
 
     /**
-     * The meta object id for the '{@link era.foss.erf.impl.AttributeDefinitionUiPropertiesImpl <em>Attribute Definition Ui Properties</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see era.foss.erf.impl.AttributeDefinitionUiPropertiesImpl
-     * @see era.foss.erf.impl.ErfPackageImpl#getAttributeDefinitionUiProperties()
-     * @generated
-     */
-    int ATTRIBUTE_DEFINITION_UI_PROPERTIES = 16;
-
-    /**
-     * The feature id for the '<em><b>Editor Show Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ATTRIBUTE_DEFINITION_UI_PROPERTIES__EDITOR_SHOW_LABEL = 0;
-
-    /**
-     * The feature id for the '<em><b>Editor Row Number</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ATTRIBUTE_DEFINITION_UI_PROPERTIES__EDITOR_ROW_NUMBER = 1;
-
-    /**
-     * The feature id for the '<em><b>Editor Column Span</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ATTRIBUTE_DEFINITION_UI_PROPERTIES__EDITOR_COLUMN_SPAN = 2;
-
-    /**
-     * The number of structural features of the '<em>Attribute Definition Ui Properties</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ATTRIBUTE_DEFINITION_UI_PROPERTIES_FEATURE_COUNT = 3;
-
-    /**
      * The meta object id for the '{@link era.foss.erf.impl.EmbeddedValueImpl <em>Embedded Value</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1124,7 +1060,7 @@ public interface ErfPackage extends EPackage {
      * @see era.foss.erf.impl.ErfPackageImpl#getEmbeddedValue()
      * @generated
      */
-    int EMBEDDED_VALUE = 17;
+    int EMBEDDED_VALUE = 16;
 
     /**
      * The feature id for the '<em><b>Key</b></em>' attribute.
@@ -1161,7 +1097,7 @@ public interface ErfPackage extends EPackage {
      * @see era.foss.erf.impl.ErfPackageImpl#getEnumValue()
      * @generated
      */
-    int ENUM_VALUE = 18;
+    int ENUM_VALUE = 17;
 
     /**
      * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -1216,7 +1152,7 @@ public interface ErfPackage extends EPackage {
      * @see era.foss.erf.impl.ErfPackageImpl#getDatatypeDefinitionEnumeration()
      * @generated
      */
-    int DATATYPE_DEFINITION_ENUMERATION = 19;
+    int DATATYPE_DEFINITION_ENUMERATION = 18;
 
     /**
      * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -1280,7 +1216,7 @@ public interface ErfPackage extends EPackage {
      * @see era.foss.erf.impl.ErfPackageImpl#getAttributeDefinitionEnumeration()
      * @generated
      */
-    int ATTRIBUTE_DEFINITION_ENUMERATION = 20;
+    int ATTRIBUTE_DEFINITION_ENUMERATION = 19;
 
     /**
      * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -1326,15 +1262,6 @@ public interface ErfPackage extends EPackage {
      * @ordered
      */
     int ATTRIBUTE_DEFINITION_ENUMERATION__IDENT = ATTRIBUTE_DEFINITION__IDENT;
-
-    /**
-     * The feature id for the '<em><b>Ui Properties</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ATTRIBUTE_DEFINITION_ENUMERATION__UI_PROPERTIES = ATTRIBUTE_DEFINITION__UI_PROPERTIES;
 
     /**
      * The feature id for the '<em><b>Unique</b></em>' attribute.
@@ -1389,7 +1316,7 @@ public interface ErfPackage extends EPackage {
      * @see era.foss.erf.impl.ErfPackageImpl#getAttributeValueEnumeration()
      * @generated
      */
-    int ATTRIBUTE_VALUE_ENUMERATION = 21;
+    int ATTRIBUTE_VALUE_ENUMERATION = 20;
 
     /**
      * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -1453,7 +1380,7 @@ public interface ErfPackage extends EPackage {
      * @see era.foss.erf.impl.ErfPackageImpl#getDatatypeDefinitionBoolean()
      * @generated
      */
-    int DATATYPE_DEFINITION_BOOLEAN = 22;
+    int DATATYPE_DEFINITION_BOOLEAN = 21;
 
     /**
      * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -1508,7 +1435,7 @@ public interface ErfPackage extends EPackage {
      * @see era.foss.erf.impl.ErfPackageImpl#getAttributeDefinitionBoolean()
      * @generated
      */
-    int ATTRIBUTE_DEFINITION_BOOLEAN = 23;
+    int ATTRIBUTE_DEFINITION_BOOLEAN = 22;
 
     /**
      * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -1556,15 +1483,6 @@ public interface ErfPackage extends EPackage {
     int ATTRIBUTE_DEFINITION_BOOLEAN__IDENT = ATTRIBUTE_DEFINITION__IDENT;
 
     /**
-     * The feature id for the '<em><b>Ui Properties</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ATTRIBUTE_DEFINITION_BOOLEAN__UI_PROPERTIES = ATTRIBUTE_DEFINITION__UI_PROPERTIES;
-
-    /**
      * The feature id for the '<em><b>Unique</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1608,7 +1526,7 @@ public interface ErfPackage extends EPackage {
      * @see era.foss.erf.impl.ErfPackageImpl#getAttributeValueBoolean()
      * @generated
      */
-    int ATTRIBUTE_VALUE_BOOLEAN = 24;
+    int ATTRIBUTE_VALUE_BOOLEAN = 23;
 
     /**
      * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -1672,7 +1590,7 @@ public interface ErfPackage extends EPackage {
      * @see era.foss.erf.impl.ErfPackageImpl#getToolExtension()
      * @generated
      */
-    int TOOL_EXTENSION = 25;
+    int TOOL_EXTENSION = 24;
 
     /**
      * The number of structural features of the '<em>Tool Extension</em>' class.
@@ -1691,7 +1609,7 @@ public interface ErfPackage extends EPackage {
      * @see era.foss.erf.impl.ErfPackageImpl#getView()
      * @generated
      */
-    int VIEW = 26;
+    int VIEW = 25;
 
     /**
      * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -1746,7 +1664,7 @@ public interface ErfPackage extends EPackage {
      * @see era.foss.erf.impl.ErfPackageImpl#getViewElement()
      * @generated
      */
-    int VIEW_ELEMENT = 27;
+    int VIEW_ELEMENT = 26;
 
     /**
      * The feature id for the '<em><b>Editor Show Label</b></em>' attribute.
@@ -1801,7 +1719,7 @@ public interface ErfPackage extends EPackage {
      * @see era.foss.erf.impl.ErfPackageImpl#getEraToolExtension()
      * @generated
      */
-    int ERA_TOOL_EXTENSION = 28;
+    int ERA_TOOL_EXTENSION = 27;
 
     /**
      * The feature id for the '<em><b>Views</b></em>' containment reference list.
@@ -1829,7 +1747,7 @@ public interface ErfPackage extends EPackage {
      * @see era.foss.erf.impl.ErfPackageImpl#getDiagnosticChain()
      * @generated
      */
-    int DIAGNOSTIC_CHAIN = 29;
+    int DIAGNOSTIC_CHAIN = 28;
 
     /**
      * Returns the meta object for class '{@link era.foss.erf.AttributeDefinition <em>Attribute Definition</em>}'.
@@ -1884,17 +1802,6 @@ public interface ErfPackage extends EPackage {
      * @generated
      */
     EReference getAttributeDefinition_SpecType();
-
-    /**
-     * Returns the meta object for the containment reference '{@link era.foss.erf.AttributeDefinition#getUiProperties <em>Ui Properties</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference '<em>Ui Properties</em>'.
-     * @see era.foss.erf.AttributeDefinition#getUiProperties()
-     * @see #getAttributeDefinition()
-     * @generated
-     */
-    EReference getAttributeDefinition_UiProperties();
 
     /**
      * Returns the meta object for class '{@link era.foss.erf.AttributeValue <em>Attribute Value</em>}'.
@@ -2301,49 +2208,6 @@ public interface ErfPackage extends EPackage {
     EReference getSpecRelation_Target();
 
     /**
-     * Returns the meta object for class '{@link era.foss.erf.AttributeDefinitionUiProperties <em>Attribute Definition Ui Properties</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Attribute Definition Ui Properties</em>'.
-     * @see era.foss.erf.AttributeDefinitionUiProperties
-     * @generated
-     */
-    EClass getAttributeDefinitionUiProperties();
-
-    /**
-     * Returns the meta object for the attribute '{@link era.foss.erf.AttributeDefinitionUiProperties#isEditorShowLabel <em>Editor Show Label</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Editor Show Label</em>'.
-     * @see era.foss.erf.AttributeDefinitionUiProperties#isEditorShowLabel()
-     * @see #getAttributeDefinitionUiProperties()
-     * @generated
-     */
-    EAttribute getAttributeDefinitionUiProperties_EditorShowLabel();
-
-    /**
-     * Returns the meta object for the attribute '{@link era.foss.erf.AttributeDefinitionUiProperties#getEditorRowNumber <em>Editor Row Number</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Editor Row Number</em>'.
-     * @see era.foss.erf.AttributeDefinitionUiProperties#getEditorRowNumber()
-     * @see #getAttributeDefinitionUiProperties()
-     * @generated
-     */
-    EAttribute getAttributeDefinitionUiProperties_EditorRowNumber();
-
-    /**
-     * Returns the meta object for the attribute '{@link era.foss.erf.AttributeDefinitionUiProperties#getEditorColumnSpan <em>Editor Column Span</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Editor Column Span</em>'.
-     * @see era.foss.erf.AttributeDefinitionUiProperties#getEditorColumnSpan()
-     * @see #getAttributeDefinitionUiProperties()
-     * @generated
-     */
-    EAttribute getAttributeDefinitionUiProperties_EditorColumnSpan();
-
-    /**
      * Returns the meta object for class '{@link era.foss.erf.EmbeddedValue <em>Embedded Value</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2700,13 +2564,6 @@ public interface ErfPackage extends EPackage {
          */
         EReference ATTRIBUTE_DEFINITION__SPEC_TYPE = eINSTANCE.getAttributeDefinition_SpecType();
         /**
-         * The meta object literal for the '<em><b>Ui Properties</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference ATTRIBUTE_DEFINITION__UI_PROPERTIES = eINSTANCE.getAttributeDefinition_UiProperties();
-        /**
          * The meta object literal for the '{@link era.foss.erf.impl.AttributeValueImpl <em>Attribute Value</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -3002,36 +2859,6 @@ public interface ErfPackage extends EPackage {
          * @generated
          */
         EReference SPEC_RELATION__TARGET = eINSTANCE.getSpecRelation_Target();
-        /**
-         * The meta object literal for the '{@link era.foss.erf.impl.AttributeDefinitionUiPropertiesImpl <em>Attribute Definition Ui Properties</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @see era.foss.erf.impl.AttributeDefinitionUiPropertiesImpl
-         * @see era.foss.erf.impl.ErfPackageImpl#getAttributeDefinitionUiProperties()
-         * @generated
-         */
-        EClass ATTRIBUTE_DEFINITION_UI_PROPERTIES = eINSTANCE.getAttributeDefinitionUiProperties();
-        /**
-         * The meta object literal for the '<em><b>Editor Show Label</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute ATTRIBUTE_DEFINITION_UI_PROPERTIES__EDITOR_SHOW_LABEL = eINSTANCE.getAttributeDefinitionUiProperties_EditorShowLabel();
-        /**
-         * The meta object literal for the '<em><b>Editor Row Number</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute ATTRIBUTE_DEFINITION_UI_PROPERTIES__EDITOR_ROW_NUMBER = eINSTANCE.getAttributeDefinitionUiProperties_EditorRowNumber();
-        /**
-         * The meta object literal for the '<em><b>Editor Column Span</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute ATTRIBUTE_DEFINITION_UI_PROPERTIES__EDITOR_COLUMN_SPAN = eINSTANCE.getAttributeDefinitionUiProperties_EditorColumnSpan();
         /**
          * The meta object literal for the '{@link era.foss.erf.impl.EmbeddedValueImpl <em>Embedded Value</em>}' class.
          * <!-- begin-user-doc -->

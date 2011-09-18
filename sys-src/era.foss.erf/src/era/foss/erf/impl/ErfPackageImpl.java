@@ -33,7 +33,6 @@ import era.foss.erf.AttributeDefinition;
 import era.foss.erf.AttributeDefinitionBoolean;
 import era.foss.erf.AttributeDefinitionEnumeration;
 import era.foss.erf.AttributeDefinitionSimple;
-import era.foss.erf.AttributeDefinitionUiProperties;
 import era.foss.erf.AttributeValue;
 import era.foss.erf.AttributeValueBoolean;
 import era.foss.erf.AttributeValueEnumeration;
@@ -161,12 +160,6 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
      * @generated
      */
     private EClass specRelationEClass = null;
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass attributeDefinitionUiPropertiesEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -348,7 +341,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
      * @generated
      */
     public EAttribute getAttributeDefinition_Unique() {
-        return (EAttribute)attributeDefinitionEClass.getEStructuralFeatures().get( 3 );
+        return (EAttribute)attributeDefinitionEClass.getEStructuralFeatures().get( 2 );
     }
 
     /**
@@ -357,15 +350,7 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
      * @generated
      */
     public EReference getAttributeDefinition_SpecType() {
-        return (EReference)attributeDefinitionEClass.getEStructuralFeatures().get( 4 );
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getAttributeDefinition_UiProperties() {
-        return (EReference)attributeDefinitionEClass.getEStructuralFeatures().get( 2 );
+        return (EReference)attributeDefinitionEClass.getEStructuralFeatures().get( 3 );
     }
 
     /**
@@ -679,38 +664,6 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EClass getAttributeDefinitionUiProperties() {
-        return attributeDefinitionUiPropertiesEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getAttributeDefinitionUiProperties_EditorShowLabel() {
-        return (EAttribute)attributeDefinitionUiPropertiesEClass.getEStructuralFeatures().get( 0 );
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getAttributeDefinitionUiProperties_EditorRowNumber() {
-        return (EAttribute)attributeDefinitionUiPropertiesEClass.getEStructuralFeatures().get( 1 );
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getAttributeDefinitionUiProperties_EditorColumnSpan() {
-        return (EAttribute)attributeDefinitionUiPropertiesEClass.getEStructuralFeatures().get( 2 );
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
     public EClass getEmbeddedValue() {
         return embeddedValueEClass;
     }
@@ -974,7 +927,6 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         attributeDefinitionEClass = createEClass( ATTRIBUTE_DEFINITION );
         createEReference( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__TYPE );
         createEAttribute( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__IDENT );
-        createEReference( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__UI_PROPERTIES );
         createEAttribute( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__UNIQUE );
         createEReference( attributeDefinitionEClass, ATTRIBUTE_DEFINITION__SPEC_TYPE );
 
@@ -1031,14 +983,6 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
         specRelationEClass = createEClass( SPEC_RELATION );
         createEReference( specRelationEClass, SPEC_RELATION__SOURCE );
         createEReference( specRelationEClass, SPEC_RELATION__TARGET );
-
-        attributeDefinitionUiPropertiesEClass = createEClass( ATTRIBUTE_DEFINITION_UI_PROPERTIES );
-        createEAttribute( attributeDefinitionUiPropertiesEClass,
-                          ATTRIBUTE_DEFINITION_UI_PROPERTIES__EDITOR_SHOW_LABEL );
-        createEAttribute( attributeDefinitionUiPropertiesEClass,
-                          ATTRIBUTE_DEFINITION_UI_PROPERTIES__EDITOR_ROW_NUMBER );
-        createEAttribute( attributeDefinitionUiPropertiesEClass,
-                          ATTRIBUTE_DEFINITION_UI_PROPERTIES__EDITOR_COLUMN_SPAN );
 
         embeddedValueEClass = createEClass( EMBEDDED_VALUE );
         createEAttribute( embeddedValueEClass, EMBEDDED_VALUE__KEY );
@@ -1169,23 +1113,6 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         IS_CHANGEABLE,
                         !IS_UNSETTABLE,
                         !IS_ID,
-                        IS_UNIQUE,
-                        !IS_DERIVED,
-                        !IS_ORDERED );
-        initEReference( getAttributeDefinition_UiProperties(),
-                        this.getAttributeDefinitionUiProperties(),
-                        null,
-                        "uiProperties",
-                        null,
-                        1,
-                        1,
-                        AttributeDefinition.class,
-                        !IS_TRANSIENT,
-                        !IS_VOLATILE,
-                        !IS_CHANGEABLE,
-                        IS_COMPOSITE,
-                        !IS_RESOLVE_PROXIES,
-                        !IS_UNSETTABLE,
                         IS_UNIQUE,
                         !IS_DERIVED,
                         !IS_ORDERED );
@@ -1693,58 +1620,6 @@ public class ErfPackageImpl extends EPackageImpl implements ErfPackage {
                         IS_UNIQUE,
                         !IS_DERIVED,
                         IS_ORDERED );
-
-        initEClass( attributeDefinitionUiPropertiesEClass,
-                    AttributeDefinitionUiProperties.class,
-                    "AttributeDefinitionUiProperties",
-                    !IS_ABSTRACT,
-                    !IS_INTERFACE,
-                    IS_GENERATED_INSTANCE_CLASS );
-        initEAttribute( getAttributeDefinitionUiProperties_EditorShowLabel(),
-                        ecorePackage.getEBoolean(),
-                        "editorShowLabel",
-                        "true",
-                        1,
-                        1,
-                        AttributeDefinitionUiProperties.class,
-                        !IS_TRANSIENT,
-                        !IS_VOLATILE,
-                        IS_CHANGEABLE,
-                        !IS_UNSETTABLE,
-                        !IS_ID,
-                        !IS_UNIQUE,
-                        !IS_DERIVED,
-                        !IS_ORDERED );
-        initEAttribute( getAttributeDefinitionUiProperties_EditorRowNumber(),
-                        ecorePackage.getEInt(),
-                        "editorRowNumber",
-                        "1",
-                        1,
-                        1,
-                        AttributeDefinitionUiProperties.class,
-                        !IS_TRANSIENT,
-                        !IS_VOLATILE,
-                        IS_CHANGEABLE,
-                        !IS_UNSETTABLE,
-                        !IS_ID,
-                        !IS_UNIQUE,
-                        !IS_DERIVED,
-                        !IS_ORDERED );
-        initEAttribute( getAttributeDefinitionUiProperties_EditorColumnSpan(),
-                        ecorePackage.getEInt(),
-                        "editorColumnSpan",
-                        "1",
-                        1,
-                        1,
-                        AttributeDefinitionUiProperties.class,
-                        !IS_TRANSIENT,
-                        !IS_VOLATILE,
-                        IS_CHANGEABLE,
-                        !IS_UNSETTABLE,
-                        !IS_ID,
-                        !IS_UNIQUE,
-                        !IS_DERIVED,
-                        !IS_ORDERED );
 
         initEClass( embeddedValueEClass,
                     EmbeddedValue.class,

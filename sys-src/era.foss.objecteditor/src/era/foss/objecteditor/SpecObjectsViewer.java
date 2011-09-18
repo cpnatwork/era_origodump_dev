@@ -78,18 +78,6 @@ import era.foss.ui.contrib.TableViewerExtensions;
 /**
  * The Class SpecObjectsViewer.
  */
-/**
- * 
- */
-/**
- * 
- */
-/**
- * 
- */
-/**
- * 
- */
 public class SpecObjectsViewer extends TableViewer implements IActiveColumn, IAllowViewerSchemaChange {
 
     /** The Constant SPEC_ATTRIBUTE_COLUMN_DATA. */
@@ -166,8 +154,9 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn, IAl
         this.setInput( erfModel.getCoreContent().getSpecObjects() );
     }
 
-    
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see era.foss.objecteditor.IAllowViewerSchemaChange#recreateViewerSchema()
      */
     @Override
@@ -439,7 +428,7 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn, IAl
 
             System.out.println( "== " + this.getClass().getCanonicalName() );
             System.out.println( notification.toString() );
-            //            
+            //
             // handleInstanceLevel( notification );
             // handleTypeLevel( notification );
         }

@@ -23,10 +23,9 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EcoreUtil;
+
 import era.foss.erf.AttributeDefinition;
-import era.foss.erf.AttributeDefinitionUiProperties;
 import era.foss.erf.DatatypeDefinition;
 import era.foss.erf.ErfPackage;
 import era.foss.erf.SpecType;
@@ -39,7 +38,6 @@ import era.foss.erf.SpecType;
  * <ul>
  *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#getType <em>Type</em>}</li>
  *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#isIdent <em>Ident</em>}</li>
- *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#getUiProperties <em>Ui Properties</em>}</li>
  *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#isUnique <em>Unique</em>}</li>
  *   <li>{@link era.foss.erf.impl.AttributeDefinitionImpl#getSpecType <em>Spec Type</em>}</li>
  * </ul>
@@ -50,9 +48,9 @@ import era.foss.erf.SpecType;
 public abstract class AttributeDefinitionImpl extends IdentifiableImpl implements AttributeDefinition {
 
     /**
-     * The cached value of the '{@link #getType() <em>Type</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getType() <em>Type</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getType()
      * @generated
      * @ordered
@@ -80,16 +78,6 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     protected boolean ident = IDENT_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getUiProperties() <em>Ui Properties</em>}' containment reference. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @see #getUiProperties()
-     * @generated
-     * @ordered
-     */
-    protected AttributeDefinitionUiProperties uiProperties;
-
-    /**
      * The default value of the '{@link #isUnique() <em>Unique</em>}' attribute.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
@@ -111,12 +99,10 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @not generated
+     * @generated
      */
     protected AttributeDefinitionImpl() {
         super();
-        this.uiProperties = new AttributeDefinitionUiPropertiesImpl();
     }
 
     /**
@@ -157,8 +143,7 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetType( DatatypeDefinition newType, NotificationChain msgs ) {
@@ -249,8 +234,7 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SpecType getSpecType() {
@@ -259,8 +243,7 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetSpecType( SpecType newSpecType, NotificationChain msgs ) {
@@ -269,8 +252,7 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setSpecType( SpecType newSpecType ) {
@@ -295,8 +277,7 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -319,42 +300,11 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public AttributeDefinitionUiProperties getUiProperties() {
-        return uiProperties;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public NotificationChain basicSetUiProperties( AttributeDefinitionUiProperties newUiProperties,
-                                                   NotificationChain msgs ) {
-        AttributeDefinitionUiProperties oldUiProperties = uiProperties;
-        uiProperties = newUiProperties;
-        if( eNotificationRequired() ) {
-            ENotificationImpl notification = new ENotificationImpl(
-                this,
-                Notification.SET,
-                ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES,
-                oldUiProperties,
-                newUiProperties );
-            if( msgs == null ) msgs = notification;
-            else msgs.add( notification );
-        }
-        return msgs;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
     @Override
     public NotificationChain eInverseRemove( InternalEObject otherEnd, int featureID, NotificationChain msgs ) {
         switch (featureID) {
         case ErfPackage.ATTRIBUTE_DEFINITION__TYPE:
             return basicSetType( null, msgs );
-        case ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES:
-            return basicSetUiProperties( null, msgs );
         case ErfPackage.ATTRIBUTE_DEFINITION__SPEC_TYPE:
             return basicSetSpecType( null, msgs );
         }
@@ -362,8 +312,7 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -390,8 +339,6 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
             return basicGetType();
         case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
             return isIdent();
-        case ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES:
-            return getUiProperties();
         case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
             return isUnique();
         case ErfPackage.ATTRIBUTE_DEFINITION__SPEC_TYPE:
@@ -457,8 +404,6 @@ public abstract class AttributeDefinitionImpl extends IdentifiableImpl implement
             return type != null;
         case ErfPackage.ATTRIBUTE_DEFINITION__IDENT:
             return ident != IDENT_EDEFAULT;
-        case ErfPackage.ATTRIBUTE_DEFINITION__UI_PROPERTIES:
-            return uiProperties != null;
         case ErfPackage.ATTRIBUTE_DEFINITION__UNIQUE:
             return unique != UNIQUE_EDEFAULT;
         case ErfPackage.ATTRIBUTE_DEFINITION__SPEC_TYPE:

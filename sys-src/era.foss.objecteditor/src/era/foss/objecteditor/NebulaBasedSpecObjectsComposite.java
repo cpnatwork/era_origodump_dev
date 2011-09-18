@@ -57,9 +57,13 @@ import era.foss.erf.AttributeValue;
 import era.foss.erf.AttributeValueSimple;
 import era.foss.erf.DatatypeDefinition;
 import era.foss.erf.ERF;
+import era.foss.erf.EraToolExtension;
 import era.foss.erf.ErfPackage;
 import era.foss.erf.SpecObject;
 import era.foss.erf.SpecType;
+import era.foss.erf.ToolExtension;
+import era.foss.erf.View;
+import era.foss.erf.ViewElement;
 import era.foss.erf.impl.ErfFactoryImpl;
 
 /**
@@ -72,6 +76,10 @@ public class NebulaBasedSpecObjectsComposite extends Composite implements ISelec
 
     /** The erf model. */
     protected ERF erfModel = null;
+
+    /** Era tool extension */
+    protected EraToolExtension toolExtension;
+
     /** The erf model. */
     protected SpecType theOneAndOnlySpecType = null;
 
@@ -109,6 +117,14 @@ public class NebulaBasedSpecObjectsComposite extends Composite implements ISelec
         // CPN: use casts to avoid direct dependencies to the generated
         // Erf*Editor class(es)
         this.basicCommandStack = (BasicCommandStack)editingDomain.getCommandStack();
+
+        // find Era specific tool extensions
+        for( ToolExtension toolExtension : this.erfModel.getToolExtensions() ) {
+            if( toolExtension.eClass().getClassifierID() == ErfPackage.ERA_TOOL_EXTENSION ) {
+                this.toolExtension = (EraToolExtension)toolExtension;
+            }
+        }
+        assert (this.toolExtension != null);
 
         /* ***************************************** */
         /* create CompositeTable */
@@ -360,9 +376,6 @@ public class NebulaBasedSpecObjectsComposite extends Composite implements ISelec
      */
     private static class NebulaDemandedSpecObjectRowControl extends Composite {
 
-        /** The one and only spec type. */
-        protected SpecType theOneAndOnlySpecType = null;
-
         /** The text fields. */
         public HashMap<String, Control> dataFields = new HashMap<String, Control>();
 
@@ -385,39 +398,45 @@ public class NebulaBasedSpecObjectsComposite extends Composite implements ISelec
             // NebulaBasedSpecObjectsViewer
             assert (parent instanceof CompositeTable);
             Composite ancestor = parent;
-            for( ; (ancestor != null) && !(ancestor instanceof NebulaBasedSpecObjectsComposite); ancestor = ancestor.getParent() );
+            while ((ancestor != null) && !(ancestor instanceof NebulaBasedSpecObjectsComposite)) {
+                ancestor = ancestor.getParent();
+            }
             assert (ancestor != null);
             myViewer = (NebulaBasedSpecObjectsComposite)ancestor;
 
-            // initialize members
-            this.theOneAndOnlySpecType = myViewer.theOneAndOnlySpecType;
+            // get view
+            if( myViewer.toolExtension.getViews().size() == 0 ) {
+                return;
+            }
+            View selectedView = (View)myViewer.toolExtension.getViews().get( 0 );
 
-            // helper reference
-            EList<AttributeDefinition> specAttributeList = theOneAndOnlySpecType.getSpecAttributes();
+            // check if there are elements to be shown in the selected view
+            if( selectedView.getViewElements().size() == 0 ) {
+                return;
+            }
 
-            if( specAttributeList.size() == 0 ) return;
-
-            // Sort attribs in visual order (row first, index in list second)
-            final List<AttributeDefinition> visAttributes = new ArrayList<AttributeDefinition>();
-            visAttributes.addAll( specAttributeList );
-            Collections.sort( visAttributes, new Comparator<AttributeDefinition>() {
+            // Sort view elements in visual order (row first, index in list second)
+            final List<ViewElement> viewElementList = new ArrayList<ViewElement>();
+            viewElementList.addAll( selectedView.getViewElements() );
+            Collections.sort( viewElementList, new Comparator<ViewElement>() {
                 @Override
-                public int compare( AttributeDefinition o1, AttributeDefinition o2 ) {
-                    int row1 = o1.getUiProperties().getEditorRowNumber();
-                    int row2 = o2.getUiProperties().getEditorRowNumber();
-                    return row1 != row2 ? row1 - row2 : visAttributes.indexOf( o1 ) - visAttributes.indexOf( o2 );
+                public int compare( ViewElement elem1, ViewElement elem2 ) {
+                    int elemRow1 = elem1.getEditorRowNumber();
+                    int elemRow2 = elem2.getEditorRowNumber();
+                    return elemRow1 != elemRow2 ? elemRow1 - elemRow2 : viewElementList.indexOf( elem1 )
+                        - viewElementList.indexOf( elem2 );
                 }
             } );
 
             // we must always begin row count with the first element's row number:
-            int firstRow = visAttributes.get( 0 ).getUiProperties().getEditorRowNumber();
+            int firstRow = viewElementList.get( 0 ).getEditorRowNumber();
 
             // calc maxColumnSpan
             int maxColumnSpan = 0;
             int curRow = firstRow;
             int curSpan = 0;
-            for( AttributeDefinition a : visAttributes ) {
-                int r = a.getUiProperties().getEditorRowNumber();
+            for( ViewElement viewElement : viewElementList ) {
+                int r = viewElement.getEditorRowNumber();
                 // do we have a row switch at this point of iteration?
                 if( r > curRow ) {
                     // WARNING: this code block is not executed for the end of the last line!
@@ -425,21 +444,20 @@ public class NebulaBasedSpecObjectsComposite extends Composite implements ISelec
                     curRow = r;
                     curSpan = 0;
                 }
-                curSpan += a.getUiProperties().getEditorColumnSpan()
-                    + (a.getUiProperties().isEditorShowLabel() ? 1 : 0);
+                curSpan += viewElement.getEditorColumnSpan() + (viewElement.isEditorShowLabel() ? 1 : 0);
                 // always check the column count: is it a new maximum?
                 if( maxColumnSpan < curSpan ) maxColumnSpan = curSpan;
             }
 
-            this.dataFields = new HashMap<String, Control>( specAttributeList.size() );
+            this.dataFields = new HashMap<String, Control>( viewElementList.size() );
 
             GridLayout gridLayout = new GridLayout( maxColumnSpan, true );
             setLayout( gridLayout );
 
             curRow = firstRow;
             curSpan = 0;
-            for( final AttributeDefinition attrDef : visAttributes ) {
-                final int r = attrDef.getUiProperties().getEditorRowNumber();
+            for( final ViewElement viewElement : viewElementList ) {
+                final int r = viewElement.getEditorRowNumber();
                 // do we have a row switch at this point of iteration?
                 if( r > curRow ) {
                     // WARNING: this code block is not executed for the end of the last line!
@@ -463,19 +481,19 @@ public class NebulaBasedSpecObjectsComposite extends Composite implements ISelec
                 }
 
                 // track current row span for the "end of row" padding above
-                final int controlSpan = attrDef.getUiProperties().getEditorColumnSpan();
+                final int controlSpan = viewElement.getEditorColumnSpan();
                 curSpan += controlSpan;
 
                 // initialize label
-                if( attrDef.getUiProperties().isEditorShowLabel() ) {
+                if( viewElement.isEditorShowLabel() ) {
                     curSpan++;
                     Label labelLongName = new Label( this, SWT.NULL );
-                    labelLongName.setText( attrDef.getLongName() + ":" );
+                    labelLongName.setText( viewElement.getAttributeDefinition().getLongName() + ":" );
                     labelLongName.setLayoutData( new GridData( SWT.RIGHT, SWT.CENTER, false, false, 1, 1 ) );
                 }
 
                 Control currentControl = null;
-                DatatypeDefinition dataTypeDefinition = attrDef.getType();
+                DatatypeDefinition dataTypeDefinition = viewElement.getAttributeDefinition().getType();
                 if( dataTypeDefinition != null ) {
                     switch (dataTypeDefinition.eClass().getClassifierID()) {
                     case ErfPackage.DATATYPE_DEFINITION_INTEGER:
@@ -484,8 +502,12 @@ public class NebulaBasedSpecObjectsComposite extends Composite implements ISelec
                         textField.addModifyListener( new ModifyListener() {
                             @Override
                             public void modifyText( ModifyEvent e ) {
-                                if( myViewer.selectedSpecObject == null ) return;
-                                myViewer.setValue( myViewer.selectedSpecObject, attrDef, textField.getText() );
+                                if( myViewer.selectedSpecObject == null ) {
+                                    return;
+                                }
+                                myViewer.setValue( myViewer.selectedSpecObject,
+                                                   viewElement.getAttributeDefinition(),
+                                                   textField.getText() );
                             }
                         } );
                         currentControl = textField;
@@ -495,11 +517,10 @@ public class NebulaBasedSpecObjectsComposite extends Composite implements ISelec
 
                 if( currentControl != null ) {
                     currentControl.setLayoutData( new GridData( SWT.FILL, SWT.CENTER, true, false, controlSpan, 1 ) );
-                    dataFields.put( attrDef.getID(), currentControl );
+                    dataFields.put( viewElement.getAttributeDefinition().getID(), currentControl );
                 }
             }
         }
-
     }
 
 }

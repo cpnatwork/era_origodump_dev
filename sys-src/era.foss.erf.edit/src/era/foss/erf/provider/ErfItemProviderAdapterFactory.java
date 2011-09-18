@@ -296,29 +296,6 @@ public class ErfItemProviderAdapterFactory extends ErfAdapterFactory implements 
     }
 
     /**
-     * This keeps track of the one adapter used for all {@link era.foss.erf.AttributeDefinitionUiProperties} instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected AttributeDefinitionUiPropertiesItemProvider attributeDefinitionUiPropertiesItemProvider;
-
-    /**
-     * This creates an adapter for a {@link era.foss.erf.AttributeDefinitionUiProperties}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public Adapter createAttributeDefinitionUiPropertiesAdapter() {
-        if( attributeDefinitionUiPropertiesItemProvider == null ) {
-            attributeDefinitionUiPropertiesItemProvider = new AttributeDefinitionUiPropertiesItemProvider( this );
-        }
-
-        return attributeDefinitionUiPropertiesItemProvider;
-    }
-
-    /**
      * This keeps track of the one adapter used for all {@link era.foss.erf.EmbeddedValue} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -679,7 +656,6 @@ public class ErfItemProviderAdapterFactory extends ErfAdapterFactory implements 
         if( erfItemProvider != null ) erfItemProvider.dispose();
         if( contentItemProvider != null ) contentItemProvider.dispose();
         if( specRelationItemProvider != null ) specRelationItemProvider.dispose();
-        if( attributeDefinitionUiPropertiesItemProvider != null ) attributeDefinitionUiPropertiesItemProvider.dispose();
         if( embeddedValueItemProvider != null ) embeddedValueItemProvider.dispose();
         if( enumValueItemProvider != null ) enumValueItemProvider.dispose();
         if( datatypeDefinitionEnumerationItemProvider != null ) datatypeDefinitionEnumerationItemProvider.dispose();

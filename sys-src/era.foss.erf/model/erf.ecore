@@ -10,9 +10,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="ident" ordered="false"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="uiProperties" ordered="false"
-        lowerBound="1" eType="#//AttributeDefinitionUiProperties" changeable="false"
-        containment="true" resolveProxies="false"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="unique" ordered="false"
         unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
@@ -105,17 +102,6 @@
         eType="#//SpecObject" eOpposite="#//SpecObject/targets"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
         eType="#//SpecObject" eOpposite="#//SpecObject/sources"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AttributeDefinitionUiProperties">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editorShowLabel" ordered="false"
-        unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
-        defaultValueLiteral="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editorRowNumber" ordered="false"
-        unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
-        defaultValueLiteral="1"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editorColumnSpan" ordered="false"
-        unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
-        defaultValueLiteral="1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EmbeddedValue">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" ordered="false" unique="false"

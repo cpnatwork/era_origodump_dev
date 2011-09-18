@@ -24,5 +24,12 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.ide,
  era.foss.ui.contrib,
  era.foss.erf,
- era.foss.erf.edit
+ era.foss.erf.edit,
+ org.eclipse.jface.databinding,
+ org.eclipse.core.databinding,
+ org.eclipse.core.databinding.property,
+ org.eclipse.emf.databinding,
+ org.eclipse.emf.databinding.edit
 Bundle-ActivationPolicy: lazy
+Import-Package: org.eclipse.core.databinding.beans
+

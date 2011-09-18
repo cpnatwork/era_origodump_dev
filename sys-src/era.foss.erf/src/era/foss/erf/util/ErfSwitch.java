@@ -208,12 +208,6 @@ public class ErfSwitch<T2> {
             if( result == null ) result = defaultCase( theEObject );
             return result;
         }
-        case ErfPackage.ATTRIBUTE_DEFINITION_UI_PROPERTIES: {
-            AttributeDefinitionUiProperties attributeDefinitionUiProperties = (AttributeDefinitionUiProperties)theEObject;
-            T2 result = caseAttributeDefinitionUiProperties( attributeDefinitionUiProperties );
-            if( result == null ) result = defaultCase( theEObject );
-            return result;
-        }
         case ErfPackage.EMBEDDED_VALUE: {
             EmbeddedValue embeddedValue = (EmbeddedValue)theEObject;
             T2 result = caseEmbeddedValue( embeddedValue );
@@ -543,21 +537,6 @@ public class ErfSwitch<T2> {
      * @generated
      */
     public T2 caseSpecRelation( SpecRelation object ) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>Attribute Definition Ui Properties</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Attribute Definition Ui Properties</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public T2 caseAttributeDefinitionUiProperties( AttributeDefinitionUiProperties object ) {
         return null;
     }
 

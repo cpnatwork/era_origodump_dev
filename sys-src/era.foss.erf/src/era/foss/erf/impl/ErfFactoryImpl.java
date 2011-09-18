@@ -92,8 +92,6 @@ public class ErfFactoryImpl extends EFactoryImpl implements ErfFactory {
             return createContent();
         case ErfPackage.SPEC_RELATION:
             return createSpecRelation();
-        case ErfPackage.ATTRIBUTE_DEFINITION_UI_PROPERTIES:
-            return createAttributeDefinitionUiProperties();
         case ErfPackage.EMBEDDED_VALUE:
             return createEmbeddedValue();
         case ErfPackage.ENUM_VALUE:
@@ -243,16 +241,6 @@ public class ErfFactoryImpl extends EFactoryImpl implements ErfFactory {
     public SpecRelation createSpecRelation() {
         SpecRelationImpl specRelation = new SpecRelationImpl();
         return specRelation;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public AttributeDefinitionUiProperties createAttributeDefinitionUiProperties() {
-        AttributeDefinitionUiPropertiesImpl attributeDefinitionUiProperties = new AttributeDefinitionUiPropertiesImpl();
-        return attributeDefinitionUiProperties;
     }
 
     /**
