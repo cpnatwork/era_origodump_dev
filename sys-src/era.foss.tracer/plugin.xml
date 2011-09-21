@@ -74,22 +74,21 @@
 		http://source.jboss.org/browse/JBossTools/trunk/jsf/plugins/org.jboss.tools.jsf.ui/plugin.xml
 	-->
 	<extension point="org.eclipse.ui.popupMenus">
-		<objectContribution id="era.foss.tracer.ui.project.configure"
+		<objectContribution id="era.foss.tracer.ui.project.addnature"
 			objectClass="org.eclipse.core.resources.IProject" adaptable="true">
 			<visibility>
-				<and>
-					<objectState name="projectNature" value="org.eclipse.jdt.core.javanature" />
 					<not>
 						<objectState name="projectNature" value="era.foss.tracer.eratracernature" />
 					</not>
-				</and>
 			</visibility>
 			<action class="era.foss.tracer.AddEraTracerNatureActionDelegate"
 				enablesFor="1" id="era.foss.tracer.AddEraTracerNatureActionDelegate"
 				label="Add ERA Tracer Nature" menubarPath="org.eclipse.ui.projectConfigure/additions">
 			</action>
 		</objectContribution>
-		<objectContribution id="era.foss.tracer.ui.project.configure"
+	</extension>
+	<extension point="org.eclipse.ui.popupMenus">
+		<objectContribution id="era.foss.tracer.ui.project.delnature"
 			objectClass="org.eclipse.core.resources.IProject" adaptable="true">
 			<visibility>
 					<objectState name="projectNature" value="era.foss.tracer.eratracernature" />
@@ -97,6 +96,15 @@
 			<action class="era.foss.tracer.RemoveEraTracerNatureActionDelegate"
 				enablesFor="1" id="era.foss.tracer.RemoveEraTracerNatureActionDelegate"
 				label="Remove ERA Tracer Nature" menubarPath="org.eclipse.ui.projectConfigure/additions">
+			</action>
+		</objectContribution>
+	</extension>
+	<extension point="org.eclipse.ui.popupMenus">
+		<objectContribution id="era.foss.tracer.ui.project.configure"
+			objectClass="org.eclipse.core.resources.IProject" adaptable="true">
+			<action class="era.foss.tracer.WizardbasedEraTracerNatureActionDelegate"
+				enablesFor="1" id="era.foss.tracer.WizardbasedEraTracerNatureActionDelegate"
+				label="Wizard for ERA Tracer Nature" menubarPath="org.eclipse.ui.projectConfigure/additions">
 			</action>
 		</objectContribution>
 	</extension>

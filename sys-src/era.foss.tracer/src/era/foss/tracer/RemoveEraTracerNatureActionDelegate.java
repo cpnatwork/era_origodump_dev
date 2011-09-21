@@ -19,18 +19,20 @@ public class RemoveEraTracerNatureActionDelegate extends AbstractEraTracerNature
         try {
             IProjectDescription desc = project.getDescription();
             String[] natures = desc.getNatureIds();
-            boolean found = false;
 
+            int foundIdx = -1;
             for( int i = 0; i < natures.length; ++i ) {
                 if( natures[i].equals( NATURE_ID ) ) {
-                    found = true;
+                    foundIdx = i;
                     break;
                 }
             }
-            if( !found ) {
+            if( foundIdx >= 0 ) {
                 // remove builder from project
                 String[] newNatures = new String[natures.length - 1];
-                // FIXME remove it
+                // remove it
+                System.arraycopy( natures, 0, newNatures, 0, foundIdx );
+                System.arraycopy( natures, (foundIdx + 1), newNatures, foundIdx, (natures.length - foundIdx) );
 
                 // desc.setNatureIds( newNatures );
                 project.setDescription( desc, null );

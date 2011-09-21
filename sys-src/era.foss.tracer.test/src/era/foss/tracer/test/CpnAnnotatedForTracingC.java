@@ -2,9 +2,9 @@ package era.foss.tracer.test;
 
 import era.foss.tracing.annotations.Requirement;
 
-public class CpnAnnotatedForTracing {
+public class CpnAnnotatedForTracingC {
 
-    @Requirement(reqid = "100000_so", reviewers = {"CPN", "Poldi"})
+    @Requirement(reqid = "300000_so", reviewers = {"CPN", "Poldi"})
     public String toString() {
         return "Hello Tracer";
     }

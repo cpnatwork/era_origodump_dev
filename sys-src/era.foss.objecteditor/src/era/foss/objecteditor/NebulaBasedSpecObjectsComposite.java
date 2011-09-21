@@ -67,7 +67,7 @@ import era.foss.erf.ViewElement;
 import era.foss.erf.impl.ErfFactoryImpl;
 
 /**
- * FIXME (cpn) rename to NebulaBasedSpecObjectsComposite.
+ * 
  */
 public class NebulaBasedSpecObjectsComposite extends Composite implements ISelectionProvider {
 

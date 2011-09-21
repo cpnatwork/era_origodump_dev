@@ -70,7 +70,7 @@ public class NebulaBasedSpecObjectsViewer extends Viewer implements IInputSelect
 
     @Override
     public void recreateViewerSchema() {
-        // FIXME (cpn) consider to throw away the composite and re-instantiate it (instead of delegation)
+        // TODO (cpn) consider to throw away the composite and re-instantiate it (instead of delegation)
     }
 
     /*

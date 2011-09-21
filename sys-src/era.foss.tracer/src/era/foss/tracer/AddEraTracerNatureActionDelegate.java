@@ -19,8 +19,8 @@ public class AddEraTracerNatureActionDelegate extends AbstractEraTracerNatureAct
         try {
             IProjectDescription desc = project.getDescription();
             String[] natures = desc.getNatureIds();
-            boolean found = false;
 
+            boolean found = false;
             for( int i = 0; i < natures.length; ++i ) {
                 if( natures[i].equals( NATURE_ID ) ) {
                     found = true;

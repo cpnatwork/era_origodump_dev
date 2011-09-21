@@ -1,6 +1,8 @@
 package era.foss.tracer;
 
 import org.eclipse.jface.wizard.IWizard;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.ui.PlatformUI;
 
 import era.foss.tracer.wizard.TracerNewProjectWizard;
 
@@ -14,13 +16,23 @@ import era.foss.tracer.wizard.TracerNewProjectWizard;
  */
 public class WizardbasedEraTracerNatureActionDelegate extends AbstractEraTracerNatureActionDelegate {
 
+    WizardDialog dialog = null;
+    
     protected void doRun() {
         if( project == null ) return;
 
-        @SuppressWarnings("unused")
         IWizard wizard = new TracerNewProjectWizard();
-        // FIXME initialize the Wizard and construct the WizardDialog
-//        WizardDialog dialog = new WizardDialog( getWorkbench().getActiveWorkbenchWindow().getShell(), wizard );
-//        dialog.open();
+        dialog = new WizardDialog(
+            PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+            wizard );
+        dialog.open();
+        // FIXME (@poldi) dialog "finish" does nothing
+    }
+    
+    @Override
+    public void dispose() {
+        // FIXME (@poldi) dialog "finish" does nothing
+        dialog.close();
+        dialog = null;
     }
 }
