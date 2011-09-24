@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,15 +16,23 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.databinding.viewers.IViewerObservableValue;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.events.MouseTrackAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
 
 import era.foss.erf.AttributeDefinition;
 import era.foss.erf.AttributeDefinitionSimple;
@@ -37,33 +46,75 @@ import era.foss.erf.ViewElement;
 
 class SpecObjectViewerRow extends Composite {
 
+    /** Context for databinding */
     private DataBindingContext dbc;
 
-    private Button deleteButton;
+    /** Delete button */
+    private Label deleteButton;
 
+    /** Master observable for the chosen view */
     static private IViewerObservableValue viewMaster;
+
+    /** The editing domain used for modifications on the model */
     static private EditingDomain editingDomain;
 
-    public static void setEditingDomain( EditingDomain editingDomain ) {
-        SpecObjectViewerRow.editingDomain = editingDomain;
-    }
-
+    /**
+     * Map holding the element of the chose
+     */
     private final List<ViewElement> viewElementList = new ArrayList<ViewElement>();
 
-    LinkedHashMap<ViewElement, Control> dataFields = new LinkedHashMap<ViewElement, Control>();
+    /**
+     * Map holding the element of the chosen view together with the control showing the attribute value
+     */
+    LinkedHashMap<ViewElement, Control> viewElementControlMap = new LinkedHashMap<ViewElement, Control>();
 
-    Composite controlComposite;
+    /**
+     * The composite holding the widgets for the AttributeValues displayed according to the chosen view
+     */
+    Composite attributeValueComposite;
 
+    /**
+     * offset of the SpecObject associated with this row
+     */
+    private int specObjectOffset;
+
+    /** List of selection listeners of this row */
+    private List<SelectionListener> selectionListenerList = new LinkedList<SelectionListener>();
+
+    /**
+     * Constructor of the Row Composite
+     * 
+     * @param parent
+     * @param style
+     */
     public SpecObjectViewerRow( Composite parent, int style ) {
         super( parent, style );
         sortViewElements();
         doLayout();
+        createSelectionListener();
     }
 
+    /**
+     * Set the master of the view to observe
+     * 
+     * @param viewMaster master observable
+     */
     public static void setViewMaster( IViewerObservableValue viewMaster ) {
         SpecObjectViewerRow.viewMaster = viewMaster;
     }
 
+    /**
+     * Set the editing domain used for operations on an AttributeValue of the associated SpecObject
+     * 
+     * @param editingDomain
+     */
+    public static void setEditingDomain( EditingDomain editingDomain ) {
+        SpecObjectViewerRow.editingDomain = editingDomain;
+    }
+
+    /**
+     * Sort the elements in the view according to row number and position in row
+     */
     private void sortViewElements() {
 
         // get view
@@ -102,16 +153,48 @@ class SpecObjectViewerRow extends Composite {
     private void doLayout() {
         this.setLayout( new GridLayout( 2, false ) );
 
-        // create delete button
-        Composite buttonComposite = new Composite( this, SWT.NONE );
-        buttonComposite.setLayoutData( new GridData( SWT.LEFT, SWT.CENTER, false, true, 0, 0 ) );
-        buttonComposite.setLayout( new FillLayout() );
-        deleteButton = new Button( buttonComposite, SWT.NONE );
-        deleteButton.setText( "Delete" );
+        createDeleteButton();
 
         createSpecObjectControls();
     }
 
+    /**
+     * create the delete button for the row
+     */
+    private void createDeleteButton() {
+        // create delete button
+        Composite buttonComposite = new Composite( this, SWT.BORDER );
+        buttonComposite.setLayoutData( new GridData( SWT.LEFT, SWT.CENTER, false, false, 0, 0 ) );
+        buttonComposite.setLayout( new FillLayout() );
+
+        deleteButton = new Label( buttonComposite, SWT.NONE );
+        deleteButton.addMouseTrackListener( new MouseTrackAdapter() {
+
+            @Override
+            public void mouseEnter( MouseEvent e ) {
+                ((Label)(e.widget)).setImage( PlatformUI.getWorkbench()
+                                                        .getSharedImages()
+                                                        .getImage( ISharedImages.IMG_TOOL_DELETE ) );
+            }
+
+            @Override
+            public void mouseExit( MouseEvent e ) {
+                ((Label)(e.widget)).setImage( PlatformUI.getWorkbench()
+                                                        .getSharedImages()
+                                                        .getImage( ISharedImages.IMG_TOOL_DELETE_DISABLED ) );
+            }
+
+        } );
+
+        deleteButton.setImage( PlatformUI.getWorkbench()
+                                         .getSharedImages()
+                                         .getImage( ISharedImages.IMG_TOOL_DELETE_DISABLED ) );
+
+    }
+
+    /**
+     * create controls for elements in the chosen view
+     */
     private void createSpecObjectControls() {
 
         // Only create controls in case there are elements to show
@@ -122,9 +205,9 @@ class SpecObjectViewerRow extends Composite {
         // calculate maxColumnSpan
         int maxColumnSpan = calculateMaxColumnSpan();
 
-        controlComposite = new Composite( this, SWT.NONE | SWT.BORDER );
-        controlComposite.setLayout( new GridLayout( maxColumnSpan, true ) );
-        controlComposite.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
+        attributeValueComposite = new Composite( this, SWT.NONE );
+        attributeValueComposite.setLayout( new GridLayout( maxColumnSpan, true ) );
+        attributeValueComposite.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
 
         // get row number of first view element
         int curRow = viewElementList.get( 0 ).getEditorRowNumber();
@@ -139,7 +222,7 @@ class SpecObjectViewerRow extends Composite {
                 int paddingColumnSpan = maxColumnSpan - curSpan;
                 if( paddingColumnSpan > 0 ) {
                     // padding: fill up this line with an empty label
-                    Label labelLongName = new Label( controlComposite, SWT.NULL );
+                    Label labelLongName = new Label( attributeValueComposite, SWT.NULL );
                     labelLongName.setText( "" );
                     labelLongName.setLayoutData( new GridData(
                         SWT.FILL,
@@ -161,7 +244,7 @@ class SpecObjectViewerRow extends Composite {
             // initialize label
             if( viewElement.isEditorShowLabel() ) {
                 curSpan++;
-                Label labelLongName = new Label( controlComposite, SWT.NULL );
+                Label labelLongName = new Label( attributeValueComposite, SWT.NULL );
                 labelLongName.setText( viewElement.getAttributeDefinition().getLongName() + ":" );
                 labelLongName.setLayoutData( new GridData( SWT.RIGHT, SWT.CENTER, false, false ) );
             }
@@ -172,14 +255,14 @@ class SpecObjectViewerRow extends Composite {
                 switch (dataTypeDefinition.eClass().getClassifierID()) {
                 case ErfPackage.DATATYPE_DEFINITION_INTEGER:
                 case ErfPackage.DATATYPE_DEFINITION_STRING:
-                    currentControl = new Text( controlComposite, SWT.BORDER );
+                    currentControl = new Text( attributeValueComposite, SWT.BORDER );
                     break;
                 }
             }
 
             if( currentControl != null ) {
                 currentControl.setLayoutData( new GridData( SWT.FILL, SWT.CENTER, true, false, controlSpan, 1 ) );
-                dataFields.put( viewElement, currentControl );
+                viewElementControlMap.put( viewElement, currentControl );
             }
         }
     }
@@ -239,7 +322,7 @@ class SpecObjectViewerRow extends Composite {
         }
 
         // bind the controls
-        for( Map.Entry<ViewElement, Control> entry : dataFields.entrySet() ) {
+        for( Map.Entry<ViewElement, Control> entry : viewElementControlMap.entrySet() ) {
             AttributeDefinition attributeDefintion = entry.getKey().getAttributeDefinition();
             bindControl( entry.getValue(), attributeDefintion, attributeDefintionValueMap.get( attributeDefintion ) );
         }
@@ -317,8 +400,114 @@ class SpecObjectViewerRow extends Composite {
      * 
      * @return the delete Button of this row
      */
-    public Button getDeleteButton() {
+    public Label getDeleteButton() {
         return deleteButton;
+    }
+
+    /**
+     * Set the selection status of this row. Alter the background when the row gets selected.
+     * 
+     * @param isSelected if true the row is displayed as selected
+     * 
+     * */
+    public void setSelected( boolean isSelected ) {
+        if( isSelected ) {
+            this.setBackground( Display.getDefault().getSystemColor( SWT.COLOR_LIST_SELECTION ) );
+        } else {
+            this.setBackground( Display.getDefault().getSystemColor( SWT.COLOR_WIDGET_BACKGROUND ) );
+
+        }
+        viewElementControlMap.values().iterator().next().setFocus();
+
+        // List<Control> controlList = new ArrayList<Control>();
+        // controlList.add( this );
+        // getAllChildControls( this, controlList );
+        // for( Control control : controlList ) {
+        // if( control instanceof Composite ) {
+        // if( isSelected ) {
+        // control.setBackground( Display.getDefault().getSystemColor( SWT.COLOR_LIST_SELECTION ) );
+        // } else {
+        // control.setBackground( Display.getDefault().getSystemColor( SWT.COLOR_WIDGET_BACKGROUND ) );
+        // }
+        // }
+        // }
+    }
+
+    /**
+     * retrieve all child controls of a given composite
+     * 
+     * @param composite the composite to get the childs from
+     * @param controlList the list where the controls are added to
+     */
+    private void getAllChildControls( Composite composite, List<Control> controlList ) {
+        for( Control control : composite.getChildren() ) {
+            controlList.add( control );
+            if( control instanceof Composite ) {
+                getAllChildControls( (Composite)control, controlList );
+            }
+        }
+    }
+
+    /**
+     * Add a selection listener to this row
+     * 
+     * @param listener
+     */
+    public void addSelectionListener( SelectionListener listener ) {
+        this.selectionListenerList.add( listener );
+    }
+
+    /**
+     * Remove a selection listener
+     * 
+     * @param listener
+     */
+    public void removeSelectionListener( SelectionListener listener ) {
+        this.selectionListenerList.remove( listener );
+    }
+
+    /**
+     * create a warpper for the mouse listener
+     */
+    private void createSelectionListener() {
+        MouseListener mouseListener = new MouseAdapter() {
+            @Override
+            public void mouseDown( MouseEvent mouseEvent ) {
+                Event event = new Event();
+                event.widget = SpecObjectViewerRow.this;
+                event.stateMask = mouseEvent.stateMask;
+                SelectionEvent selectionEvent = new SelectionEvent( event );
+
+                for( SelectionListener selectionListener : selectionListenerList ) {
+                    selectionListener.widgetSelected( selectionEvent );
+                }
+            }
+        };
+
+        this.addMouseListener( mouseListener );
+        List<Control> controlList = new ArrayList<Control>();
+        getAllChildControls( this, controlList );
+        for( Control control : controlList ) {
+            control.addMouseListener( mouseListener );
+        }
+    }
+
+    /**
+     * set the offset of the SpecObject associated with this row
+     * 
+     * @param offset of the SpecObject
+     */
+    public void setSpecObjectOffset( int offset ) {
+        this.specObjectOffset = offset;
+    }
+
+    /**
+     * get the offset of the SpecObject associated with this row
+     * 
+     * @return the offset of the SpecObject
+     */
+    public int getSpecObjectOffset() {
+        return this.specObjectOffset;
     }
 
 }

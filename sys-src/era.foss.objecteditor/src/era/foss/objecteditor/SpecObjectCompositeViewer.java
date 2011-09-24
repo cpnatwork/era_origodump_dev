@@ -1,6 +1,7 @@
 package era.foss.objecteditor;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,9 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -76,7 +80,7 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
     DataBindingContext dbc;
 
     /** The current selected SpecObjects */
-    protected List<SpecObject> selectedSpecObjectList = new LinkedList<SpecObject>();
+    protected LinkedHashMap<Integer, SpecObject> selectedSpecObjectMap = new LinkedHashMap<Integer, SpecObject>();
 
     /** List of selection changed listeners of this viewer */
     List<ISelectionChangedListener> selectionChangedListeners = new LinkedList<ISelectionChangedListener>();
@@ -267,7 +271,13 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
              * Keeps a reference of each delete listener for each row, so we can remove a listener when compositetable
              * associate the row to another SpecObject.
              */
-            private Map<SpecObjectViewerRow, SelectionListener> map = new HashMap<SpecObjectViewerRow, SelectionListener>();
+            private Map<SpecObjectViewerRow, MouseListener> deleteListenerMap = new HashMap<SpecObjectViewerRow, MouseListener>();
+
+            /**
+             * Keeps a reference of each selection listener for each row, so we can remove a listener when
+             * compositetable associate the row to another SpecObject.
+             */
+            private Map<SpecObjectViewerRow, SelectionListener> selectionListenerMap = new HashMap<SpecObjectViewerRow, SelectionListener>();
 
             /**
              * * Since the compositetable has its own pool of Row elements, we must first ensure to unbind if necessary
@@ -275,35 +285,79 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
              * 
              * In the same way, we remove and add selectionlistener.
              */
-            public void refresh( CompositeTable sender, int currentObjectOffset, Control rowControl ) {
+            public void refresh( CompositeTable sender, final int currentObjectOffset, Control rowControl ) {
 
-                SpecObjectViewerRow row = (SpecObjectViewerRow)rowControl;
-                final SpecObject specObject = erfModel.getCoreContent().getSpecObjects().get( currentObjectOffset );
+                final SpecObjectViewerRow currentRow = (SpecObjectViewerRow)rowControl;
+                final SpecObject currentSpecObject = erfModel.getCoreContent()
+                                                             .getSpecObjects()
+                                                             .get( currentObjectOffset );
 
                 // unbind previous SpecObject
-                row.unbind();
+                currentRow.unbind();
 
                 // remove previous listener if nay
-                if( map.get( row ) != null ) {
-                    row.getDeleteButton().removeSelectionListener( map.get( row ) );
+                if( deleteListenerMap.get( currentRow ) != null ) {
+                    currentRow.getDeleteButton().removeMouseListener( deleteListenerMap.get( currentRow ) );
+                    currentRow.removeSelectionListener( selectionListenerMap.get( currentRow ) );
                 }
 
-                // bind the new SpecObject
-                row.bind( specObject );
+                // set offset of the current specObject
+                currentRow.setSpecObjectOffset( currentObjectOffset );
 
-                SelectionListener listen = new SelectionAdapter() {
-                    // add selectionlistener
+                // bind the new SpecObject
+                currentRow.bind( currentSpecObject );
+
+                // in case the specObject is selected set the selected status of the row
+                currentRow.setSelected( selectedSpecObjectMap.containsKey( currentObjectOffset ) );
+
+                // listener for the delete button of the row
+                MouseListener deleteListener = new MouseAdapter() {
+                    @Override
+                    public void mouseDown( MouseEvent e ) {
+                        SpecObjectCompositeViewer.this.deleteSpecObject( currentSpecObject );
+                    }
+                };
+
+                // listener for selection events of a row
+                SelectionListener selectionListener = new SelectionAdapter() {
                     @Override
                     public void widgetSelected( SelectionEvent e ) {
-                        SpecObjectCompositeViewer.this.deleteSpecObject( specObject );
+                        // SHIFT is not pressed: set selection to the SpecObject associated with the current row
+                        if( (e.stateMask & SWT.SHIFT) == 0
+                            || SpecObjectCompositeViewer.this.selectedSpecObjectMap.isEmpty() ) {
+                            SpecObjectCompositeViewer.this.selectedSpecObjectMap.clear();
+                            SpecObjectCompositeViewer.this.selectedSpecObjectMap.put( currentObjectOffset,
+                                                                                      currentSpecObject );
+                        }
+                        // SHIFT is pressed: add all elements between the selected SpecObject and the SpecObject
+                        // associated with the current row
+                        else {
+                            int selectedSpecObjectOffset = (Integer)selectedSpecObjectMap.keySet().toArray()[0];
+
+                            int objectOffset = Math.min( currentObjectOffset, selectedSpecObjectOffset );
+                            int objectEndOffset = Math.max( currentObjectOffset, selectedSpecObjectOffset );
+                            while (objectOffset <= objectEndOffset) {
+                                SpecObjectCompositeViewer.this.selectedSpecObjectMap.put( objectOffset,
+                                                                                          erfModel.getCoreContent()
+                                                                                                  .getSpecObjects()
+                                                                                                  .get( objectOffset ) );
+                                objectOffset++;
+                            }
+                        }
+
+                        // update the selection status of the row controls
+                        SpecObjectCompositeViewer.this.updateRowSelectionStatus();
                     }
-
                 };
-                row.getDeleteButton().addSelectionListener( listen );
 
-                // keep a reference to this listener to be able to remove it
+                // add listener to row
+                currentRow.getDeleteButton().addMouseListener( deleteListener );
+                currentRow.addSelectionListener( selectionListener );
+
+                // keep a reference to the listeners to be able to remove it
                 // during the next refresh
-                map.put( row, listen );
+                deleteListenerMap.put( currentRow, deleteListener );
+                selectionListenerMap.put( currentRow, selectionListener );
             }
         } );
     }
@@ -339,12 +393,13 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
 
     @Override
     public ISelection getSelection() {
-        if( selectedSpecObjectList.size() == 0 ) {
+        if( selectedSpecObjectMap.size() == 0 ) {
             return StructuredSelection.EMPTY;
         }
-        return new StructuredSelection( selectedSpecObjectList.toArray() );
+        return new StructuredSelection( selectedSpecObjectMap.values().toArray() );
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void setSelection( ISelection selection, boolean reveal ) {
         if( selection.isEmpty() ) {
@@ -354,17 +409,34 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
         // unpack ISelection into SpecObject
         assert (selection instanceof StructuredSelection);
 
-        // remove all
-        selectedSpecObjectList.clear();
+        // remove all Spec Objects
+        selectedSpecObjectMap.clear();
+
+        Integer selectedSpecOjectOffset = null;
 
         // set selectedSpecObject to given one
-        selectedSpecObjectList.addAll( ((List<SpecObject>)((StructuredSelection)selection).toList()) );
+        for( SpecObject specObject : ((List<SpecObject>)((StructuredSelection)selection).toList()) ) {
+            int specOjectOffset = erfModel.getCoreContent().getSpecObjects().indexOf( specObject );
+            if( selectedSpecOjectOffset == null ) {
+                selectedSpecOjectOffset = specOjectOffset;
+            }
 
-        // get first selectedSpecObject in list to get index/offset
-        int objIdx = erfModel.getCoreContent().getSpecObjects().indexOf( selectedSpecObjectList.get( 0 ) );
+            selectedSpecObjectMap.put( specOjectOffset, specObject );
+        }
 
         // set top row the composite table to position of the first
-        compositeTable.setTopRow( objIdx );
+        compositeTable.setTopRow( selectedSpecOjectOffset );
+        updateRowSelectionStatus();
 
+    }
+
+    /**
+     * Update the selection status of all rows controls
+     */
+    private void updateRowSelectionStatus() {
+        for( Control control : compositeTable.getRowControls() ) {
+            SpecObjectViewerRow row = (SpecObjectViewerRow)control;
+            row.setSelected( selectedSpecObjectMap.containsKey( row.getSpecObjectOffset() ) );
+        }
     }
 }
