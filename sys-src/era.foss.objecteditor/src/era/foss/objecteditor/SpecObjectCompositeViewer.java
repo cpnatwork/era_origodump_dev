@@ -44,6 +44,8 @@ import org.eclipse.swt.nebula.widgets.compositetable.IRowContentProvider;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
 
 import era.foss.erf.ERF;
 import era.foss.erf.EraToolExtension;
@@ -145,6 +147,9 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
         createCompositeTable();
     }
 
+    /**
+     * Create the composite table
+     */
     private void createCompositeTable() {
         // composite table
         this.compositeTable = new CompositeTable( viewerComposite, SWT.NULL | SWT.NO_SCROLL );
@@ -246,7 +251,7 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
          * create add button
          */
         Button addButton = new Button( buttonBarComposite, SWT.NONE );
-        addButton.setText( "Add" );
+        addButton.setImage( PlatformUI.getWorkbench().getSharedImages().getImage( ISharedImages.IMG_OBJ_ADD ) );
         addButton.setLayoutData( new GridData( SWT.RIGHT, SWT.CENTER, true, false ) );
         addButton.addSelectionListener( new SelectionAdapter() {
             @Override
@@ -257,6 +262,10 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
 
     }
 
+    /**
+     * Bind composite table and rows of composite table to data model. Also handle selection events from the composite
+     * table
+     */
     private void binding() {
 
         // table.setNumRowsInCollection(model.getPeople().size());
@@ -308,7 +317,7 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
                 currentRow.bind( currentSpecObject );
 
                 // in case the specObject is selected set the selected status of the row
-                currentRow.setSelected( selectedSpecObjectMap.containsKey( currentObjectOffset ) );
+                currentRow.setSelected( selectedSpecObjectMap.containsKey( currentObjectOffset ), false );
 
                 // listener for the delete button of the row
                 MouseListener deleteListener = new MouseAdapter() {
@@ -345,8 +354,11 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
                             }
                         }
 
+                        // Only set the focus in case the event is sent by a composite
+                        boolean setFocus = e.widget instanceof Composite;
+
                         // update the selection status of the row controls
-                        SpecObjectCompositeViewer.this.updateRowSelectionStatus();
+                        SpecObjectCompositeViewer.this.updateRowSelectionStatus( setFocus );
                     }
                 };
 
@@ -426,17 +438,17 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
 
         // set top row the composite table to position of the first
         compositeTable.setTopRow( selectedSpecOjectOffset );
-        updateRowSelectionStatus();
+        updateRowSelectionStatus( true );
 
     }
 
     /**
      * Update the selection status of all rows controls
      */
-    private void updateRowSelectionStatus() {
+    private void updateRowSelectionStatus( boolean setFocus ) {
         for( Control control : compositeTable.getRowControls() ) {
             SpecObjectViewerRow row = (SpecObjectViewerRow)control;
-            row.setSelected( selectedSpecObjectMap.containsKey( row.getSpecObjectOffset() ) );
+            row.setSelected( selectedSpecObjectMap.containsKey( row.getSpecObjectOffset() ), setFocus );
         }
     }
 }

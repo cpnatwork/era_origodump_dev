@@ -408,29 +408,19 @@ class SpecObjectViewerRow extends Composite {
      * Set the selection status of this row. Alter the background when the row gets selected.
      * 
      * @param isSelected if true the row is displayed as selected
+     * @param setFocus
      * 
      * */
-    public void setSelected( boolean isSelected ) {
+    public void setSelected( boolean isSelected, boolean setFocus ) {
         if( isSelected ) {
             this.setBackground( Display.getDefault().getSystemColor( SWT.COLOR_LIST_SELECTION ) );
+            // set focus to the first element in the view
+            if( setFocus ) {
+                viewElementControlMap.values().iterator().next().setFocus();
+            }
         } else {
             this.setBackground( Display.getDefault().getSystemColor( SWT.COLOR_WIDGET_BACKGROUND ) );
-
         }
-        viewElementControlMap.values().iterator().next().setFocus();
-
-        // List<Control> controlList = new ArrayList<Control>();
-        // controlList.add( this );
-        // getAllChildControls( this, controlList );
-        // for( Control control : controlList ) {
-        // if( control instanceof Composite ) {
-        // if( isSelected ) {
-        // control.setBackground( Display.getDefault().getSystemColor( SWT.COLOR_LIST_SELECTION ) );
-        // } else {
-        // control.setBackground( Display.getDefault().getSystemColor( SWT.COLOR_WIDGET_BACKGROUND ) );
-        // }
-        // }
-        // }
     }
 
     /**
@@ -467,14 +457,17 @@ class SpecObjectViewerRow extends Composite {
     }
 
     /**
-     * create a warpper for the mouse listener
+     * create a warpper for the mouse listener attached to all controls of the row
      */
     private void createSelectionListener() {
         MouseListener mouseListener = new MouseAdapter() {
+
             @Override
             public void mouseDown( MouseEvent mouseEvent ) {
+                super.mouseDown( mouseEvent );
+
                 Event event = new Event();
-                event.widget = SpecObjectViewerRow.this;
+                event.widget = mouseEvent.widget;
                 event.stateMask = mouseEvent.stateMask;
                 SelectionEvent selectionEvent = new SelectionEvent( event );
 
