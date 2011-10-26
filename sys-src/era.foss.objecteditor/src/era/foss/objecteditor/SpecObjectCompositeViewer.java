@@ -441,6 +441,8 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
             || selectedSpecOjectOffset > (compositeTable.getTopRow() + compositeTable.getNumRowsVisible()) ) {
             compositeTable.setTopRow( selectedSpecOjectOffset );
             updateRowSelectionStatus( true );
+        } else {
+            updateRowSelectionStatus( false );
         }
 
     }
