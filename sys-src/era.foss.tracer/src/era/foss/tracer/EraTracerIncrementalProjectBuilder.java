@@ -3,6 +3,7 @@ package era.foss.tracer;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceDelta;
@@ -19,8 +20,13 @@ import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.core.dom.AST;
+import org.eclipse.jdt.core.dom.ASTParser;
+import org.eclipse.jdt.core.dom.CompilationUnit;
 
 public class EraTracerIncrementalProjectBuilder extends IncrementalProjectBuilder {
+
+    private static final String MARKER_ID = Activator.PLUGIN_ID + ".reqmarker";
 
     @SuppressWarnings("unchecked")
     protected IProject[] build( int kind, Map args, IProgressMonitor monitor ) throws CoreException {
@@ -127,8 +133,10 @@ public class EraTracerIncrementalProjectBuilder extends IncrementalProjectBuilde
             for( IMethod imeth : itype.getMethods() ) {
                 for( IAnnotation ianno : imeth.getAnnotations() ) {
 
+                    // FIXME (cpn): no foolproof match on Req-Annotation
                     if( !ianno.getElementName().endsWith( "Requirement" ) ) continue;
 
+                    // MATCHED a Requirement Annotation
                     IMemberValuePair[] imvp = null;
                     try {
                         imvp = ianno.getMemberValuePairs();
@@ -140,7 +148,21 @@ public class EraTracerIncrementalProjectBuilder extends IncrementalProjectBuilde
                     for( int i = 0; i < imvp.length; i++ ) {
                         if( imvp[i].getMemberName().equals( "reqid" ) ) {
                             // FIXME (cpn) do something useful with the reqid
-                            System.out.println( imvp[i].getValue() );
+                            String reqid = (String)imvp[i].getValue();
+
+                            int position = ianno.getSourceRange().getOffset();
+                            // transform ICompUnit into CompUnit for offset-transformation (calculation)
+                            CompilationUnit cu = parse( compilunit );
+                            int lineNumber = cu.getLineNumber( position );
+                            int char_start = cu.getColumnNumber( position );
+                            int char_end = char_start + ianno.getElementName().length() + 1;
+                            System.out.println( "found reqid: "
+                                + reqid
+                                + " at line: "
+                                + lineNumber
+                                + " at column: "
+                                + char_start );
+                            addMarker( file, lineNumber, char_start, char_end, reqid );
                         }
                     }
                 }
@@ -153,5 +175,48 @@ public class EraTracerIncrementalProjectBuilder extends IncrementalProjectBuilde
         System.out.print( "Resource " );
         System.out.print( file.getFullPath() );
         System.out.println( " has been built." );
+    }
+
+    /**
+     * Reads a ICompilationUnit and creates the AST DOM for manipulating the Java source file
+     * 
+     * @param unit
+     * @return
+     */
+
+    private static CompilationUnit parse( ICompilationUnit unit ) {
+        ASTParser parser = ASTParser.newParser( AST.JLS3 );
+        parser.setKind( ASTParser.K_COMPILATION_UNIT );
+        parser.setSource( unit );
+        parser.setResolveBindings( true );
+        return (CompilationUnit)parser.createAST( null ); // parse
+    }
+
+    /**
+     * Helpful information:
+     * http://www.ibm.com/developerworks/opensource/tutorials/os-eclipse-plugin-guide/section2.html
+     * http://help.eclipse.org/indigo/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2FresAdv_markers.htm
+     * http://books.gigatux.nl/mirror/eclipseplugins/032142672X/ch14lev1sec2.html
+     * http://wiki.eclipse.org/FAQ_Why_don't_my_markers_appear_in_the_editor's_vertical_ruler%3F
+     * 
+     * @param file
+     * @param lineNumber
+     * @param charStart
+     * @param charEnd
+     * @param reqid
+     */
+    private static void addMarker( IFile file, int lineNumber, int charStart, int charEnd, String reqid ) {
+        try {
+            IMarker marker = file.createMarker( MARKER_ID );
+            // from TEXTMARKER
+            marker.setAttribute( IMarker.LINE_NUMBER, lineNumber );
+            // WARN: setting the CHAR_START/_END tangles with the LINE_NUMBER !?!
+            // http://www.eclipse.org/forums/index.php/m/294625/#msg_294625
+//            marker.setAttribute( IMarker.CHAR_START, charStart );
+//            marker.setAttribute( IMarker.CHAR_END, charEnd );
+            // from special ERF REQMARKER
+            marker.setAttribute( "reqid", reqid );
+        } catch( CoreException e ) {
+        }
     }
 }

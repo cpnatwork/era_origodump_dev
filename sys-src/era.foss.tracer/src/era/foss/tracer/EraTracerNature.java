@@ -8,7 +8,7 @@ import org.eclipse.core.runtime.CoreException;
 
 public class EraTracerNature implements IProjectNature {
 
-    final String BUILDER_ID = "era.foss.tracer.eratracerbuilder";
+    final String BUILDER_ID = Activator.PLUGIN_ID + ".eratracerbuilder";
     private IProject project;
 
     public void configure() throws CoreException {
