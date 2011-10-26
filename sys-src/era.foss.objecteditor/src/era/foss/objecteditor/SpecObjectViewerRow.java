@@ -10,8 +10,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.UpdateValueStrategy;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.databinding.FeaturePath;
 import org.eclipse.emf.databinding.edit.EMFEditProperties;
+import org.eclipse.emf.databinding.internal.EMFObservableValueDecorator;
+import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.databinding.viewers.IViewerObservableValue;
@@ -43,7 +50,9 @@ import era.foss.erf.ErfPackage;
 import era.foss.erf.SpecObject;
 import era.foss.erf.View;
 import era.foss.erf.ViewElement;
+import era.foss.erf.impl.ErfFactoryImpl;
 
+@SuppressWarnings("restriction")
 class SpecObjectViewerRow extends Composite {
 
     /** Context for databinding */
@@ -80,6 +89,8 @@ class SpecObjectViewerRow extends Composite {
 
     /** List of selection listeners of this row */
     private List<SelectionListener> selectionListenerList = new LinkedList<SelectionListener>();
+
+    private SpecObject specObject;
 
     /**
      * Constructor of the Row Composite
@@ -360,7 +371,7 @@ class SpecObjectViewerRow extends Composite {
      * @param attributeValue
      * 
      * */
-    private void bindControlText( Text textControl,
+    private void bindControlText( final Text textControl,
                                   AttributeDefinitionSimple attributeDefinition,
                                   AttributeValueSimple attributeValue ) {
 
@@ -373,16 +384,41 @@ class SpecObjectViewerRow extends Composite {
                                EMFEditProperties.value( editingDomain,
                                                         FeaturePath.fromList( ErfPackage.Literals.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE,
                                                                               ErfPackage.Literals.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE ) )
-                                                .observe( attributeDefinition ) );
+                                                .observe( attributeDefinition ),
+                               new UpdateValueStrategy() {
+                                   @Override
+                                   protected IStatus doSet( IObservableValue observableValue, Object value ) {
+                                       // get attribute definition
+                                       AttributeDefinition attributeDefinition = ((AttributeValueSimple)((EMFObservableValueDecorator)observableValue).getObserved()).getDefinition();
+                                       // create an Attribute Value
+                                       AttributeValueSimple attributeValue = ErfFactoryImpl.eINSTANCE.createAttributeValueSimple();
+
+                                       // set reference to the respective Attribute Definition
+                                       attributeValue.setDefinition( attributeDefinition );
+                                       // set value of attribute definition
+                                       attributeValue.setTheValue( (String)value );
+
+                                       // create new Attribute value in the model
+                                       Command cmd = AddCommand.create( editingDomain,
+                                                                        specObject,
+                                                                        ErfPackage.SPEC_OBJECT__VALUES,
+                                                                        attributeValue );
+                                       editingDomain.getCommandStack().execute( cmd );
+
+                                       observableValue.setValue( attributeValue );
+                                       textControl.setBackground( Display.getDefault()
+                                                                         .getSystemColor( SWT.COLOR_WHITE ) );
+
+                                       return Status.OK_STATUS;
+
+                                   }
+                               },
+                               new UpdateValueStrategy() );
+
                 textControl.setBackground( Display.getDefault().getSystemColor( SWT.COLOR_INFO_BACKGROUND ) );
 
             } else {
                 ((Text)textControl).setText( "" );
-                dbc.bindValue( WidgetProperties.text( SWT.Modify ).observeDelayed( 400, textControl ),
-                               EMFEditProperties.value( editingDomain,
-                                                        FeaturePath.fromList( ErfPackage.Literals.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE,
-                                                                              ErfPackage.Literals.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE ) )
-                                                .observe( attributeDefinition ) );
                 textControl.setBackground( Display.getDefault().getSystemColor( SWT.COLOR_WHITE ) );
             }
         } else {
@@ -490,8 +526,9 @@ class SpecObjectViewerRow extends Composite {
      * 
      * @param offset of the SpecObject
      */
-    public void setSpecObjectOffset( int offset ) {
+    public void setSpecObject( SpecObject specObject, int offset ) {
         this.specObjectOffset = offset;
+        this.specObject = specObject;
     }
 
     /**

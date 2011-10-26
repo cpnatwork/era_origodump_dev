@@ -311,7 +311,7 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
                 }
 
                 // set offset of the current specObject
-                currentRow.setSpecObjectOffset( currentObjectOffset );
+                currentRow.setSpecObject( currentSpecObject, currentObjectOffset );
 
                 // bind the new SpecObject
                 currentRow.bind( currentSpecObject );
@@ -436,9 +436,12 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
             selectedSpecObjectMap.put( specOjectOffset, specObject );
         }
 
-        // set top row the composite table to position of the first
-        compositeTable.setTopRow( selectedSpecOjectOffset );
-        updateRowSelectionStatus( true );
+        // if specObject is not yet displayed in the composite table show it in the first row
+        if( selectedSpecOjectOffset < compositeTable.getTopRow()
+            || selectedSpecOjectOffset > (compositeTable.getTopRow() + compositeTable.getNumRowsVisible()) ) {
+            compositeTable.setTopRow( selectedSpecOjectOffset );
+            updateRowSelectionStatus( true );
+        }
 
     }
 
