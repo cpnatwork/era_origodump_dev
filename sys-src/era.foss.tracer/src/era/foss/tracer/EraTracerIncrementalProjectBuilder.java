@@ -1,6 +1,7 @@
 package era.foss.tracer;
 
 import java.util.Map;
+import java.util.logging.Logger;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -14,9 +15,11 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.IAnnotation;
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IMemberValuePair;
 import org.eclipse.jdt.core.IMethod;
+import org.eclipse.jdt.core.ISourceRange;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
@@ -27,6 +30,8 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 public class EraTracerIncrementalProjectBuilder extends IncrementalProjectBuilder {
 
     private static final String MARKER_ID = Activator.PLUGIN_ID + ".reqmarker";
+
+    private static final Logger logger = Logger.getLogger( EraTracerIncrementalProjectBuilder.class.getSimpleName() );
 
     @SuppressWarnings("unchecked")
     protected IProject[] build( int kind, Map args, IProgressMonitor monitor ) throws CoreException {
@@ -49,7 +54,7 @@ public class EraTracerIncrementalProjectBuilder extends IncrementalProjectBuilde
      * @see org.eclipse.core.resources.IncrementalProjectBuilder#startupOnInitialize()
      */
     protected void startupOnInitialize() {
-        // TODO add builder init logic here
+        // Informs this builder that it is being started by the build management infrastructure.
     }
 
     /*
@@ -58,7 +63,16 @@ public class EraTracerIncrementalProjectBuilder extends IncrementalProjectBuilde
      * @see org.eclipse.core.resources.IncrementalProjectBuilder#clean(org.eclipse.core.runtime.IProgressMonitor)
      */
     protected void clean( IProgressMonitor monitor ) {
-        // TODO add builder clean logic here
+        IMarker[] markers;
+        try {
+            markers = getProject().findMarkers( MARKER_ID, true, IResource.DEPTH_INFINITE );
+            for( IMarker marker : markers ) {
+                marker.delete();
+            }
+            logger.info( "Deleted " + markers.length + " markers of type " + MARKER_ID );
+        } catch( CoreException e ) {
+            // Log the exception and bail out.
+        }
     }
 
     private void fullBuild( final IProgressMonitor monitor ) throws CoreException {
@@ -99,7 +113,8 @@ public class EraTracerIncrementalProjectBuilder extends IncrementalProjectBuilde
             String ext = res.getFileExtension();
             ext = (ext == null) ? "" : ext;
             if( !ext.equalsIgnoreCase( "java" ) ) return true;
-            // handle it
+
+            // process the current (java) file
             IFile file = (IFile)res;
 
             switch (delta.getKind()) {
@@ -107,9 +122,7 @@ public class EraTracerIncrementalProjectBuilder extends IncrementalProjectBuilde
                 handleJavaFile( file );
                 break;
             case IResourceDelta.REMOVED:
-                System.out.print( "Resource " );
-                System.out.print( res.getFullPath() );
-                System.out.println( " was removed." );
+                logger.info( "Resource " + res.getFullPath() + " was removed." );
                 break;
             case IResourceDelta.CHANGED:
                 handleJavaFile( file );
@@ -124,57 +137,88 @@ public class EraTracerIncrementalProjectBuilder extends IncrementalProjectBuilde
         // (@see http://help.eclipse.org/indigo/index.jsp?topic=%2Forg.eclipse.jdt.doc.isv%2Fguide%2Fjdt_int_model.htm)
         IJavaElement javaelem = JavaCore.create( file );
         assert (javaelem instanceof ICompilationUnit);
-        ICompilationUnit compilunit = (ICompilationUnit)javaelem;
-
-        // FIXME (cpn) generalize the parsing
-        IType itype = compilunit.findPrimaryType();
+        ICompilationUnit compilunitabstraction = (ICompilationUnit)javaelem;
+        // transform ICompUnit into CompUnit for offset-to-linenumber transformation
+        CompilationUnit compilunit = parse( compilunitabstraction );
 
         try {
-            for( IMethod imeth : itype.getMethods() ) {
-                for( IAnnotation ianno : imeth.getAnnotations() ) {
 
-                    // FIXME (cpn): no foolproof match on Req-Annotation
-                    if( !ianno.getElementName().endsWith( "Requirement" ) ) continue;
+            for( IType itype : compilunitabstraction.getTypes() ) {
 
-                    // MATCHED a Requirement Annotation
-                    IMemberValuePair[] imvp = null;
-                    try {
-                        imvp = ianno.getMemberValuePairs();
-                    } catch( JavaModelException e ) {
-                        System.out.println( "No annotation attributes in '@Requirement' method"
-                            + imeth.getElementName() );
-                        continue;
-                    }
-                    for( int i = 0; i < imvp.length; i++ ) {
-                        if( imvp[i].getMemberName().equals( "reqid" ) ) {
-                            // FIXME (cpn) do something useful with the reqid
-                            String reqid = (String)imvp[i].getValue();
+                for( IAnnotation ianno : itype.getAnnotations() ) {
+                    annoToMarker( ianno, itype.getElementName(), file, compilunit );
+                }
 
-                            int position = ianno.getSourceRange().getOffset();
-                            // transform ICompUnit into CompUnit for offset-transformation (calculation)
-                            CompilationUnit cu = parse( compilunit );
-                            int lineNumber = cu.getLineNumber( position );
-                            int char_start = cu.getColumnNumber( position );
-                            int char_end = char_start + ianno.getElementName().length() + 1;
-                            System.out.println( "found reqid: "
-                                + reqid
-                                + " at line: "
-                                + lineNumber
-                                + " at column: "
-                                + char_start );
-                            addMarker( file, lineNumber, char_start, char_end, reqid );
-                        }
+                for( IField ifield : itype.getFields() ) {
+                    for( IAnnotation ianno : ifield.getAnnotations() ) {
+                        annoToMarker( ianno, ifield.getElementName(), file, compilunit );
                     }
                 }
+
+                for( IMethod imeth : itype.getMethods() ) {
+                    for( IAnnotation ianno : imeth.getAnnotations() ) {
+                        annoToMarker( ianno, imeth.getElementName(), file, compilunit );
+                    }
+                }
+
             }
+
         } catch( JavaModelException e ) {
             e.printStackTrace();
         }
 
-        // dummy
-        System.out.print( "Resource " );
-        System.out.print( file.getFullPath() );
-        System.out.println( " has been built." );
+        logger.info( "Resource " + file.getFullPath() + " has been built." );
+    }
+
+    /**
+     * @param ianno
+     * @return boolean indicating whether it was an ERF Requirement Annotation or not
+     */
+    private static boolean annoToMarker( IAnnotation ianno, String elementName, IFile file, CompilationUnit cu ) {
+        // TODO no foolproof match on Req-Annotation
+        // (should be based on Annotation-Type, but such seems not to be supported)
+        if( !ianno.getElementName().equals( "Requirement" ) ) return false;
+
+        // MATCHED a Requirement Annotation
+        IMemberValuePair[] imvp = null;
+        try {
+            imvp = ianno.getMemberValuePairs();
+        } catch( JavaModelException e ) {
+            logger.warning( "No annotation attributes in '@Requirement' of " + elementName );
+            return false;
+        }
+
+        // extract requid: from MemberValuePairs
+        String reqid = null;
+        for( int i = 0; i < imvp.length; i++ ) {
+            if( imvp[i].getMemberName().equals( "reqid" ) ) {
+                reqid = (String)imvp[i].getValue();
+
+            }
+        }
+        if( reqid == null ) {
+            logger.warning( "Missing annotation attribute 'reqid' in '@Requirement' annotation of " + elementName );
+            return false;
+        }
+
+        // extract lineNumber: based on SourceRange/Offset information
+        int char_start = -1;
+        int char_end = -1;
+        int lineNumber = -1;
+        try {
+            ISourceRange sr = ianno.getSourceRange();
+            char_start = sr.getOffset();
+            char_end = char_start + sr.getLength();
+            lineNumber = cu.getLineNumber( char_start );
+        } catch( JavaModelException e ) {
+        }
+
+        logger.info( "Found reqid: " + reqid + " at line: " + lineNumber );
+
+        // add the reqid as IMarker of type MARKER_ID
+        addMarker( file, lineNumber, char_start, char_end, reqid );
+
+        return true;
     }
 
     /**
@@ -193,30 +237,34 @@ public class EraTracerIncrementalProjectBuilder extends IncrementalProjectBuilde
     }
 
     /**
-     * Helpful information:
-     * http://www.ibm.com/developerworks/opensource/tutorials/os-eclipse-plugin-guide/section2.html
+     * The charStart and -End is currently ignored!
+     * 
+     * Helpful information: http://www.ibm.com/developerworks/opensource/tutorials/os-eclipse-plugin-guide/section2.html
      * http://help.eclipse.org/indigo/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2FresAdv_markers.htm
      * http://books.gigatux.nl/mirror/eclipseplugins/032142672X/ch14lev1sec2.html
      * http://wiki.eclipse.org/FAQ_Why_don't_my_markers_appear_in_the_editor's_vertical_ruler%3F
+     * http://cubussapiens.hu/2010/11/markers-and-annotations-in-eclipse-for-error-feedback/
      * 
      * @param file
      * @param lineNumber
-     * @param charStart
-     * @param charEnd
      * @param reqid
      */
-    private static void addMarker( IFile file, int lineNumber, int charStart, int charEnd, String reqid ) {
+    private static void addMarker( IFile file, int char_start, int char_end, int lineNumber, String reqid ) {
         try {
             IMarker marker = file.createMarker( MARKER_ID );
-            // from TEXTMARKER
-            marker.setAttribute( IMarker.LINE_NUMBER, lineNumber );
+            // +-> From TEXTMARKER
             // WARN: setting the CHAR_START/_END tangles with the LINE_NUMBER !?!
             // http://www.eclipse.org/forums/index.php/m/294625/#msg_294625
-//            marker.setAttribute( IMarker.CHAR_START, charStart );
-//            marker.setAttribute( IMarker.CHAR_END, charEnd );
-            // from special ERF REQMARKER
+            // marker.setAttribute( IMarker.CHAR_START, char_start );
+            // marker.setAttribute( IMarker.CHAR_END, char_end );
+            marker.setAttribute( IMarker.LINE_NUMBER, lineNumber );
+            // +-> From BOOKMARK
+            marker.setAttribute( IMarker.MESSAGE, "supa dupa requirement here" );
+            marker.setAttribute( IMarker.LOCATION, "right here: " + reqid );
+            // +-> From special ERF REQMARKER
             marker.setAttribute( "reqid", reqid );
         } catch( CoreException e ) {
+            e.printStackTrace();
         }
     }
 }
