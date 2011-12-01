@@ -10,19 +10,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.core.databinding.UpdateValueStrategy;
-import org.eclipse.core.databinding.observable.value.IObservableValue;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.command.Command;
-import org.eclipse.emf.databinding.FeaturePath;
 import org.eclipse.emf.databinding.edit.EMFEditProperties;
-import org.eclipse.emf.databinding.internal.EMFObservableValueDecorator;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.databinding.viewers.IViewerObservableValue;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
@@ -37,6 +33,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
@@ -52,7 +49,6 @@ import era.foss.erf.View;
 import era.foss.erf.ViewElement;
 import era.foss.erf.impl.ErfFactoryImpl;
 
-@SuppressWarnings("restriction")
 class SpecObjectViewerRow extends Composite {
 
     /** Context for databinding */
@@ -372,55 +368,45 @@ class SpecObjectViewerRow extends Composite {
      * 
      * */
     private void bindControlText( final Text textControl,
-                                  AttributeDefinitionSimple attributeDefinition,
-                                  AttributeValueSimple attributeValue ) {
+                                  final AttributeDefinitionSimple attributeDefinition,
+                                  final AttributeValueSimple attributeValue ) {
 
-        // bind to default value in case no attribute value is available
         if( attributeValue == null ) {
+            for( Listener listener : textControl.getListeners( SWT.Modify ) ) {
+                textControl.removeListener( SWT.Modify, listener );
+            }
 
-            // only bind to default value in case a default value exists
             if( attributeDefinition.getDefaultValue() != null ) {
-                dbc.bindValue( WidgetProperties.text( SWT.Modify ).observeDelayed( 400, textControl ),
-                               EMFEditProperties.value( editingDomain,
-                                                        FeaturePath.fromList( ErfPackage.Literals.ATTRIBUTE_DEFINITION_SIMPLE__DEFAULT_VALUE,
-                                                                              ErfPackage.Literals.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE ) )
-                                                .observe( attributeDefinition ),
-                               new UpdateValueStrategy() {
-                                   @Override
-                                   protected IStatus doSet( IObservableValue observableValue, Object value ) {
-                                       // get attribute definition
-                                       AttributeDefinition attributeDefinition = ((AttributeValueSimple)((EMFObservableValueDecorator)observableValue).getObserved()).getDefinition();
-                                       // create an Attribute Value
-                                       AttributeValueSimple attributeValue = ErfFactoryImpl.eINSTANCE.createAttributeValueSimple();
-
-                                       // set reference to the respective Attribute Definition
-                                       attributeValue.setDefinition( attributeDefinition );
-                                       // set value of attribute definition
-                                       attributeValue.setTheValue( (String)value );
-
-                                       // create new Attribute value in the model
-                                       Command cmd = AddCommand.create( editingDomain,
-                                                                        specObject,
-                                                                        ErfPackage.SPEC_OBJECT__VALUES,
-                                                                        attributeValue );
-                                       editingDomain.getCommandStack().execute( cmd );
-
-                                       observableValue.setValue( attributeValue );
-                                       textControl.setBackground( Display.getDefault()
-                                                                         .getSystemColor( SWT.COLOR_WHITE ) );
-
-                                       return Status.OK_STATUS;
-
-                                   }
-                               },
-                               new UpdateValueStrategy() );
-
+                textControl.setText( attributeDefinition.getDefaultValue().getTheValue() );
                 textControl.setBackground( Display.getDefault().getSystemColor( SWT.COLOR_INFO_BACKGROUND ) );
-
             } else {
-                ((Text)textControl).setText( "" );
+                textControl.setText( "" );
                 textControl.setBackground( Display.getDefault().getSystemColor( SWT.COLOR_WHITE ) );
             }
+            textControl.addModifyListener( new ModifyListener() {
+
+                @Override
+                public void modifyText( ModifyEvent e ) {
+                    Text textControl = ((Text)e.widget);
+                    textControl.removeModifyListener( this );
+                    // create an Attribute Value
+                    AttributeValueSimple attributeValue = ErfFactoryImpl.eINSTANCE.createAttributeValueSimple();
+
+                    // set reference to the respective Attribute Definition
+                    attributeValue.setDefinition( attributeDefinition );
+                    // set value of attribute definition
+                    attributeValue.setTheValue( textControl.getText() );
+
+                    // create new Attribute value in the model
+                    Command cmd = AddCommand.create( editingDomain,
+                                                     specObject,
+                                                     ErfPackage.SPEC_OBJECT__VALUES,
+                                                     attributeValue );
+                    editingDomain.getCommandStack().execute( cmd );
+                    SpecObjectViewerRow.this.bindControlText( textControl, attributeDefinition, attributeValue );
+                }
+            } );
+
         } else {
             dbc.bindValue( WidgetProperties.text( SWT.Modify ).observeDelayed( 400, textControl ),
                            EMFEditProperties.value( editingDomain,
