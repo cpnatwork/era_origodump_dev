@@ -775,36 +775,6 @@ public class ErfObjectEditor extends MultiPageEditorPart implements IEditingDoma
         // Only creates the other pages if there is something that can be edited
         if( !getEditingDomain().getResourceSet().getResources().isEmpty() ) {
 
-            // Create a page for the ERA SpecObjectViewerPane / TableViewer-based
-            {
-                ViewerPane viewerPane = new NebulaBasedSpecObjectsViewerPane( getSite().getPage(),
-                                                                              ErfObjectEditor.this,
-                                                                              getContainer() ) {
-
-                    @Override
-                    public void requestActivation() {
-                        super.requestActivation();
-                        setCurrentViewerPane( this );
-                    }
-                };
-                int pageIndex = addPage( viewerPane.getControl() );
-                setPageText( pageIndex, "Specification Objects" );
-            }
-
-            // Create a page for the ERA SpecObjectViewerPane / TableViewer-based
-            {
-                ViewerPane viewerPane = new SpecObjectsViewerPane( getSite().getPage(),
-                                                                   ErfObjectEditor.this,
-                                                                   getContainer() ) {
-                    @Override
-                    public void requestActivation() {
-                        super.requestActivation();
-                        setCurrentViewerPane( this );
-                    }
-                };
-                int pageIndex = addPage( viewerPane.getControl() );
-                setPageText( pageIndex, "Specification Objects Table" );
-            }
             // Create a page for the selection tree view.
             //
             {
@@ -822,8 +792,40 @@ public class ErfObjectEditor extends MultiPageEditorPart implements IEditingDoma
                 };
                 viewerPane.createControl( getContainer() );
                 int pageIndex = addPage( viewerPane.getControl() );
-                setPageText( pageIndex, "Nebula Binding" );
+                setPageText( pageIndex, "ERA SpecObj Viewer" );
             }
+            
+            // Create a page for the ERA SpecObjectViewerPane / TableViewer-based
+            {
+                ViewerPane viewerPane = new NebulaBasedSpecObjectsViewerPane( getSite().getPage(),
+                                                                              ErfObjectEditor.this,
+                                                                              getContainer() ) {
+
+                    @Override
+                    public void requestActivation() {
+                        super.requestActivation();
+                        setCurrentViewerPane( this );
+                    }
+                };
+                int pageIndex = addPage( viewerPane.getControl() );
+                setPageText( pageIndex, "ERA Viewer (deprecated)" );
+            }
+
+            // Create a page for the ERA SpecObjectViewerPane / TableViewer-based
+            {
+                ViewerPane viewerPane = new SpecObjectsViewerPane( getSite().getPage(),
+                                                                   ErfObjectEditor.this,
+                                                                   getContainer() ) {
+                    @Override
+                    public void requestActivation() {
+                        super.requestActivation();
+                        setCurrentViewerPane( this );
+                    }
+                };
+                int pageIndex = addPage( viewerPane.getControl() );
+                setPageText( pageIndex, "Debug Table" );
+            }
+
 
         }
 
