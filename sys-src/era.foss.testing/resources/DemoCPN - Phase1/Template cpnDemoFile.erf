@@ -5,14 +5,12 @@
       <values xsi:type="era.foss.erf:AttributeValueSimple" iD="01700aab-6461-47d7-aade-e9e370a4695a" definition="//@coreContent/@specTypes.0/@specAttributes.0" theValue="BSW00405"/>
       <values xsi:type="era.foss.erf:AttributeValueSimple" iD="acccf3ed-0d01-4e20-ba25-1e85d2852c8c" definition="//@coreContent/@specTypes.0/@specAttributes.1" theValue="Reference to multiple configuration sets"/>
       <values xsi:type="era.foss.erf:AttributeValueSimple" iD="5815b705-449d-498f-82c3-76ab522da3b0" definition="//@coreContent/@specTypes.0/@specAttributes.2" theValue="Modules of the AUTOSAR Basic Software that operate on more than one post build time configurable data entity shall use a reference (pointer) to an external configuration instance."/>
-      <values xsi:type="era.foss.erf:AttributeValueSimple" iD="849761d0-a9d9-4045-a904-46bb1d90120a" definition="//@coreContent/@specTypes.0/@specAttributes.9" theValue="Rationale: Application of the same software to different cars."/>
       <values xsi:type="era.foss.erf:AttributeValueSimple" iD="ae57ce9f-1d95-4272-819b-439cb68c9214" definition="//@coreContent/@specTypes.0/@specAttributes.7" theValue="ACC"/>
       <values xsi:type="era.foss.erf:AttributeValueSimple" iD="adbccc2d-059b-4a98-a92a-afe441fde403" definition="//@coreContent/@specTypes.0/@specAttributes.7" theValue="ACCEPTED"/>
     </specObjects>
     <specObjects iD="38c4c440-da5d-470d-8ee3-7ebda1a00596">
       <values xsi:type="era.foss.erf:AttributeValueSimple" iD="7cf923f7-c36a-424b-8253-60d9ee1fdbcb" definition="//@coreContent/@specTypes.0/@specAttributes.1" theValue="Separate C--Files for configuration parameters"/>
       <values xsi:type="era.foss.erf:AttributeValueSimple" iD="78973807-5c1e-4bc3-9a3d-8c1fd6b0713d" definition="//@coreContent/@specTypes.0/@specAttributes.2" theValue="Configuration parameters being stored in memory shall be placed into separate c--files (effected parameters are those from link--time configuration as well as those from post--build time configuration)."/>
-      <values xsi:type="era.foss.erf:AttributeValueSimple" iD="abfdba3d-30b9-4bdf-adb6-fb0450e4ed3a" definition="//@coreContent/@specTypes.0/@specAttributes.9" theValue="Rationale: Enable the use of different object files."/>
       <values xsi:type="era.foss.erf:AttributeValueSimple" iD="4be3e429-168a-4b4e-811c-aad9e0420fdf" definition="//@coreContent/@specTypes.0/@specAttributes.1" theValue="Separate C-Files for configuration parameters"/>
       <values xsi:type="era.foss.erf:AttributeValueSimple" iD="f280362e-b03a-427c-b65b-b475a92ff084" definition="//@coreContent/@specTypes.0/@specAttributes.1" theValue="Separate C--Files for configuration parameters"/>
       <values xsi:type="era.foss.erf:AttributeValueSimple" iD="a750159c-3d24-447b-9652-1bb08dc97d0b" definition="//@coreContent/@specTypes.0/@specAttributes.0" theValue="BSW00380"/>
@@ -20,23 +18,20 @@
       <values xsi:type="era.foss.erf:AttributeValueSimple" iD="a1d45bd9-27d0-441d-aa01-7d262cb2ebf4" definition="//@coreContent/@specTypes.0/@specAttributes.1" theValue="Separate C--Files for configuration parameters"/>
       <values xsi:type="era.foss.erf:AttributeValueSimple" iD="77c7b165-3175-4c33-9087-78c1435bb380" definition="//@coreContent/@specTypes.0/@specAttributes.7" theValue="REJECTED"/>
       <values xsi:type="era.foss.erf:AttributeValueSimple" iD="4ce51ee6-bd7f-464f-a017-ea538ee1985f" definition="//@coreContent/@specTypes.0/@specAttributes.2" theValue="Configuration parameters being stored in memory shall be placed into separate c--files (effected parameters are those from link--time configuration as well as those from post--build time configuration)."/>
-      <values xsi:type="era.foss.erf:AttributeValueSimple" iD="b5acff1b-adcd-4ec8-aae9-4c66161370c1" definition="//@coreContent/@specTypes.0/@specAttributes.9" theValue="Rationale: Enable the use of different object files."/>
     </specObjects>
     <specObjects iD="1f5568c8-c601-453b-868e-c8be76e7ad2f">
       <values xsi:type="era.foss.erf:AttributeValueSimple" iD="c77f8200-e074-4c5e-a0f2-80a5a7531d82" definition="//@coreContent/@specTypes.0/@specAttributes.1" theValue="Specify the configuration class of callback function"/>
       <values xsi:type="era.foss.erf:AttributeValueSimple" iD="8156f199-bb53-4fd7-bef6-966c009a0be8" definition="//@coreContent/@specTypes.0/@specAttributes.0" theValue="BSW00387"/>
       <values xsi:type="era.foss.erf:AttributeValueSimple" iD="9a0fe662-5396-4c8f-be10-939f173bc81f" definition="//@coreContent/@specTypes.0/@specAttributes.2" theValue="The Basic Software Module specifications shall specify how the callback function is to be implemented. (Pre--compile macro, pointer at link time, array of pointers at post--build time and pointer at post--build time)"/>
-      <values xsi:type="era.foss.erf:AttributeValueSimple" iD="19a1a855-9e94-4b41-9909-3b800e0baca5" definition="//@coreContent/@specTypes.0/@specAttributes.9" theValue="If a pre--compile time callback function (macro) shall be changed to a post build time multiple configuration--set callback function (pointer to a function). The implementation will change significantly."/>
       <values xsi:type="era.foss.erf:AttributeValueSimple" iD="2153dbd7-8285-47d1-aea0-3c00ee5f9199" definition="//@coreContent/@specTypes.0/@specAttributes.1" theValue="Specify the configuration class of callback function"/>
       <values xsi:type="era.foss.erf:AttributeValueSimple" iD="6ded10f3-0197-4f25-96c2-d626e7af53fe" definition="//@coreContent/@specTypes.0/@specAttributes.2" theValue="The Basic Software Module specifications shall specify how the callback function is to be implemented. (Pre--compile macro, pointer at link time, array of pointers at post--build time and pointer at post--build time)"/>
-      <values xsi:type="era.foss.erf:AttributeValueSimple" iD="f6db8751-4208-4a15-b61e-255bc526dc9e" definition="//@coreContent/@specTypes.0/@specAttributes.9" theValue="If a pre--compile time callback function (macro) shall be changed to a post build time multiple configuration--set callback function (pointer to a function). The implementation will change significantly."/>
     </specObjects>
     <specObjects iD="69c246fc-4693-488d-aee8-39f8057c528c">
       <values xsi:type="era.foss.erf:AttributeValueSimple" iD="b4ae3c84-1733-491c-861e-2b9ee0998924" definition="//@coreContent/@specTypes.0/@specAttributes.2" theValue="All Basic Software Modules that implement wake--up interrupts shall report the wake--up reason to the ECU State Manager via the IO Hardware Abstraction within the wake--up interrupt."/>
-      <values xsi:type="era.foss.erf:AttributeValueSimple" iD="9ed6bbf8-7087-407d-b19b-f6cefcdd034f" definition="//@coreContent/@specTypes.0/@specAttributes.9" theValue="Allow ECU State Manager to decide which start--up sequence is chosen based on the wake--up reason."/>
       <values xsi:type="era.foss.erf:AttributeValueSimple" iD="ce2b4b3a-d6f9-43a5-a690-3ecee6592b80" definition="//@coreContent/@specTypes.0/@specAttributes.1" theValue="Notification of wake--up reason"/>
       <values xsi:type="era.foss.erf:AttributeValueSimple" iD="5ddba28e-671c-4924-bc5c-c00681531d5d" definition="//@coreContent/@specTypes.0/@specAttributes.0" theValue="BSW00375"/>
       <values xsi:type="era.foss.erf:AttributeValueSimple" iD="a611f0cb-d423-4bbc-a596-8798d198129c" definition="//@coreContent/@specTypes.0/@specAttributes.7" theValue="ACCEPTED"/>
+      <values xsi:type="era.foss.erf:AttributeValueSimple" iD="5eb025bc-7115-439f-9515-774635c6c059" definition="//@coreContent/@specTypes.0/@specAttributes.7" theValue="ACCEPTED"/>
     </specObjects>
     <specTypes iD="129952ce-27ac-42ea-b2fc-a46cc5564a83" longName="TheOneAndOnly">
       <specAttributes xsi:type="era.foss.erf:AttributeDefinitionSimple" iD="05c14764-cdb1-484f-b167-fe87c73a426d" longName="Req-ID" type="//@coreContent/@dataTypes.0"/>
