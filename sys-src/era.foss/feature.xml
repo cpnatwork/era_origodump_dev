@@ -224,7 +224,7 @@ litigation.
    </license>
 
    <url>
-      <update label="ERA Update Site" url="https://svn.origo.ethz.ch/era/update-site-1.0/"/>
+      <update label="ERA Update Site" url="http://3gf.github.com/ERA-Update-Site/"/>
    </url>
 
    <requires>
@@ -247,6 +247,7 @@ litigation.
 
    <plugin
          id="era.foss.erf"
+         nl="en"
          download-size="52"
          install-size="52"
          version="1.0.0"

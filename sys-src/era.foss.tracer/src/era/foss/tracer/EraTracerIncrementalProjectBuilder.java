@@ -69,7 +69,7 @@ public class EraTracerIncrementalProjectBuilder extends IncrementalProjectBuilde
             for( IMarker marker : markers ) {
                 marker.delete();
             }
-            logger.info( "Deleted " + markers.length + " markers of type " + MARKER_ID );
+            logger.info( "DELETED " + markers.length + " markers of type " + MARKER_ID );
         } catch( CoreException e ) {
             // Log the exception and bail out.
         }
@@ -211,9 +211,17 @@ public class EraTracerIncrementalProjectBuilder extends IncrementalProjectBuilde
             char_end = char_start + sr.getLength();
             lineNumber = cu.getLineNumber( char_start );
         } catch( JavaModelException e ) {
+            e.printStackTrace();
         }
 
-        logger.info( "Found reqid: " + reqid + " at line: " + lineNumber );
+        logger.info( "Found reqid: "
+            + reqid
+            + " at line: "
+            + lineNumber
+            + " at char_start: "
+            + char_start
+            + " and char_end: "
+            + char_end );
 
         // add the reqid as IMarker of type MARKER_ID
         addMarker( file, lineNumber, char_start, char_end, reqid );
@@ -252,17 +260,18 @@ public class EraTracerIncrementalProjectBuilder extends IncrementalProjectBuilde
     private static void addMarker( IFile file, int char_start, int char_end, int lineNumber, String reqid ) {
         try {
             IMarker marker = file.createMarker( MARKER_ID );
-            // +-> From TEXTMARKER
-            // WARN: setting the CHAR_START/_END tangles with the LINE_NUMBER !?!
-            // http://www.eclipse.org/forums/index.php/m/294625/#msg_294625
-            // marker.setAttribute( IMarker.CHAR_START, char_start );
-            // marker.setAttribute( IMarker.CHAR_END, char_end );
-            marker.setAttribute( IMarker.LINE_NUMBER, lineNumber );
             // +-> From BOOKMARK
             marker.setAttribute( IMarker.MESSAGE, "supa dupa requirement here" );
             marker.setAttribute( IMarker.LOCATION, "right here: " + reqid );
+            // +-> From TEXTMARKER
+            // WARN: setting the CHAR_START/_END tangles with the LINE_NUMBER !?!
+            // http://www.eclipse.org/forums/index.php/m/294625/#msg_294625
+//            marker.setAttribute( IMarker.CHAR_START, char_start );
+//            marker.setAttribute( IMarker.CHAR_END, char_end );
+            marker.setAttribute( IMarker.LINE_NUMBER, lineNumber );
             // +-> From special ERF REQMARKER
             marker.setAttribute( "reqid", reqid );
+            logger.info( marker.getAttributes().values().toString() );
         } catch( CoreException e ) {
             e.printStackTrace();
         }

@@ -109,24 +109,26 @@
 		</objectContribution>
 	</extension>
 
-   <extension point="org.eclipse.core.resources.markers" id="era.foss.tracer.reqmarker" name="Requirement Marker"> 
+   <extension point="org.eclipse.core.resources.markers" id="era.foss.tracer.reqmarker" name="ERA Requirement Marker"> 
+      <super type="org.eclipse.core.resources.bookmark"/> 
       <super type="org.eclipse.core.resources.textmarker"/> 
       <persistent value="true"/> 
+      <transient value="false"/> 
       <attribute name="reqid"/>
    </extension> 
    
   <extension point="org.eclipse.ui.editors.annotationTypes">
      <type
-        super="org.eclipse.ui.workbench.texteditor.warning"
+        super="org.eclipse.ui.workbench.texteditor.bookmark"
         markerType="era.foss.tracer.reqmarker"
         name="era.foss.tracer.reqannotation"
-        markerSeverity="0"/>
+     />
   </extension>
 
   <extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
      <specification
         annotationType="era.foss.tracer.reqannotation"
-        label="ERF Requirement"
+        label="ERA Requirement"
         icon="icons/reqmarker.png"
 			overviewRulerPreferenceKey="clruler"
 			overviewRulerPreferenceValue="true"

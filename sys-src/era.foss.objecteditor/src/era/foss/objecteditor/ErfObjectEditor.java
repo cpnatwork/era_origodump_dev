@@ -902,7 +902,7 @@ public class ErfObjectEditor extends MultiPageEditorPart implements IEditingDoma
      * @return the adapter
      */
     @Override
-    public Object getAdapter( @SuppressWarnings("rawtypes") Class key ) {
+    public Object getAdapter( @SuppressWarnings({"rawtypes", "unchecked"}) Class key ) {
         if( key.equals( IContentOutlinePage.class ) ) {
             return showOutlineView() ? getContentOutlinePage() : null;
         } else if( key.equals( IPropertySheetPage.class ) ) {

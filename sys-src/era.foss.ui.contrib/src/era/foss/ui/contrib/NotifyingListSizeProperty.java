@@ -10,38 +10,46 @@ import org.eclipse.emf.common.notify.NotifyingList;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 
 public class NotifyingListSizeProperty extends SimpleValueProperty {
-    @SuppressWarnings("rawtypes")
-    protected Object doGetValue( Object source ) {
+    @Override
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    protected Object doGetValue( final Object source ) {
         return ((NotifyingList)source).size();
     }
 
-    protected void doSetValue( Object source, Object value ) {
-        throw new UnsupportedOperationException( toString() + " is unmodifiable" );
+    @Override
+    protected void doSetValue( final Object source, final Object value ) {
+        throw new UnsupportedOperationException( this.toString() + " is unmodifiable" );
     }
 
-    public INativePropertyListener adaptListener( ISimplePropertyListener listener ) {
+    @Override
+    public INativePropertyListener adaptListener( final ISimplePropertyListener listener ) {
         return new Listener( listener );
     }
 
     private class Listener extends AdapterImpl implements INativePropertyListener {
         ISimplePropertyListener delegate;
 
-        public Listener( ISimplePropertyListener delegate ) {
+        public Listener( final ISimplePropertyListener delegate ) {
             this.delegate = delegate;
         }
 
-        @SuppressWarnings("rawtypes")
-        public void addTo( Object source ) {
-            if( source != null ) ((Notifier)((NotifyingList)source).getNotifier()).eAdapters().add( this );
+        @SuppressWarnings({"rawtypes", "unchecked"})
+        public void addTo( final Object source ) {
+            if( source != null ) {
+                ((Notifier)((NotifyingList)source).getNotifier()).eAdapters().add( this );
+            }
         }
 
-        @SuppressWarnings("rawtypes")
-        public void removeFrom( Object source ) {
-            if( source != null ) ((Notifier)((NotifyingList)source).getNotifier()).eAdapters().remove( this );
+        @SuppressWarnings({"rawtypes", "unchecked"})
+        public void removeFrom( final Object source ) {
+            if( source != null ) {
+                ((Notifier)((NotifyingList)source).getNotifier()).eAdapters().remove( this );
+            }
         }
 
-        public void notifyChanged( Notification msg ) {
-            delegate.handleEvent( new SimplePropertyEvent(
+        @Override
+        public void notifyChanged( final Notification msg ) {
+            this.delegate.handleEvent( new SimplePropertyEvent(
                 SimplePropertyEvent.CHANGE,
                 msg.getNotifier(),
                 NotifyingListSizeProperty.this,
@@ -49,6 +57,7 @@ public class NotifyingListSizeProperty extends SimpleValueProperty {
         }
     }
 
+    @Override
     public String toString() {
         return "EList.size <int>";
     }
