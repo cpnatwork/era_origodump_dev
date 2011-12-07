@@ -11,6 +11,7 @@ import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.beans.PojoObservables;
 import org.eclipse.core.databinding.observable.ChangeEvent;
 import org.eclipse.core.databinding.observable.IChangeListener;
+import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.databinding.EMFProperties;
@@ -44,6 +45,7 @@ import org.eclipse.swt.nebula.widgets.compositetable.IRowContentProvider;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
@@ -74,6 +76,9 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
 
     /** composite table showing the spec objects */
     CompositeTable compositeTable;
+
+    /** Button bar for various buttons (adding elements, selecting views,... */
+    Composite buttonBarComposite;
 
     /** editing Domain */
     EditingDomain editingDomain;
@@ -119,13 +124,7 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
                 createCompositeTable();
                 binding();
 
-                compositeTable.layout();
-                compositeTable.redraw();
-                compositeTable.update();
-
                 viewerComposite.layout();
-                viewerComposite.redraw();
-                viewerComposite.update();
             }
         } );
 
@@ -185,6 +184,8 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
     @Override
     public void recreateViewerSchema() {
         compositeTable.refreshAllRows();
+        buttonBarComposite.layout();
+        // viewerComposite.update();
     }
 
     /*
@@ -224,27 +225,39 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
      * @return
      */
     private void createButtonBar() {
-        Composite buttonBarComposite = new Composite( viewerComposite, SWT.NONE );
+        buttonBarComposite = new Composite( viewerComposite, SWT.NONE );
         buttonBarComposite.setLayout( new GridLayout( 2, true ) );
         buttonBarComposite.setLayoutData( new GridData( SWT.FILL, SWT.TOP, true, false, 0, 0 ) );
 
         /*
          * create combo box showing the availible views
          */
-        ComboViewer viewComboBox = new ComboViewer( buttonBarComposite, SWT.READ_ONLY );
+        ComboViewer viewComboBox = new ComboViewer( buttonBarComposite, SWT.READ_ONLY ) {
+            @Override
+            protected void doUpdateItem( Widget data, Object element, boolean fullMap ) {
+                // memorize the selection before updating the item, as the
+                // update routine removes the selection...
+                ISelection currentSelection = this.getSelection();
+                super.doUpdateItem( data, element, fullMap );
+                // set the selection to the previous value
+                this.setSelection( currentSelection );
+            }
+        };
         ObservableListContentProvider contentProvider = new ObservableListContentProvider();
         viewComboBox.setContentProvider( contentProvider );
         viewComboBox.setLabelProvider( new ObservableMapLabelProvider(
             EMFProperties.value( ErfPackage.Literals.IDENTIFIABLE__LONG_NAME )
                          .observeDetail( contentProvider.getKnownElements() ) ) );
         IEMFListProperty dataTypeDefinitions = EMFProperties.list( ErfPackage.Literals.ERA_TOOL_EXTENSION__VIEWS );
-        viewComboBox.setInput( dataTypeDefinitions.observe( toolExtension ) );
+        IObservableList observableList = dataTypeDefinitions.observe( toolExtension );
+        viewComboBox.setInput( observableList );
         // use first view available
         // TODO: use a dedicated default view if available
         if( toolExtension.getViews().size() > 0 ) {
             viewComboBox.setSelection( new StructuredSelection( toolExtension.getViews().get( 0 ) ) );
         }
         viewComboBox.getControl().setLayoutData( new GridData( SWT.LEFT, SWT.CENTER, true, false ) );
+
         viewMaster = ViewerProperties.singleSelection().observe( viewComboBox );
 
         /*

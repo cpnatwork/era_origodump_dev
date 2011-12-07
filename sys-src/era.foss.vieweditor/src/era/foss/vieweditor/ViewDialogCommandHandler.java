@@ -42,8 +42,8 @@ public class ViewDialogCommandHandler extends AbstractHandler {
     public Object execute( ExecutionEvent event ) throws ExecutionException {
         IEditorPart editor = HandlerUtil.getActiveEditor( event );
 
-        ViewDialog typeEditor = new ViewDialog( Display.getCurrent().getActiveShell(), editor );
-        typeEditor.open();
+        ViewDialog viewEditor = new ViewDialog( Display.getCurrent().getActiveShell(), editor );
+        viewEditor.open();
         return null;
     }
 
