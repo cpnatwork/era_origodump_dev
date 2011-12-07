@@ -9,6 +9,7 @@ public class CpnAnnotatedForTracingC {
 	public Integer somemember = null;
 	
     @Requirement(reqid = "300000_so", reviewers = {"CPN", "Poldi"})
+    @Override
     public String toString() {
         return "Hello Tracer";
     }
