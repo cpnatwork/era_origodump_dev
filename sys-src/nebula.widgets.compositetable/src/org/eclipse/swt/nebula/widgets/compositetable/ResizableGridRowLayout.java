@@ -162,7 +162,9 @@ public class ResizableGridRowLayout extends GridRowLayout {
                     public void run() {
                         if (row.isDisposed()) return;
                         
-                        Control[] children = row.getChildren();
+                        // formerly: Control[] children = row.getChildren();
+                        // --> keep side-effects assignments (?)
+                        row.getChildren();
                         
                         Control resizedColumn = (Control) getColumnAt(row, savedResizedColNum);
                         // Control resizedColumn = children[savedResizedColNum];
