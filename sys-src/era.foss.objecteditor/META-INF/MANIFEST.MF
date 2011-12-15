@@ -29,6 +29,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.databinding,
  org.eclipse.core.databinding.property,
  org.eclipse.emf.databinding,
+ org.eclipse.emf.databinding.edit,
  org.eclipse.emf.databinding.edit
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.core.databinding.beans

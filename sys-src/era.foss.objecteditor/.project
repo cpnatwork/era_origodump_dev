@@ -3,6 +3,7 @@
 	<name>era.foss.objecteditor</name>
 	<comment></comment>
 	<projects>
+		<project>org.eclipse.nebula.widgets.tablecombo</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

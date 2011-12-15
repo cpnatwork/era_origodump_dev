@@ -232,7 +232,7 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
         /*
          * create combo box showing the availible views
          */
-        ComboViewer viewComboBox = new ComboViewer( buttonBarComposite, SWT.READ_ONLY ) {
+        ComboViewer viewComboViewer = new ComboViewer( buttonBarComposite, SWT.READ_ONLY ) {
             @Override
             protected void doUpdateItem( Widget data, Object element, boolean fullMap ) {
                 // memorize the selection before updating the item, as the
@@ -244,21 +244,21 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
             }
         };
         ObservableListContentProvider contentProvider = new ObservableListContentProvider();
-        viewComboBox.setContentProvider( contentProvider );
-        viewComboBox.setLabelProvider( new ObservableMapLabelProvider(
+        viewComboViewer.setContentProvider( contentProvider );
+        viewComboViewer.setLabelProvider( new ObservableMapLabelProvider(
             EMFProperties.value( ErfPackage.Literals.IDENTIFIABLE__LONG_NAME )
                          .observeDetail( contentProvider.getKnownElements() ) ) );
         IEMFListProperty dataTypeDefinitions = EMFProperties.list( ErfPackage.Literals.ERA_TOOL_EXTENSION__VIEWS );
         IObservableList observableList = dataTypeDefinitions.observe( toolExtension );
-        viewComboBox.setInput( observableList );
+        viewComboViewer.setInput( observableList );
         // use first view available
         // TODO: use a dedicated default view if available
         if( toolExtension.getViews().size() > 0 ) {
-            viewComboBox.setSelection( new StructuredSelection( toolExtension.getViews().get( 0 ) ) );
+            viewComboViewer.setSelection( new StructuredSelection( toolExtension.getViews().get( 0 ) ) );
         }
-        viewComboBox.getControl().setLayoutData( new GridData( SWT.LEFT, SWT.CENTER, true, false ) );
+        viewComboViewer.getControl().setLayoutData( new GridData( SWT.LEFT, SWT.CENTER, true, false ) );
 
-        viewMaster = ViewerProperties.singleSelection().observe( viewComboBox );
+        viewMaster = ViewerProperties.singleSelection().observe( viewComboViewer );
 
         /*
          * create add button
@@ -281,110 +281,12 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
      */
     private void binding() {
 
-        // table.setNumRowsInCollection(model.getPeople().size());
         dbc.bindValue( PojoObservables.observeValue( compositeTable, "numRowsInCollection" ),
                        new NotifyingListSizeProperty().observe( erfModel.getCoreContent().getSpecObjects() ),
                        new UpdateValueStrategy( UpdateValueStrategy.POLICY_NEVER ),
                        new UpdateValueStrategy() );
 
-        compositeTable.addRowContentProvider( new IRowContentProvider() {
-
-            /**
-             * Keeps a reference of each delete listener for each row, so we can remove a listener when compositetable
-             * associate the row to another SpecObject.
-             */
-            private Map<SpecObjectViewerRow, MouseListener> deleteListenerMap = new HashMap<SpecObjectViewerRow, MouseListener>();
-
-            /**
-             * Keeps a reference of each selection listener for each row, so we can remove a listener when
-             * compositetable associate the row to another SpecObject.
-             */
-            private Map<SpecObjectViewerRow, SelectionListener> selectionListenerMap = new HashMap<SpecObjectViewerRow, SelectionListener>();
-
-            /**
-             * * Since the compositetable has its own pool of Row elements, we must first ensure to unbind if necessary
-             * the row before rebinding it with the SpecObject given as parameter.
-             * 
-             * In the same way, we remove and add selectionlistener.
-             */
-            public void refresh( CompositeTable sender, final int currentObjectOffset, Control rowControl ) {
-
-                final SpecObjectViewerRow currentRow = (SpecObjectViewerRow)rowControl;
-                final SpecObject currentSpecObject = erfModel.getCoreContent()
-                                                             .getSpecObjects()
-                                                             .get( currentObjectOffset );
-
-                // unbind previous SpecObject
-                currentRow.unbind();
-
-                // remove previous listener if nay
-                if( deleteListenerMap.get( currentRow ) != null ) {
-                    currentRow.getDeleteButton().removeMouseListener( deleteListenerMap.get( currentRow ) );
-                    currentRow.removeSelectionListener( selectionListenerMap.get( currentRow ) );
-                }
-
-                // set offset of the current specObject
-                currentRow.setSpecObject( currentSpecObject, currentObjectOffset );
-
-                // bind the new SpecObject
-                currentRow.bind( currentSpecObject );
-
-                // in case the specObject is selected set the selected status of the row
-                currentRow.setSelected( selectedSpecObjectMap.containsKey( currentObjectOffset ), false );
-
-                // listener for the delete button of the row
-                MouseListener deleteListener = new MouseAdapter() {
-                    @Override
-                    public void mouseDown( MouseEvent e ) {
-                        SpecObjectCompositeViewer.this.deleteSpecObject( currentSpecObject );
-                    }
-                };
-
-                // listener for selection events of a row
-                SelectionListener selectionListener = new SelectionAdapter() {
-                    @Override
-                    public void widgetSelected( SelectionEvent e ) {
-                        // SHIFT is not pressed: set selection to the SpecObject associated with the current row
-                        if( (e.stateMask & SWT.SHIFT) == 0
-                            || SpecObjectCompositeViewer.this.selectedSpecObjectMap.isEmpty() ) {
-                            SpecObjectCompositeViewer.this.selectedSpecObjectMap.clear();
-                            SpecObjectCompositeViewer.this.selectedSpecObjectMap.put( currentObjectOffset,
-                                                                                      currentSpecObject );
-                        }
-                        // SHIFT is pressed: add all elements between the selected SpecObject and the SpecObject
-                        // associated with the current row
-                        else {
-                            int selectedSpecObjectOffset = (Integer)selectedSpecObjectMap.keySet().toArray()[0];
-
-                            int objectOffset = Math.min( currentObjectOffset, selectedSpecObjectOffset );
-                            int objectEndOffset = Math.max( currentObjectOffset, selectedSpecObjectOffset );
-                            while (objectOffset <= objectEndOffset) {
-                                SpecObjectCompositeViewer.this.selectedSpecObjectMap.put( objectOffset,
-                                                                                          erfModel.getCoreContent()
-                                                                                                  .getSpecObjects()
-                                                                                                  .get( objectOffset ) );
-                                objectOffset++;
-                            }
-                        }
-
-                        // Only set the focus in case the event is sent by a composite
-                        boolean setFocus = e.widget instanceof Composite;
-
-                        // update the selection status of the row controls
-                        SpecObjectCompositeViewer.this.updateRowSelectionStatus( setFocus );
-                    }
-                };
-
-                // add listener to row
-                currentRow.getDeleteButton().addMouseListener( deleteListener );
-                currentRow.addSelectionListener( selectionListener );
-
-                // keep a reference to the listeners to be able to remove it
-                // during the next refresh
-                deleteListenerMap.put( currentRow, deleteListener );
-                selectionListenerMap.put( currentRow, selectionListener );
-            }
-        } );
+        compositeTable.addRowContentProvider( new SpecObjectRowContentProvider() );
     }
 
     /** Delete a SpecObject */
@@ -467,6 +369,103 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
         for( Control control : compositeTable.getRowControls() ) {
             SpecObjectViewerRow row = (SpecObjectViewerRow)control;
             row.setSelected( selectedSpecObjectMap.containsKey( row.getSpecObjectOffset() ), setFocus );
+        }
+    }
+
+    /**
+     * Content Provider for Row in the Composite table
+     */
+    private class SpecObjectRowContentProvider implements IRowContentProvider {
+
+        /**
+         * Keeps a reference of each delete listener for each row, so we can remove a listener when compositetable
+         * associate the row to another SpecObject.
+         */
+        private Map<SpecObjectViewerRow, MouseListener> deleteListenerMap = new HashMap<SpecObjectViewerRow, MouseListener>();
+
+        /**
+         * Keeps a reference of each selection listener for each row, so we can remove a listener when compositetable
+         * associate the row to another SpecObject.
+         */
+        private Map<SpecObjectViewerRow, SelectionListener> selectionListenerMap = new HashMap<SpecObjectViewerRow, SelectionListener>();
+
+        /**
+         * remove and add selectionlistener bind new SpecObject to Row
+         */
+        public void refresh( CompositeTable sender, final int currentObjectOffset, Control rowControl ) {
+
+            final SpecObjectViewerRow currentRow = (SpecObjectViewerRow)rowControl;
+            final SpecObject currentSpecObject = erfModel.getCoreContent().getSpecObjects().get( currentObjectOffset );
+
+            // unbind
+            // currentRow.unbind();
+
+            // remove previous listener if nay
+            if( deleteListenerMap.get( currentRow ) != null ) {
+                currentRow.getDeleteButton().removeMouseListener( deleteListenerMap.get( currentRow ) );
+                currentRow.removeSelectionListener( selectionListenerMap.get( currentRow ) );
+            }
+
+            // set offset of the current specObject
+            currentRow.setSpecObject( currentSpecObject, currentObjectOffset );
+
+            // bind the new SpecObject
+            currentRow.bind( currentSpecObject );
+
+            // in case the specObject is selected set the selected status of the row
+            currentRow.setSelected( selectedSpecObjectMap.containsKey( currentObjectOffset ), false );
+
+            // listener for the delete button of the row
+            MouseListener deleteListener = new MouseAdapter() {
+                @Override
+                public void mouseDown( MouseEvent e ) {
+                    SpecObjectCompositeViewer.this.deleteSpecObject( currentSpecObject );
+                }
+            };
+
+            // listener for selection events of a row
+            SelectionListener selectionListener = new SelectionAdapter() {
+                @Override
+                public void widgetSelected( SelectionEvent e ) {
+                    // SHIFT is not pressed: set selection to the SpecObject associated with the current row
+                    if( (e.stateMask & SWT.SHIFT) == 0
+                        || SpecObjectCompositeViewer.this.selectedSpecObjectMap.isEmpty() ) {
+                        SpecObjectCompositeViewer.this.selectedSpecObjectMap.clear();
+                        SpecObjectCompositeViewer.this.selectedSpecObjectMap.put( currentObjectOffset,
+                                                                                  currentSpecObject );
+                    }
+                    // SHIFT is pressed: add all elements between the selected SpecObject and the SpecObject
+                    // associated with the current row
+                    else {
+                        int selectedSpecObjectOffset = (Integer)selectedSpecObjectMap.keySet().toArray()[0];
+
+                        int objectOffset = Math.min( currentObjectOffset, selectedSpecObjectOffset );
+                        int objectEndOffset = Math.max( currentObjectOffset, selectedSpecObjectOffset );
+                        while (objectOffset <= objectEndOffset) {
+                            SpecObjectCompositeViewer.this.selectedSpecObjectMap.put( objectOffset,
+                                                                                      erfModel.getCoreContent()
+                                                                                              .getSpecObjects()
+                                                                                              .get( objectOffset ) );
+                            objectOffset++;
+                        }
+                    }
+
+                    // Only set the focus in case the event is sent by a composite
+                    boolean setFocus = e.widget instanceof Composite;
+
+                    // update the selection status of the row controls
+                    SpecObjectCompositeViewer.this.updateRowSelectionStatus( setFocus );
+                }
+            };
+
+            // add listener to row
+            currentRow.getDeleteButton().addMouseListener( deleteListener );
+            currentRow.addSelectionListener( selectionListener );
+
+            // keep a reference to the listeners to be able to remove it
+            // during the next refresh
+            deleteListenerMap.put( currentRow, deleteListener );
+            selectionListenerMap.put( currentRow, selectionListener );
         }
     }
 }

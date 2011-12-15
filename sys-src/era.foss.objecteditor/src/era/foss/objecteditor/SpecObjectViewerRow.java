@@ -4,21 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
-import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.emf.common.command.Command;
-import org.eclipse.emf.databinding.edit.EMFEditProperties;
-import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.databinding.viewers.IViewerObservableValue;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
@@ -33,26 +24,18 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
 import era.foss.erf.AttributeDefinition;
-import era.foss.erf.AttributeDefinitionSimple;
 import era.foss.erf.AttributeValue;
-import era.foss.erf.AttributeValueSimple;
 import era.foss.erf.DatatypeDefinition;
 import era.foss.erf.ErfPackage;
 import era.foss.erf.SpecObject;
 import era.foss.erf.View;
 import era.foss.erf.ViewElement;
-import era.foss.erf.impl.ErfFactoryImpl;
 
 class SpecObjectViewerRow extends Composite {
-
-    /** Context for databinding */
-    private DataBindingContext dbc;
 
     /** Delete button */
     private Label deleteButton;
@@ -69,14 +52,14 @@ class SpecObjectViewerRow extends Composite {
     private final List<ViewElement> viewElementList = new ArrayList<ViewElement>();
 
     /**
-     * Map holding the element of the chosen view together with the control showing the attribute value
+     * The composite holding the all the controls according to the chosen view
      */
-    LinkedHashMap<ViewElement, Control> viewElementControlMap = new LinkedHashMap<ViewElement, Control>();
+    Composite viewComposite;
 
     /**
-     * The composite holding the widgets for the AttributeValues displayed according to the chosen view
+     * List of Composites holding the graphical representation of a single AttributeDefinition
      */
-    Composite attributeValueComposite;
+    private final List<AbstractAttributeDefinitionComposite> attributeDefintionCompositeList = new ArrayList<AbstractAttributeDefinitionComposite>();
 
     /**
      * offset of the SpecObject associated with this row
@@ -146,7 +129,6 @@ class SpecObjectViewerRow extends Composite {
                     - viewElementList.indexOf( elem2 );
             }
         } );
-
     }
 
     /**
@@ -212,9 +194,9 @@ class SpecObjectViewerRow extends Composite {
         // calculate maxColumnSpan
         int maxColumnSpan = calculateMaxColumnSpan();
 
-        attributeValueComposite = new Composite( this, SWT.NONE );
-        attributeValueComposite.setLayout( new GridLayout( maxColumnSpan, true ) );
-        attributeValueComposite.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
+        viewComposite = new Composite( this, SWT.NONE );
+        viewComposite.setLayout( new GridLayout( maxColumnSpan, true ) );
+        viewComposite.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
 
         // get row number of first view element
         int curRow = viewElementList.get( 0 ).getEditorRowNumber();
@@ -229,7 +211,7 @@ class SpecObjectViewerRow extends Composite {
                 int paddingColumnSpan = maxColumnSpan - curSpan;
                 if( paddingColumnSpan > 0 ) {
                     // padding: fill up this line with an empty label
-                    Label labelLongName = new Label( attributeValueComposite, SWT.NULL );
+                    Label labelLongName = new Label( viewComposite, SWT.NULL );
                     labelLongName.setText( "" );
                     labelLongName.setLayoutData( new GridData(
                         SWT.FILL,
@@ -251,25 +233,33 @@ class SpecObjectViewerRow extends Composite {
             // initialize label
             if( viewElement.isEditorShowLabel() ) {
                 curSpan++;
-                Label labelLongName = new Label( attributeValueComposite, SWT.NULL );
+                Label labelLongName = new Label( viewComposite, SWT.NULL );
                 labelLongName.setText( viewElement.getAttributeDefinition().getLongName() + ":" );
                 labelLongName.setLayoutData( new GridData( SWT.RIGHT, SWT.CENTER, false, false ) );
             }
 
-            Control currentControl = null;
+            AbstractAttributeDefinitionComposite control = null;
             DatatypeDefinition dataTypeDefinition = viewElement.getAttributeDefinition().getType();
             if( dataTypeDefinition != null ) {
+
                 switch (dataTypeDefinition.eClass().getClassifierID()) {
                 case ErfPackage.DATATYPE_DEFINITION_INTEGER:
                 case ErfPackage.DATATYPE_DEFINITION_STRING:
-                    currentControl = new Text( attributeValueComposite, SWT.BORDER );
+                    control = new AttributeDefinitionStringComposite( viewComposite, viewElement, specObject );
+                    break;
+                case ErfPackage.DATATYPE_DEFINITION_BOOLEAN:
+                    control = new AttributeDefinitionBooleanComposite( viewComposite, viewElement, specObject );
+                    break;
+                case ErfPackage.DATATYPE_DEFINITION_ENUMERATION:
+                    control = new AttributeDefinitionEnumComposite( viewComposite, viewElement, specObject );
                     break;
                 }
+
             }
 
-            if( currentControl != null ) {
-                currentControl.setLayoutData( new GridData( SWT.FILL, SWT.CENTER, true, false, controlSpan, 1 ) );
-                viewElementControlMap.put( viewElement, currentControl );
+            if( control != null ) {
+                control.setLayoutData( new GridData( SWT.FILL, SWT.CENTER, true, false, controlSpan, 1 ) );
+                attributeDefintionCompositeList.add( control );
             }
         }
     }
@@ -305,22 +295,11 @@ class SpecObjectViewerRow extends Composite {
     }
 
     /**
-     * Unbind the current row. Be sure to call this method before any call to bind.
-     */
-    public void unbind() {
-        if( dbc != null ) {
-            dbc.dispose();
-            dbc = null;
-        }
-    }
-
-    /**
      * Binds the current SpecObject
      * 
      * @param The SpecObject to bind
      */
     public void bind( SpecObject specObject ) {
-        dbc = new DataBindingContext();
 
         // create Hashmap for look up the attribute values for a certain attribute definition
         HashMap<AttributeDefinition, AttributeValue> attributeDefintionValueMap = new HashMap<AttributeDefinition, AttributeValue>();
@@ -329,91 +308,11 @@ class SpecObjectViewerRow extends Composite {
         }
 
         // bind the controls
-        for( Map.Entry<ViewElement, Control> entry : viewElementControlMap.entrySet() ) {
-            AttributeDefinition attributeDefintion = entry.getKey().getAttributeDefinition();
-            bindControl( entry.getValue(), attributeDefintion, attributeDefintionValueMap.get( attributeDefintion ) );
-        }
-    }
-
-    /**
-     * Bind control according to attribute definition of the attribute value
-     * 
-     * @param control control which is bound to the respective value of the SpecObject
-     * @param attributeDefinition attribute Definition of the specObject to bind
-     * @param attributeValue
-     */
-    private void bindControl( Control control, AttributeDefinition attributeDefinition, AttributeValue attributeValue ) {
-        switch (attributeDefinition.getType().eClass().getClassifierID()) {
-        case ErfPackage.DATATYPE_DEFINITION_INTEGER:
-        case ErfPackage.DATATYPE_DEFINITION_STRING:
-            bindControlText( (Text)control,
-                             (AttributeDefinitionSimple)attributeDefinition,
-                             (AttributeValueSimple)attributeValue );
-            break;
-        case ErfPackage.ATTRIBUTE_DEFINITION_BOOLEAN:
-            // TODO: Implement binding of boolean datatype
-            break;
-        case ErfPackage.ATTRIBUTE_DEFINITION_ENUMERATION:
-            // TODO: Implement binding of enumeration datatype
-            break;
-        }
-    }
-
-    /**
-     * bind the text control to the data model
-     * 
-     * @param textControl control which is bound to the respective value of the SpecObject
-     * @param attributeDefintion attribute Definition of the specObject to bind
-     * @param attributeValue
-     * 
-     * */
-    private void bindControlText( final Text textControl,
-                                  final AttributeDefinitionSimple attributeDefinition,
-                                  final AttributeValueSimple attributeValue ) {
-
-        if( attributeValue == null ) {
-            for( Listener listener : textControl.getListeners( SWT.Modify ) ) {
-                textControl.removeListener( SWT.Modify, listener );
-            }
-
-            if( attributeDefinition.getDefaultValue() != null ) {
-                textControl.setText( attributeDefinition.getDefaultValue().getTheValue() );
-                textControl.setBackground( Display.getDefault().getSystemColor( SWT.COLOR_INFO_BACKGROUND ) );
-            } else {
-                textControl.setText( "" );
-                textControl.setBackground( Display.getDefault().getSystemColor( SWT.COLOR_WHITE ) );
-            }
-            textControl.addModifyListener( new ModifyListener() {
-
-                @Override
-                public void modifyText( ModifyEvent e ) {
-                    Text textControl = ((Text)e.widget);
-                    textControl.removeModifyListener( this );
-                    // create an Attribute Value
-                    AttributeValueSimple attributeValue = ErfFactoryImpl.eINSTANCE.createAttributeValueSimple();
-
-                    // set reference to the respective Attribute Definition
-                    attributeValue.setDefinition( attributeDefinition );
-                    // set value of attribute definition
-                    attributeValue.setTheValue( textControl.getText() );
-
-                    // create new Attribute value in the model
-                    Command cmd = AddCommand.create( editingDomain,
-                                                     specObject,
-                                                     ErfPackage.SPEC_OBJECT__VALUES,
-                                                     attributeValue );
-                    editingDomain.getCommandStack().execute( cmd );
-                    SpecObjectViewerRow.this.bindControlText( textControl, attributeDefinition, attributeValue );
-                }
-            } );
-
-        } else {
-            dbc.bindValue( WidgetProperties.text( SWT.Modify ).observeDelayed( 400, textControl ),
-                           EMFEditProperties.value( editingDomain,
-                                                    ErfPackage.Literals.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE )
-                                            .observe( attributeValue ) );
-            textControl.setBackground( Display.getDefault().getSystemColor( SWT.COLOR_WHITE ) );
-
+        for( AbstractAttributeDefinitionComposite attributeDefinitionComposite : attributeDefintionCompositeList ) {
+            attributeDefinitionComposite.bind( specObject,
+                                               attributeDefintionValueMap.get( attributeDefinitionComposite.getViewElement()
+                                                                                                           .getAttributeDefinition() ),
+                                               editingDomain );
         }
     }
 
@@ -438,7 +337,9 @@ class SpecObjectViewerRow extends Composite {
             this.setBackground( Display.getDefault().getSystemColor( SWT.COLOR_LIST_SELECTION ) );
             // set focus to the first element in the view
             if( setFocus ) {
-                viewElementControlMap.values().iterator().next().setFocus();
+                if( attributeDefintionCompositeList.size() > 0 ) {
+                    attributeDefintionCompositeList.get( 0 ).getControl().setFocus();
+                }
             }
         } else {
             this.setBackground( Display.getDefault().getSystemColor( SWT.COLOR_WIDGET_BACKGROUND ) );
@@ -479,7 +380,7 @@ class SpecObjectViewerRow extends Composite {
     }
 
     /**
-     * create a warpper for the mouse listener attached to all controls of the row
+     * create a wrapper for the mouse listener attached to all controls of the row
      */
     private void createSelectionListener() {
         MouseListener mouseListener = new MouseAdapter() {
