@@ -150,7 +150,9 @@ public class DataTypeDefinitionDetailViewer extends AbstractDetailViewer {
             | SWT.FULL_SELECTION );
         tableViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true, 2, 1 ) );
         tableViewer.setEditingDomain( editingDomain );
-        tableViewer.setAddCommandParameter( (EObject)this.master.getValue(), ErfPackage.Literals.ENUM_VALUE );
+        tableViewer.setElementInformation( (EObject)this.master.getValue(),
+                                           ErfPackage.Literals.DATATYPE_DEFINITION_ENUMERATION__SPECIFIED_VALUES,
+                                           ErfPackage.Literals.ENUM_VALUE );
 
         ObservableListContentProvider cp = new ObservableListContentProvider();
         tableViewer.setContentProvider( cp );

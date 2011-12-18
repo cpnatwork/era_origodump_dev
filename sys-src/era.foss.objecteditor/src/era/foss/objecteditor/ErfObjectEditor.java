@@ -551,6 +551,9 @@ public class ErfObjectEditor extends MultiPageEditorPart implements IEditingDoma
             }
 
             public void commandStackChanged( final EventObject event ) {
+                /*
+                 * if( ErfObjectEditor.this.currentViewerPane == null ) { return; }
+                 */
                 ErfObjectEditor.this.currentViewerPane.getControl().getDisplay().asyncExec( new Runnable() {
                     public void run() {
                         firePropertyChange( IEditorPart.PROP_DIRTY );
@@ -793,8 +796,9 @@ public class ErfObjectEditor extends MultiPageEditorPart implements IEditingDoma
                 viewerPane.createControl( getContainer() );
                 int pageIndex = addPage( viewerPane.getControl() );
                 setPageText( pageIndex, "ERA SpecObj Viewer" );
+                this.setCurrentViewerPane( viewerPane );
             }
-            
+
             // Create a page for the ERA SpecObjectViewerPane / TableViewer-based
             {
                 ViewerPane viewerPane = new NebulaBasedSpecObjectsViewerPane( getSite().getPage(),
@@ -825,7 +829,6 @@ public class ErfObjectEditor extends MultiPageEditorPart implements IEditingDoma
                 int pageIndex = addPage( viewerPane.getControl() );
                 setPageText( pageIndex, "Debug Table" );
             }
-
 
         }
 

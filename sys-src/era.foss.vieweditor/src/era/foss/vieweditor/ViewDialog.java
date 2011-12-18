@@ -236,7 +236,9 @@ public class ViewDialog extends Dialog {
             | SWT.FULL_SELECTION );
         viewTableViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
         viewTableViewer.setEditingDomain( editingDomain );
-        viewTableViewer.setAddCommandParameter( toolExtension, ErfPackage.Literals.VIEW );
+        viewTableViewer.setElementInformation( toolExtension,
+                                               ErfPackage.Literals.ERA_TOOL_EXTENSION__VIEWS,
+                                               ErfPackage.Literals.VIEW );
 
         ObservableListContentProvider cp = new ObservableListContentProvider();
         viewTableViewer.setContentProvider( cp );
@@ -272,13 +274,15 @@ public class ViewDialog extends Dialog {
 
             @Override
             public void addElement() {
-                this.addCommandOwner = (EObject)viewMaster.getValue();
+                this.elementOwner = (EObject)viewMaster.getValue();
                 super.addElement();
             }
         };
 
         // the owner is null as it is set in the overridden addElement() method
-        viewElementTableViewer.setAddCommandParameter( null, ErfPackage.Literals.VIEW_ELEMENT );
+        viewElementTableViewer.setElementInformation( (EObject)viewMaster.getValue(),
+                                                      ErfPackage.Literals.VIEW__VIEW_ELEMENTS,
+                                                      ErfPackage.Literals.VIEW_ELEMENT );
 
         viewElementTableViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
         viewElementTableViewer.setEditingDomain( editingDomain );

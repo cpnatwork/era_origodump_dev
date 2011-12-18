@@ -9,8 +9,6 @@
 -->
 
 <plugin>
-
-
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution

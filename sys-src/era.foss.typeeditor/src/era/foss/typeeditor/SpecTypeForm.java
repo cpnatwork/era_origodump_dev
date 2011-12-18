@@ -60,7 +60,6 @@ import era.foss.erf.AttributeValueSimple;
 import era.foss.erf.DatatypeDefinition;
 import era.foss.erf.ErfPackage;
 import era.foss.erf.SpecType;
-import era.foss.erf.impl.ErfFactoryImpl;
 
 /**
  * A form for editing the {@link SpecType}.
@@ -121,8 +120,9 @@ public class SpecTypeForm extends AbstractErfTypesForm {
         tableViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
 
         tableViewer.setEditingDomain( editingDomain );
-        tableViewer.setAddCommandParameter( theOneAndOnlySpecType,
-                                            ErfFactoryImpl.eINSTANCE.createAttributeDefinitionSimple().eClass() );
+        tableViewer.setElementInformation( theOneAndOnlySpecType,
+                                           ErfPackage.Literals.SPEC_TYPE__SPEC_ATTRIBUTES,
+                                           ErfPackage.Literals.ATTRIBUTE_DEFINITION_SIMPLE );
 
         ObservableListContentProvider contentProvider = new ObservableListContentProvider();
         tableViewer.setContentProvider( contentProvider );

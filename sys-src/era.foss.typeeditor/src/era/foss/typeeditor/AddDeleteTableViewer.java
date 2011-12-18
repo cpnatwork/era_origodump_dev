@@ -18,7 +18,10 @@
  *************************************************************************/
 package era.foss.typeeditor;
 
+import java.util.Arrays;
+
 import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.observable.ChangeEvent;
 import org.eclipse.core.databinding.observable.IChangeListener;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
@@ -28,8 +31,10 @@ import org.eclipse.emf.databinding.edit.EMFEditProperties;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.DeleteCommand;
+import org.eclipse.emf.edit.command.MoveCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.databinding.viewers.ViewerProperties;
@@ -51,17 +56,20 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
 
 import era.foss.erf.ErfPackage;
 import era.foss.erf.Identifiable;
 import era.foss.erf.impl.ErfFactoryImpl;
+import era.foss.ui.contrib.EraImages;
+import era.foss.ui.contrib.SelectionProviderHasSelectionProperty;
 
 /**
  * A TableViewer with Add and Delete buttons.
@@ -105,19 +113,14 @@ public class AddDeleteTableViewer extends TableViewer {
     /** Button bar holding the Add and remove buttons New buttons can be added by the users of this table. */
     private Composite buttonBar;
 
-    // standard add and remove button
-    /** The remove elements button. */
-    Button removeElementsButton;
+    /** Owner of the elements shown in this table */
+    protected EObject elementOwner;
 
-    /** The add element button. */
-    Button addElementButton;
+    /** Structural feature of the elements shown in this table */
+    private EStructuralFeature elementFeature;
 
-    // parameters for add Command
-    /** The add command owner. */
-    protected EObject addCommandOwner;
-
-    /** The add command value default type. */
-    protected EClass addCommandValueDefaultType;
+    /** Type of object to be created when the add button is pressed */
+    protected EClass elementDefaultType;
 
     /** The active column. */
     private int activeColumn;
@@ -167,6 +170,8 @@ public class AddDeleteTableViewer extends TableViewer {
         super( new Composite( new Composite( parent, SWT.NONE ), SWT.NONE ), style );
         table = this.getTable();
         this.typeEditorActivator = era.foss.typeeditor.Activator.INSTANCE;
+
+        dataBindContext = new DataBindingContext();
 
         layoutComposite();
         createButtonBar();
@@ -306,7 +311,7 @@ public class AddDeleteTableViewer extends TableViewer {
                 } else {
                     descriptionText.setEnabled( true );
                     if( dataBindContext == null ) {
-                        dataBindContext = new DataBindingContext();
+
                         dataBindContext.bindValue( WidgetProperties.text( SWT.Modify )
                                                                    .observeDelayed( 400, descriptionText ),
                                                    EMFEditProperties.value( editingDomain,
@@ -325,13 +330,11 @@ public class AddDeleteTableViewer extends TableViewer {
 
         buttonBar = new Composite( composite, SWT.NONE );
         buttonBar.setLayoutData( new GridData( SWT.LEFT, SWT.BOTTOM, true, false ) );
-
         buttonBar.setLayout( new RowLayout( SWT.HORIZONTAL ) );
 
         // Create Add Button
-        addElementButton = new Button( buttonBar, SWT.PUSH );
-        addElementButton.setLayoutData( new RowData() );
-        addElementButton.setText( "Add" );
+        Button addElementButton = new Button( buttonBar, SWT.PUSH );
+        addElementButton.setImage( PlatformUI.getWorkbench().getSharedImages().getImage( ISharedImages.IMG_OBJ_ADD ) );
         addElementButton.addSelectionListener( new SelectionAdapter() {
             public void widgetSelected( SelectionEvent event ) {
                 AddDeleteTableViewer.this.addElement();
@@ -340,15 +343,53 @@ public class AddDeleteTableViewer extends TableViewer {
         } );
 
         // Create Delete Button
-        removeElementsButton = new Button( buttonBar, SWT.PUSH );
-        removeElementsButton.setLayoutData( new RowData() );
-        removeElementsButton.setText( "Remove" );
+        Button removeElementsButton = new Button( buttonBar, SWT.PUSH );
+        removeElementsButton.setImage( PlatformUI.getWorkbench()
+                                                 .getSharedImages()
+                                                 .getImage( ISharedImages.IMG_TOOL_DELETE ) );
         removeElementsButton.addSelectionListener( new SelectionAdapter() {
             public void widgetSelected( SelectionEvent event ) {
                 removeElements();
                 refresh();
             }
         } );
+
+        // Create move up button
+        Button moveUpElementsButton = new Button( buttonBar, SWT.PUSH );
+        moveUpElementsButton.setImage( EraImages.getImage( EraImages.IMG_MOVE_UP ) );
+        moveUpElementsButton.addSelectionListener( new SelectionAdapter() {
+            public void widgetSelected( SelectionEvent event ) {
+                AddDeleteTableViewer.this.moveElements( -1 );
+                refresh();
+            }
+        } );
+
+        // Create move up button
+        Button moveDownElementsButton = new Button( buttonBar, SWT.PUSH );
+        moveDownElementsButton.setImage( EraImages.getImage( EraImages.IMG_MOVE_DOWN ) );
+        moveDownElementsButton.addSelectionListener( new SelectionAdapter() {
+            public void widgetSelected( SelectionEvent event ) {
+                AddDeleteTableViewer.this.moveElements( 1 );
+                refresh();
+            }
+        } );
+
+        // Only enable delete and move buttons only when elements are selected
+        IObservableValue selectionProperty = new SelectionProviderHasSelectionProperty().observe( AddDeleteTableViewer.this );
+        UpdateValueStrategy defaultStrategy = new UpdateValueStrategy();
+        UpdateValueStrategy neverStrategy = new UpdateValueStrategy( UpdateValueStrategy.POLICY_NEVER );
+        dataBindContext.bindValue( WidgetProperties.enabled().observe( removeElementsButton ),
+                                   selectionProperty,
+                                   neverStrategy,
+                                   defaultStrategy );
+        dataBindContext.bindValue( WidgetProperties.enabled().observe( moveUpElementsButton ),
+                                   selectionProperty,
+                                   neverStrategy,
+                                   defaultStrategy );
+        dataBindContext.bindValue( WidgetProperties.enabled().observe( moveDownElementsButton ),
+                                   selectionProperty,
+                                   neverStrategy,
+                                   defaultStrategy );
 
     }
 
@@ -365,12 +406,16 @@ public class AddDeleteTableViewer extends TableViewer {
     /**
      * Set the information required for adding a new element to the table with {@link #addElement()}.
      * 
-     * @param addCommandOwner The element the new element is put at
-     * @param addCommandValueDefaultType the add command value default type
+     * @param elementOwner The parent of the elements show in the table viewer
+     * @param elementFeature name of the structural feature of the element
+     * @param elementDefaultType the default type for new elements created with the 'Add' button
      */
-    public void setAddCommandParameter( EObject addCommandOwner, EClass addCommandValueDefaultType ) {
-        this.addCommandOwner = addCommandOwner;
-        this.addCommandValueDefaultType = addCommandValueDefaultType;
+    public void setElementInformation( EObject elementOwner,
+                                       EStructuralFeature elementFeature,
+                                       EClass elementDefaultType ) {
+        this.elementOwner = elementOwner;
+        this.elementFeature = elementFeature;
+        this.elementDefaultType = elementDefaultType;
     }
 
     /**
@@ -378,13 +423,13 @@ public class AddDeleteTableViewer extends TableViewer {
      * specified by calling {@link #setAddCommandParameter(EObject, EReference, EClass)}.
      */
     public void addElement() {
-        EObject addCommandValue = ErfFactoryImpl.eINSTANCE.create( addCommandValueDefaultType );
+        EObject addCommandValue = ErfFactoryImpl.eINSTANCE.create( elementDefaultType );
         if( addCommandValue instanceof Identifiable ) {
-            ((Identifiable)addCommandValue).setLongName( Ui.getUiName( addCommandValueDefaultType )
+            ((Identifiable)addCommandValue).setLongName( Ui.getUiName( elementDefaultType )
                 + " "
                 + this.getTable().getItems().length );
         }
-        Command cmd = AddCommand.create( editingDomain, addCommandOwner, null, addCommandValue );
+        Command cmd = AddCommand.create( editingDomain, elementOwner, elementFeature, addCommandValue );
         BasicCommandStack basicCommandStack = (BasicCommandStack)editingDomain.getCommandStack();
         basicCommandStack.execute( cmd );
     }
@@ -397,11 +442,57 @@ public class AddDeleteTableViewer extends TableViewer {
      */
     public void removeElements() {
         if( getSelection().isEmpty() == false ) {
-            DeleteCommand deleteCommand = (DeleteCommand)DeleteCommand.create( editingDomain,
-                                                                               ((IStructuredSelection)getSelection()).toList() );
+            Command deleteCommand = DeleteCommand.create( editingDomain,
+                                                          ((IStructuredSelection)getSelection()).toList() );
             editingDomain.getCommandStack().execute( deleteCommand );
         }
 
+    }
+
+    /**
+     * Move selected elements
+     * 
+     * @param relIndex relative position how the elements shall be moved
+     */
+    public void moveElements( int relIndex ) {
+        // sort elements in selection according to position
+        int[] selectedIndices = this.getTable().getSelectionIndices();
+        Arrays.sort( selectedIndices );
+
+        // reverse array in case we move down
+        if( relIndex > 0 ) {
+            int selectedIndicesMaxPos = selectedIndices.length - 1;
+            for( int i = 0; i < selectedIndices.length / 2; i++ ) {
+                int tmp = selectedIndices[i];
+                selectedIndices[i] = selectedIndices[selectedIndicesMaxPos - i];
+                selectedIndices[selectedIndicesMaxPos - i] = tmp;
+            }
+        }
+
+        // don't perform move Up in case the min position is less than 0
+        // don't perform move Down in case the max position is grater than the total number of elements
+        if( ((selectedIndices[0] + relIndex) < 0)
+            || ((selectedIndices[0] + relIndex) > this.getTable().getItemCount() - 1) ) {
+            // do nothing
+            return;
+        }
+
+        // do move
+        for( int i = 0; i < selectedIndices.length; i++ ) {
+            int selectedIndex = selectedIndices[i];
+            moveElement( this.getElementAt( selectedIndex ), selectedIndex + relIndex );
+        }
+    }
+
+    /**
+     * Move an element
+     * 
+     * @param element element to be moved
+     * @param new index absolute position of the element
+     */
+    public void moveElement( Object element, int index ) {
+        Command moveCommand = MoveCommand.create( editingDomain, elementOwner, elementFeature, element, index );
+        editingDomain.getCommandStack().execute( moveCommand );
     }
 
     /**

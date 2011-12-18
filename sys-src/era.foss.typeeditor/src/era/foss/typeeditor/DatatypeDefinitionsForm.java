@@ -319,8 +319,9 @@ final public class DatatypeDefinitionsForm extends AbstractErfTypesForm {
         tableViewer = new AddDeleteTableViewer( this, SWT.MULTI | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
         tableViewer.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
         tableViewer.setEditingDomain( editingDomain );
-        tableViewer.setAddCommandParameter( erfModel.getCoreContent(),
-                                            ErfPackage.Literals.DATATYPE_DEFINITION_INTEGER );
+        tableViewer.setElementInformation( erfModel.getCoreContent(),
+                                           ErfPackage.Literals.CONTENT__DATA_TYPES,
+                                           ErfPackage.Literals.DATATYPE_DEFINITION_INTEGER );
 
         ObservableListContentProvider cp = new ObservableListContentProvider();
         tableViewer.setContentProvider( cp );

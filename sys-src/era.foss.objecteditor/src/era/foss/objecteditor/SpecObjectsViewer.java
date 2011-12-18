@@ -71,6 +71,7 @@ import era.foss.erf.ErfPackage;
 import era.foss.erf.SpecObject;
 import era.foss.erf.SpecType;
 import era.foss.erf.impl.ErfFactoryImpl;
+import era.foss.ui.contrib.EraImages;
 import era.foss.ui.contrib.IActiveColumn;
 import era.foss.ui.contrib.TableViewerExtensions;
 
@@ -214,7 +215,7 @@ public class SpecObjectsViewer extends TableViewer implements IActiveColumn, IAl
 
             public RemoveValueAction( IStructuredSelection selection, AttributeDefinition attributeDefinition ) {
                 this.setText( "Restore default value" );
-                this.setImageDescriptor( era.foss.ui.contrib.Activator.getViewImageDescriptor( "elcl16/defaults_ps.gif" ) );
+                this.setImageDescriptor( EraImages.getImageDescriptor( EraImages.IMG_DEFAULT_VALUE ) );
                 this.selection = selection;
                 this.attributeDefinition = attributeDefinition;
 
