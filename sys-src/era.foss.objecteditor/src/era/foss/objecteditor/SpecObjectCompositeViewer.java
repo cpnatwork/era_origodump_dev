@@ -72,7 +72,7 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
     EraToolExtension toolExtension;
 
     /** top level composite of this viewer */
-    Composite viewerComposite;
+    Composite topLevelComposite;
 
     /** composite table showing the spec objects */
     CompositeTable compositeTable;
@@ -113,21 +113,6 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
         // binding the UI with the model
         binding();
 
-        // refresh composite table in case view has been changed
-        viewMaster.addChangeListener( new IChangeListener() {
-
-            @Override
-            public void handleChange( ChangeEvent event ) {
-                dbc.dispose();
-                compositeTable.dispose();
-
-                createCompositeTable();
-                binding();
-
-                viewerComposite.layout();
-            }
-        } );
-
     }
 
     /**
@@ -136,9 +121,9 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
      * @param parent
      */
     void doLayout( Composite parent ) {
-        viewerComposite = new Composite( parent, SWT.NONE );
-        viewerComposite.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
-        viewerComposite.setLayout( new GridLayout( 1, false ) );
+        topLevelComposite = new Composite( parent, SWT.NONE );
+        topLevelComposite.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
+        topLevelComposite.setLayout( new GridLayout( 1, false ) );
 
         // button bar
         createButtonBar();
@@ -151,7 +136,7 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
      */
     private void createCompositeTable() {
         // composite table
-        this.compositeTable = new CompositeTable( viewerComposite, SWT.NULL | SWT.NO_SCROLL );
+        this.compositeTable = new CompositeTable( topLevelComposite, SWT.NULL | SWT.NO_SCROLL );
         this.compositeTable.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true, 0, 0 ) );
 
         SpecObjectViewerRow.setViewMaster( viewMaster );
@@ -168,7 +153,7 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
      */
     @Override
     public Control getControl() {
-        return viewerComposite;
+        return topLevelComposite;
     }
 
     /*
@@ -183,8 +168,20 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
 
     @Override
     public void recreateViewerSchema() {
-        compositeTable.refreshAllRows();
-        buttonBarComposite.layout();
+
+        dbc.dispose();
+        viewMaster.dispose();
+
+        buttonBarComposite.dispose();
+        createButtonBar();
+
+        compositeTable.dispose();
+        createCompositeTable();
+
+        binding();
+
+        topLevelComposite.layout();
+        // buttonBarComposite.layout();
         // viewerComposite.update();
     }
 
@@ -225,7 +222,7 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
      * @return
      */
     private void createButtonBar() {
-        buttonBarComposite = new Composite( viewerComposite, SWT.NONE );
+        buttonBarComposite = new Composite( topLevelComposite, SWT.NONE );
         buttonBarComposite.setLayout( new GridLayout( 2, true ) );
         buttonBarComposite.setLayoutData( new GridData( SWT.FILL, SWT.TOP, true, false, 0, 0 ) );
 
@@ -259,6 +256,22 @@ public class SpecObjectCompositeViewer extends Viewer implements IInputSelection
         viewComboViewer.getControl().setLayoutData( new GridData( SWT.LEFT, SWT.CENTER, true, false ) );
 
         viewMaster = ViewerProperties.singleSelection().observe( viewComboViewer );
+
+        // refresh composite table in case view has been changed
+        viewMaster.addChangeListener( new IChangeListener() {
+
+            @Override
+            public void handleChange( ChangeEvent event ) {
+                dbc.dispose();
+
+                compositeTable.dispose();
+                createCompositeTable();
+
+                binding();
+
+                topLevelComposite.layout();
+            }
+        } );
 
         /*
          * create add button

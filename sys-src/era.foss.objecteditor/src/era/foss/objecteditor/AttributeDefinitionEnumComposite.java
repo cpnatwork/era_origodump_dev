@@ -10,6 +10,7 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
 import org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider;
 import org.eclipse.jface.databinding.viewers.ViewerProperties;
+import org.eclipse.jface.viewers.AbstractListViewer;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -28,11 +29,12 @@ import era.foss.erf.ErfPackage;
 import era.foss.erf.SpecObject;
 import era.foss.erf.ViewElement;
 import era.foss.erf.impl.ErfFactoryImpl;
+import era.foss.ui.contrib.MultiComboViewer;
 
 public class AttributeDefinitionEnumComposite extends AbstractAttributeDefinitionComposite {
 
     /** The GUI element representing a AttributeDefinitionBoolean */
-    ComboViewer comboViewer;
+    AbstractListViewer comboViewer;
 
     private DefaultModifyListener defaultValueModifyListener;
 
@@ -42,7 +44,12 @@ public class AttributeDefinitionEnumComposite extends AbstractAttributeDefinitio
         super( parent, viewElement );
 
         attributeDefinition = (AttributeDefinitionEnumeration)viewElement.getAttributeDefinition();
-        comboViewer = new ComboViewer( new CCombo( this, SWT.READ_ONLY | SWT.BORDER ) );
+
+        if( attributeDefinition.isMultiValued() ) {
+            comboViewer = new MultiComboViewer( this, SWT.READ_ONLY | SWT.BORDER );
+        } else {
+            comboViewer = new ComboViewer( new CCombo( this, SWT.READ_ONLY | SWT.BORDER ) );
+        }
 
         ObservableListContentProvider contentProvider = new ObservableListContentProvider();
 
@@ -116,7 +123,7 @@ public class AttributeDefinitionEnumComposite extends AbstractAttributeDefinitio
         @Override
         public void selectionChanged( SelectionChangedEvent e ) {
             AttributeDefinitionEnumeration attributeDefinition = (AttributeDefinitionEnumeration)viewElement.getAttributeDefinition();
-            ComboViewer comboViewer = ((ComboViewer)e.getSource());
+            AbstractListViewer comboViewer = ((AbstractListViewer)e.getSource());
 
             // as now a value is entered this listener is obsolete
             comboViewer.removeSelectionChangedListener( this );

@@ -488,7 +488,7 @@ public class AddDeleteTableViewer extends TableViewer {
      * Move an element
      * 
      * @param element element to be moved
-     * @param new index absolute position of the element
+     * @param index new absolute position of the element
      */
     public void moveElement( Object element, int index ) {
         Command moveCommand = MoveCommand.create( editingDomain, elementOwner, elementFeature, element, index );
