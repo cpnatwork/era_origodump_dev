@@ -233,7 +233,19 @@ litigation.
       <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.eclipse.emf.edit.ui"/>
       <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="era.foss.ui.contrib"/>
+      <import plugin="era.foss.erf"/>
+      <import plugin="era.foss.erf.edit"/>
+      <import plugin="org.eclipse.jface.databinding"/>
+      <import plugin="org.eclipse.core.databinding"/>
+      <import plugin="org.eclipse.core.databinding.property"/>
+      <import plugin="org.eclipse.emf.databinding"/>
+      <import plugin="org.eclipse.emf.databinding.edit"/>
+      <import plugin="org.eclipse.core.databinding.beans"/>
       <import plugin="org.eclipse.emf.edit"/>
+      <import plugin="era.foss.objecteditor"/>
+      <import plugin="org.eclipse.team.core"/>
+      <import plugin="org.eclipse.core.databinding.observable"/>
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.emf.ecore"/>
    </requires>
