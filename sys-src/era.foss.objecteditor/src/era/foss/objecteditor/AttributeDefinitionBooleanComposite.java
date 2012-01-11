@@ -30,13 +30,16 @@ public class AttributeDefinitionBooleanComposite extends AbstractAttributeDefini
 
     public AttributeDefinitionBooleanComposite( Composite parent, ViewElement viewElement, SpecObject specObject ) {
         super( parent, viewElement );
-        checkBox = new Button( this, SWT.CHECK );
 
     }
 
+    public Control createControl() {
+        this.checkBox = new Button( this, SWT.CHECK );
+        return checkBox;
+    }
+
     @Override
-    public void bind( SpecObject specObject, AttributeValue attributeValue, EditingDomain editingDomain ) {
-        super.bind( specObject, attributeValue, editingDomain );
+    public void doBind( SpecObject specObject, AttributeValue attributeValue, EditingDomain editingDomain ) {
         AttributeDefinitionBoolean attributeDefinition = (AttributeDefinitionBoolean)viewElement.getAttributeDefinition();
 
         if( attributeValue == null ) {

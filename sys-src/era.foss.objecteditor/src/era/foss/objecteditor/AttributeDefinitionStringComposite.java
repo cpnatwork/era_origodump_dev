@@ -29,12 +29,16 @@ public class AttributeDefinitionStringComposite extends AbstractAttributeDefinit
 
     public AttributeDefinitionStringComposite( Composite parent, ViewElement viewElement, SpecObject specObject ) {
         super( parent, viewElement );
+
+    }
+
+    public Control createControl() {
         textControl = new Text( this, SWT.BORDER );
+        return textControl;
     }
 
     @Override
-    public void bind( SpecObject specObject, AttributeValue attributeValue, EditingDomain editingDomain ) {
-        super.bind( specObject, attributeValue, editingDomain );
+    public void doBind( SpecObject specObject, AttributeValue attributeValue, EditingDomain editingDomain ) {
         AttributeDefinitionSimple attributeDefinition = (AttributeDefinitionSimple)viewElement.getAttributeDefinition();
 
         if( attributeValue == null ) {
@@ -57,6 +61,7 @@ public class AttributeDefinitionStringComposite extends AbstractAttributeDefinit
                                           EMFEditProperties.value( editingDomain,
                                                                    ErfPackage.Literals.ATTRIBUTE_VALUE_SIMPLE__THE_VALUE )
                                                            .observe( attributeValue ) );
+
             textControl.setBackground( Display.getDefault().getSystemColor( SWT.COLOR_WHITE ) );
         }
     }

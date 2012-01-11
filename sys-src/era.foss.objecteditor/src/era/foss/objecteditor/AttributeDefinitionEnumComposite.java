@@ -43,6 +43,9 @@ public class AttributeDefinitionEnumComposite extends AbstractAttributeDefinitio
     public AttributeDefinitionEnumComposite( Composite parent, ViewElement viewElement, SpecObject specObject ) {
         super( parent, viewElement );
 
+    }
+
+    public Control createControl() {
         attributeDefinition = (AttributeDefinitionEnumeration)viewElement.getAttributeDefinition();
 
         if( attributeDefinition.isMultiValued() ) {
@@ -65,12 +68,12 @@ public class AttributeDefinitionEnumComposite extends AbstractAttributeDefinitio
         IEMFListProperty dataTypeDefinitions = EMFProperties.list( ErfPackage.Literals.DATATYPE_DEFINITION_ENUMERATION__SPECIFIED_VALUES );
         IObservableList observableList = dataTypeDefinitions.observe( attributeDefinition.getType() );
         comboViewer.setInput( observableList );
+
+        return comboViewer.getControl();
     }
 
     @Override
-    public void bind( SpecObject specObject, AttributeValue attributeValue, EditingDomain editingDomain ) {
-        super.bind( specObject, attributeValue, editingDomain );
-
+    public void doBind( SpecObject specObject, AttributeValue attributeValue, EditingDomain editingDomain ) {
         if( attributeValue == null ) {
 
             if( attributeDefinition.getDefaultValue() != null ) {
