@@ -1204,7 +1204,6 @@ public class MultiCCombo extends Composite {
             e.doit = event.doit;
             e.character = event.character;
             e.keyCode = event.keyCode;
-            e.keyLocation = event.keyLocation;
             notifyListeners( SWT.Traverse, e );
             event.doit = e.doit;
             event.detail = e.detail;
@@ -1215,7 +1214,6 @@ public class MultiCCombo extends Composite {
             e.time = event.time;
             e.character = event.character;
             e.keyCode = event.keyCode;
-            e.keyLocation = event.keyLocation;
             e.stateMask = event.stateMask;
             notifyListeners( SWT.KeyUp, e );
             event.doit = e.doit;
@@ -1245,7 +1243,6 @@ public class MultiCCombo extends Composite {
             e.time = event.time;
             e.character = event.character;
             e.keyCode = event.keyCode;
-            e.keyLocation = event.keyLocation;
             e.stateMask = event.stateMask;
             notifyListeners( SWT.KeyDown, e );
             event.doit = e.doit;
@@ -1811,7 +1808,6 @@ public class MultiCCombo extends Composite {
             keyEvent.time = event.time;
             keyEvent.character = event.character;
             keyEvent.keyCode = event.keyCode;
-            keyEvent.keyLocation = event.keyLocation;
             keyEvent.stateMask = event.stateMask;
             notifyListeners( SWT.KeyDown, keyEvent );
             if( isDisposed() ) break;
@@ -1851,7 +1847,6 @@ public class MultiCCombo extends Composite {
             e.time = event.time;
             e.character = event.character;
             e.keyCode = event.keyCode;
-            e.keyLocation = event.keyLocation;
             e.stateMask = event.stateMask;
             notifyListeners( SWT.KeyUp, e );
             event.doit = e.doit;
@@ -1952,7 +1947,6 @@ public class MultiCCombo extends Composite {
             e.doit = event.doit;
             e.character = event.character;
             e.keyCode = event.keyCode;
-            e.keyLocation = event.keyLocation;
             notifyListeners( SWT.Traverse, e );
             event.doit = e.doit;
             event.detail = e.detail;
@@ -1965,7 +1959,6 @@ public class MultiCCombo extends Composite {
             e.end = event.end;
             e.character = event.character;
             e.keyCode = event.keyCode;
-            e.keyLocation = event.keyLocation;
             e.stateMask = event.stateMask;
             notifyListeners( SWT.Verify, e );
             event.text = e.text;
