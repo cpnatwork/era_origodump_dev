@@ -117,7 +117,9 @@ public abstract class AbstractAttributeDefinitionComposite extends Composite {
                 errorDecoration.show();
             } else {
                 errorDecoration.hide();
-            };
+            }
+        } else {
+            errorDecoration.hide();
         }
     }
 
